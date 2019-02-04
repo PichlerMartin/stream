@@ -1,0 +1,14 @@
+
+	- Make GitHub Repo
+	- Make Logo
+	- Make Name
+		- tulva
+		- FireTorrent
+		- BetterShare
+		- TorKel
+		- revontulet
+	- Schnittstellenbeschreibung
+	- Start
+	- Diplomarbeit Datenbank Schule
+	- Firma
+	- Johannes Kepler Universität
