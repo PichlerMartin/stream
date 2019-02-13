@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/revontulet.iml" filepath="$PROJECT_DIR$/revontulet.iml" />
+      <module fileurl="file://$PROJECT_DIR$/stream.iml" filepath="$PROJECT_DIR$/stream.iml" />
     </modules>
   </component>
 </project>

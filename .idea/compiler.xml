@@ -16,11 +16,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="revontulet" />
+        <module name="stream" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="revontulet" target="1.8" />
+      <module name="stream" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
