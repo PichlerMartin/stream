@@ -16,11 +16,54 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="bt-bencoding" />
+        <module name="bt-cli" />
+        <module name="bt-core" />
+        <module name="bt-dht" />
+        <module name="bt-http-tracker-client" />
+        <module name="bt-tests" />
+        <module name="bt-upnp" />
+        <module name="examples" />
+        <module name="libmldht" />
         <module name="stream" />
+      </profile>
+      <profile name="Annotation profile for Java BitTorrent library" enabled="true">
+        <sourceOutputDir name="build/generated-sources/annotations" />
+        <sourceTestOutputDir name="build/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="ttorrent-bencoding" />
+        <module name="ttorrent-cli" />
+        <module name="ttorrent-client" />
+        <module name="ttorrent-common" />
+        <module name="ttorrent-network" />
+        <module name="ttorrent-test-api" />
+        <module name="ttorrent-tests" />
+        <module name="ttorrent-tracker" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="bt-bencoding" target="1.9" />
+      <module name="bt-cli" target="1.9" />
+      <module name="bt-core" target="1.9" />
+      <module name="bt-dht" target="1.9" />
+      <module name="bt-dht-parent" target="1.9" />
+      <module name="bt-http-tracker-client" target="1.9" />
+      <module name="bt-parent" target="1.9" />
+      <module name="bt-tests" target="1.9" />
+      <module name="bt-upnp" target="1.9" />
+      <module name="examples" target="1.9" />
+      <module name="jacoco-report" target="1.9" />
+      <module name="libmldht" target="1.8" />
       <module name="stream" target="1.8" />
+      <module name="ttorrent" target="1.6" />
+      <module name="ttorrent-bencoding" target="1.6" />
+      <module name="ttorrent-cli" target="1.6" />
+      <module name="ttorrent-client" target="1.6" />
+      <module name="ttorrent-common" target="1.6" />
+      <module name="ttorrent-network" target="1.6" />
+      <module name="ttorrent-test-api" target="1.6" />
+      <module name="ttorrent-tests" target="1.6" />
+      <module name="ttorrent-tracker" target="1.6" />
     </bytecodeTargetLevel>
   </component>
 </project>

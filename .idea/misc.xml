@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="EntryPointsManager">
-    <entry_points version="2.0" />
-  </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$USER_HOME$/Downloads/bt-bt-parent-1.8/bt-bt-parent-1.8/pom.xml" />
+        <option value="$USER_HOME$/Downloads/ttorrent-ttorrent-2.0/ttorrent-ttorrent-2.0/pom.xml" />
       </list>
     </option>
   </component>

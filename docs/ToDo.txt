@@ -1,14 +1,11 @@
 
-	- Make GitHub Repo
-	- Make Logo
-	- Make Name
-		- tulva
-		- FireTorrent
-		- BetterShare
-		- TorKel
-		- revontulet
 	- Schnittstellenbeschreibung
 	- Start
+	- Torrent Dateien Ã¼ber QR-Code
+	- Blockchain
 	- Diplomarbeit Datenbank Schule
-	- Firma
-	- Johannes Kepler UniversitÃ¤t
+	
+	-	"Repository" bei GitHub (->	Erledigt)
+	-	Tagebuch Minimalvariante -> Stundenaufzeichnungen
+		+	Probleme, Vorgehen, Erfolge, "genau" mitschreiben
+	-	Statusreports (wöchentlich, oder zweiwöchentlich)
