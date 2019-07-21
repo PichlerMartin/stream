@@ -9,3 +9,15 @@ http://gdeinvestirati.com/wp-content/uploads/2018/06/bittorrent-1900x1108_c.jpg
 https://cdn.freebiesupply.com/logos/large/2x/atom-4-logo-png-transparent.png
 http://manifesto.co.uk/wp-content/uploads/2014/10/scrum-task-board.png
 https://images-na.ssl-images-amazon.com/images/I/81fn76s27rL._SL1500_.jpg
+
+Code & Tutorials:
+
+https://howtodoinjava.com/ant/ant-build-jar-file-example/
+https://www3.ntu.edu.sg/home/ehchua/programming/java/JavaNativeInterface.html
+https://medium.com/@bschlining/a-simple-java-native-interface-jni-example-in-java-and-scala-68fdafe76f5f
+https://www.baeldung.com/jni
+https://www.eviltester.com/2017/10/maven-local-dependencies.html
+
+Usefull Websites:
+
+https://www.draw.io/
