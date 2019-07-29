@@ -27,4 +27,13 @@
  IntelliJ IDEA. now you can compile and run the programm
  in the JVM.
  
+ for those who haven't insatlled java jet:
+ (JDK)https://www3.ntu.edu.sg/home/ehchua/programming/howto/JDK_Howto.html
+ 
+ for Intellij IDEA installation instructions look here:
+ https://treehouse.github.io/installation-guides/windows/intellij-idea-win.html
+ 
+ how to set up a maven project:
+ https://subscription.packtpub.com/book/application_development/9781785286124/2/ch02lvl1sec24/creating-a-new-maven-project-in-intellij-idea
+ 
  jar comming soon ...
