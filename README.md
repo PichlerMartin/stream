@@ -13,7 +13,7 @@
  you even can create torrents on your own!
 
 # ui preview
-![alt text](https://ibb.co/8z1ccH4)
+![alt text](https://i.ibb.co/ZHqmm01/MainPage.png)
 
 # installation instructions:
  download the zipped repository and open the project in
