@@ -1,4 +1,6 @@
-![logo](https://i.ibb.co/28NTH0B/logo.png)
+<p align="center"> 
+<img src="https://i.ibb.co/28NTH0B/logo.png">
+</p>
 
 # stream
  a smart and comfy torrent client in java
