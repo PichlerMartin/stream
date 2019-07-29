@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="com.github.atomashpolskiy:bt-dht:1.8" type="repository">
+    <properties maven-id="com.github.atomashpolskiy:bt-dht:1.8" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/bt-dht-1.8.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/lib/bt-dht-1.8-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/bt-dht-1.8-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -17,6 +17,29 @@ https://www3.ntu.edu.sg/home/ehchua/programming/java/JavaNativeInterface.html
 https://medium.com/@bschlining/a-simple-java-native-interface-jni-example-in-java-and-scala-68fdafe76f5f
 https://www.baeldung.com/jni
 https://www.eviltester.com/2017/10/maven-local-dependencies.html
+https://www.mkyong.com/java/java-files-walk-examples/
+https://www.javabrahman.com/error-handling/java-resolve-error-java-nio-file-nosuchfileexception/
+https://www.techiedelight.com/add-elements-stream-existing-list-java/
+https://www.mkyong.com/java8/java-8-foreach-examples/
+https://docs.oracle.com/javafx/2/ui_controls/list-view.htm
+https://docs.oracle.com/javafx/2/ui_controls/progress.htm
+http://journals.ecs.soton.ac.uk/java/tutorial/java/threads/simple.html
+https://alvinalexander.com/java/java-8-lambda-thread-runnable-syntax-examples
+https://docs.oracle.com/javase/tutorial/uiswing/components/progress.html
+https://www.geeksforgeeks.org/javafx-progressbar/
+https://docs.oracle.com/javafx/2/ui_controls/progress.htm
+https://www.journaldev.com/1020/thread-sleep-java
+https://www.baeldung.com/java-lambda-exceptions
+
+Stackoverflow Links:
+
+https://stackoverflow.com/questions/17729228/java-read-many-txt-files-on-a-folder-and-process-them
+https://stackoverflow.com/questions/1844688/how-to-read-all-files-in-a-folder-from-java
+https://stackoverflow.com/questions/4871051/getting-the-current-working-directory-in-java
+https://stackoverflow.com/questions/39866421/java-dynamically-add-items-to-a-listview?rq=1
+https://stackoverflow.com/questions/19407536/how-to-refresh-a-progress-bar-in-java
+https://stackoverflow.com/questions/11409912/android-how-to-update-value-of-progressbar
+https://stackoverflow.com/questions/32757069/updating-progressbar-value-within-a-for-loop
 
 Usefull Websites:
 
