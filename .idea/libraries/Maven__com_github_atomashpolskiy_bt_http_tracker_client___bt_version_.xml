@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.github.atomashpolskiy:bt-http-tracker-client:${bt-version}">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/atomashpolskiy/bt-http-tracker-client/${bt-version}/bt-http-tracker-client-${bt-version}.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/atomashpolskiy/bt-http-tracker-client/${bt-version}/bt-http-tracker-client-${bt-version}-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/atomashpolskiy/bt-http-tracker-client/${bt-version}/bt-http-tracker-client-${bt-version}-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

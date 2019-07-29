@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.github.atomashpolskiy:bt-upnp:${bt-version}">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/atomashpolskiy/bt-upnp/${bt-version}/bt-upnp-${bt-version}.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/atomashpolskiy/bt-upnp/${bt-version}/bt-upnp-${bt-version}-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/atomashpolskiy/bt-upnp/${bt-version}/bt-upnp-${bt-version}-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
