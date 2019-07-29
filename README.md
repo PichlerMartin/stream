@@ -36,4 +36,6 @@
  how to set up a maven project:
  https://subscription.packtpub.com/book/application_development/9781785286124/2/ch02lvl1sec24/creating-a-new-maven-project-in-intellij-idea
  
+ also some additional librarys need to be installed, consult the related pdf in the docs folder by "eviltester"
+ 
  jar comming soon ...
