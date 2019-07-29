@@ -5,11 +5,11 @@
  cloned private repository from my github account to this repository, further updates comming soon ...
 
 # update 29.07.2019
- worked out some test cases for the bt torrent library, updated ui design and readme.md
+ worked out some test cases for the bt torrent library, updated ui design and readme.md, 
  further updates to be announced
  
-# use stream they way you like
- use stream to upload and download your favourite files
+# use stream the way you like
+ use stream to upload and download your favourite files, 
  you even can create torrents on your own!
 
 # splash screen preview
