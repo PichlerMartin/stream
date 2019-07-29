@@ -1,4 +1,4 @@
-<div style="text-align:center"><img src="https://i.ibb.co/28NTH0B/logo.png" /></div>
+![logo](https://i.ibb.co/28NTH0B/logo.png)
 
 # stream
  a smart and comfy torrent client in java
@@ -15,10 +15,10 @@
  you even can create torrents on your own!
 
 # splash screen preview
- ![alt_text](https://i.ibb.co/G0877sL/Whats-App-Image-2019-07-29-at-01-07-26.jpg)
+ ![splasj screen](https://i.ibb.co/G0877sL/Whats-App-Image-2019-07-29-at-01-07-26.jpg)
 
 # ui preview
- ![alt text](https://i.ibb.co/ZHqmm01/MainPage.png)
+ ![ui](https://i.ibb.co/ZHqmm01/MainPage.png)
 
 # installation instructions:
  download the zipped repository and open the project in
