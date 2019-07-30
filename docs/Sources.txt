@@ -40,6 +40,7 @@ https://stackoverflow.com/questions/39866421/java-dynamically-add-items-to-a-lis
 https://stackoverflow.com/questions/19407536/how-to-refresh-a-progress-bar-in-java
 https://stackoverflow.com/questions/11409912/android-how-to-update-value-of-progressbar
 https://stackoverflow.com/questions/32757069/updating-progressbar-value-within-a-for-loop
+https://stackoverflow.com/questions/13264017/getting-selected-element-from-listview
 
 Usefull Websites:
 

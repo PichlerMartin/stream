@@ -17,7 +17,10 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.hamcrest:hamcrest-core:1.3" level="project" />
     <orderEntry type="library" name="Maven: pl.pragmatists:JUnitParams:1.1.0" level="project" />
     <orderEntry type="library" name="com.github.atomashpolskiy:bt-bencoding:1.8" level="project" />
-    <orderEntry type="library" name="com.github.atomashpolskiy:bt-core:1.8" level="project" />
     <orderEntry type="library" name="com.github.atomashpolskiy:bt-dht:1.8" level="project" />
+    <orderEntry type="library" name="com.github.atomashpolskiy:bt-core:1.8" level="project" />
+    <orderEntry type="library" name="org.slf4j:slf4j-simple:1.6.1" level="project" />
+    <orderEntry type="library" name="com.turn:ttorrent-cli:1.5" level="project" />
+    <orderEntry type="library" name="com.turn:ttorrent-core:1.5" level="project" />
   </component>
 </module>
