@@ -1,0 +1,17 @@
+<component name="libraryTable">
+  <library name="com.turn:ttorrent-cli:1.5" type="repository">
+    <properties maven-id="com.turn:ttorrent-cli:1.5" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/ttorrent-cli-1.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/ttorrent-core-1.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-io-2.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/simple-4.1.21.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/slf4j-api-1.6.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/slf4j-log4j12-1.6.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/log4j-1.2.16.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jargs-1.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
