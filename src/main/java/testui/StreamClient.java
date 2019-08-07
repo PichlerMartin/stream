@@ -127,6 +127,8 @@ public class StreamClient {
 
     public static void main(String[] args) {
         Options options;
+
+        args = new String[] {"-d", "C:\\"};
         try{
             options = Options.parse (args);
         }catch (OptionException e){
@@ -150,6 +152,9 @@ public class StreamClient {
         }
     }
 
+    /**
+     * https://stackoverflow.com/questions/31416784/thread-with-lambda-expression
+     */
     private static void registerLog4jShutdownHook() {
         Runtime.getRuntime().addShutdownHook(new Thread() {
             @Override

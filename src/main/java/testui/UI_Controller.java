@@ -51,7 +51,7 @@ public class UI_Controller {
     @FXML
     private ProgressBar prog_n;
 
-    private void setParentStage (Stage root) {
+    public void setParentStage (Stage root) {
         this.parentStage = root;
     }
 
