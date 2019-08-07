@@ -9,6 +9,7 @@ http://gdeinvestirati.com/wp-content/uploads/2018/06/bittorrent-1900x1108_c.jpg
 https://cdn.freebiesupply.com/logos/large/2x/atom-4-logo-png-transparent.png
 http://manifesto.co.uk/wp-content/uploads/2014/10/scrum-task-board.png
 https://images-na.ssl-images-amazon.com/images/I/81fn76s27rL._SL1500_.jpg
+https://cdn.pixabay.com/photo/2018/05/31/10/06/network-3443544_960_720.jpg
 
 Code & Tutorials:
 
@@ -30,6 +31,8 @@ https://www.geeksforgeeks.org/javafx-progressbar/
 https://docs.oracle.com/javafx/2/ui_controls/progress.htm
 https://www.journaldev.com/1020/thread-sleep-java
 https://www.baeldung.com/java-lambda-exceptions
+https://www.geeksforgeeks.org/overriding-in-java/
+https://www.dummies.com/computers/operating-systems/windows-xp-vista/create-run-powershell-script/
 
 Stackoverflow Links:
 

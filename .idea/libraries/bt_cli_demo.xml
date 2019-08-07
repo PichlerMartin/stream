@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="bt-cli-demo">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../bt-cli-demo-master/classes/artifacts/bt_cli_demo_jar/bt-cli-demo.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
