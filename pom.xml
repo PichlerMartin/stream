@@ -90,16 +90,11 @@
                 <artifactId> bt-dht </artifactId>
                 <version> $ {bt-version} </version>
             </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>1.7.25</version>
-            </dependency>
 
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-simple</artifactId>
-                <version>$[slf4j-version]</version>
+
                 <exclusions>
                     <exclusion>
                         <groupId>org.slf4j</groupId>
