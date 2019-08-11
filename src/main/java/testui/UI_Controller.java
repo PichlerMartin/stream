@@ -1,12 +1,16 @@
 package testui;
 
 import bt.Bt;
+import bt.cli.Options;
+import bt.cli.SessionStatePrinter;
 import bt.data.Storage;
 import bt.data.file.FileSystemStorage;
 import bt.dht.DHTConfig;
 import bt.dht.DHTModule;
 import bt.runtime.BtClient;
 import bt.runtime.Config;
+import client.Client;
+import client.StreamClient;
 import com.google.inject.Module;
 import com.turn.ttorrent.common.Torrent;
 import javafx.application.Platform;
@@ -17,10 +21,13 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
 import javafx.stage.Stage;
 import com.turn.ttorrent.client.*;
+import joptsimple.OptionException;
+import support.SupportMethods;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.MalformedURLException;
 import java.net.UnknownHostException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -42,21 +49,29 @@ public class UI_Controller {
     private Button cmd_enter;
     @FXML
     private Button cmd_start;
-    @FXML
-    private ProgressBar prog_m;
-
     /**
      * Progressbar-Test to overlook the functionality and ability of the use-case
      */
     @FXML
-    private ProgressBar prog_n;
+    private ProgressBar prog_m;
 
     public void setParentStage (Stage root) {
         this.parentStage = root;
     }
 
-    public void Enter_Action(ActionEvent actionEvent){
+    public void Enter_Action(ActionEvent actionEvent) throws MalformedURLException {
+        Options options;
 
+        String[] args = new String[]{"-d", "C:\\", "-m", "magnet:?xt=urn:btih:d1eb2b5cf80e286a7f848ab0c31638856db102d4&dn=Beethoven+-+The+Very+Best+Of+Beethoven+%282005%29+%5BFLAC%5D+dussin"};
+        try {
+            options = Options.parse(args);
+        } catch (OptionException e) {
+            Options.printHelp(System.out);
+            return;
+        }
+
+        StreamClient client = new StreamClient(options);
+        client.start();
     }
 
     /**

@@ -26,6 +26,7 @@ import org.apache.logging.log4j.core.config.Configurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import joptsimple.OptionException;
+import support.SupportMethods;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -159,9 +160,6 @@ public class StreamClient {
         return Optional.of (port);
     }
 
-    //  ToDo:   Run this and ask hasp for assistance
-    //  ToDo:   Ask hasp which language should be used
-
     public static void main(String[] args) throws IOException {
         Options options;
 
@@ -175,12 +173,17 @@ public class StreamClient {
 
         configureLogging(options.getLogLevel());
         configureSecurity();
-        registerLog4jShutdownHook();
+        SupportMethods.registerLog4jShutdownHook();
 
         StreamClient client = new StreamClient(options);
         client.start();
     }
 
+    /**
+     * Description
+     * Startet den state (lambda expression) für eine bestimmte Zeit (1000)
+     * Ausführung wird in einem neuen Thread gestartet
+     */
     private void start(){
         printer.start();
         client.startAsync (state -> {
@@ -198,7 +201,11 @@ public class StreamClient {
         }, 1000).join();
     }
 
-
+    /**
+     * Description
+     * Private Methode, die die Security-Policies bei der Klassenvariable "Security"
+     * setzt um sie später auf den Client zuzuschreiben
+     */
     private static void configureSecurity(){
         String key = "crypto.policy";
         String value = "unlimited";
@@ -206,25 +213,16 @@ public class StreamClient {
             Security.setProperty(key, value);
 
         } catch (Exception e){
-            LOGGER.error("Failed to set security property '" + key + "' to '" + value + "'", e);
+            LOGGER.error("Security Property konnte nicht von '" + key + "' auf '" + value + "' gesetzt werden", e);
 
         }
     }
 
     /**
-     * https://stackoverflow.com/questions/31416784/thread-with-lambda-expression
+     *
+     * @param logLevel: log level, beschreibt den Grad des Logging abhängig vom Verwendungszweck
+     *                d.h.: NORMAL im gewöhnlichen Betrieb, VERBOSE beim Debuggen und TRACE
      */
-    private static void registerLog4jShutdownHook() {
-        Runtime.getRuntime().addShutdownHook(new Thread() {
-            @Override
-            public void run() {
-                if( LogManager.getContext() instanceof LoggerContext) {
-                    Configurator.shutdown((LoggerContext)LogManager.getContext());
-                }
-            }
-        });
-    }
-
     private static void configureLogging(Options.LogLevel logLevel) {
         Level log4jLogLevel;
         switch (logLevel) {
@@ -244,7 +242,7 @@ public class StreamClient {
                 break;
             }
             default: {
-                throw new IllegalArgumentException("Unknown log level: " + logLevel);
+                throw new IllegalArgumentException("Unbekanntes log level: " + logLevel);
             }
         }
         Configurator.setLevel("bt", log4jLogLevel);

@@ -68,8 +68,6 @@
             <dependency>
                 <groupId>com.github.atomashpolskiy</groupId>
                 <artifactId>bt-upnp</artifactId>
-
-                <!-- ToDo: fix version statement error below -->
                 <version>2.0.0.RELEASE</version>
             </dependency>
 
@@ -102,28 +100,6 @@
                     </exclusion>
                 </exclusions>
             </dependency>
-
-            <!--    ToDo:   Resolve depenency issues with StaticLoggerBinder.class  -->
-
-            <!--
-            <dependency>
-                <groupId> net.sf.jopt-simple </groupId>
-                <artifactId> jopt-simple </artifactId>
-                <version> $ {jopts-version} </version>
-            </dependency>
-
-            <dependency>
-                <groupId> org.apache.logging.log4j </groupId>
-                <artifactId> log4j-core </artifactId>
-                <version> $ {log4j-version} </version>
-            </dependency>
-
-            <dependency>
-                <groupId> org.apache.logging.log4j </groupId>
-                <artifactId> log4j-slf4j-impl </artifactId>
-                <version> $ {log4j-version} </version>
-            </dependency>
-            -->
 
         </dependencies>
     </dependencyManagement>

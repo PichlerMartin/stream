@@ -10,6 +10,7 @@ https://cdn.freebiesupply.com/logos/large/2x/atom-4-logo-png-transparent.png
 http://manifesto.co.uk/wp-content/uploads/2014/10/scrum-task-board.png
 https://images-na.ssl-images-amazon.com/images/I/81fn76s27rL._SL1500_.jpg
 https://cdn.pixabay.com/photo/2018/05/31/10/06/network-3443544_960_720.jpg
+https://static.javatpoint.com/images/core/java-features.png
 
 Code & Tutorials:
 

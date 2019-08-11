@@ -1,27 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding" addBOMForNewFiles="with NO BOM">
-    <file url="file://$USER_HOME$/Downloads/bt-bt-parent-1.8/bt-bt-parent-1.8" charset="UTF-8" />
-    <file url="file://$USER_HOME$/Downloads/bt-bt-parent-1.8/bt-bt-parent-1.8/bt-bencoding" charset="UTF-8" />
-    <file url="file://$USER_HOME$/Downloads/bt-bt-parent-1.8/bt-bt-parent-1.8/bt-cli" charset="UTF-8" />
-    <file url="file://$USER_HOME$/Downloads/bt-bt-parent-1.8/bt-bt-parent-1.8/bt-core" charset="UTF-8" />
-    <file url="file://$USER_HOME$/Downloads/bt-bt-parent-1.8/bt-bt-parent-1.8/bt-dht" charset="UTF-8" />
-    <file url="file://$USER_HOME$/Downloads/bt-bt-parent-1.8/bt-bt-parent-1.8/bt-dht/bt-dht" charset="UTF-8" />
-    <file url="file://$USER_HOME$/Downloads/bt-bt-parent-1.8/bt-bt-parent-1.8/bt-dht/the8472/mldht" charset="UTF-8" />
-    <file url="file://$USER_HOME$/Downloads/bt-bt-parent-1.8/bt-bt-parent-1.8/bt-http-tracker-client" charset="UTF-8" />
-    <file url="file://$USER_HOME$/Downloads/bt-bt-parent-1.8/bt-bt-parent-1.8/bt-tests" charset="UTF-8" />
-    <file url="file://$USER_HOME$/Downloads/bt-bt-parent-1.8/bt-bt-parent-1.8/bt-upnp" charset="UTF-8" />
-    <file url="file://$USER_HOME$/Downloads/bt-bt-parent-1.8/bt-bt-parent-1.8/examples" charset="UTF-8" />
-    <file url="file://$USER_HOME$/Downloads/bt-bt-parent-1.8/bt-bt-parent-1.8/jacoco-report" charset="UTF-8" />
-    <file url="file://$USER_HOME$/Downloads/ttorrent-ttorrent-2.0/ttorrent-ttorrent-2.0" charset="UTF-8" />
-    <file url="file://$USER_HOME$/Downloads/ttorrent-ttorrent-2.0/ttorrent-ttorrent-2.0/bencoding" charset="UTF-8" />
-    <file url="file://$USER_HOME$/Downloads/ttorrent-ttorrent-2.0/ttorrent-ttorrent-2.0/cli" charset="UTF-8" />
-    <file url="file://$USER_HOME$/Downloads/ttorrent-ttorrent-2.0/ttorrent-ttorrent-2.0/common" charset="UTF-8" />
-    <file url="file://$USER_HOME$/Downloads/ttorrent-ttorrent-2.0/ttorrent-ttorrent-2.0/network" charset="UTF-8" />
-    <file url="file://$USER_HOME$/Downloads/ttorrent-ttorrent-2.0/ttorrent-ttorrent-2.0/test-api" charset="UTF-8" />
-    <file url="file://$USER_HOME$/Downloads/ttorrent-ttorrent-2.0/ttorrent-ttorrent-2.0/tests" charset="UTF-8" />
-    <file url="file://$USER_HOME$/Downloads/ttorrent-ttorrent-2.0/ttorrent-ttorrent-2.0/ttorrent-client" charset="UTF-8" />
-    <file url="file://$USER_HOME$/Downloads/ttorrent-ttorrent-2.0/ttorrent-ttorrent-2.0/ttorrent-tracker" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/torrents/VanBeethoven.torrent" charset="UTF-8" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>
