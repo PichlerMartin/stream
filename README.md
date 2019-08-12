@@ -18,12 +18,19 @@
 # use stream the way you like
  use stream to upload and download your favourite files, 
  you even can create torrents on your own!
+ 
+# ui preview (updated!)
+![ui](https://i.ibb.co/jrQTcF3/Entwurf3.png)
 
+<!--
 # splash screen preview
  ![splasj screen](https://i.ibb.co/G0877sL/Whats-App-Image-2019-07-29-at-01-07-26.jpg)
+-->
 
+<!--
 # ui preview
  ![ui](https://i.ibb.co/ZHqmm01/MainPage.png)
+-->
 
 # installation instructions:
  download or clone the zipped repository and open the project in
