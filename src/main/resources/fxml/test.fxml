@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" style="-fx-background-repeat: no-repeat; -fx-background-color: #1b3957;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="streamUI.UI_Controller">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Label rotate="-19.75" text="stream" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="70.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="25.0" top="105.0" />
+         </GridPane.margin>
+         <padding>
+            <Insets left="20.0" />
+         </padding>
+      </Label>
+      <Label rotate="-19.75" text="Torrents" textFill="WHITE" GridPane.rowIndex="1">
+         <font>
+            <Font name="System Bold" size="34.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="10.0" top="50.0" />
+         </GridPane.margin>
+         <padding>
+            <Insets left="40.0" />
+         </padding>
+      </Label>
+      <Label rotate="-19.75" text="Uploading" textFill="WHITE" GridPane.rowIndex="1">
+         <font>
+            <Font name="System Bold" size="29.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="99.0" top="145.0" />
+         </GridPane.margin>
+      </Label>
+      <Label rotate="-19.75" text="Finished" textFill="WHITE" GridPane.rowIndex="1">
+         <font>
+            <Font name="System Bold" size="29.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="113.0" top="225.0" />
+         </GridPane.margin>
+      </Label>
+      <Label fx:id="lblTorrets" onMouseClicked="#handleOnClickedlblDownloading" rotate="-19.75" text="Downloading" textFill="WHITE" GridPane.rowIndex="1">
+         <font>
+            <Font name="System Bold" size="29.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="85.0" top="65.0" />
+         </GridPane.margin>
+      </Label>
+      <Label rotate="-19.75" text="Help" textFill="WHITE" GridPane.rowIndex="1">
+         <font>
+            <Font name="System Bold" size="34.0" />
+         </font>
+         <padding>
+            <Insets left="40.0" />
+         </padding>
+         <GridPane.margin>
+            <Insets left="79.0" top="405.0" />
+         </GridPane.margin>
+      </Label>
+      <Label rotate="-19.75" text="Settings" textFill="WHITE" GridPane.rowIndex="1">
+         <font>
+            <Font name="System Bold" size="34.0" />
+         </font>
+         <padding>
+            <Insets left="40.0" />
+         </padding>
+         <GridPane.margin>
+            <Insets left="65.0" top="315.0" />
+         </GridPane.margin>
+      </Label>
+      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #ffffffcf; -fx-background-radius: 50;" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets left="450.0" top="50.0" />
+         </GridPane.margin>
+      </VBox>
+   </children>
+</GridPane>
