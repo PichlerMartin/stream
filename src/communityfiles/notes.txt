@@ -1,0 +1,3 @@
+idee:
+wordpress webseite für "stream", in form eines blogs, für updates
+und download link vom aktuellsten release

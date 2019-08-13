@@ -1,0 +1,4 @@
+vorschlag für @topeiner:
+im ui eine button "neuer torrent", öffnet neues fenster wo datei/magnet-url
+eingegeben werden kann, plus optionen (download ordner, nach dem downloaden seeden?,
+spezieller port?, ...)
