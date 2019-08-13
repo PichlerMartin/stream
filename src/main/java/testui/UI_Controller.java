@@ -135,7 +135,7 @@ public class UI_Controller {
     /**
      * Loads all files from the resources/torrents directory at startup, for testing purposes
      * @param actionEvent:  ActionEvent-Parameter, currently not in use
-     * @throws IOException
+     * @throws IOException: In case the files won't load properly
      */
     public void LoadStartConfiguration(ActionEvent actionEvent) throws IOException {
         try (Stream<Path> paths = Files.walk(Paths.get("target\\classes\\torrents"))) {
@@ -145,9 +145,11 @@ public class UI_Controller {
 
             for (Object s: directoryContent
                  ) {
-                if (!s.toString().substring(s.toString().lastIndexOf('\\') + 1, s.toString().length()).equals("torrents")){
-                    torrents.addTorrent(new TorrentInFileSystem(s.toString(), s.toString().substring(s.toString().lastIndexOf('\\') + 1, s.toString().length()).substring(0, s.toString().substring(s.toString().lastIndexOf('\\') + 1, s.toString().length()).length() - 8)));
+                String content = s.toString();
+                String contentname = content.substring(content.lastIndexOf('\\') + 1);
 
+                if (!contentname.equals("torrents")){
+                    torrents.addTorrent(new TorrentInFileSystem(content, contentname.substring(0, contentname.length() - 8)));
                 }
             }
 
