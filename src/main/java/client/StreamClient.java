@@ -94,7 +94,7 @@ public class StreamClient implements Client {
         clientBuilder.afterFilesChosen (printer :: onFilesChosen);
 
         if (options.getMetainfoFile() != null) {
-            clientBuilder = clientBuilder.torrent (new URL(options.getMetainfoFile().toString()));
+            clientBuilder = clientBuilder.torrent(SupportMethods.toUrl(options.getMetainfoFile()));
         } else if (options.getMagnetUri() != null) {
             clientBuilder = clientBuilder.magnet (options.getMagnetUri ());
         } else {

@@ -14,6 +14,16 @@ public interface Library {
      */
     int max_capacity = 5;
 
+    public String getPath();
+
+    public String getName();
+
+    public List<TorrentInFileSystem> getContents();
+
+    public void setContents(List<TorrentInFileSystem> torrents);
+
+    public void addTorrent(TorrentInFileSystem torrent);
+
     /**
      * Description
      * Nach der Dateigröße soll jede Library geordnet werden können

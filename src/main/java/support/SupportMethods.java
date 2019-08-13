@@ -11,7 +11,10 @@ import org.apache.logging.log4j.core.LoggerContext;
 import org.apache.logging.log4j.core.config.Configurator;
 import org.slf4j.Logger;
 
+import java.io.File;
 import java.net.InetAddress;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.net.UnknownHostException;
 import java.security.Security;
 import java.util.Optional;
@@ -70,6 +73,14 @@ public abstract class SupportMethods {
                         : EncryptionPolicy.PREFER_PLAINTEXT;
             }
         };
+    }
+
+    public static URL toUrl(File file) {
+        try {
+            return file.toURI().toURL();
+        } catch (MalformedURLException var2) {
+            throw new IllegalArgumentException("Unexpected error", var2);
+        }
     }
 
     private static Optional <InetAddress> getAcceptorAddressOverride (Options options) {
