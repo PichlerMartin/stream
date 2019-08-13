@@ -34,8 +34,8 @@ import java.util.Optional;
 
 import static org.apache.logging.log4j.Level.TRACE;
 
-public class StreamClient {
-    private static final Logger LOGGER = LoggerFactory.getLogger(StreamClient.class);
+public class TestStreamClient {
+    private static final Logger LOGGER = LoggerFactory.getLogger(TestStreamClient.class);
 
     private final Options options;
     private final SessionStatePrinter printer;
@@ -43,14 +43,14 @@ public class StreamClient {
 
     /**
      * Description:
-     * Konstruktor der StreamClient Klasse, erstellt alle wichtigen Metadaten wie die Konfiguration,
+     * Konstruktor der TestStreamClient Klasse, erstellt alle wichtigen Metadaten wie die Konfiguration,
      * den Storage und den ClientBuilder
      *
      * @param options ist ein Objekt der Options Klasse welche die Kommandozeilenargumente (argsv)
      *                enthält, dem Client die nötigen Daten gibt, z.B.: Torrent-File, Download Ort, ...
      * @throws MalformedURLException wird geworfen wenn z.B.: die URL des Torrent-Files nicht existiert
      */
-    public StreamClient(Options options) throws MalformedURLException {
+    public TestStreamClient(Options options) throws MalformedURLException {
         this.options = options;
         this.printer = new SessionStatePrinter();
 
@@ -170,7 +170,7 @@ public class StreamClient {
         configureSecurity();
         SupportMethods.registerLog4jShutdownHook();
 
-        StreamClient client = new StreamClient(options);
+        TestStreamClient client = new TestStreamClient(options);
         client.start();
     }
 

@@ -14,16 +14,15 @@ import bt.service.IRuntimeLifecycleBinder;
 import bt.torrent.selector.PieceSelector;
 import bt.torrent.selector.RarestFirstSelector;
 import bt.torrent.selector.SequentialSelector;
-import joptsimple.OptionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import support.SupportMethods;
+import testui.TestStreamClient;
 
 import java.net.MalformedURLException;
-import java.net.URL;
 
 public class StreamClient implements Client {
-    private static final Logger LOGGER = LoggerFactory.getLogger(testui.StreamClient.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TestStreamClient.class);
 
     private final Options options;
     private final SessionStatePrinter printer;
@@ -31,7 +30,7 @@ public class StreamClient implements Client {
 
     /**
      * Description:
-     * Konstruktor der StreamClient Klasse, erstellt alle wichtigen Metadaten wie die Konfiguration,
+     * Konstruktor der TestStreamClient Klasse, erstellt alle wichtigen Metadaten wie die Konfiguration,
      * den Storage und den ClientBuilder
      *
      * @param options ist ein Objekt der Options Klasse welche die Kommandozeilenargumente (argsv)

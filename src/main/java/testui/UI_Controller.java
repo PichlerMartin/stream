@@ -90,7 +90,7 @@ public class UI_Controller {
             return;
         }
 
-        StreamClient client = new StreamClient(options);
+        TestStreamClient client = new TestStreamClient(options);
         client.start();
         */
 		
