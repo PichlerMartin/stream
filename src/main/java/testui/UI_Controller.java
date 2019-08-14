@@ -1,8 +1,6 @@
 package testui;
 
 import bt.Bt;
-import bt.cli.Options;
-import bt.cli.SessionStatePrinter;
 import bt.data.Storage;
 import bt.data.file.FileSystemStorage;
 import bt.dht.DHTConfig;
@@ -11,8 +9,8 @@ import bt.runtime.BtClient;
 import bt.runtime.Config;
 import client.Client;
 import client.StreamClient;
+import client.StreamOptions;
 import com.google.inject.Module;
-import com.turn.ttorrent.common.Torrent;
 import filelibrary.Library;
 import filelibrary.PublicLibrary;
 import filelibrary.TorrentInFileSystem;
@@ -25,7 +23,6 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import com.turn.ttorrent.client.*;
 import joptsimple.OptionException;
 import support.SupportMethods;
 
@@ -71,31 +68,25 @@ public class UI_Controller {
 
     public void Enter_Action(ActionEvent actionEvent) throws MalformedURLException {
         final String DownloadDirectory = "C:\\";
+        String MagnetLink = "magnet:?xt=urn:btih:d1eb2b5cf80e286a7f848ab0c31638856db102d4&dn=Beethoven+-+The+Very+Best+Of+Beethoven+%282005%29+%5BFLAC%5D+dussin";
 
         if(lbl_filelib.getSelectionModel().getSelectedItem() != null){
-            final String MagnetLink = lbl_filelib.getSelectionModel().getSelectedItems().get(0);
+            MagnetLink = lbl_filelib.getSelectionModel().getSelectedItems().get(0);
         }
 
         //  ToDo:   find lambda expression for selected element in list
         //  torrents.getContents().get(torrents.getContents().forEach(x -> )
 
-        /*
-        Options options;
 
-        String[] args = new String[]{"-d", "C:\\", "-m", "magnet:?xt=urn:btih:d1eb2b5cf80e286a7f848ab0c31638856db102d4&dn=Beethoven+-+The+Very+Best+Of+Beethoven+%282005%29+%5BFLAC%5D+dussin"};
-        try {
-            options = Options.parse(args);
-        } catch (OptionException e) {
-            Options.printHelp(System.out);
-            return;
-        }
+        StreamOptions options = new StreamOptions(MagnetLink, new File(DownloadDirectory));
 
-        TestStreamClient client = new TestStreamClient(options);
+        StreamClient client = new StreamClient(options);
         client.start();
-        */
+
 		
 		//	ToDo:	Check sample from bt github page
 
+        /*
         // enable multithreaded verification of torrent data
         Config config = new Config() {
             @Override
@@ -130,6 +121,7 @@ public class UI_Controller {
 
         // launch
         client.startAsync().join();
+        */
     }
 
     /**

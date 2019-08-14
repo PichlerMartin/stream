@@ -16,9 +16,7 @@
     <orderEntry type="library" name="com.github.atomashpolskiy:bt-bencoding:1.8" level="project" />
     <orderEntry type="library" name="com.github.atomashpolskiy:bt-dht:1.8" level="project" />
     <orderEntry type="library" name="com.github.atomashpolskiy:bt-core:1.8" level="project" />
-    <orderEntry type="library" name="com.turn:ttorrent-core:1.5" level="project" />
     <orderEntry type="library" name="net.sf.jopt-simple:jopt-simple:5.0.4" level="project" />
-    <orderEntry type="library" name="bt-cli-demo" level="project" />
     <orderEntry type="library" name="com.github.atomashpolskiy:bt-upnp:1.8" level="project" />
   </component>
 </module>

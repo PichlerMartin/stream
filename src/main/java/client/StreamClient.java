@@ -2,31 +2,29 @@ package client;
 
 import bt.Bt;
 import bt.BtClientBuilder;
-import bt.cli.CliFileSelector;
-import bt.cli.Options;
-import bt.cli.SessionStatePrinter;
 import bt.data.Storage;
 import bt.data.file.FileSystemStorage;
 import bt.runtime.BtClient;
 import bt.runtime.BtRuntime;
 import bt.runtime.Config;
-import bt.service.IRuntimeLifecycleBinder;
 import bt.torrent.selector.PieceSelector;
 import bt.torrent.selector.RarestFirstSelector;
 import bt.torrent.selector.SequentialSelector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import support.SupportMethods;
-import testui.TestStreamClient;
+//import testui.TestStreamClient;
 
 import java.net.MalformedURLException;
 
 public class StreamClient implements Client {
-    private static final Logger LOGGER = LoggerFactory.getLogger(TestStreamClient.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(StreamClient.class);
 
-    private final Options options;
-    private final SessionStatePrinter printer;
+    private final StreamOptions options;
+    private final StreamLogPrinter printer;
     private final BtClient client;
+
+    //  ToDo:   implement self-written StreamClient class
 
     /**
      * Description:
@@ -37,14 +35,14 @@ public class StreamClient implements Client {
      *                enthält, dem Client die nötigen Daten gibt, z.B.: Torrent-File, Download Ort, ...
      * @throws MalformedURLException wird geworfen wenn z.B.: die URL des Torrent-Files nicht existiert
      */
-    public StreamClient(Options options) throws MalformedURLException {
+    public StreamClient(StreamOptions options) throws MalformedURLException {
         this.options = options;
 
         SupportMethods.configureLogging(options.getLogLevel());
         SupportMethods.configureSecurity(LOGGER);
         SupportMethods.registerLog4jShutdownHook();
 
-        this.printer = new SessionStatePrinter();
+        this.printer = new StreamLogPrinter();
 
         Config config = SupportMethods.buildConfig(this.options);
 
@@ -63,7 +61,7 @@ public class StreamClient implements Client {
      * Ausführung wird in einem neuen Thread gestartet
      */
     public void start(){
-        printer.start();
+        printer.startLogPrinter();
         client.startAsync (state -> {
             boolean complete = (state.getPiecesRemaining()==0);
             if (complete){
@@ -75,22 +73,16 @@ public class StreamClient implements Client {
                 }
             }
 
-            printer.updateState(state);
+            printer.updateTorrentStage(state);
         }, 1000).join();
     }
 
     private BtClient GetClient(BtRuntime runtime, Storage storage, PieceSelector selector) throws MalformedURLException{
         BtClientBuilder clientBuilder = Bt.client(runtime).storage(storage).selector(selector);
 
-        if (! options.shouldDownloadAllFiles ()) {
-            CliFileSelector fileSelector = new CliFileSelector();
-            clientBuilder.fileSelector (fileSelector);
-            runtime.service (IRuntimeLifecycleBinder.class)
-                    .onShutdown (fileSelector :: shutdown);
-        }
+        options.setDownloadAllFiles(true);
 
-        clientBuilder.afterTorrentFetched (printer :: onTorrentFetched);
-        clientBuilder.afterFilesChosen (printer :: onFilesChosen);
+        clientBuilder.afterTorrentFetched (printer :: whenTorrentFetched);
 
         if (options.getMetainfoFile() != null) {
             clientBuilder = clientBuilder.torrent(SupportMethods.toUrl(options.getMetainfoFile()));

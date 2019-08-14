@@ -31,6 +31,11 @@ public class StreamOptions {
         this.downloadAllFiles = downloadAllFiles;
     }
 
+    public StreamOptions(String magnetUri, File targetDirectory){
+        this.magnetUri = magnetUri;
+        this.targetDirectory = targetDirectory;
+    }
+
     public File getMetainfoFile() {
         return this.metainfoFile;
     }
@@ -75,6 +80,10 @@ public class StreamOptions {
 
     public boolean shouldDownloadAllFiles() {
         return this.downloadAllFiles;
+    }
+
+    public void setDownloadAllFiles(boolean delta){
+        this.downloadAllFiles = delta;
     }
 
     public enum LogLevel {
