@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="com.ning:compress-lzf:1.0.4" type="repository">
+    <properties maven-id="com.ning:compress-lzf:1.0.4" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/compress-lzf-1.0.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

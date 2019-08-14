@@ -1,16 +1,7 @@
 package testui;
 
-import bt.Bt;
-import bt.data.Storage;
-import bt.data.file.FileSystemStorage;
-import bt.dht.DHTConfig;
-import bt.dht.DHTModule;
-import bt.runtime.BtClient;
-import bt.runtime.Config;
-import client.Client;
 import client.StreamClient;
 import client.StreamOptions;
-import com.google.inject.Module;
 import filelibrary.Library;
 import filelibrary.PublicLibrary;
 import filelibrary.TorrentInFileSystem;
@@ -20,25 +11,18 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import joptsimple.OptionException;
-import support.SupportMethods;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.MalformedURLException;
-import java.net.UnknownHostException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.Collection;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
@@ -68,17 +52,22 @@ public class UI_Controller {
 
     public void Enter_Action(ActionEvent actionEvent) throws MalformedURLException {
         final String DownloadDirectory = "C:\\";
-        String MagnetLink = "magnet:?xt=urn:btih:d1eb2b5cf80e286a7f848ab0c31638856db102d4&dn=Beethoven+-+The+Very+Best+Of+Beethoven+%282005%29+%5BFLAC%5D+dussin";
+        String DefaultMagnetLink = "magnet:?xt=urn:btih:d1eb2b5cf80e286a7f848ab0c31638856db102d4&dn=Beethoven+-+The+Very+Best+Of+Beethoven+%282005%29+%5BFLAC%5D+dussin";
+
+        //  ToDo:   something, something like this below but has to be altered (magnet-link, etc.)
 
         if(lbl_filelib.getSelectionModel().getSelectedItem() != null){
-            MagnetLink = lbl_filelib.getSelectionModel().getSelectedItems().get(0);
+            final String MagnetLink = lbl_filelib.getSelectionModel().getSelectedItems().get(0);
+            Optional<TorrentInFileSystem> MagnetLinkOptional = torrents.getContents().stream().filter(x -> x.getName().equals(MagnetLink)).findFirst();
+
+            if (MagnetLinkOptional.isPresent()){
+                DefaultMagnetLink = MagnetLinkOptional.get().getPath();
+            }
         }
 
-        //  ToDo:   find lambda expression for selected element in list
-        //  torrents.getContents().get(torrents.getContents().forEach(x -> )
 
 
-        StreamOptions options = new StreamOptions(MagnetLink, new File(DownloadDirectory));
+        StreamOptions options = new StreamOptions(DefaultMagnetLink, new File(DownloadDirectory));
 
         StreamClient client = new StreamClient(options);
         client.start();
