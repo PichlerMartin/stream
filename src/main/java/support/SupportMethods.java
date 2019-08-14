@@ -1,10 +1,10 @@
 package support;
 
-import bt.cli.Options;
 import bt.dht.DHTConfig;
 import bt.dht.DHTModule;
 import bt.protocol.crypto.EncryptionPolicy;
 import bt.runtime.Config;
+import client.StreamOptions;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.LoggerContext;
@@ -18,8 +18,6 @@ import java.net.URL;
 import java.net.UnknownHostException;
 import java.security.Security;
 import java.util.Optional;
-
-import static org.apache.logging.log4j.Level.TRACE;
 
 public abstract class SupportMethods {
 
@@ -35,7 +33,7 @@ public abstract class SupportMethods {
      * @param options das Options Objekt
      * @return
      */
-    public static DHTModule buildDHTModule(Options options){
+    public static DHTModule buildDHTModule(StreamOptions options){
         Optional<Integer> dhtPortOverride = tryGetPort(options.getDhtPort());
 
         return new DHTModule(new DHTConfig(){
@@ -51,7 +49,7 @@ public abstract class SupportMethods {
         });
     }
 
-    public static Config buildConfig (Options options) {
+    public static Config buildConfig (StreamOptions options) {
         Optional <InetAddress> acceptorAddressOverride = getAcceptorAddressOverride (options);
         Optional<Integer> portOverride = tryGetPort (options.getPort ());
         return new Config () {
@@ -83,7 +81,7 @@ public abstract class SupportMethods {
         }
     }
 
-    private static Optional <InetAddress> getAcceptorAddressOverride (Options options) {
+    private static Optional <InetAddress> getAcceptorAddressOverride (StreamOptions options) {
         String inetAddress = options.getInetAddress();
         if (inetAddress == null) {
             return Optional.empty();
@@ -91,7 +89,7 @@ public abstract class SupportMethods {
         try {
             return Optional.of(InetAddress.getByName(inetAddress));
         } catch (UnknownHostException e) {
-            throw new IllegalArgumentException("Failed to parse the acceptor's internet address", e);
+            throw new IllegalArgumentException("The acceptor inet adress could not be parsed!", e);
         }
     }
 
@@ -140,7 +138,7 @@ public abstract class SupportMethods {
      * @param logLevel: log level, beschreibt den Grad des Logging abhängig vom Verwendungszweck
      *                d.h.: NORMAL im gewöhnlichen Betrieb, VERBOSE beim Debuggen und TRACE
      */
-    public static void configureLogging(Options.LogLevel logLevel) {
+    public static void configureLogging(StreamOptions.LogLevel logLevel) {
         Level log4jLogLevel;
         switch (logLevel) {
             case NORMAL: {
@@ -155,7 +153,7 @@ public abstract class SupportMethods {
             }
             case TRACE: {
                 //  TRACE
-                log4jLogLevel = TRACE;
+                log4jLogLevel = Level.TRACE;
                 break;
             }
             default: {
