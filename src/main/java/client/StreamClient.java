@@ -13,6 +13,8 @@ import bt.torrent.selector.SequentialSelector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import support.SupportMethods;
+import testui.Controller;
+import testui.UI_Controller;
 //import testui.TestStreamClient;
 
 import java.net.MalformedURLException;
@@ -35,14 +37,14 @@ public class StreamClient implements Client {
      *                enthält, dem Client die nötigen Daten gibt, z.B.: Torrent-File, Download Ort, ...
      * @throws MalformedURLException wird geworfen wenn z.B.: die URL des Torrent-Files nicht existiert
      */
-    public StreamClient(StreamOptions options) throws MalformedURLException {
+    public StreamClient(StreamOptions options, Controller controller) throws MalformedURLException {
         this.options = options;
 
         SupportMethods.configureLogging(options.getLogLevel());
         SupportMethods.configureSecurity(LOGGER);
         SupportMethods.registerLog4jShutdownHook();
 
-        this.printer = new StreamLogPrinter();
+        this.printer = new StreamLogPrinter(controller);
 
         Config config = SupportMethods.buildConfig(this.options);
 
@@ -74,7 +76,7 @@ public class StreamClient implements Client {
             }
 
             printer.updateTorrentStage(state);
-        }, 1000).join();
+        }, 1000);
     }
 
     private BtClient GetClient(BtRuntime runtime, Storage storage, PieceSelector selector) throws MalformedURLException{

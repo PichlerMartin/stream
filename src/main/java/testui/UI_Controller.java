@@ -8,9 +8,7 @@ import filelibrary.TorrentInFileSystem;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.ProgressBar;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import support.SupportMethods;
@@ -27,10 +25,13 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+import static org.apache.commons.codec.digest.DigestUtils.sha1Hex;
+import static org.apache.commons.codec.digest.DigestUtils.sha256Hex;
+
 /**
  * Controller for testing class UI_Main
  */
-public class UI_Controller {
+public class UI_Controller implements Controller {
 
     @FXML
     private Stage parentStage;
@@ -45,6 +46,12 @@ public class UI_Controller {
      */
     @FXML
     private ProgressBar prog_m;
+    @FXML
+    private Label lbl_status;
+    @FXML
+    private TextField txt_dldirectory;
+    @FXML
+    private TextField txt_magnetlink;
 
     private Library torrents = new PublicLibrary();
 
@@ -53,24 +60,36 @@ public class UI_Controller {
     }
 
     public void Enter_Action(ActionEvent actionEvent) throws MalformedURLException {
-        final String DownloadDirectory = "C:\\";
-        String DefaultMagnetLink = "magnet:?xt=urn:btih:d1eb2b5cf80e286a7f848ab0c31638856db102d4&dn=Beethoven+-+The+Very+Best+Of+Beethoven+%282005%29+%5BFLAC%5D+dussin";
+        String DownloadDirectory = "C:\\";
+        String DefaultMagnetLink = "magnet:?xt=urn:btih:d1eb2b5cf80e286a7f848ab0c31638856db102d4";
+
+        if (txt_dldirectory.getText().contains("\\")){
+            DownloadDirectory = txt_dldirectory.getText();
+        }
+
+        if (txt_magnetlink.getText().contains("magnet:?xt=urn:btih:")){
+            DefaultMagnetLink = txt_magnetlink.getText();
+        }
+
 
         //  ToDo:   something, something like this below but has to be altered (magnet-link, etc.)
+        //  ToDo:   update: below if statement does not work and should be removed in next update
 
         if(lbl_filelib.getSelectionModel().getSelectedItem() != null){
             final String MagnetLink = lbl_filelib.getSelectionModel().getSelectedItems().get(0);
             Optional<TorrentInFileSystem> MagnetLinkOptional = torrents.getContents().stream().filter(x -> x.getName().equals(MagnetLink)).findFirst();
 
             if (MagnetLinkOptional.isPresent()){
-                DefaultMagnetLink = "magnet:?xt=urn:btih:" + convertTorrentToMagnet(new File(MagnetLinkOptional.get().getPath()));
+                DefaultMagnetLink = "magnet:?xt=urn:btih:" + sha256Hex(convertTorrentToMagnet(new File(MagnetLinkOptional.get().getPath())));
             }
         }
 
         StreamOptions options = new StreamOptions(DefaultMagnetLink, new File(DownloadDirectory));
 
-        StreamClient client = new StreamClient(options);
-        client.start();
+        StreamClient client = new StreamClient(options, this);
+        new Thread(() -> {
+            client.start();
+        }).start();
 
 		
 		//	ToDo:	Check sample from bt github page
@@ -113,6 +132,8 @@ public class UI_Controller {
         */
     }
 
+
+
     /**
      * Loads all files from the resources/torrents directory at startup, for testing purposes
      * @param actionEvent:  ActionEvent-Parameter, currently not in use
@@ -136,6 +157,8 @@ public class UI_Controller {
 
             torrents.getContents().forEach(x -> lbl_filelib.getItems().add(x.getName()));
         }
+
+        lbl_status.setText("files loaded!");
     }
 
     /**
@@ -146,14 +169,31 @@ public class UI_Controller {
      * @return returns hash value
      */
     private String convertTorrentToMagnet(File torrentPath) {
-        MessageDigest md5 = null;
-        byte[] buffer = new byte[1024];
-        int bytesRead = 0;
-        String md5ChkSumHex = null;
-        InputStream is = null;
-        StringBuffer sb = new StringBuffer();
+        String text = "";
 
-        String filePath = "D:/myFile.txt";
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(torrentPath));
+            text = br.readLine();
+
+            text = text.substring(0, text.lastIndexOf(':') + 1);
+
+            String s1 = text.substring(0, 2);
+            String s2 = text.substring(text.indexOf("pieces") - 1, text.lastIndexOf(':') - 1);
+            String s3 = text.substring(text.indexOf(":name") - 1, text.lastIndexOf(':'));
+            //s3 = s3.substring(0, s3.lastIndexOf(':'));
+            text = s1 + s2 + ":...................." + s3.substring(0, s3.lastIndexOf(':'));
+
+        } catch (IOException ex){
+            ex.printStackTrace();
+        }
+
+        return text;
+        /*
+        MessageDigest md5;
+        byte[] buffer = new byte[1024];
+        int bytesRead;
+        InputStream is;
+        StringBuffer sb = new StringBuffer();
 
         try {
             is = new FileInputStream(torrentPath);
@@ -173,8 +213,6 @@ public class UI_Controller {
 
             sb = new StringBuffer();
 
-            /*Convert to hex*/
-
             for (int j = 0; j < md5ChkSumBytes.length; j++) {
                 String hex = Integer.toHexString(
                         (md5ChkSumBytes[j] & 0xff | 0x100)).substring(1, 3);
@@ -187,6 +225,7 @@ public class UI_Controller {
         }
 
         return sb.toString();
+        */
         /*
         MessageDigest sha1 = null;
         InputStream input = null;
@@ -233,5 +272,14 @@ public class UI_Controller {
                 }catch(Exception e){ System.err.println(e); }
             }
         }).start();
+    }
+
+    @Override
+    public Label getLabel() {
+        return this.lbl_status;
+    }
+    @Override
+    public void setLabel(Label status) {
+        this.lbl_status = status;
     }
 }

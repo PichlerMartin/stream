@@ -3,28 +3,39 @@ package client;
 import bt.metainfo.Torrent;
 import bt.torrent.TorrentSessionState;
 import download.DownloadRate;
+import javafx.scene.control.Label;
+import testui.Controller;
 
+import javax.naming.ldap.Control;
 import java.time.Duration;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class StreamLogPrinter {
-    private AtomicReference<Torrent> torrent = new AtomicReference((Object)null);
-    private AtomicReference<TorrentSessionState> sessionState = new AtomicReference((Object)null);
+    private AtomicReference<Torrent> torrent;
+    private AtomicReference<TorrentSessionState> sessionState;
     private AtomicReference<DownloadingStage> processingStage;
     private AtomicBoolean shutdown;
+
     private long started;
     private long downloaded;
     private long uploaded;
 
-    public StreamLogPrinter(){
+    private Controller controller;
+
+    public StreamLogPrinter(Controller controller){
+        this.torrent = new AtomicReference<>(null);
+        this.sessionState = new AtomicReference<>(null);
         this.processingStage = new AtomicReference<>(DownloadingStage.FETCHING_METADATA);
         this.shutdown = new AtomicBoolean(false);
+
+        this.controller = controller;
     }
 
     public void updateTorrentStage(TorrentSessionState sessionState){this.sessionState.set(sessionState);}
 
     public void whenTorrentFetched(Torrent torrent){
+        controller.setLabel(new Label("Torrent fetched"));
         this.torrent.set(torrent);
         this.processingStage.set(DownloadingStage.DOWNLOADING);
     }

@@ -50,6 +50,20 @@ https://stackoverflow.com/questions/32757069/updating-progressbar-value-within-a
 https://stackoverflow.com/questions/13264017/getting-selected-element-from-listview
 https://stackoverflow.com/questions/28223514/not-sure-why-my-code-is-giving-me-an-illegal-format-conversion-exception-error
 https://stackoverflow.com/questions/31416784/thread-with-lambda-expression
+https://stackoverflow.com/questions/35621493/how-to-calculate-hash-info-for-a-torrent-file-in-java?rq=1
+https://stackoverflow.com/questions/3436823/how-to-calculate-the-hash-value-of-a-torrent-using-java7
+https://stackoverflow.com/questions/28348678/what-exactly-is-the-info-hash-in-a-torrent-file/28601408
+https://stackoverflow.com/questions/19749085/calculating-the-info-hash-of-a-torrent-file
+https://stackoverflow.com/questions/3436823/how-to-calculate-the-hash-value-of-a-torrent-using-java
+https://stackoverflow.com/questions/5531455/how-to-hash-some-string-with-sha256-in-java
+https://stackoverflow.com/questions/4895523/java-string-to-sha1
+https://stackoverflow.com/questions/4662215/how-to-extract-a-substring-using-regex
+https://stackoverflow.com/questions/7683448/in-java-how-to-get-substring-from-a-string-till-a-character-c
+https://stackoverflow.com/questions/24666805/java-only-read-first-line-of-a-file/46239829
+https://stackoverflow.com/questions/19749085/calculating-the-info-hash-of-a-torrent-file
+https://stackoverflow.com/questions/40000886/how-to-get-the-info-hash-value-of-a-torrent-file
+https://stackoverflow.com/questions/28348678/what-exactly-is-the-info-hash-in-a-torrent-file/28601408
+https://stackoverflow.com/questions/30308065/changing-the-text-of-a-label-from-a-different-class-in-javafx
 
 Usefull Websites:
 
