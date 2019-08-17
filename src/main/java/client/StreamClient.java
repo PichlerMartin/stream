@@ -4,12 +4,15 @@ import bt.Bt;
 import bt.BtClientBuilder;
 import bt.data.Storage;
 import bt.data.file.FileSystemStorage;
+import bt.dht.DHTConfig;
+import bt.dht.DHTModule;
 import bt.runtime.BtClient;
 import bt.runtime.BtRuntime;
 import bt.runtime.Config;
 import bt.torrent.selector.PieceSelector;
 import bt.torrent.selector.RarestFirstSelector;
 import bt.torrent.selector.SequentialSelector;
+import com.google.inject.Module;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import support.SupportMethods;
@@ -63,6 +66,7 @@ public class StreamClient implements Client {
      * Ausführung wird in einem neuen Thread gestartet
      */
     public void start(){
+
         printer.startLogPrinter();
         client.startAsync (state -> {
             boolean complete = (state.getPiecesRemaining()==0);

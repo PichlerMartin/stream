@@ -71,65 +71,12 @@ public class UI_Controller implements Controller {
             DefaultMagnetLink = txt_magnetlink.getText();
         }
 
-
-        //  ToDo:   something, something like this below but has to be altered (magnet-link, etc.)
-        //  ToDo:   update: below if statement does not work and should be removed in next update
-
-        if(lbl_filelib.getSelectionModel().getSelectedItem() != null){
-            final String MagnetLink = lbl_filelib.getSelectionModel().getSelectedItems().get(0);
-            Optional<TorrentInFileSystem> MagnetLinkOptional = torrents.getContents().stream().filter(x -> x.getName().equals(MagnetLink)).findFirst();
-
-            if (MagnetLinkOptional.isPresent()){
-                DefaultMagnetLink = "magnet:?xt=urn:btih:" + sha256Hex(convertTorrentToMagnet(new File(MagnetLinkOptional.get().getPath())));
-            }
-        }
-
         StreamOptions options = new StreamOptions(DefaultMagnetLink, new File(DownloadDirectory));
 
         StreamClient client = new StreamClient(options, this);
         new Thread(() -> {
             client.start();
         }).start();
-
-		
-		//	ToDo:	Check sample from bt github page
-
-        /*
-        // enable multithreaded verification of torrent data
-        Config config = new Config() {
-            @Override
-            public int getNumOfHashingThreads() {
-                return Runtime.getRuntime().availableProcessors() * 2;
-            }
-        };
-
-        // enable bootstrapping from public routers
-        Module dhtModule = new DHTModule(new DHTConfig() {
-            @Override
-            public boolean shouldUseRouterBootstrap() {
-                return true;
-            }
-        });
-
-        // get download directory
-        Path targetDirectory = new File("~/Downloads").toPath();
-
-        // create file system based backend for torrent data
-        Storage storage = new FileSystemStorage(targetDirectory);
-
-        // create client with a private runtime
-        BtClient client = Bt.client()
-                .config(config)
-                .storage(storage)
-                .magnet("magnet:?xt=urn:btih:af0d9aa01a9ae123a73802cfa58ccaf355eb19f1")
-                .autoLoadModules()
-                .module(dhtModule)
-                .stopWhenDownloaded()
-                .build();
-
-        // launch
-        client.startAsync().join();
-        */
     }
 
 
