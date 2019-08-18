@@ -13,13 +13,19 @@ import bt.torrent.selector.PieceSelector;
 import bt.torrent.selector.RarestFirstSelector;
 import bt.torrent.selector.SequentialSelector;
 import com.google.inject.Module;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import support.SupportMethods;
 import testui.Controller;
+import testui.Select_Controller;
 import testui.UI_Controller;
 //import testui.TestStreamClient;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 
 public class StreamClient implements Client {

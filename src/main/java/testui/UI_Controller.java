@@ -8,6 +8,10 @@ import filelibrary.TorrentInFileSystem;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -55,31 +59,51 @@ public class UI_Controller implements Controller {
 
     private Library torrents = new PublicLibrary();
 
+    public StreamClient streamClient;
+
     public void setParentStage (Stage root) {
         this.parentStage = root;
     }
 
-    public void Enter_Action(ActionEvent actionEvent) throws MalformedURLException {
+    public void Enter_Action(ActionEvent actionEvent) throws MalformedURLException, InterruptedException {
         String DownloadDirectory = "C:\\";
-        String DefaultMagnetLink = "magnet:?xt=urn:btih:d1eb2b5cf80e286a7f848ab0c31638856db102d4";
+        String MagnetLink = "magnet:?xt=urn:btih:d1eb2b5cf80e286a7f848ab0c31638856db102d4";
 
         if (txt_dldirectory.getText().contains("\\")){
             DownloadDirectory = txt_dldirectory.getText();
         }
 
         if (txt_magnetlink.getText().contains("magnet:?xt=urn:btih:")){
-            DefaultMagnetLink = txt_magnetlink.getText();
+            MagnetLink = txt_magnetlink.getText();
         }
 
-        StreamOptions options = new StreamOptions(DefaultMagnetLink, new File(DownloadDirectory));
+        loadChooseFileWindow();
 
-        StreamClient client = new StreamClient(options, this);
+        StreamOptions options = new StreamOptions(MagnetLink, new File(DownloadDirectory));
+
+        streamClient = new StreamClient(options, this);
+
         new Thread(() -> {
-            client.start();
-        }).start();
+            streamClient.start();
+        }).join();
     }
 
+    private void loadChooseFileWindow() {
+        Parent root;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/choosen_files.fxml"));
+            root = loader.load();
 
+            Stage stage = new Stage();
+            Select_Controller controller = loader.getController();
+
+            stage.setTitle("Choose Files");
+            stage.setScene(new Scene(root, 450, 450));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Loads all files from the resources/torrents directory at startup, for testing purposes
@@ -135,72 +159,6 @@ public class UI_Controller implements Controller {
         }
 
         return text;
-        /*
-        MessageDigest md5;
-        byte[] buffer = new byte[1024];
-        int bytesRead;
-        InputStream is;
-        StringBuffer sb = new StringBuffer();
-
-        try {
-            is = new FileInputStream(torrentPath);
-
-            md5 = MessageDigest.getInstance("MD5");
-
-            try {
-                while ((bytesRead = is.read(buffer)) > 0) {
-                    md5.update(buffer, 0, bytesRead);
-                }
-            } catch (IOException e) {
-
-                e.printStackTrace();
-            }
-
-            byte[] md5ChkSumBytes = md5.digest();
-
-            sb = new StringBuffer();
-
-            for (int j = 0; j < md5ChkSumBytes.length; j++) {
-                String hex = Integer.toHexString(
-                        (md5ChkSumBytes[j] & 0xff | 0x100)).substring(1, 3);
-                sb.append(hex);
-            }
-        } catch (FileNotFoundException ex){
-            ex.printStackTrace();
-        } catch (NoSuchAlgorithmException ax){
-            ax.printStackTrace();
-        }
-
-        return sb.toString();
-        */
-        /*
-        MessageDigest sha1 = null;
-        InputStream input = null;
-
-        try {
-            sha1 = MessageDigest.getInstance("SHA-1");
-        } catch (NoSuchAlgorithmException ex){
-            ex.printStackTrace();
-        }
-
-        try {
-            input = new FileInputStream(torrentPath);
-            StringBuilder builder = new StringBuilder();
-            while (!builder.toString().endsWith("4:info")) {
-                builder.append((char) input.read()); // It's ASCII anyway.
-            }
-            ByteArrayOutputStream output = new ByteArrayOutputStream();
-            for (int data; (data = input.read()) > -1; output.write(data));
-            sha1.update(output.toByteArray(), 0, output.size() - 1);
-        } catch (IOException ex){
-            ex.printStackTrace();
-        } finally {
-            if (input != null) try { input.close(); } catch (IOException ignore) {}
-        }
-
-        byte[] hash = sha1.digest(); // Here's your hash. Do your thing with it.
-        return hash;
-        */
     }
 
     /**

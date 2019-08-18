@@ -10,7 +10,6 @@ public class UI_Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/UI_Network_Test.fxml"));
         Parent root = loader.load();
         UI_Controller c = loader.getController();
