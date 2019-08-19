@@ -40,52 +40,18 @@ public class UI_Controller implements Controller {
     @FXML
     private Stage parentStage;
     @FXML
-    private ListView<String> lbl_filelib;
-    @FXML
     private Button cmd_enter;
     @FXML
     private Button cmd_start;
-    /**
-     * Progressbar-Test to overlook the functionality and ability of the use-case
-     */
     @FXML
     private ProgressBar prog_m;
     @FXML
     private Label lbl_status;
-    @FXML
-    private TextField txt_dldirectory;
-    @FXML
-    private TextField txt_magnetlink;
 
     private Library torrents = new PublicLibrary();
 
-    public StreamClient streamClient;
-
     public void setParentStage (Stage root) {
         this.parentStage = root;
-    }
-
-    public void Enter_Action(ActionEvent actionEvent) throws MalformedURLException, InterruptedException {
-        String DownloadDirectory = "C:\\";
-        String MagnetLink = "magnet:?xt=urn:btih:d1eb2b5cf80e286a7f848ab0c31638856db102d4";
-
-        if (txt_dldirectory.getText().contains("\\")){
-            DownloadDirectory = txt_dldirectory.getText();
-        }
-
-        if (txt_magnetlink.getText().contains("magnet:?xt=urn:btih:")){
-            MagnetLink = txt_magnetlink.getText();
-        }
-
-        loadChooseFileWindow();
-
-        StreamOptions options = new StreamOptions(MagnetLink, new File(DownloadDirectory));
-
-        streamClient = new StreamClient(options, this);
-
-        new Thread(() -> {
-            streamClient.start();
-        }).join();
     }
 
     private void loadChooseFileWindow() {
@@ -126,7 +92,9 @@ public class UI_Controller implements Controller {
                 }
             }
 
-            torrents.getContents().forEach(x -> lbl_filelib.getItems().add(x.getName()));
+            //torrents.getContents().forEach(x -> lbl_filelib.getItems().add(x.getName()));
+
+            loadChooseFileWindow();
         }
 
         lbl_status.setText("files loaded!");

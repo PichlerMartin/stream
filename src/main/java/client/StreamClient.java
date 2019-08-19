@@ -46,14 +46,14 @@ public class StreamClient implements Client {
      *                enthält, dem Client die nötigen Daten gibt, z.B.: Torrent-File, Download Ort, ...
      * @throws MalformedURLException wird geworfen wenn z.B.: die URL des Torrent-Files nicht existiert
      */
-    public StreamClient(StreamOptions options, Controller controller) throws MalformedURLException {
+    public StreamClient(StreamOptions options) throws MalformedURLException {
         this.options = options;
 
         SupportMethods.configureLogging(options.getLogLevel());
         SupportMethods.configureSecurity(LOGGER);
         SupportMethods.registerLog4jShutdownHook();
 
-        this.printer = new StreamLogPrinter(controller);
+        this.printer = new StreamLogPrinter();
 
         Config config = SupportMethods.buildConfig(this.options);
 

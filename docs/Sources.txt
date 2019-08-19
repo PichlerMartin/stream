@@ -66,6 +66,7 @@ https://stackoverflow.com/questions/28348678/what-exactly-is-the-info-hash-in-a-
 https://stackoverflow.com/questions/30308065/changing-the-text-of-a-label-from-a-different-class-in-javafx
 https://stackoverflow.com/questions/2436142/how-do-i-pause-main-until-all-other-threads-have-died
 https://stackoverflow.com/questions/21896533/javafx-2-2-onload-method-equivalent
+https://stackoverflow.com/questions/46284261/how-to-call-same-method-for-mouse-click-event-and-enter-key-press-in-javafx
 
 Usefull Websites:
 

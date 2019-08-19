@@ -12,6 +12,14 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class StreamLogPrinter {
+    public AtomicReference<Torrent> getTorrent() {
+        return torrent;
+    }
+
+    public void setTorrent(AtomicReference<Torrent> torrent) {
+        this.torrent = torrent;
+    }
+
     private AtomicReference<Torrent> torrent;
     private AtomicReference<TorrentSessionState> sessionState;
     private AtomicReference<DownloadingStage> processingStage;
@@ -23,13 +31,11 @@ public class StreamLogPrinter {
 
     private Controller controller;
 
-    public StreamLogPrinter(Controller controller){
+    public StreamLogPrinter(){
         this.torrent = new AtomicReference<>(null);
         this.sessionState = new AtomicReference<>(null);
         this.processingStage = new AtomicReference<>(DownloadingStage.FETCHING_METADATA);
         this.shutdown = new AtomicBoolean(false);
-
-        this.controller = controller;
     }
 
     public void updateTorrentStage(TorrentSessionState sessionState){this.sessionState.set(sessionState);}
