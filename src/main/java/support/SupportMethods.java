@@ -25,54 +25,6 @@ public abstract class SupportMethods {
         System.out.println("Hello");
     }
 
-    /**
-     * Description
-     * Erstellt das DHT Modul (distributed hash table) für den Port über den der
-     * Download erfolgt
-     *
-     * @param options das Options Objekt
-     * @return
-     */
-    public static DHTModule buildDHTModule(StreamOptions options){
-        Optional<Integer> dhtPortOverride = tryGetPort(options.getDhtPort());
-
-        return new DHTModule(new DHTConfig(){
-            @Override
-            public int getListeningPort(){
-                return dhtPortOverride.orElseGet(super::getListeningPort);
-            }
-
-            @Override
-            public boolean shouldUseRouterBootstrap(){
-                return true;
-            }
-        });
-    }
-
-    public static Config buildConfig (StreamOptions options) {
-        Optional <InetAddress> acceptorAddressOverride = getAcceptorAddressOverride (options);
-        Optional<Integer> portOverride = tryGetPort (options.getPort ());
-        return new Config () {
-            @Override
-            public InetAddress getAcceptorAddress () {
-                return acceptorAddressOverride.orElseGet (super :: getAcceptorAddress); }
-            @Override
-            public int getAcceptorPort () {
-                return portOverride.orElseGet (super :: getAcceptorPort);
-            }
-            @Override
-            public int getNumOfHashingThreads () {
-                return Runtime.getRuntime (). availableProcessors ();
-            }
-            @Override
-            public EncryptionPolicy getEncryptionPolicy () {
-                return options.enforceEncryption ()?
-                        EncryptionPolicy.REQUIRE_ENCRYPTED
-                        : EncryptionPolicy.PREFER_PLAINTEXT;
-            }
-        };
-    }
-
     public static URL toUrl(File file) {
         try {
             return file.toURI().toURL();
@@ -81,27 +33,6 @@ public abstract class SupportMethods {
         }
     }
 
-    private static Optional <InetAddress> getAcceptorAddressOverride (StreamOptions options) {
-        String inetAddress = options.getInetAddress();
-        if (inetAddress == null) {
-            return Optional.empty();
-        }
-        try {
-            return Optional.of(InetAddress.getByName(inetAddress));
-        } catch (UnknownHostException e) {
-            throw new IllegalArgumentException("The acceptor inet adress could not be parsed!", e);
-        }
-    }
-
-    private static Optional <Integer> tryGetPort (Integer port) {
-        if (port == null) {
-            return Optional.empty ();
-        } else if (port <1024 || port> 65535) {
-            throw new IllegalArgumentException ("Invalid port:" + port +
-                    "; expected 1024..65535");
-        }
-        return Optional.of (port);
-    }
     /**
      * Description
      * Private Methode, die die Security-Policies bei der Klassenvariable "Security"

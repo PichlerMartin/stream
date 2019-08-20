@@ -1,6 +1,7 @@
 package testui;
 
 import client.StreamClient;
+import client.StreamFileSelector;
 import client.StreamOptions;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,8 +28,14 @@ public class Select_Controller implements Initializable {
     @FXML
     private TextField txt_magnetlink;
 
+    StreamClient GlobalClient;
+
     public void Click_ConfirmFileList(ActionEvent ms) {
         Stage stage = (Stage) btn_confirm.getScene().getWindow();
+
+        new Thread(() -> {
+            GlobalClient.start();
+        }).start();
 
         stage.close();
     }
@@ -50,6 +57,7 @@ public class Select_Controller implements Initializable {
     public void Click_LoadFiles(ActionEvent actionEvent) throws MalformedURLException, InterruptedException {
         String DownloadDirectory = "C:\\";
         String MagnetLink = "magnet:?xt=urn:btih:d1eb2b5cf80e286a7f848ab0c31638856db102d4";
+        String TorrentFile = "C:\\Users\\Pichler Martin\\Downloads\\Torrents\\VanBeethoven.torrent";
 
         if (txt_dldirectory.getText().contains("\\")) {
             DownloadDirectory = txt_dldirectory.getText();
@@ -63,8 +71,8 @@ public class Select_Controller implements Initializable {
 
         StreamClient streamClient = new StreamClient(options);
 
-        new Thread(() -> {
-            streamClient.start();
-        }).join();
+        GlobalClient = streamClient;
+
+        //StreamFileSelector();
     }
 }
