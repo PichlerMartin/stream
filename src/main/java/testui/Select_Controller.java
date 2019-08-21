@@ -1,5 +1,6 @@
 package testui;
 
+import bt.torrent.TorrentSessionState;
 import client.StreamClient;
 import client.StreamFileSelector;
 import client.StreamOptions;

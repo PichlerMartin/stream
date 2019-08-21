@@ -40,10 +40,6 @@ public class UI_Controller implements Controller {
     @FXML
     private Stage parentStage;
     @FXML
-    private Button cmd_enter;
-    @FXML
-    private Button cmd_start;
-    @FXML
     private ProgressBar prog_m;
     @FXML
     private Label lbl_status;
@@ -61,7 +57,6 @@ public class UI_Controller implements Controller {
             root = loader.load();
 
             Stage stage = new Stage();
-            Select_Controller controller = loader.getController();
 
             stage.setTitle("Choose Files");
             stage.setScene(new Scene(root, 450, 450));
