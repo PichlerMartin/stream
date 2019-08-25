@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import support.StreamContext;
 import support.SupportMethods;
 
 import java.io.*;
@@ -89,10 +90,9 @@ public class UI_Controller implements Controller {
 
             //torrents.getContents().forEach(x -> lbl_filelib.getItems().add(x.getName()));
 
+            StreamContext.getInstance().setController(this);
             loadChooseFileWindow();
         }
-
-        lbl_status.setText("files loaded!");
     }
 
     /**

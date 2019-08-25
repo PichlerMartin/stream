@@ -8,9 +8,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import support.StreamContext;
 
 import javax.annotation.Resources;
 import java.io.File;
@@ -58,6 +60,7 @@ public class Select_Controller implements Initializable {
     public void Click_LoadFiles(ActionEvent actionEvent) throws MalformedURLException, InterruptedException {
         String DownloadDirectory = "C:\\";
         String MagnetLink = "magnet:?xt=urn:btih:d1eb2b5cf80e286a7f848ab0c31638856db102d4";
+        MagnetLink = "magnet:?xt=urn:btih:223f7484d326ad8efd3cf1e548ded524833cb77e" /* + "&dn=Avengers.Endgame.2019.1080p.BRRip.x264-MP4&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969" */;
         String TorrentFile = "C:\\Users\\Pichler Martin\\Downloads\\Torrents\\VanBeethoven.torrent";
 
         if (txt_dldirectory.getText().contains("\\")) {
@@ -70,10 +73,10 @@ public class Select_Controller implements Initializable {
 
         StreamOptions options = new StreamOptions(MagnetLink, new File(DownloadDirectory));
 
-        StreamClient streamClient = new StreamClient(options);
+        StreamClient streamClient = new StreamClient(options, null);
+
+        StreamContext.getInstance().currentController().setLabel(new Label("Torrent fetched"));
 
         GlobalClient = streamClient;
-
-        //StreamFileSelector();
     }
 }

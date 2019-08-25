@@ -33,6 +33,7 @@ import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.UnknownHostException;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import static support.SupportMethods.buildConfig;
 import static support.SupportMethods.buildDHTModule;
@@ -57,6 +58,8 @@ public class StreamClient implements Client {
      */
     public StreamClient(StreamOptions options, Controller controller) throws MalformedURLException {
         this.options = options;
+
+        controller = controller != null ? controller : new UI_Controller();
 
         SupportMethods.configureLogging(options.getLogLevel());
         SupportMethods.configureSecurity(LOGGER);
@@ -101,13 +104,23 @@ public class StreamClient implements Client {
     private BtClient GetClient(BtRuntime runtime, Storage storage, PieceSelector selector) throws MalformedURLException{
         BtClientBuilder clientBuilder = Bt.client(runtime).storage(storage).selector(selector);
 
-        options.setDownloadAllFiles(true);
+        //options.setDownloadAllFiles(true);
+
+        //  ToDo:   Continue here somewhere, idk
+        //  ToDo:   Test with own hotspot
+
+        if(!options.shouldDownloadAllFiles()){
+            StreamFileSelector fileSelector = new StreamFileSelector();
+            clientBuilder.fileSelector(fileSelector);
+            runtime.service(IRuntimeLifecycleBinder.class).onShutdown(fileSelector::shutdown);
+        }
 
         StreamFileSelector fileSelector = new StreamFileSelector();
         clientBuilder.fileSelector(fileSelector);
         runtime.service(IRuntimeLifecycleBinder.class).onShutdown(fileSelector::shutdown);
 
         clientBuilder.afterTorrentFetched (printer :: whenTorrentFetched);
+        clientBuilder.afterFilesChosen(printer::onFilesChosen);
 
         if (options.getMetainfoFile() != null) {
             clientBuilder = clientBuilder.torrent(SupportMethods.toUrl(options.getMetainfoFile()));

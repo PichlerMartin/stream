@@ -5,9 +5,11 @@ import bt.torrent.TorrentSessionState;
 import download.DownloadRate;
 import download.DownloadStats;
 import javafx.scene.control.Label;
+import support.StreamContext;
 import testui.Controller;
 import testui.UI_Controller;
 
+import javax.naming.Context;
 import javax.naming.ldap.Control;
 import java.time.Duration;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -25,7 +27,7 @@ public class StreamLogPrinter {
     private AtomicReference<Torrent> torrent;
     private Controller controller;
     private AtomicReference<TorrentSessionState> sessionState;
-    private AtomicReference<DownloadingStage> processingStage;
+    private AtomicReference<ProcessingStage> processingStage;
     private AtomicBoolean shutdown;
 
     private long started;
@@ -35,7 +37,7 @@ public class StreamLogPrinter {
     public StreamLogPrinter(Controller controller){
         this.torrent = new AtomicReference<>(null);
         this.sessionState = new AtomicReference<>(null);
-        this.processingStage = new AtomicReference<>(DownloadingStage.FETCHING_METADATA);
+        this.processingStage = new AtomicReference<>(ProcessingStage.FETCHING_METADATA);
         this.shutdown = new AtomicBoolean(false);
         this.controller = controller;
     }
@@ -44,20 +46,27 @@ public class StreamLogPrinter {
 
     public void whenTorrentFetched(Torrent torrent){
         this.controller.setLabel(new Label("Torrent fetched"));
+        StreamContext.getInstance().currentController().setLabel(new Label("Torrent fetched"));
         this.torrent.set(torrent);
-        this.processingStage.set(DownloadingStage.DOWNLOADING);
+        this.processingStage.set(ProcessingStage.CHOOSING_FILES);
+    }
+
+
+
+    public void onFilesChosen() {
+        this.processingStage.set(ProcessingStage.DOWNLOADING);
     }
 
     public void onDownloadComplete() {
 
-        this.processingStage.set(StreamLogPrinter.DownloadingStage.SEEDING);
+        this.processingStage.set(StreamLogPrinter.ProcessingStage.SEEDING);
     }
 
     public void startLogPrinter(){
         this.started = System.currentTimeMillis();
         System.out.println("Metadata is being fetched... Please be pacient...");
 
-        Thread t = new Thread(() ->{
+        new Thread(() ->{
             do{
                 TorrentSessionState sessionState = this.sessionState.get();
                 if(sessionState != null){
@@ -77,10 +86,10 @@ public class StreamLogPrinter {
                     return;
                 }
             } while (!this.shutdown.get());
-        });
+        }).start();
     }
 
-    private void printLog(Torrent torrent, TorrentSessionState sessionState, DownloadingStage downloadingStage, DownloadStats downloadStats) {
+    private void printLog(Torrent torrent, TorrentSessionState sessionState, ProcessingStage downloadingStage, DownloadStats downloadStats) {
         
     }
 
@@ -92,12 +101,13 @@ public class StreamLogPrinter {
         this.shutdown.set(true);
     }
 
-    public static enum DownloadingStage {
+    public static enum ProcessingStage {
         FETCHING_METADATA,
+        CHOOSING_FILES,
         DOWNLOADING,
         SEEDING;
 
-        private DownloadingStage() {
+        private ProcessingStage() {
         }
     }
 }
