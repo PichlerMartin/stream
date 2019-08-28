@@ -7,13 +7,12 @@ import download.DownloadStats;
 import javafx.scene.control.Label;
 import support.StreamContext;
 import testui.Controller;
-import testui.UI_Controller;
 
-import javax.naming.Context;
-import javax.naming.ldap.Control;
 import java.time.Duration;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
+
+import static client.StreamLogPrinter.ProcessingStage.DOWNLOADING;
 
 public class StreamLogPrinter {
     public AtomicReference<Torrent> getTorrent() {
@@ -54,7 +53,7 @@ public class StreamLogPrinter {
 
 
     public void onFilesChosen() {
-        this.processingStage.set(ProcessingStage.DOWNLOADING);
+        this.processingStage.set(DOWNLOADING);
     }
 
     public void onDownloadComplete() {
@@ -66,7 +65,7 @@ public class StreamLogPrinter {
         this.started = System.currentTimeMillis();
         System.out.println("Metadata is being fetched... Please be pacient...");
 
-        new Thread(() ->{
+        Thread logPrintThread = new Thread(() ->{
             do{
                 TorrentSessionState sessionState = this.sessionState.get();
                 if(sessionState != null){
@@ -86,11 +85,51 @@ public class StreamLogPrinter {
                     return;
                 }
             } while (!this.shutdown.get());
-        }).start();
+        });
+
+        logPrintThread.setDaemon(true);
+        logPrintThread.start();
     }
 
     private void printLog(Torrent torrent, TorrentSessionState sessionState, ProcessingStage downloadingStage, DownloadStats downloadStats) {
-        
+        int peerCount = sessionState.getConnectedPeers().size();
+        String up = String.format("%5.1f %2s/s", downloadStats.getUploadRate().getQuantity(), downloadStats.getUploadRate().getMeasureUnit());
+
+        switch (downloadingStage) {
+            case DOWNLOADING: {
+                double completePercents = ((double) sessionState.getPiecesComplete()) / ((double) sessionState.getPiecesTotal()) * 100;
+                double requiredPercents = (((double) sessionState.getPiecesComplete()) + ((double) sessionState.getPiecesRemaining())) / ((double) sessionState.getPiecesTotal()) * 100;
+                String down = String.format("%5.1f %2s/s", downloadStats.getDownloadRate().getQuantity(), downloadStats.getDownloadRate().getMeasureUnit());
+                String elapsedTime = getDuration(downloadStats.getElapsedTime());
+                String remainingTime = formatTime(getRemainingTime(torrent.getChunkSize(),
+                        downloadStats.getDownloadRate().getBytes(), sessionState.getPiecesRemaining()));
+
+                System.out.println("Dwonloading from " + peerCount + " peers... Ready: " + completePercents + ", Target: " + requiredPercents + ", Down: " + down + ", Up: " + up + ", Elapsed: " + elapsedTime +", Remaining: " + remainingTime);
+                break;
+            }
+            case SEEDING: {
+                System.out.println("Download was completed, seeding to " + peerCount + " peers... Up: " + up);
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+    }
+
+    private static String formatTime(int remainingSeconds) {
+        if (remainingSeconds < 0) {
+            return "\u221E"; // infinity
+        } else {
+            return getDuration(Duration.ofSeconds(remainingSeconds));
+        }
+    }
+
+    private static String getDuration(Duration elapsedTime) {
+        long seconds = elapsedTime.getSeconds();
+        long absSeconds = Math.abs(seconds);
+        String positive = String.format("%d:%02d:%02d", absSeconds / 3600, (absSeconds % 3600) / 60, absSeconds % 60);
+        return seconds < 0 ? "-" + positive : positive;
     }
 
     private Duration returnTimeElapsed() {
@@ -99,6 +138,14 @@ public class StreamLogPrinter {
 
     public void stop() {
         this.shutdown.set(true);
+    }
+
+    private static int getRemainingTime(long chunkSize, long downloaded, int piecesRemaining) {
+        if (downloaded == 0) {
+            return -1;
+        }
+        long remainingBytes = chunkSize * piecesRemaining;
+        return (int) (remainingBytes / downloaded);
     }
 
     public static enum ProcessingStage {

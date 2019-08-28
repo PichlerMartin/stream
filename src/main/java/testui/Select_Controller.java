@@ -31,8 +31,14 @@ public class Select_Controller implements Initializable {
     @FXML
     private TextField txt_magnetlink;
 
-    StreamClient GlobalClient;
+    private StreamClient GlobalClient;
 
+    /**
+     * Description
+     * Bestätigt die aufgelistete Menge an Dateien, welche dann in das Download-Verzeichnis
+     * geladen werden. Dieser Vorgang findet in einem neuen Thread statt.
+     * @param ms: Action Event des Button(-Clicks)
+     */
     public void Click_ConfirmFileList(ActionEvent ms) {
         Stage stage = (Stage) btn_confirm.getScene().getWindow();
 
@@ -57,7 +63,17 @@ public class Select_Controller implements Initializable {
 
     }
 
-    public void Click_LoadFiles(ActionEvent actionEvent) throws MalformedURLException, InterruptedException {
+    /**
+     * Lädt zu Testzwecken Standardeinstellungen in die Variablen DownloadDirectory und MagnetLink,
+     * diese zwei Variablen dienen zur konkretisierung der Mindest-Daten welche zum Download einer
+     * Torrent-Datei notwendig sind. In den nachfolgenden If-Statements wird überprüft ob eine andere
+     * Magnet-URI bzw. ein Verzeichnis gewünscht ist. Anschließend werden Objekte der wichtigen Klassen
+     * erzeugt und die Dateien-Liste in die List-Box geladen.
+     *
+     * @param actionEvent: Action-Event der Java FX Klasse
+     * @throws MalformedURLException: wird geworfen, wenn eine URL nicht dem Standardformat entspricht
+     */
+    public void Click_LoadFiles(ActionEvent actionEvent) throws MalformedURLException {
         String DownloadDirectory = "C:\\";
         String MagnetLink = "magnet:?xt=urn:btih:d1eb2b5cf80e286a7f848ab0c31638856db102d4";
         MagnetLink = "magnet:?xt=urn:btih:223f7484d326ad8efd3cf1e548ded524833cb77e" /* + "&dn=Avengers.Endgame.2019.1080p.BRRip.x264-MP4&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969" */;

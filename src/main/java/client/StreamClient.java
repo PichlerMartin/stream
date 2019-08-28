@@ -38,6 +38,11 @@ import java.util.stream.Stream;
 import static support.SupportMethods.buildConfig;
 import static support.SupportMethods.buildDHTModule;
 
+/**
+ * Description
+ * Klasse StreamClient in der ein modifiziertes Objekt der Client-Klasse aus der Bt-Library
+ * erzeugt wird, welches dazu dient den Download cer Dateien zu überwachen
+ */
 public class StreamClient implements Client {
     private static final Logger LOGGER = LoggerFactory.getLogger(StreamClient.class);
 
@@ -101,7 +106,18 @@ public class StreamClient implements Client {
         }, 1000);
     }
 
-    private BtClient GetClient(BtRuntime runtime, Storage storage, PieceSelector selector) throws MalformedURLException{
+    /**
+     * Description
+     * Methode zur Vereinfachung der Client-Beschaffung, das Objekt clientBuilder wird mit den Parametern
+     * der Funktion gespeist, und danach werden einige Optionen festgelegt, u.a. "Sollten alle
+     * Dateien heruntergeladen werden?", usw.
+     *
+     * @param runtime: ein generisches Runtime-Objekt der Bt-Library
+     * @param storage: der Speicherplatz auf der Festplatte
+     * @param selector: Hilfsobjekt zur auswahl der einzelnen Torrent-Dateien
+     * @return: gibt den fertigen Client zurück
+     */
+    private BtClient GetClient(BtRuntime runtime, Storage storage, PieceSelector selector){
         BtClientBuilder clientBuilder = Bt.client(runtime).storage(storage).selector(selector);
 
         //options.setDownloadAllFiles(true);
