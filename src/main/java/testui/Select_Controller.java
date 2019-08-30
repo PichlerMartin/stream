@@ -12,7 +12,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.slf4j.LoggerFactory;
 import support.StreamContext;
+import support.SupportMethods;
 
 import javax.annotation.Resources;
 import java.io.File;
@@ -20,6 +22,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.stream.Stream;
+
+import static support.SupportMethods.*;
 
 public class Select_Controller implements Initializable {
     @FXML
@@ -42,9 +46,7 @@ public class Select_Controller implements Initializable {
     public void Click_ConfirmFileList(ActionEvent ms) {
         Stage stage = (Stage) btn_confirm.getScene().getWindow();
 
-        new Thread(() -> {
-            GlobalClient.start();
-        }).start();
+        GlobalClient.start();
 
         stage.close();
     }
@@ -76,7 +78,8 @@ public class Select_Controller implements Initializable {
     public void Click_LoadFiles(ActionEvent actionEvent) throws MalformedURLException {
         String DownloadDirectory = "C:\\";
         String MagnetLink = "magnet:?xt=urn:btih:d1eb2b5cf80e286a7f848ab0c31638856db102d4";
-        MagnetLink = "magnet:?xt=urn:btih:223f7484d326ad8efd3cf1e548ded524833cb77e" /* + "&dn=Avengers.Endgame.2019.1080p.BRRip.x264-MP4&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969" */;
+        //MagnetLink = "magnet:?xt=urn:btih:223f7484d326ad8efd3cf1e548ded524833cb77e" /* + "&dn=Avengers.Endgame.2019.1080p.BRRip.x264-MP4&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969" */;
+        MagnetLink = "magnet:?xt=urn:btih:223f7484d326ad8efd3cf1e548ded524833cb77e&dn=Avengers.Endgame.2019.1080p.BRRip.x264-MP4&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969";
         String TorrentFile = "C:\\Users\\Pichler Martin\\Downloads\\Torrents\\VanBeethoven.torrent";
 
         if (txt_dldirectory.getText().contains("\\")) {
@@ -88,6 +91,10 @@ public class Select_Controller implements Initializable {
         }
 
         StreamOptions options = new StreamOptions(MagnetLink, new File(DownloadDirectory));
+
+        configureLogging(options.getLogLevel());
+        configureSecurity(LoggerFactory.getLogger(StreamClient.class));
+        registerLog4jShutdownHook();
 
         StreamClient streamClient = new StreamClient(options, null);
 

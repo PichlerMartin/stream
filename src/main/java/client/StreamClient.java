@@ -61,7 +61,7 @@ public class StreamClient implements Client {
      *                enthält, dem Client die nötigen Daten gibt, z.B.: Torrent-File, Download Ort, ...
      * @throws MalformedURLException wird geworfen wenn z.B.: die URL des Torrent-Files nicht existiert
      */
-    public StreamClient(StreamOptions options, Controller controller) throws MalformedURLException {
+    public StreamClient(StreamOptions options, Controller controller) {
         this.options = options;
 
         controller = controller != null ? controller : new UI_Controller();
@@ -103,7 +103,7 @@ public class StreamClient implements Client {
             }
 
             printer.updateTorrentStage(state);
-        }, 1000);
+        }, 1000).join();
     }
 
     /**
@@ -130,10 +130,6 @@ public class StreamClient implements Client {
             clientBuilder.fileSelector(fileSelector);
             runtime.service(IRuntimeLifecycleBinder.class).onShutdown(fileSelector::shutdown);
         }
-
-        StreamFileSelector fileSelector = new StreamFileSelector();
-        clientBuilder.fileSelector(fileSelector);
-        runtime.service(IRuntimeLifecycleBinder.class).onShutdown(fileSelector::shutdown);
 
         clientBuilder.afterTorrentFetched (printer :: whenTorrentFetched);
         clientBuilder.afterFilesChosen(printer::onFilesChosen);

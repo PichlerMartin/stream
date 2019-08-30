@@ -45,6 +45,7 @@ public class StreamLogPrinter {
 
     public void whenTorrentFetched(Torrent torrent){
         this.controller.setLabel(new Label("Torrent fetched"));
+        System.out.println("Downloading now");
         StreamContext.getInstance().currentController().setLabel(new Label("Torrent fetched"));
         this.torrent.set(torrent);
         this.processingStage.set(ProcessingStage.CHOOSING_FILES);
@@ -58,7 +59,7 @@ public class StreamLogPrinter {
 
     public void onDownloadComplete() {
 
-        this.processingStage.set(StreamLogPrinter.ProcessingStage.SEEDING);
+        this.processingStage.set(ProcessingStage.SEEDING);
     }
 
     public void startLogPrinter(){
