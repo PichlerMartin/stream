@@ -20,128 +20,214 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import joptsimple.OptionException;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.LoggerContext;
+import org.apache.logging.log4j.core.config.Configurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import support.SupportMethods;
 import testui.Controller;
 import testui.Select_Controller;
 import testui.UI_Controller;
-//import testui.TestStreamClient;
+import client.StreamOptions;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.net.UnknownHostException;
+import java.security.Security;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
 
 import static support.SupportMethods.buildConfig;
 import static support.SupportMethods.buildDHTModule;
 
-/**
- * Description
- * Klasse StreamClient in der ein modifiziertes Objekt der Client-Klasse aus der Bt-Library
- * erzeugt wird, welches dazu dient den Download cer Dateien zu überwachen
- */
-public class StreamClient implements Client {
+public class StreamClient {
     private static final Logger LOGGER = LoggerFactory.getLogger(StreamClient.class);
-
     private final StreamOptions options;
     private final StreamLogPrinter printer;
     private final BtClient client;
 
-    //  ToDo:   implement self-written StreamClient class
+    public static void main(String[] args) throws IOException {
+        String DownloadDirectory = "C:\\";
+        String MagnetLink = "magnet:?xt=urn:btih:d1eb2b5cf80e286a7f848ab0c31638856db102d4";
+        //MagnetLink = "magnet:?xt=urn:btih:223f7484d326ad8efd3cf1e548ded524833cb77e" /* + "&dn=Avengers.Endgame.2019.1080p.BRRip.x264-MP4&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969" */;
+        MagnetLink = "magnet:?xt=urn:btih:223f7484d326ad8efd3cf1e548ded524833cb77e&dn=Avengers.Endgame.2019.1080p.BRRip.x264-MP4&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969";
+        String TorrentFile = "C:\\Users\\Pichler Martin\\Downloads\\Torrents\\VanBeethoven.torrent";
 
-    /**
-     * Description:
-     * Konstruktor der TestStreamClient Klasse, erstellt alle wichtigen Metadaten wie die Konfiguration,
-     * den Storage und den ClientBuilder
-     *
-     * @param options ist ein Objekt der Options Klasse welche die Kommandozeilenargumente (argsv)
-     *                enthält, dem Client die nötigen Daten gibt, z.B.: Torrent-File, Download Ort, ...
-     * @throws MalformedURLException wird geworfen wenn z.B.: die URL des Torrent-Files nicht existiert
-     */
-    public StreamClient(StreamOptions options, Controller controller) {
-        this.options = options;
+        StreamOptions options = new StreamOptions(MagnetLink, new File(DownloadDirectory));
 
-        controller = controller != null ? controller : new UI_Controller();
-
-        SupportMethods.configureLogging(options.getLogLevel());
-        SupportMethods.configureSecurity(LOGGER);
-        SupportMethods.registerLog4jShutdownHook();
-
-        this.printer = new StreamLogPrinter(controller);
-
-        Config config = buildConfig(this.options);
-
-        BtRuntime runtime = BtRuntime.builder(config).module(buildDHTModule(options)).autoLoadModules().build();
-
-        Storage storage = new FileSystemStorage(options.getTargetDirectory().toPath());
-        PieceSelector selector = options.downloadSequentially() ?
-                SequentialSelector.sequential() : RarestFirstSelector.randomizedRarest();
-
-        this.client = GetClient(runtime, storage, selector);
+        //configureLogging(options.getLogLevel());
+        //configureSecurity();
+        //registerLog4jShutdownHook();
+        StreamClient client = new StreamClient(options);
+        client.start();
     }
 
-    /**
-     * Description
-     * Startet den state (lambda expression) für eine bestimmte Zeit (1000)
-     * Ausführung wird in einem neuen Thread gestartet
-     */
-    public void start(){
+    private static void configureLogging(StreamOptions.LogLevel logLevel) {
+        Level log4jLogLevel;
+        switch((StreamOptions.LogLevel) Objects.requireNonNull(logLevel)) {
+            case NORMAL:
+                log4jLogLevel = Level.INFO;
+                break;
+            case VERBOSE:
+                log4jLogLevel = Level.DEBUG;
+                break;
+            case TRACE:
+                log4jLogLevel = Level.TRACE;
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown log level: " + logLevel.name());
+        }
 
-        printer.startLogPrinter();
-        client.startAsync (state -> {
-            boolean complete = (state.getPiecesRemaining()==0);
-            if (complete){
-                if(options.shouldSeedAfterDownloaded()){
-                    printer.onDownloadComplete();
-                } else{
-                    printer.stop();
-                    client.stop();
+        Configurator.setLevel("bt", log4jLogLevel);
+    }
+
+    private static void configureSecurity() {
+        String key = "crypto.policy";
+        String value = "unlimited";
+
+        try {
+            Security.setProperty(key, value);
+        } catch (Exception var3) {
+            LOGGER.error(String.format("Failed to set security property '%s' to '%s'", key, value), var3);
+        }
+
+    }
+
+    private static void registerLog4jShutdownHook() {
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            public void run() {
+                if (LogManager.getContext() instanceof LoggerContext) {
+                    Configurator.shutdown((LoggerContext)LogManager.getContext());
+                }
+
+            }
+        });
+    }
+
+    public StreamClient(StreamOptions options) {
+        this.options = options;
+        this.printer = new StreamLogPrinter(new UI_Controller());
+        Config config = buildConfig(options);
+        BtRuntime runtime = BtRuntime.builder(config).module(buildDHTModule(options)).autoLoadModules().build();
+        Storage storage = new FileSystemStorage(options.getTargetDirectory().toPath());
+        PieceSelector selector = options.downloadSequentially() ? SequentialSelector.sequential() : RarestFirstSelector.randomizedRarest();
+        BtClientBuilder clientBuilder = (BtClientBuilder)((BtClientBuilder)Bt.client(runtime).storage(storage)).selector((PieceSelector)selector);
+        if (!options.shouldDownloadAllFiles()) {
+            StreamFileSelector fileSelector = new StreamFileSelector();
+            clientBuilder.fileSelector(fileSelector);
+            ((IRuntimeLifecycleBinder)runtime.service(IRuntimeLifecycleBinder.class)).onShutdown(fileSelector::shutdown);
+        }
+
+        StreamLogPrinter var10001 = this.printer;
+        //clientBuilder.afterTorrentFetched(var10001::onTorrentFetched);
+        var10001 = this.printer;
+        clientBuilder.afterFilesChosen(var10001::onFilesChosen);
+        if (options.getMetainfoFile() != null) {
+            clientBuilder = (BtClientBuilder)clientBuilder.torrent(toUrl(options.getMetainfoFile()));
+        } else {
+            if (options.getMagnetUri() == null) {
+                throw new IllegalStateException("Torrent file or magnet URI is required");
+            }
+
+            clientBuilder = (BtClientBuilder)clientBuilder.magnet(options.getMagnetUri());
+        }
+
+        this.client = clientBuilder.build();
+    }
+
+    private static Config buildConfig(final StreamOptions options) {
+        final Optional<InetAddress> acceptorAddressOverride = getAcceptorAddressOverride(options);
+        final Optional<Integer> portOverride = tryGetPort(options.getPort());
+        return new Config() {
+            public InetAddress getAcceptorAddress() {
+                return (InetAddress)acceptorAddressOverride.orElseGet(() -> {
+                    return super.getAcceptorAddress();
+                });
+            }
+
+            public int getAcceptorPort() {
+                return (Integer)portOverride.orElseGet(() -> {
+                    return super.getAcceptorPort();
+                });
+            }
+
+            public int getNumOfHashingThreads() {
+                return Runtime.getRuntime().availableProcessors();
+            }
+
+            public EncryptionPolicy getEncryptionPolicy() {
+                return options.enforceEncryption() ? EncryptionPolicy.REQUIRE_ENCRYPTED : EncryptionPolicy.PREFER_PLAINTEXT;
+            }
+        };
+    }
+
+    private static Optional<Integer> tryGetPort(Integer port) {
+        if (port == null) {
+            return Optional.empty();
+        } else if (port >= 1024 && port <= 65535) {
+            return Optional.of(port);
+        } else {
+            throw new IllegalArgumentException("Invalid port: " + port + "; expected 1024..65535");
+        }
+    }
+
+    private static Optional<InetAddress> getAcceptorAddressOverride(StreamOptions options) {
+        String inetAddress = options.getInetAddress();
+        if (inetAddress == null) {
+            return Optional.empty();
+        } else {
+            try {
+                return Optional.of(InetAddress.getByName(inetAddress));
+            } catch (UnknownHostException var3) {
+                throw new IllegalArgumentException("Failed to parse the acceptor's internet address", var3);
+            }
+        }
+    }
+
+    private static Module buildDHTModule(StreamOptions options) {
+        final Optional<Integer> dhtPortOverride = tryGetPort(options.getDhtPort());
+        return new DHTModule(new DHTConfig() {
+            public int getListeningPort() {
+                return (Integer)dhtPortOverride.orElseGet(() -> {
+                    return super.getListeningPort();
+                });
+            }
+
+            public boolean shouldUseRouterBootstrap() {
+                return true;
+            }
+        });
+    }
+
+    private static URL toUrl(File file) {
+        try {
+            return file.toURI().toURL();
+        } catch (MalformedURLException var2) {
+            throw new IllegalArgumentException("Unexpected error", var2);
+        }
+    }
+
+    private void start() {
+        this.printer.startLogPrinter();
+        this.client.startAsync((state) -> {
+            boolean complete = state.getPiecesRemaining() == 0;
+            if (complete) {
+                if (this.options.shouldSeedAfterDownloaded()) {
+                    this.printer.onDownloadComplete();
+                } else {
+                    this.printer.stop();
+                    this.client.stop();
                 }
             }
 
-            printer.updateTorrentStage(state);
-        }, 1000).join();
-    }
-
-    /**
-     * Description
-     * Methode zur Vereinfachung der Client-Beschaffung, das Objekt clientBuilder wird mit den Parametern
-     * der Funktion gespeist, und danach werden einige Optionen festgelegt, u.a. "Sollten alle
-     * Dateien heruntergeladen werden?", usw.
-     *
-     * @param runtime: ein generisches Runtime-Objekt der Bt-Library
-     * @param storage: der Speicherplatz auf der Festplatte
-     * @param selector: Hilfsobjekt zur auswahl der einzelnen Torrent-Dateien
-     * @return: gibt den fertigen Client zurück
-     */
-    private BtClient GetClient(BtRuntime runtime, Storage storage, PieceSelector selector){
-        BtClientBuilder clientBuilder = Bt.client(runtime).storage(storage).selector(selector);
-
-        //options.setDownloadAllFiles(true);
-
-        //  ToDo:   Continue here somewhere, idk
-        //  ToDo:   Test with own hotspot
-
-        if(!options.shouldDownloadAllFiles()){
-            StreamFileSelector fileSelector = new StreamFileSelector();
-            clientBuilder.fileSelector(fileSelector);
-            runtime.service(IRuntimeLifecycleBinder.class).onShutdown(fileSelector::shutdown);
-        }
-
-        clientBuilder.afterTorrentFetched (printer :: whenTorrentFetched);
-        clientBuilder.afterFilesChosen(printer::onFilesChosen);
-
-        if (options.getMetainfoFile() != null) {
-            clientBuilder = clientBuilder.torrent(SupportMethods.toUrl(options.getMetainfoFile()));
-        } else if (options.getMagnetUri() != null) {
-            clientBuilder = clientBuilder.magnet (options.getMagnetUri ());
-        } else {
-            throw new IllegalStateException ("Torrent file or magnet URI is required");
-        }
-
-        return clientBuilder.build ();
+            this.printer.updateTorrentStage(state);
+        }, 1000L).join();
     }
 }

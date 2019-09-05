@@ -1,5 +1,7 @@
 package testui;
 
+import bt.cli.CliClient;
+import bt.cli.Options;
 import bt.torrent.TorrentSessionState;
 import client.StreamClient;
 import client.StreamFileSelector;
@@ -18,6 +20,7 @@ import support.SupportMethods;
 
 import javax.annotation.Resources;
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -43,10 +46,12 @@ public class Select_Controller implements Initializable {
      * geladen werden. Dieser Vorgang findet in einem neuen Thread statt.
      * @param ms: Action Event des Button(-Clicks)
      */
-    public void Click_ConfirmFileList(ActionEvent ms) {
+    public void Click_ConfirmFileList(ActionEvent ms) throws IOException {
         Stage stage = (Stage) btn_confirm.getScene().getWindow();
 
-        GlobalClient.start();
+        //GlobalClient.start();
+        CliClient.main(new String[]{"-d", "C:\\", "-m", "magnet:?xt=urn:btih:d1eb2b5cf80e286a7f848ab0c31638856db102d4"});
+        StreamClient.main(new String[]{"-d", "C:\\", "-m", "magnet:?xt=urn:btih:d1eb2b5cf80e286a7f848ab0c31638856db102d4"});
 
         stage.close();
     }
@@ -96,7 +101,7 @@ public class Select_Controller implements Initializable {
         configureSecurity(LoggerFactory.getLogger(StreamClient.class));
         registerLog4jShutdownHook();
 
-        StreamClient streamClient = new StreamClient(options, null);
+        StreamClient streamClient = new StreamClient(options/*, null*/);
 
         StreamContext.getInstance().currentController().setLabel(new Label("Torrent fetched"));
 
