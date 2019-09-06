@@ -42,7 +42,7 @@ public class Select_Controller implements Initializable {
 
     /**
      * Description
-     * Bestätigt die aufgelistete Menge an Dateien, welche dann in das Download-Verzeichnis
+     * Bestätigt die aufgelistete Menew String[]{"-d", "C:\\", "-m", "magnet:?xt=urn:btih:d1eb2b5cf80e286a7f848ab0c31638856db102d4"}nge an Dateien, welche dann in das Download-Verzeichnis
      * geladen werden. Dieser Vorgang findet in einem neuen Thread statt.
      * @param ms: Action Event des Button(-Clicks)
      */
@@ -50,7 +50,7 @@ public class Select_Controller implements Initializable {
         Stage stage = (Stage) btn_confirm.getScene().getWindow();
 
         //GlobalClient.start();
-        CliClient.main(new String[]{"-d", "C:\\", "-m", "magnet:?xt=urn:btih:d1eb2b5cf80e286a7f848ab0c31638856db102d4"});
+        //CliClient.main(new String[]{"-d", "C:\\", "-m", "magnet:?xt=urn:btih:d1eb2b5cf80e286a7f848ab0c31638856db102d4"});
         StreamClient.main(new String[]{"-d", "C:\\", "-m", "magnet:?xt=urn:btih:d1eb2b5cf80e286a7f848ab0c31638856db102d4"});
 
         stage.close();
@@ -101,10 +101,10 @@ public class Select_Controller implements Initializable {
         configureSecurity(LoggerFactory.getLogger(StreamClient.class));
         registerLog4jShutdownHook();
 
-        StreamClient streamClient = new StreamClient(options/*, null*/);
+        //StreamClient streamClient = new StreamClient(options/*, null*/);
 
         StreamContext.getInstance().currentController().setLabel(new Label("Torrent fetched"));
 
-        GlobalClient = streamClient;
+        //GlobalClient = streamClient;
     }
 }

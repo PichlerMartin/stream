@@ -2,6 +2,7 @@ package client;
 
 import bt.Bt;
 import bt.BtClientBuilder;
+import bt.cli.SessionStatePrinter;
 import bt.data.Storage;
 import bt.data.file.FileSystemStorage;
 import bt.dht.DHTConfig;
@@ -31,7 +32,7 @@ import support.SupportMethods;
 import testui.Controller;
 import testui.Select_Controller;
 import testui.UI_Controller;
-import client.StreamOptions;
+import bt.cli.Options;
 
 import java.io.File;
 import java.io.IOException;
@@ -49,18 +50,18 @@ import static support.SupportMethods.buildDHTModule;
 
 public class StreamClient {
     private static final Logger LOGGER = LoggerFactory.getLogger(StreamClient.class);
-    private final StreamOptions options;
-    private final StreamLogPrinter printer;
+    private final Options options;
+    private final SessionStatePrinter printer;
     private final BtClient client;
 
     public static void main(String[] args) throws IOException {
         String DownloadDirectory = "C:\\";
         String MagnetLink = "magnet:?xt=urn:btih:d1eb2b5cf80e286a7f848ab0c31638856db102d4";
         //MagnetLink = "magnet:?xt=urn:btih:223f7484d326ad8efd3cf1e548ded524833cb77e" /* + "&dn=Avengers.Endgame.2019.1080p.BRRip.x264-MP4&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969" */;
-        MagnetLink = "magnet:?xt=urn:btih:223f7484d326ad8efd3cf1e548ded524833cb77e&dn=Avengers.Endgame.2019.1080p.BRRip.x264-MP4&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969";
         String TorrentFile = "C:\\Users\\Pichler Martin\\Downloads\\Torrents\\VanBeethoven.torrent";
 
-        StreamOptions options = new StreamOptions(MagnetLink, new File(DownloadDirectory));
+        args = new String[]{"-d", "C:\\", "-m", "magnet:?xt=urn:btih:d1eb2b5cf80e286a7f848ab0c31638856db102d4"};
+        Options options = Options.parse(args);//new Options(MagnetLink, new File(DownloadDirectory));
 
         //configureLogging(options.getLogLevel());
         //configureSecurity();
@@ -69,9 +70,9 @@ public class StreamClient {
         client.start();
     }
 
-    private static void configureLogging(StreamOptions.LogLevel logLevel) {
+    private static void configureLogging(Options.LogLevel logLevel) {
         Level log4jLogLevel;
-        switch((StreamOptions.LogLevel) Objects.requireNonNull(logLevel)) {
+        switch((Options.LogLevel) Objects.requireNonNull(logLevel)) {
             case NORMAL:
                 log4jLogLevel = Level.INFO;
                 break;
@@ -111,9 +112,9 @@ public class StreamClient {
         });
     }
 
-    public StreamClient(StreamOptions options) {
+    public StreamClient(Options options) {
         this.options = options;
-        this.printer = new StreamLogPrinter(new UI_Controller());
+        this.printer = new SessionStatePrinter(/*new UI_Controller()*/);
         Config config = buildConfig(options);
         BtRuntime runtime = BtRuntime.builder(config).module(buildDHTModule(options)).autoLoadModules().build();
         Storage storage = new FileSystemStorage(options.getTargetDirectory().toPath());
@@ -125,7 +126,7 @@ public class StreamClient {
             ((IRuntimeLifecycleBinder)runtime.service(IRuntimeLifecycleBinder.class)).onShutdown(fileSelector::shutdown);
         }
 
-        StreamLogPrinter var10001 = this.printer;
+        SessionStatePrinter var10001 = this.printer;
         //clientBuilder.afterTorrentFetched(var10001::onTorrentFetched);
         var10001 = this.printer;
         clientBuilder.afterFilesChosen(var10001::onFilesChosen);
@@ -142,7 +143,7 @@ public class StreamClient {
         this.client = clientBuilder.build();
     }
 
-    private static Config buildConfig(final StreamOptions options) {
+    private static Config buildConfig(final Options options) {
         final Optional<InetAddress> acceptorAddressOverride = getAcceptorAddressOverride(options);
         final Optional<Integer> portOverride = tryGetPort(options.getPort());
         return new Config() {
@@ -178,7 +179,7 @@ public class StreamClient {
         }
     }
 
-    private static Optional<InetAddress> getAcceptorAddressOverride(StreamOptions options) {
+    private static Optional<InetAddress> getAcceptorAddressOverride(Options options) {
         String inetAddress = options.getInetAddress();
         if (inetAddress == null) {
             return Optional.empty();
@@ -191,7 +192,7 @@ public class StreamClient {
         }
     }
 
-    private static Module buildDHTModule(StreamOptions options) {
+    private static Module buildDHTModule(Options options) {
         final Optional<Integer> dhtPortOverride = tryGetPort(options.getDhtPort());
         return new DHTModule(new DHTConfig() {
             public int getListeningPort() {
@@ -215,7 +216,7 @@ public class StreamClient {
     }
 
     private void start() {
-        this.printer.startLogPrinter();
+        this.printer.start();
         this.client.startAsync((state) -> {
             boolean complete = state.getPiecesRemaining() == 0;
             if (complete) {
@@ -227,7 +228,7 @@ public class StreamClient {
                 }
             }
 
-            this.printer.updateTorrentStage(state);
+            this.printer.updateState(state);
         }, 1000L).join();
     }
 }
