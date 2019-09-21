@@ -1,9 +1,13 @@
 package streamUI;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.event.ActionEvent;
+import javafx.scene.control.TableView;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import java.awt.*;
 
 public class UI_Controller {
 
@@ -11,29 +15,55 @@ public class UI_Controller {
     private Stage parentStage;
 
     @FXML
-    private Label lblTorrents;
+    private Button btnTorrents;
 
     @FXML
-    private Label lblDownloading;
+    private Button btnAddTorrents;
 
     @FXML
-    private Label lblUploading;
+    private Button btnDownloading;
 
     @FXML
-    private Label lblFinished;
+    private Button btnUploading;
 
     @FXML
-    private Label lblSettings;
+    private Button btnFinished;
 
     @FXML
-    private Label lblHelp;
+    private Button btnSettings;
 
     @FXML
-    public void handleOnClickedlblTorrents (ActiveEvent event) {
+    private Button btnHelp;
 
+    @FXML
+    private VBox VBoxDownloading;
+
+    @FXML
+    private TableView TVDownloading;
+
+    @FXML
+    private GridPane GPAddTorrent;
+
+    @FXML
+    public void handleOnClickedbtnTorrents (ActionEvent event) {
+
+    }
+
+    @FXML
+    public void handleOnClickedbtnDownloading (ActionEvent event) {
+        VBoxDownloading.setVisible(true);
+    }
+
+    @FXML
+    public void handleOnClickedbtnAddTorrents (ActionEvent event) {
+
+        GPAddTorrent.setVisible(true);
     }
 
     public void setParentStage (Stage root) {
         this.parentStage = root;
+        VBoxDownloading.setVisible(false);
+        GPAddTorrent.setVisible(false);
+        TVDownloading.setPlaceholder(new Label("No downloaded Torrents found!"));
     }
 }
