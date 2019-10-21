@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -29,13 +30,10 @@
             <Font name="System Bold" size="70.0" />
          </font>
          <GridPane.margin>
-            <Insets left="25.0" top="105.0" />
+            <Insets left="30.0" top="70.0" />
          </GridPane.margin>
-         <padding>
-            <Insets left="20.0" />
-         </padding>
       </Label>
-      <Button fx:id="btnTorrents" mnemonicParsing="false" onAction="#handleOnClickedbtnTorrents" rotate="-19.75" style="-fx-background-color: transparent;" text="Torrents" textFill="WHITE" GridPane.rowIndex="1">
+      <Button fx:id="btnTorrents" mnemonicParsing="false" onAction="#handleOnClickedbtnTorrents" rotate="-19.5" style="-fx-background-color: transparent;" text="Torrents" textFill="WHITE" GridPane.rowIndex="1">
          <font>
             <Font name="System Bold" size="34.0" />
          </font>
@@ -46,18 +44,18 @@
             <Insets left="40.0" />
          </padding>
       </Button>
-      <Button fx:id="btnAddTorrents" mnemonicParsing="false" onAction="#handleOnClickedbtnAddTorrents" rotate="-19.75" style="-fx-background-color: transparent;" text="Add" textFill="WHITE" GridPane.rowIndex="1">
+      <Button fx:id="btnAddTorrents" mnemonicParsing="false" onAction="#handleOnClickedbtnAddTorrents" rotate="-19.5" style="-fx-background-color: transparent;" text="Hinzufügen" textFill="WHITE" GridPane.rowIndex="1">
          <font>
             <Font name="System Bold" size="29.0" />
          </font>
          <GridPane.margin>
-            <Insets left="77.0" top="80.0" />
+            <Insets left="76.0" top="45.0" />
          </GridPane.margin>
          <padding>
             <Insets left="1.0" />
          </padding>
       </Button>
-      <Button fx:id="btnDownloading" mnemonicParsing="false" onAction="#handleOnClickedbtnDownloading" rotate="-19.75" style="-fx-background-color: transparent;" text="Downloading" textFill="WHITE" GridPane.rowIndex="1">
+      <Button fx:id="btnDownloading" mnemonicParsing="false" onAction="#handleOnClickedbtnDownloading" rotate="-19.5" style="-fx-background-color: transparent;" text="Downloading" textFill="WHITE" GridPane.rowIndex="1">
          <font>
             <Font name="System Bold" size="29.0" />
          </font>
@@ -68,7 +66,7 @@
             <Insets left="1.0" />
          </padding>
       </Button>
-      <Button fx:id="btnUploading" mnemonicParsing="false" rotate="-19.75" style="-fx-background-color: transparent;" text="Uploading" textFill="WHITE" GridPane.rowIndex="1">
+      <Button fx:id="btnUploading" mnemonicParsing="false" onAction="#handleOnClickedbtnUploading" rotate="-19.5" style="-fx-background-color: transparent;" text="Uploading" textFill="WHITE" GridPane.rowIndex="1">
          <font>
             <Font name="System Bold" size="29.0" />
          </font>
@@ -79,29 +77,29 @@
             <Insets left="1.0" />
          </padding>
       </Button>
-      <Button fx:id="btnFinished" mnemonicParsing="false" rotate="-19.75" style="-fx-background-color: transparent;" text="Finished" textFill="WHITE" GridPane.rowIndex="1">
+      <Button fx:id="btnFinished" mnemonicParsing="false" onAction="#handleOnClickedbtnFinished" rotate="-19.5" style="-fx-background-color: transparent;" text="Abgeschlossen" textFill="WHITE" GridPane.rowIndex="1">
          <font>
             <Font name="System Bold" size="29.0" />
          </font>
          <GridPane.margin>
-            <Insets left="113.0" top="260.0" />
+            <Insets left="110.0" top="230.0" />
          </GridPane.margin>
          <padding>
             <Insets left="1.0" />
          </padding>
       </Button>
-      <Button fx:id="btnSettings" mnemonicParsing="false" rotate="-19.75" style="-fx-background-color: transparent;" text="Settings" textFill="WHITE" GridPane.rowIndex="1">
+      <Button fx:id="btnSettings" mnemonicParsing="false" rotate="-19.5" style="-fx-background-color: transparent;" text="Einstellungen" textFill="WHITE" GridPane.rowIndex="1">
          <font>
             <Font name="System Bold" size="34.0" />
          </font>
          <GridPane.margin>
-            <Insets left="65.0" top="350.0" />
+            <Insets left="62.0" top="323.0" />
          </GridPane.margin>
          <padding>
             <Insets left="40.0" />
          </padding>
       </Button>
-      <Button fx:id="btnHelp" mnemonicParsing="false" rotate="-19.75" style="-fx-background-color: transparent;" text="Help" textFill="WHITE" GridPane.rowIndex="1">
+      <Button fx:id="btnHelp" mnemonicParsing="false" rotate="-19.5" style="-fx-background-color: transparent;" text="Hilfe" textFill="WHITE" GridPane.rowIndex="1">
          <font>
             <Font name="System Bold" size="34.0" />
          </font>
@@ -112,18 +110,18 @@
             <Insets left="79.0" top="440.0" />
          </GridPane.margin>
       </Button>
-      <VBox fx:id="VBoxDownloading" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #ffffffcf; -fx-background-radius: 50;" visible="false" GridPane.rowIndex="1">
+      <VBox fx:id="VBoxTorrents" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #ffffffcf; -fx-background-radius: 50;" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets left="450.0" top="50.0" />
          </GridPane.margin>
          <children>
-            <TableView fx:id="TVDownloading" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: Transparent; -fx-base: None; -fx-font-size: 17;">
+            <TableView fx:id="TVTorrentsList" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: Transparent; -fx-base: None; -fx-font-size: 17;">
               <columns>
-                <TableColumn prefWidth="85.0" text="Number" />
+                <TableColumn prefWidth="85.0" text="Nummer" />
                 <TableColumn prefWidth="85.0" text="Status" />
                   <TableColumn prefWidth="220.0" text="Name" />
-                  <TableColumn prefWidth="105.0" text="Progress" />
-                  <TableColumn prefWidth="105.0" text="Size" />
+                  <TableColumn prefWidth="105.0" text="Fortschritt" />
+                  <TableColumn prefWidth="105.0" text="Größe" />
               </columns>
                <VBox.margin>
                   <Insets left="50.0" top="40.0" />
@@ -131,135 +129,163 @@
             </TableView>
          </children>
       </VBox>
-      <GridPane fx:id="GPAddTorrent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #ffffffcf; -fx-background-radius: 50;" GridPane.rowIndex="1">
+      <GridPane fx:id="GPAddTorrent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #ffffffcf; -fx-background-radius: 50;" visible="false" GridPane.rowIndex="1">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="506.1333374023437" minWidth="10.0" prefWidth="408.3332885742187" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="342.53338623046875" minWidth="10.0" prefWidth="291.2667114257812" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="506.1333374023437" minWidth="10.0" prefWidth="351.2000732421875" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="366.86663818359375" minWidth="10.0" prefWidth="349.59992675781245" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="292.2666412353516" minHeight="10.0" prefHeight="226.1333251953125" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="261.06666259765626" minHeight="10.0" prefHeight="177.8666748046875" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="159.99997558593753" minHeight="10.0" prefHeight="97.39996948242185" vgrow="SOMETIMES" />
         </rowConstraints>
          <GridPane.margin>
             <Insets left="450.0" top="50.0" />
          </GridPane.margin>
          <children>
-            <TextField fx:id="txtDownloadLocation" maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="300.0">
+            <TextField fx:id="txtDownloadLocation" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="250.0">
                <GridPane.margin>
-                  <Insets left="100.0" top="205.0" />
+                  <Insets left="60.0" top="135.0" />
                </GridPane.margin>
             </TextField>
-            <Label fx:id="lblMagnetURI" text="Magnet URI">
+            <Label fx:id="lblMagnetURI" minWidth="-Infinity" text="Magnet URI">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
                <GridPane.margin>
-                  <Insets left="100.0" top="10.0" />
+                  <Insets left="60.0" top="-60.0" />
                </GridPane.margin>
             </Label>
-            <Label fx:id="lblDownloadLocation" text="Download location">
+            <Label fx:id="lblDownloadLocation" minWidth="-Infinity" text="Speicherort">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
                <GridPane.margin>
-                  <Insets left="100.0" top="150.0" />
+                  <Insets left="60.0" top="80.0" />
                </GridPane.margin>
             </Label>
-            <TextField fx:id="txrMagnetURI" alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefWidth="300.0">
+            <TextField fx:id="txrMagnetURI" alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefWidth="250.0">
                <GridPane.margin>
-                  <Insets left="100.0" top="65.0" />
+                  <Insets left="60.0" top="-5.0" />
                </GridPane.margin>
             </TextField>
-            <Button fx:id="btnStorageLocation" mnemonicParsing="false" style="-fx-background-color: transparent;" text="..." GridPane.columnIndex="1">
+            <Button fx:id="btnStorageLocation" mnemonicParsing="false" onAction="#handleOnClickedbtnStorageLocation" style="-fx-background-color: transparent;" text="...">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
                <GridPane.margin>
-                  <Insets top="205.0" />
+                  <Insets left="310.0" top="135.0" />
                </GridPane.margin>
             </Button>
-            <Button fx:id="btnStartDownload" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Start Download" GridPane.rowIndex="2">
+            <Button fx:id="btnStartDownload" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Download starten" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
                <GridPane.margin>
-                  <Insets left="83.0" top="-50.0" />
+                  <Insets left="40.0" top="-80.0" />
                </GridPane.margin>
             </Button>
-            <Label text="Add Torrent">
+            <Label text="Torrent hinzufügen">
                <font>
                   <Font name="System Bold" size="30.0" />
                </font>
                <GridPane.margin>
-                  <Insets left="100.0" top="-90.0" />
+                  <Insets left="60.0" top="-160.0" />
                </GridPane.margin>
             </Label>
-            <Label fx:id="lblMagnetURI1" alignment="TOP_LEFT" nodeOrientation="LEFT_TO_RIGHT" text="Option 1" GridPane.rowIndex="1">
+            <Label fx:id="lblMagnetURI1" alignment="TOP_LEFT" nodeOrientation="LEFT_TO_RIGHT" text="Option 1" GridPane.columnIndex="1">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
                <GridPane.margin>
-                  <Insets left="100.0" top="-110.0" />
+                  <Insets left="55.0" top="20.0" />
                </GridPane.margin>
             </Label>
-            <Label fx:id="lblMagnetURI11" alignment="TOP_LEFT" nodeOrientation="LEFT_TO_RIGHT" text="And finally Option 4" GridPane.rowIndex="1">
+            <Label fx:id="lblMagnetURI11" alignment="TOP_LEFT" nodeOrientation="LEFT_TO_RIGHT" text="Und schließlich Option 4" GridPane.columnIndex="1">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
                <GridPane.margin>
-                  <Insets left="100.0" top="100.0" />
+                  <Insets left="55.0" top="230.0" />
                </GridPane.margin>
             </Label>
-            <Label fx:id="lblMagnetURI12" alignment="TOP_LEFT" nodeOrientation="LEFT_TO_RIGHT" text="Now Option 3" GridPane.rowIndex="1">
+            <Label fx:id="lblMagnetURI12" alignment="TOP_LEFT" nodeOrientation="LEFT_TO_RIGHT" text="Jetzt Option 3" GridPane.columnIndex="1">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
                <GridPane.margin>
-                  <Insets left="100.0" top="30.0" />
+                  <Insets left="55.0" top="160.0" />
                </GridPane.margin>
             </Label>
-            <Label fx:id="lblMagnetURI13" alignment="TOP_LEFT" nodeOrientation="LEFT_TO_RIGHT" text="Option 2 or something" GridPane.rowIndex="1">
+            <Label fx:id="lblMagnetURI13" alignment="TOP_LEFT" nodeOrientation="LEFT_TO_RIGHT" text="Option 2 oder so" GridPane.columnIndex="1">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
                <GridPane.margin>
-                  <Insets left="100.0" top="-40.0" />
+                  <Insets left="55.0" top="90.0" />
                </GridPane.margin>
             </Label>
-            <CheckBox mnemonicParsing="false" selected="true" wrapText="true" GridPane.rowIndex="1">
+            <CheckBox mnemonicParsing="false" selected="true" wrapText="true" GridPane.columnIndex="1">
                <font>
                   <Font size="17.0" />
                </font>
                <GridPane.margin>
-                  <Insets left="350.0" top="-110.0" />
+                  <Insets left="280.0" top="20.0" />
                </GridPane.margin>
             </CheckBox>
-            <CheckBox mnemonicParsing="false" selected="true" wrapText="true" GridPane.rowIndex="1">
+            <CheckBox mnemonicParsing="false" selected="true" wrapText="true" GridPane.columnIndex="1">
                <font>
                   <Font size="17.0" />
                </font>
                <GridPane.margin>
-                  <Insets left="350.0" top="30.0" />
+                  <Insets left="280.0" top="160.0" />
                </GridPane.margin>
             </CheckBox>
-            <CheckBox mnemonicParsing="false" wrapText="true" GridPane.rowIndex="1">
+            <CheckBox mnemonicParsing="false" wrapText="true" GridPane.columnIndex="1">
                <font>
                   <Font size="17.0" />
                </font>
                <GridPane.margin>
-                  <Insets left="350.0" top="-40.0" />
+                  <Insets left="280.0" top="90.0" />
                </GridPane.margin>
             </CheckBox>
-            <CheckBox mnemonicParsing="false" wrapText="true" GridPane.rowIndex="1">
+            <CheckBox mnemonicParsing="false" wrapText="true" GridPane.columnIndex="1">
                <font>
                   <Font size="17.0" />
                </font>
                <GridPane.margin>
-                  <Insets left="350.0" top="100.0" />
+                  <Insets left="280.0" top="230.0" />
                </GridPane.margin>
             </CheckBox>
+            <ListView maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="250.0" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="60.0" top="-120.0" />
+               </GridPane.margin>
+            </ListView>
+            <Button fx:id="btnStartDownload1" minWidth="-Infinity" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Ausgewählte Packete hinzufügen" wrapText="true" GridPane.rowIndex="1">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="52.0" top="70.0" />
+               </GridPane.margin>
+            </Button>
+            <Label minWidth="-Infinity" text="Optionen" GridPane.columnIndex="1">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="55.0" top="-60.0" />
+               </GridPane.margin>
+            </Label>
          </children>
       </GridPane>
+      <Label rotate="-19.75" text="share better" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="123.0" top="121.0" />
+         </GridPane.margin>
+      </Label>
    </children>
 </GridPane>
