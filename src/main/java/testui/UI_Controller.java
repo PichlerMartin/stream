@@ -47,10 +47,20 @@ public class UI_Controller implements Controller {
 
     private Library torrents = new PublicLibrary();
 
+    /**
+     * Description
+     * Hilfsmethode, welche dazu dient, dass das UI richtig lädt
+     * @param root: der Stage-Root des UI
+     */
     public void setParentStage (Stage root) {
         this.parentStage = root;
     }
 
+    /**
+     * Description
+     * Lädt das Fenster, welches dazu verwendet wird die einzelnen Dateien des Torrents
+     * zu wählen
+     */
     private void loadChooseFileWindow() {
         Parent root;
         try {

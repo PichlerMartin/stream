@@ -17,8 +17,15 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.security.Security;
+import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * Description
+ * A collection of abstract Methods which can be used for configuration of the Torrent-Client,
+ * they serve to assign specific environmental values to the variables. Most of the methods are
+ * called within the StreamClient.java class, and are tailored for its needs.
+ */
 public abstract class SupportMethods {
 
     public static void printHello(){
@@ -71,7 +78,7 @@ public abstract class SupportMethods {
      */
     public static void configureLogging(StreamOptions.LogLevel logLevel) {
         Level log4jLogLevel;
-        switch (logLevel) {
+        switch (Objects.requireNonNull(logLevel)) {
             case NORMAL: {
                 //  NORMAL
                 log4jLogLevel = Level.INFO;
@@ -88,7 +95,7 @@ public abstract class SupportMethods {
                 break;
             }
             default: {
-                throw new IllegalArgumentException("Unbekanntes log level: " + logLevel);
+                throw new IllegalArgumentException("Unbekanntes log level: " + logLevel.name());
             }
         }
         Configurator.setLevel("bt", log4jLogLevel);

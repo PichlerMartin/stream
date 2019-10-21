@@ -24,5 +24,6 @@
     <orderEntry type="library" name="com.ning:compress-lzf:1.0.4" level="project" />
     <orderEntry type="library" name="org.slf4j:slf4j-simple:1.6.1" level="project" />
     <orderEntry type="library" name="org.apache.directory.studio:org.apache.commons.codec:1.8" level="project" />
+    <orderEntry type="library" name="bt-cli-demo" level="project" />
   </component>
 </module>
