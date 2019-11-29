@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class UI_Main extends Application {
@@ -18,6 +19,7 @@ public class UI_Main extends Application {
 
         Scene s = new Scene(root, 1200, 750);
         primaryStage.setTitle("stream");
+        primaryStage.getIcons().add(new Image("/images/streamAppIcon.png"));
         primaryStage.setScene(s);
         primaryStage.setResizable(false);
 
