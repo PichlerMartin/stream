@@ -112,6 +112,7 @@ public class UI_Controller implements Controller {
      * @param torrentPath: path to torrent file
      * @return returns hash value
      */
+    @Deprecated
     private String convertTorrentToMagnet(File torrentPath) {
         String text = "";
 
