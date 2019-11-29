@@ -1,10 +1,6 @@
 package testui;
 
-import bt.cli.CliClient;
-import bt.cli.Options;
-import bt.torrent.TorrentSessionState;
 import client.StreamClient;
-import client.StreamFileSelector;
 import client.StreamOptions;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,15 +12,12 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.slf4j.LoggerFactory;
 import support.StreamContext;
-import support.SupportMethods;
 
-import javax.annotation.Resources;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.stream.Stream;
 
 import static support.SupportMethods.*;
 
@@ -42,7 +35,7 @@ public class Select_Controller implements Initializable {
 
     /**
      * Description
-     * Bestätigt die aufgelistete Menew String[]{"-d", "C:\\", "-m", "magnet:?xt=urn:btih:d1eb2b5cf80e286a7f848ab0c31638856db102d4"}nge an Dateien, welche dann in das Download-Verzeichnis
+     * Bestätigt die aufgelistete Menge an Dateien, welche dann in das Download-Verzeichnis
      * geladen werden. Dieser Vorgang findet in einem neuen Thread statt.
      * @param ms: Action Event des Button(-Clicks)
      */
