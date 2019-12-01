@@ -1,7 +1,5 @@
 package testui;
 
-import client.StreamClient;
-import client.StreamOptions;
 import filelibrary.Library;
 import filelibrary.PublicLibrary;
 import filelibrary.TorrentInFileSystem;
@@ -9,29 +7,22 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import support.StreamContext;
-import support.SupportMethods;
 
-import java.io.*;
-import java.net.MalformedURLException;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Optional;
 import java.util.stream.Stream;
-
-import static org.apache.commons.codec.digest.DigestUtils.sha1Hex;
-import static org.apache.commons.codec.digest.DigestUtils.sha256Hex;
 
 /**
  * Controller for testing class UI_Main

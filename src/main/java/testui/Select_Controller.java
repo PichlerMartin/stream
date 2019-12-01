@@ -1,5 +1,6 @@
 package testui;
 
+import bt.cli.CliClient;
 import client.StreamClient;
 import client.StreamOptions;
 import javafx.event.ActionEvent;
@@ -42,9 +43,11 @@ public class Select_Controller implements Initializable {
     public void Click_ConfirmFileList(ActionEvent ms) throws IOException {
         Stage stage = (Stage) btn_confirm.getScene().getWindow();
 
+        CliClient cli = new CliClient()
+
         //GlobalClient.start();
-        //CliClient.main(new String[]{"-d", "C:\\", "-m", "magnet:?xt=urn:btih:d1eb2b5cf80e286a7f848ab0c31638856db102d4"});
-        StreamClient.main(new String[]{"-d", "C:\\", "-m", "magnet:?xt=urn:btih:d1eb2b5cf80e286a7f848ab0c31638856db102d4"});
+        CliClient.main(new String[]{"-d", "C:\\", "-m", "magnet:?xt=urn:btih:7f34612e0fac5e7b051b78bdf1060113350ebfe0&dn=big_buck_bunny_1080p_h264.mov"});
+        //StreamClient.main(new String[]{"-d", "C:\\", "-m", "magnet:?xt=urn:btih:7f34612e0fac5e7b051b78bdf1060113350ebfe0&dn=big_buck_bunny_1080p_h264.mov"});
 
         stage.close();
     }
@@ -75,10 +78,9 @@ public class Select_Controller implements Initializable {
      */
     public void Click_LoadFiles(ActionEvent actionEvent) throws MalformedURLException {
         String DownloadDirectory = "C:\\";
-        String MagnetLink = "magnet:?xt=urn:btih:d1eb2b5cf80e286a7f848ab0c31638856db102d4";
-        //MagnetLink = "magnet:?xt=urn:btih:223f7484d326ad8efd3cf1e548ded524833cb77e" /* + "&dn=Avengers.Endgame.2019.1080p.BRRip.x264-MP4&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969" */;
-        MagnetLink = "magnet:?xt=urn:btih:223f7484d326ad8efd3cf1e548ded524833cb77e&dn=Avengers.Endgame.2019.1080p.BRRip.x264-MP4&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969";
-        String TorrentFile = "C:\\Users\\Pichler Martin\\Downloads\\Torrents\\VanBeethoven.torrent";
+        String MagnetLink = "magnet:?xt=urn:btih:7f34612e0fac5e7b051b78bdf1060113350ebfe0&dn=big_buck_bunny_1080p_h264.mov";
+        MagnetLink = "magnet:?xt=urn:btih:7f34612e0fac5e7b051b78bdf1060113350ebfe0&dn=big_buck_bunny_1080p_h264.mov";
+        String TorrentFile = "C:\\Users\\Pichler Martin\\Downloads\\Torrents\\Big Buck Bunny (1920x1080 h.264).torrent";
 
         if (txt_dldirectory.getText().contains("\\")) {
             DownloadDirectory = txt_dldirectory.getText();

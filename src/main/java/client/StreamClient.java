@@ -2,6 +2,7 @@ package client;
 
 import bt.Bt;
 import bt.BtClientBuilder;
+import bt.cli.Options;
 import bt.cli.SessionStatePrinter;
 import bt.data.Storage;
 import bt.data.file.FileSystemStorage;
@@ -12,27 +13,16 @@ import bt.runtime.BtClient;
 import bt.runtime.BtRuntime;
 import bt.runtime.Config;
 import bt.service.IRuntimeLifecycleBinder;
-import bt.torrent.fileselector.TorrentFileSelector;
 import bt.torrent.selector.PieceSelector;
 import bt.torrent.selector.RarestFirstSelector;
 import bt.torrent.selector.SequentialSelector;
 import com.google.inject.Module;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import joptsimple.OptionException;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.LoggerContext;
 import org.apache.logging.log4j.core.config.Configurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import support.SupportMethods;
-import testui.Controller;
-import testui.Select_Controller;
-import testui.UI_Controller;
-import bt.cli.Options;
 
 import java.io.File;
 import java.io.IOException;
@@ -43,10 +33,6 @@ import java.net.UnknownHostException;
 import java.security.Security;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Stream;
-
-import static support.SupportMethods.buildConfig;
-import static support.SupportMethods.buildDHTModule;
 
 public class StreamClient {
     private static final Logger LOGGER = LoggerFactory.getLogger(StreamClient.class);
@@ -56,11 +42,10 @@ public class StreamClient {
 
     public static void main(String[] args) throws IOException {
         String DownloadDirectory = "C:\\";
-        String MagnetLink = "magnet:?xt=urn:btih:d1eb2b5cf80e286a7f848ab0c31638856db102d4";
-        //MagnetLink = "magnet:?xt=urn:btih:223f7484d326ad8efd3cf1e548ded524833cb77e" /* + "&dn=Avengers.Endgame.2019.1080p.BRRip.x264-MP4&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969" */;
-        String TorrentFile = "C:\\Users\\Pichler Martin\\Downloads\\Torrents\\VanBeethoven.torrent";
+        String MagnetLink = "magnet:?xt=urn:btih:7f34612e0fac5e7b051b78bdf1060113350ebfe0&dn=big_buck_bunny_1080p_h264.mov";
+        String TorrentFile = "C:\\Users\\Pichler Martin\\Downloads\\Torrents\\Big Buck Bunny (1920x1080 h.264).torrent";
 
-        args = new String[]{"-d", "C:\\", "-m", "magnet:?xt=urn:btih:d1eb2b5cf80e286a7f848ab0c31638856db102d4"};
+        args = new String[]{"-d", "C:\\", "-m", "magnet:?xt=urn:btih:7f34612e0fac5e7b051b78bdf1060113350ebfe0&dn=big_buck_bunny_1080p_h264.mov"};
         Options options = Options.parse(args);//new Options(MagnetLink, new File(DownloadDirectory));
 
         //configureLogging(options.getLogLevel());
