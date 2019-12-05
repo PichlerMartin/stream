@@ -1,6 +1,8 @@
 package testui;
 
 import bt.cli.CliClient;
+import bt.cli.Options;
+import client.Client;
 import client.StreamClient;
 import client.StreamOptions;
 import javafx.event.ActionEvent;
@@ -33,6 +35,9 @@ public class Select_Controller implements Initializable {
     private TextField txt_magnetlink;
 
     private StreamClient GlobalClient;
+    private String MagnetLink;
+    private String TorrentFile;
+    private String DownloadDirectory;
 
     /**
      * Description
@@ -43,13 +48,38 @@ public class Select_Controller implements Initializable {
     public void Click_ConfirmFileList(ActionEvent ms) throws IOException {
         Stage stage = (Stage) btn_confirm.getScene().getWindow();
 
-        CliClient cli = new CliClient()
-
-        //GlobalClient.start();
-        CliClient.main(new String[]{"-d", "C:\\", "-m", "magnet:?xt=urn:btih:7f34612e0fac5e7b051b78bdf1060113350ebfe0&dn=big_buck_bunny_1080p_h264.mov"});
-        //StreamClient.main(new String[]{"-d", "C:\\", "-m", "magnet:?xt=urn:btih:7f34612e0fac5e7b051b78bdf1060113350ebfe0&dn=big_buck_bunny_1080p_h264.mov"});
+        this.ActualWorkingTorrentInvocation();
+        this.ownTorrentImplementation();
+        this.ownGlobalTorrentImplementation();
 
         stage.close();
+    }
+
+    private void ownGlobalTorrentImplementation() {
+
+        StreamOptions options = new StreamOptions(MagnetLink, new File(DownloadDirectory));
+
+        configureLogging(options.getLogLevel());
+        configureSecurity(LoggerFactory.getLogger(StreamClient.class));
+        registerLog4jShutdownHook();
+
+        //GlobalClient.start();
+    }
+
+    private void ownTorrentImplementation() {
+
+        StreamOptions options = new StreamOptions(MagnetLink, new File(DownloadDirectory));
+
+        configureLogging(options.getLogLevel());
+        configureSecurity(LoggerFactory.getLogger(StreamClient.class));
+        registerLog4jShutdownHook();
+
+        //StreamClient.main(new String[]{"-d", "C:\\", "-m", "magnet:?xt=urn:btih:7f34612e0fac5e7b051b78bdf1060113350ebfe0&dn=big_buck_bunny_1080p_h264.mov"});
+    }
+
+    public void ActualWorkingTorrentInvocation(){
+        CliClient client = new CliClient(new Options(new));
+        CliClient.main(new String[]{"-d", "C:\\", "-m", "magnet:?xt=urn:btih:7f34612e0fac5e7b051b78bdf1060113350ebfe0&dn=big_buck_bunny_1080p_h264.mov"});
     }
 
     /**
@@ -77,11 +107,6 @@ public class Select_Controller implements Initializable {
      * @throws MalformedURLException: wird geworfen, wenn eine URL nicht dem Standardformat entspricht
      */
     public void Click_LoadFiles(ActionEvent actionEvent) throws MalformedURLException {
-        String DownloadDirectory = "C:\\";
-        String MagnetLink = "magnet:?xt=urn:btih:7f34612e0fac5e7b051b78bdf1060113350ebfe0&dn=big_buck_bunny_1080p_h264.mov";
-        MagnetLink = "magnet:?xt=urn:btih:7f34612e0fac5e7b051b78bdf1060113350ebfe0&dn=big_buck_bunny_1080p_h264.mov";
-        String TorrentFile = "C:\\Users\\Pichler Martin\\Downloads\\Torrents\\Big Buck Bunny (1920x1080 h.264).torrent";
-
         if (txt_dldirectory.getText().contains("\\")) {
             DownloadDirectory = txt_dldirectory.getText();
         }
@@ -90,16 +115,6 @@ public class Select_Controller implements Initializable {
             MagnetLink = txt_magnetlink.getText();
         }
 
-        StreamOptions options = new StreamOptions(MagnetLink, new File(DownloadDirectory));
-
-        configureLogging(options.getLogLevel());
-        configureSecurity(LoggerFactory.getLogger(StreamClient.class));
-        registerLog4jShutdownHook();
-
-        //StreamClient streamClient = new StreamClient(options/*, null*/);
-
         StreamContext.getInstance().currentController().setLabel(new Label("Torrent fetched"));
-
-        //GlobalClient = streamClient;
     }
 }
