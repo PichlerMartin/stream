@@ -78,7 +78,7 @@ public class Select_Controller implements Initializable {
     }
 
     public void ActualWorkingTorrentInvocation(){
-        CliClient client = new CliClient(new Options(new));
+        CliClient client = new CliClient();
         CliClient.main(new String[]{"-d", "C:\\", "-m", "magnet:?xt=urn:btih:7f34612e0fac5e7b051b78bdf1060113350ebfe0&dn=big_buck_bunny_1080p_h264.mov"});
     }
 
