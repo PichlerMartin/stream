@@ -87,7 +87,7 @@ public class Select_Controller implements Initializable {
         });
 
         // get download directory
-        Path targetDirectory = Paths.get(System.getProperty("user.home"), "Downloads");
+        Path targetDirectory = Paths.get(Globals.DOWNLOAD_DIRECTORY);
 
         // create file system based backend for torrent data
         Storage storage = new FileSystemStorage(targetDirectory);
