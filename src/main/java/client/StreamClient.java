@@ -17,6 +17,7 @@ import bt.torrent.selector.PieceSelector;
 import bt.torrent.selector.RarestFirstSelector;
 import bt.torrent.selector.SequentialSelector;
 import com.google.inject.Module;
+import meta.Globals;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.LoggerContext;
@@ -41,11 +42,7 @@ public class StreamClient {
     private final BtClient client;
 
     public static void main(String[] args) throws IOException {
-        String DownloadDirectory = "C:\\";
-        String MagnetLink = "magnet:?xt=urn:btih:7f34612e0fac5e7b051b78bdf1060113350ebfe0&dn=big_buck_bunny_1080p_h264.mov";
-        String TorrentFile = "C:\\Users\\Pichler Martin\\Downloads\\Torrents\\Big Buck Bunny (1920x1080 h.264).torrent";
-
-        args = new String[]{"-d", "C:\\", "-m", "magnet:?xt=urn:btih:7f34612e0fac5e7b051b78bdf1060113350ebfe0&dn=big_buck_bunny_1080p_h264.mov"};
+        args = new String[]{"-d", Globals.DOWNLOAD_DIRECTORY, "-m", Globals.MAGNET_LINK};
         Options options = Options.parse(args);//new Options(MagnetLink, new File(DownloadDirectory));
 
         //configureLogging(options.getLogLevel());
