@@ -4,13 +4,15 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.event.ActionEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
-import javax.swing.*;
+import java.io.File;
 
 public class UI_Controller {
 
@@ -54,6 +56,9 @@ public class UI_Controller {
     private GridPane GPAddTorrent;
 
     @FXML
+    private Stage stage;
+
+    @FXML
     public void handleOnClickedbtnTorrents (ActionEvent event) {
         resetVisibility();
         VBoxTorrents.setVisible(true);
@@ -90,18 +95,21 @@ public class UI_Controller {
     @FXML
     public void handleOnClickedbtnStorageLocation (ActionEvent event) {
 
-        JFileChooser DownloadDir = new JFileChooser();
-        DownloadDir.setDialogTitle("Speichern unter");
-        DownloadDir.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        DownloadDir.setAcceptAllFileFilterUsed(false);
-        DownloadDir.showOpenDialog(null);
+        DirectoryChooser dirChooser = new DirectoryChooser();
+        dirChooser.setTitle("Speichern unter");
+        dirChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+        File directory = dirChooser.showDialog(stage);
 
-        txtDownloadLocation.setText(DownloadDir.getSelectedFile().toString());
+        txtDownloadLocation.setText(directory.toString());
     }
 
     private void resetVisibility() {
         VBoxTorrents.setVisible(false);
         GPAddTorrent.setVisible(false);
+    }
+
+    public void setStage (Stage CurrentStage) {
+        this.stage = CurrentStage;
     }
 
     public void setParentStage (Stage root) {
@@ -110,4 +118,18 @@ public class UI_Controller {
         VBoxTorrents.setVisible(true);
         TVTorrentsList.setPlaceholder(new Label("No Torrents found!"));
     }
+
+    @FXML
+    public void handleOnMenuEntryEntered (MouseEvent event) {
+
+        Button btnEnteredBtn = (Button)event.getSource();
+        btnEnteredBtn.setStyle("-fx-background-color: orange; -fx-underline: true");
+    }
+
+    @FXML
+    public void handleOnMenuEntryLeft (MouseEvent event) {
+        Button btnLeftbtn = (Button)event.getSource();
+        btnLeftbtn.setStyle("-fx-background-color:  transparent; -fx-font-style: normal");
+    }
+
 }
