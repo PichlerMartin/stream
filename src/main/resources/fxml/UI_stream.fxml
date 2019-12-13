@@ -3,11 +3,13 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
@@ -33,7 +35,7 @@
             <Insets left="30.0" top="70.0" />
          </GridPane.margin>
       </Label>
-      <Button fx:id="btnTorrents" mnemonicParsing="false" onAction="#handleOnClickedbtnTorrents" onMouseEntered="#handleOnMenuEntryEntered" onMouseExited="#handleOnMenuEntryLeft" rotate="-19.5" style="-fx-background-color: transparent;" text="Torrents" textFill="WHITE" GridPane.rowIndex="1">
+      <Button fx:id="btnTorrents" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#handleOnClickedbtnTorrents" onMouseEntered="#handleOnMenuEntryEntered" onMouseExited="#handleOnMenuEntryLeft" rotate="-19.5" style="-fx-background-color: transparent;" text="Torrents" textFill="WHITE" wrapText="true" GridPane.rowIndex="1">
          <font>
             <Font name="System Bold" size="34.0" />
          </font>
@@ -41,7 +43,7 @@
             <Insets left="15.0" top="15.0" />
          </GridPane.margin>
       </Button>
-      <Button fx:id="btnAddTorrents" mnemonicParsing="false" onAction="#handleOnClickedbtnAddTorrents" onMouseEntered="#handleOnMenuEntryEntered" onMouseExited="#handleOnMenuEntryLeft" rotate="-19.5" style="-fx-background-color: transparent;" text="Hinzufügen" textFill="WHITE" GridPane.rowIndex="1">
+      <Button fx:id="btnAddTorrents" alignment="BOTTOM_LEFT" graphicTextGap="0.0" mnemonicParsing="false" onAction="#handleOnClickedbtnAddTorrents" onMouseEntered="#handleOnMenuEntryEntered" onMouseExited="#handleOnMenuEntryLeft" rotate="-19.5" style="-fx-background-color: transparent;" text="Hinzufügen" textFill="WHITE" wrapText="true" GridPane.rowIndex="1">
          <font>
             <Font name="System Bold" size="29.0" />
          </font>
@@ -52,7 +54,7 @@
             <Insets left="1.0" />
          </padding>
       </Button>
-      <Button fx:id="btnDownloading" mnemonicParsing="false" onAction="#handleOnClickedbtnDownloading" onMouseEntered="#handleOnMenuEntryEntered" onMouseExited="#handleOnMenuEntryLeft" rotate="-19.5" style="-fx-background-color: transparent;" text="Downloading" textFill="WHITE" GridPane.rowIndex="1">
+      <Button fx:id="btnDownloading" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#handleOnClickedbtnDownloading" onMouseEntered="#handleOnMenuEntryEntered" onMouseExited="#handleOnMenuEntryLeft" rotate="-19.5" style="-fx-background-color: transparent;" text="Downloading" textFill="WHITE" wrapText="true" GridPane.rowIndex="1">
          <font>
             <Font name="System Bold" size="29.0" />
          </font>
@@ -63,7 +65,7 @@
             <Insets left="1.0" />
          </padding>
       </Button>
-      <Button fx:id="btnUploading" mnemonicParsing="false" onAction="#handleOnClickedbtnUploading" onMouseEntered="#handleOnMenuEntryEntered" onMouseExited="#handleOnMenuEntryLeft" rotate="-19.5" style="-fx-background-color: transparent;" text="Uploading" textFill="WHITE" GridPane.rowIndex="1">
+      <Button fx:id="btnUploading" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#handleOnClickedbtnUploading" onMouseEntered="#handleOnMenuEntryEntered" onMouseExited="#handleOnMenuEntryLeft" rotate="-19.5" style="-fx-background-color: transparent;" text="Uploading" textFill="WHITE" wrapText="true" GridPane.rowIndex="1">
          <font>
             <Font name="System Bold" size="29.0" />
          </font>
@@ -74,7 +76,7 @@
             <Insets left="1.0" />
          </padding>
       </Button>
-      <Button fx:id="btnFinished" mnemonicParsing="false" onAction="#handleOnClickedbtnFinished" onMouseEntered="#handleOnMenuEntryEntered" onMouseExited="#handleOnMenuEntryLeft" rotate="-19.5" style="-fx-background-color: transparent;" text="Abgeschlossen" textFill="WHITE" GridPane.rowIndex="1">
+      <Button fx:id="btnFinished" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#handleOnClickedbtnFinished" onMouseEntered="#handleOnMenuEntryEntered" onMouseExited="#handleOnMenuEntryLeft" rotate="-19.5" style="-fx-background-color: transparent;" text="Abgeschlossen" textFill="WHITE" wrapText="true" GridPane.rowIndex="1">
          <font>
             <Font name="System Bold" size="29.0" />
          </font>
@@ -85,7 +87,7 @@
             <Insets left="1.0" />
          </padding>
       </Button>
-      <Button fx:id="btnSettings" mnemonicParsing="false" onMouseEntered="#handleOnMenuEntryEntered" onMouseExited="#handleOnMenuEntryLeft" rotate="-19.5" style="-fx-background-color: transparent;" text="Einstellungen" textFill="WHITE" wrapText="true" GridPane.rowIndex="1">
+      <Button fx:id="btnSettings" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#handleOnClickedbtnSettings" onMouseEntered="#handleOnMenuEntryEntered" onMouseExited="#handleOnMenuEntryLeft" rotate="-19.5" style="-fx-background-color: transparent;" text="Einstellungen" textFill="WHITE" wrapText="true" GridPane.rowIndex="1">
          <font>
             <Font name="System Bold" size="34.0" />
          </font>
@@ -93,7 +95,7 @@
             <Insets left="72.0" top="318.0" />
          </GridPane.margin>
       </Button>
-      <Button fx:id="btnHelp" mnemonicParsing="false" onMouseEntered="#handleOnMenuEntryEntered" onMouseExited="#handleOnMenuEntryLeft" rotate="-19.5" style="-fx-background-color: transparent;" text="Hilfe" textFill="WHITE" wrapText="true" GridPane.rowIndex="1">
+      <Button fx:id="btnHelp" alignment="BOTTOM_LEFT" mnemonicParsing="false" onMouseEntered="#handleOnMenuEntryEntered" onMouseExited="#handleOnMenuEntryLeft" rotate="-19.5" style="-fx-background-color: transparent;" text="Hilfe" textFill="WHITE" wrapText="true" GridPane.rowIndex="1">
          <font>
             <Font name="System Bold" size="34.0" />
          </font>
@@ -101,7 +103,7 @@
             <Insets left="89.0" top="435.0" />
          </GridPane.margin>
       </Button>
-      <VBox fx:id="VBoxTorrents" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #ffffffcf; -fx-background-radius: 50;" GridPane.rowIndex="1">
+      <VBox fx:id="VBoxTorrents" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #ffffffcf; -fx-background-radius: 50;" visible="false" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets left="450.0" top="50.0" />
          </GridPane.margin>
@@ -278,5 +280,80 @@
             <Insets left="123.0" top="121.0" />
          </GridPane.margin>
       </Label>
+      <GridPane fx:id="GPSettings" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #ffffffcf; -fx-background-radius: 50;" GridPane.rowIndex="1">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="292.2666412353516" minHeight="10.0" prefHeight="226.1333251953125" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="292.2666412353516" minHeight="10.0" prefHeight="226.1333251953125" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <GridPane.margin>
+            <Insets left="450.0" top="50.0" />
+         </GridPane.margin>
+         <children>
+            <Label text="Einstellungen">
+               <font>
+                  <Font name="System Bold" size="30.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="60.0" top="-110.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Sprache">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="85.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Dark Mode">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="85.0" top="80.0" />
+               </GridPane.margin>
+            </Label>
+            <ToggleButton mnemonicParsing="false" prefHeight="20.0" prefWidth="150.0" text="ToggleButton" wrapText="true">
+               <GridPane.margin>
+                  <Insets left="250.0" top="80.0" />
+               </GridPane.margin>
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </ToggleButton>
+            <ComboBox fx:id="cboxSelectLanguage" onAction="#handleOnClickedCbox" prefHeight="20.0" prefWidth="150.0" promptText="Sprache auswählen">
+               <GridPane.margin>
+                  <Insets left="250.0" />
+               </GridPane.margin>
+            </ComboBox>
+            <Label text="Dark Mode">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="85.0" top="240.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Dark Mode">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="85.0" top="160.0" />
+               </GridPane.margin>
+            </Label>
+            <Button mnemonicParsing="false" prefWidth="150.0" text="Button" wrapText="true">
+               <font>
+                  <Font size="17.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="250.0" top="160.0" />
+               </GridPane.margin>
+            </Button>
+         </children>
+      </GridPane>
    </children>
 </GridPane>
