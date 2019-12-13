@@ -38,11 +38,8 @@
             <Font name="System Bold" size="34.0" />
          </font>
          <GridPane.margin>
-            <Insets left="5.0" top="20.0" />
+            <Insets left="15.0" top="15.0" />
          </GridPane.margin>
-         <padding>
-            <Insets left="40.0" />
-         </padding>
       </Button>
       <Button fx:id="btnAddTorrents" mnemonicParsing="false" onAction="#handleOnClickedbtnAddTorrents" onMouseEntered="#handleOnMenuEntryEntered" onMouseExited="#handleOnMenuEntryLeft" rotate="-19.5" style="-fx-background-color: transparent;" text="Hinzufügen" textFill="WHITE" GridPane.rowIndex="1">
          <font>
@@ -93,22 +90,16 @@
             <Font name="System Bold" size="34.0" />
          </font>
          <GridPane.margin>
-            <Insets left="62.0" top="323.0" />
+            <Insets left="72.0" top="318.0" />
          </GridPane.margin>
-         <padding>
-            <Insets left="40.0" />
-         </padding>
       </Button>
       <Button fx:id="btnHelp" mnemonicParsing="false" onMouseEntered="#handleOnMenuEntryEntered" onMouseExited="#handleOnMenuEntryLeft" rotate="-19.5" style="-fx-background-color: transparent;" text="Hilfe" textFill="WHITE" wrapText="true" GridPane.rowIndex="1">
          <font>
             <Font name="System Bold" size="34.0" />
          </font>
          <GridPane.margin>
-            <Insets left="79.0" top="440.0" />
+            <Insets left="89.0" top="435.0" />
          </GridPane.margin>
-         <padding>
-            <Insets left="40.0" />
-         </padding>
       </Button>
       <VBox fx:id="VBoxTorrents" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #ffffffcf; -fx-background-radius: 50;" GridPane.rowIndex="1">
          <GridPane.margin>

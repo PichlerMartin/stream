@@ -119,17 +119,29 @@ public class UI_Controller {
         TVTorrentsList.setPlaceholder(new Label("No Torrents found!"));
     }
 
+    /**
+     * This method is called by buttons, which have been entered
+     * It changes the style and the colour of the text in the caller button
+     * @param event
+     */
     @FXML
     public void handleOnMenuEntryEntered (MouseEvent event) {
 
         Button btnEnteredBtn = (Button)event.getSource();
-        btnEnteredBtn.setStyle("-fx-background-color: orange; -fx-underline: true");
+        btnEnteredBtn.setStyle(btnEnteredBtn.getStyle() + "; -fx-underline: true; -fx-text-fill:  #1b3957");
+
     }
 
+    /**
+     * This method changes the style and colour of the caller button back to the original state
+     * If the mouse leaves one of the buttons, this method is called
+     * @param event
+     */
     @FXML
     public void handleOnMenuEntryLeft (MouseEvent event) {
+
         Button btnLeftbtn = (Button)event.getSource();
-        btnLeftbtn.setStyle("-fx-background-color:  transparent; -fx-font-style: normal");
+        btnLeftbtn.setStyle(btnLeftbtn.getStyle() + "; -fx-underline: false; -fx-text-fill: white");
     }
 
 }

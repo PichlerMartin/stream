@@ -21,7 +21,7 @@ public class UI_Main extends Application {
         c.setStage(primaryStage);
         Scene s = new Scene(root, 1200, 750);
         primaryStage.setTitle("stream");
-        primaryStage.getIcons().add(new Image("/images/streamAppIcon.png"));
+        primaryStage.getIcons().add(new Image("/images/streamAppIcon_blue.PNG"));
         primaryStage.setScene(s);
         primaryStage.setResizable(false);
 
