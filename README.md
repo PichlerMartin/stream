@@ -5,8 +5,11 @@
 # stream
  a smart and comfy torrent client in java
  
+# update 29.11.2019
+ in order to make to function work you need to download the github repository bt-client-demo from its original creator and compile it into a .jar-file using intellij idea. after that, take said .jar and include it in your project as a java library
+ 
 # update 11.08.2019
- the stream torrent client is now working in demo mode! the first "version" of stream is now live an can be used trough the environment of your ide. all you have to do is follow the installation instructions below and locate the file "UI_Controller.java" where you can insert a magnet-link and begin downloading.
+ the stream torrent client is now working in demo mode! the first "version" of stream is now live an can be used trough the environment  of your ide. all you have to do is follow the installation instructions below and locate the file "UI_Controller.java" where you can insert a magnet-link and begin downloading.
  
 # update 29.07.2019
  worked out some test cases for the bt torrent library, updated ui design and readme.md, 
