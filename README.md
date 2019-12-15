@@ -49,6 +49,13 @@
  you're almost there! now you need to set up the downloaded repository in IntelliJ IDEA. a guide to do so is listed below:
  https://subscription.packtpub.com/book/application_development/9781785286124/2/ch02lvl1sec24/creating-a-new-maven-project-in-intellij-idea
  
+ important: in this stage of development you need the free software "betternet vpn" in order to induce your downloads. download it here:
+ https://www.betternet.co/
+ 
+ after that you can open the project in your intellij idea environment, navigate to the folder "testui" and start the file UI_Main.java (the one with the green arrow) after that the software starts and load a test sequence. more functionality is sadly not implemented yet
+ 
+ if you'd like to see a demo of the ui start the file UI_Main.java in the folder "streamUI"
+ 
  if you fell a little confident you can try to set up an jar artifact an run said, but that hasn't been tested jet ...
  
  stay tuned for more breathtaking updates and the upcomming ui!
