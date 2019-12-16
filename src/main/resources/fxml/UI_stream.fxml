@@ -156,7 +156,7 @@
                   <Insets left="60.0" top="80.0" />
                </GridPane.margin>
             </Label>
-            <TextField fx:id="txrMagnetURI" alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefWidth="250.0">
+            <TextField fx:id="txrMagnetURI" alignment="TOP_LEFT" onAction="#onEnter" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefWidth="250.0">
                <GridPane.margin>
                   <Insets left="60.0" top="-5.0" />
                </GridPane.margin>

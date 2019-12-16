@@ -196,4 +196,10 @@ public class UI_Controller {
 
     }
 
+    //region Pichler part
+    @FXML
+    public void onEnter(ActionEvent ae){
+        System.out.println("test") ;
+    }
+    //endregion Pichler part
 }
