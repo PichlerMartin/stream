@@ -18,6 +18,14 @@
         <log4j-version> 2.4.1 </log4j-version>
     </properties>
 
+    <distributionManagement>
+        <repository>
+            <id>stream</id>
+            <name>GitHub PichlerMartin Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/PichlerMartin/stream</url>
+        </repository>
+    </distributionManagement>
+
     <build>
         <plugins>
             <plugin>
