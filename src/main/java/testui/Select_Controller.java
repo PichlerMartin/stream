@@ -1,6 +1,5 @@
 package testui;
 
-import bt.cli.CliClient;
 import client.StreamClient;
 import client.StreamOptions;
 import javafx.event.ActionEvent;
@@ -46,40 +45,10 @@ public class Select_Controller implements Initializable {
 
         //this.ActualWorkingTorrentInvocation();
         //this.ownTorrentImplementation();
-        //this.ownGlobalTorrentImplementation();
+        this.ownGlobalTorrentImplementation();
         //this.AtomashpolskiyExample();
 
         stage.close();
-    }
-
-    private void ownGlobalTorrentImplementation() {
-
-        StreamOptions options = new StreamOptions(Globals.MAGNET_LINK, new File(Globals.DOWNLOAD_DIRECTORY));
-
-        configureLogging(options.getLogLevel());
-        configureSecurity(LoggerFactory.getLogger(StreamClient.class));
-        registerLog4jShutdownHook();
-
-        //GlobalClient.start();
-    }
-
-    private void ownTorrentImplementation() {
-
-        StreamOptions options = new StreamOptions(Globals.MAGNET_LINK, new File(Globals.DOWNLOAD_DIRECTORY));
-
-        configureLogging(options.getLogLevel());
-        configureSecurity(LoggerFactory.getLogger(StreamClient.class));
-        registerLog4jShutdownHook();
-
-        //StreamClient.main(new String[]{"-d", Globals.DOWNLOAD_DIRECTORY, "-m", Globals.MAGNET_LINK});
-    }
-
-    public void ActualWorkingTorrentInvocation(){
-        try{
-            CliClient.main(new String[]{"-d", Globals.DOWNLOAD_DIRECTORY, "-m", Globals.MAGNET_LINK});
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
     }
 
     /**
@@ -94,6 +63,17 @@ public class Select_Controller implements Initializable {
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
 
+    }
+
+    private void ownGlobalTorrentImplementation() {
+
+        StreamOptions options = new StreamOptions(Globals.MAGNET_LINK, new File(Globals.DOWNLOAD_DIRECTORY));
+
+        configureLogging(options.getLogLevel());
+        configureSecurity(LoggerFactory.getLogger(StreamClient.class));
+        registerLog4jShutdownHook();
+
+        GlobalClient.start();
     }
 
     /**

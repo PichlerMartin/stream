@@ -1,12 +1,15 @@
 package streamUI;
 
 import bt.Bt;
+import bt.cli.CliClient;
 import bt.data.Storage;
 import bt.data.file.FileSystemStorage;
 import bt.dht.DHTConfig;
 import bt.dht.DHTModule;
 import bt.runtime.BtClient;
 import bt.runtime.Config;
+import client.StreamClient;
+import client.StreamOptions;
 import com.google.inject.Module;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,13 +20,17 @@ import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import meta.Globals;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
 import static meta.Globals.DOWNLOAD_DIRECTORY;
+import static support.SupportMethods.*;
+import static support.SupportMethods.registerLog4jShutdownHook;
 
 public class UI_Controller {
 
@@ -56,6 +63,9 @@ public class UI_Controller {
 
     @FXML
     private TextField txtDownloadLocation;
+
+    @FXML
+    private TextField txtMagnetURI;
 
     @FXML
     private ListView<String> livFiles;
@@ -216,7 +226,11 @@ public class UI_Controller {
     //region Pichler part
     @FXML
     public void onEnter(ActionEvent ae){
-        AtomashpolskiyExample();
+        //this.ActualWorkingTorrentInvocation();
+        this.ownTorrentImplementation();
+        //AtomashpolskiyExample();
+
+        //  ToDo:   Continue with implementation of torrent download
     }
 
     @FXML
@@ -265,6 +279,10 @@ public class UI_Controller {
 
         Path targetDirectory = Paths.get(DOWNLOAD_DIRECTORY);
 
+        if (txtMagnetURI.getText().contains("magnet:?xt=urn:btih:")) {
+            Globals.MAGNET_LINK = txtMagnetURI.getText();
+        }
+
         // create file system based backend for torrent data
         Storage storage = new FileSystemStorage(targetDirectory);
 
@@ -280,6 +298,29 @@ public class UI_Controller {
 
         // launch
         client.startAsync().join();
+    }
+
+    private void ownTorrentImplementation() {
+
+        StreamOptions options = new StreamOptions(Globals.MAGNET_LINK, new File(Globals.DOWNLOAD_DIRECTORY));
+
+        configureLogging(options.getLogLevel());
+        configureSecurity(LoggerFactory.getLogger(StreamClient.class));
+        registerLog4jShutdownHook();
+
+        try {
+            StreamClient.main(new String[]{"-d", Globals.DOWNLOAD_DIRECTORY, "-m", Globals.MAGNET_LINK});
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void ActualWorkingTorrentInvocation(){
+        try{
+            CliClient.main(new String[]{"-d", Globals.DOWNLOAD_DIRECTORY, "-m", Globals.MAGNET_LINK});
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
     //endregion Pichler part
 }

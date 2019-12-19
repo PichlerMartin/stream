@@ -197,7 +197,7 @@ public class StreamClient {
         }
     }
 
-    private void start() {
+    public void start() {
         this.printer.start();
         this.client.startAsync((state) -> {
             boolean complete = state.getPiecesRemaining() == 0;
