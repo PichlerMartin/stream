@@ -1,16 +1,8 @@
 package testui;
 
-import bt.Bt;
 import bt.cli.CliClient;
-import bt.data.Storage;
-import bt.data.file.FileSystemStorage;
-import bt.dht.DHTConfig;
-import bt.dht.DHTModule;
-import bt.runtime.BtClient;
-import bt.runtime.Config;
 import client.StreamClient;
 import client.StreamOptions;
-import com.google.inject.Module;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -27,8 +19,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
 import static support.SupportMethods.*;
@@ -57,53 +47,9 @@ public class Select_Controller implements Initializable {
         //this.ActualWorkingTorrentInvocation();
         //this.ownTorrentImplementation();
         //this.ownGlobalTorrentImplementation();
-        this.AtomashpolskiyExample();
+        //this.AtomashpolskiyExample();
 
         stage.close();
-    }
-
-    /**
-     * Description
-     * Diese Methode besteht aus dem Example welche von dem Ersteller der Bt-Bibliothek, atomashpolskiy,
-     * zur Verfügnug gestellt wurde.
-     *
-     * https://github.com/atomashpolskiy/bittorrent
-     */
-    private void AtomashpolskiyExample() {
-        // enable multithreaded verification of torrent data
-        Config config = new Config() {
-            @Override
-            public int getNumOfHashingThreads() {
-                return Runtime.getRuntime().availableProcessors() * 2;
-            }
-        };
-
-        // enable bootstrapping from public routers
-        Module dhtModule = new DHTModule(new DHTConfig() {
-            @Override
-            public boolean shouldUseRouterBootstrap() {
-                return true;
-            }
-        });
-
-        // get download directory
-        Path targetDirectory = Paths.get(Globals.DOWNLOAD_DIRECTORY);
-
-        // create file system based backend for torrent data
-        Storage storage = new FileSystemStorage(targetDirectory);
-
-        // create client with a private runtime
-        BtClient client = Bt.client()
-                .config(config)
-                .storage(storage)
-                .magnet(Globals.MAGNET_LINK)
-                .autoLoadModules()
-                .module(dhtModule)
-                .stopWhenDownloaded()
-                .build();
-
-        // launch
-        client.startAsync().join();
     }
 
     private void ownGlobalTorrentImplementation() {

@@ -1,17 +1,29 @@
 package streamUI;
 
+import bt.Bt;
+import bt.data.Storage;
+import bt.data.file.FileSystemStorage;
+import bt.dht.DHTConfig;
+import bt.dht.DHTModule;
+import bt.runtime.BtClient;
+import bt.runtime.Config;
+import com.google.inject.Module;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.event.ActionEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+import meta.Globals;
 
 import java.io.File;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
+
+import static meta.Globals.DOWNLOAD_DIRECTORY;
 
 public class UI_Controller {
 
@@ -46,6 +58,9 @@ public class UI_Controller {
     private TextField txtDownloadLocation;
 
     @FXML
+    private ListView<String> livFiles;
+
+    @FXML
     private VBox VBoxTorrents;
 
     @FXML
@@ -58,7 +73,7 @@ public class UI_Controller {
     private GridPane GPSettings;
 
     @FXML
-    ComboBox cboxSelectLanguage;
+    ComboBox<String> cboxSelectLanguage;
 
     @FXML
     private Stage stage;
@@ -133,6 +148,8 @@ public class UI_Controller {
         File directory = dirChooser.showDialog(stage);
 
         txtDownloadLocation.setText(directory.toString());
+
+        this.onDirectorySelected(event);
     }
 
     private void resetVisibility() {
@@ -199,7 +216,70 @@ public class UI_Controller {
     //region Pichler part
     @FXML
     public void onEnter(ActionEvent ae){
-        System.out.println("test") ;
+        AtomashpolskiyExample();
+    }
+
+    @FXML
+    private void onDirectorySelected(ActionEvent ae){
+        DOWNLOAD_DIRECTORY = txtDownloadLocation.getText();
+
+        List<String> files = new ArrayList<>();
+        List<String> folders = new ArrayList<>();
+
+        for (final File fileEntry : Objects.requireNonNull(new File(DOWNLOAD_DIRECTORY).listFiles())) {
+            if (fileEntry.isDirectory()) {
+                folders.add(fileEntry.getPath());
+            } else {
+                files.add(fileEntry.getPath());
+            }
+        }
+
+        livFiles.getItems().addAll(folders);
+        livFiles.getItems().addAll(files);
+    }
+
+    /**
+     * Description
+     * Diese Methode besteht aus dem Example welche von dem Ersteller der Bt-Bibliothek, atomashpolskiy,
+     * zur Verfügnug gestellt wurde.
+     *
+     * https://github.com/atomashpolskiy/bittorrent
+     */
+    private void AtomashpolskiyExample() {
+        // enable multithreaded verification of torrent data
+        Config config = new Config() {
+            @Override
+            public int getNumOfHashingThreads() {
+                return Runtime.getRuntime().availableProcessors() * 2;
+            }
+        };
+
+        // enable bootstrapping from public routers
+        Module dhtModule = new DHTModule(new DHTConfig() {
+            @Override
+            public boolean shouldUseRouterBootstrap() {
+                return true;
+            }
+        });
+
+
+        Path targetDirectory = Paths.get(DOWNLOAD_DIRECTORY);
+
+        // create file system based backend for torrent data
+        Storage storage = new FileSystemStorage(targetDirectory);
+
+        // create client with a private runtime
+        BtClient client = Bt.client()
+                .config(config)
+                .storage(storage)
+                .magnet(Globals.MAGNET_LINK)
+                .autoLoadModules()
+                .module(dhtModule)
+                .stopWhenDownloaded()
+                .build();
+
+        // launch
+        client.startAsync().join();
     }
     //endregion Pichler part
 }
