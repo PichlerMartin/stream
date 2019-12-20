@@ -226,9 +226,15 @@ public class UI_Controller {
     //region Pichler part
     @FXML
     public void onEnter(ActionEvent ae){
-        //this.ActualWorkingTorrentInvocation();
-        this.ownTorrentImplementation();
+        this.ActualWorkingTorrentInvocation();
+
+        //  ToDo:   Try checking folders Documents, Downloads and C:\\
+
+        //this.ownTorrentImplementation();
+        //  Does not work
+
         //AtomashpolskiyExample();
+        //  Does not work
 
         //  ToDo:   Continue with implementation of torrent download
     }
