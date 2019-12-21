@@ -226,17 +226,17 @@ public class UI_Controller {
     //region Pichler part
     @FXML
     public void onEnter(ActionEvent ae){
-        this.ActualWorkingTorrentInvocation();
 
-        //  ToDo:   Try checking folders Documents, Downloads and C:\\
+
+        new Thread(this::ActualWorkingTorrentInvocation).start();
+        //  Works, but needs review in class files
+        //  FixMe:  Check multiple folders and task manager for downloads, also test upper implementation
 
         //this.ownTorrentImplementation();
         //  Does not work
 
         //AtomashpolskiyExample();
         //  Does not work
-
-        //  ToDo:   Continue with implementation of torrent download
     }
 
     @FXML
@@ -314,11 +314,7 @@ public class UI_Controller {
         configureSecurity(LoggerFactory.getLogger(StreamClient.class));
         registerLog4jShutdownHook();
 
-        try {
-            StreamClient.main(new String[]{"-d", Globals.DOWNLOAD_DIRECTORY, "-m", Globals.MAGNET_LINK});
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        new Thread(() -> StreamClient.main(new String[]{"-d", Globals.DOWNLOAD_DIRECTORY, "-m", Globals.MAGNET_LINK})).start();
     }
 
     public void ActualWorkingTorrentInvocation(){

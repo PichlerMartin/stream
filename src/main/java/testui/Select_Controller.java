@@ -43,9 +43,11 @@ public class Select_Controller implements Initializable {
     public void Click_ConfirmFileList(ActionEvent ms) throws IOException {
         Stage stage = (Stage) btn_confirm.getScene().getWindow();
 
+        this.ownGlobalTorrentImplementation();
+
+        //  ToDo:   Below call are outsourced in streamUI/UI_Controller.java
         //this.ActualWorkingTorrentInvocation();
         //this.ownTorrentImplementation();
-        this.ownGlobalTorrentImplementation();
         //this.AtomashpolskiyExample();
 
         stage.close();

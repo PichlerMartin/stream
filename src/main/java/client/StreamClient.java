@@ -17,7 +17,6 @@ import bt.torrent.selector.PieceSelector;
 import bt.torrent.selector.RarestFirstSelector;
 import bt.torrent.selector.SequentialSelector;
 import com.google.inject.Module;
-import meta.Globals;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.LoggerContext;
@@ -26,7 +25,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -41,13 +39,9 @@ public class StreamClient {
     private final SessionStatePrinter printer;
     private final BtClient client;
 
-    public static void main(String[] args) throws IOException {
-        args = new String[]{"-d", Globals.DOWNLOAD_DIRECTORY, "-m", Globals.MAGNET_LINK};
-        Options options = Options.parse(args);//new Options(MagnetLink, new File(DownloadDirectory));
+    public static void main(String[] args) {
+        Options options = Options.parse(args);
 
-        //configureLogging(options.getLogLevel());
-        //configureSecurity();
-        //registerLog4jShutdownHook();
         StreamClient client = new StreamClient(options);
         client.start();
     }
