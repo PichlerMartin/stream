@@ -185,7 +185,7 @@
                   <Insets left="60.0" top="-160.0" />
                </GridPane.margin>
             </Label>
-            <Label fx:id="lblMagnetURI1" alignment="TOP_LEFT" nodeOrientation="LEFT_TO_RIGHT" text="Option 1" GridPane.columnIndex="1">
+            <Label fx:id="lblDownloadAll" alignment="TOP_LEFT" nodeOrientation="LEFT_TO_RIGHT" text="Alle herunterladen" GridPane.columnIndex="1">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
@@ -193,15 +193,7 @@
                   <Insets left="55.0" top="20.0" />
                </GridPane.margin>
             </Label>
-            <Label fx:id="lblMagnetURI11" alignment="TOP_LEFT" nodeOrientation="LEFT_TO_RIGHT" text="Und schließlich Option 4" GridPane.columnIndex="1">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets left="55.0" top="230.0" />
-               </GridPane.margin>
-            </Label>
-            <Label fx:id="lblMagnetURI12" alignment="TOP_LEFT" nodeOrientation="LEFT_TO_RIGHT" text="Jetzt Option 3" GridPane.columnIndex="1">
+            <Label fx:id="lblDefaultPort" alignment="TOP_LEFT" nodeOrientation="LEFT_TO_RIGHT" text="Benutze Default-Port" GridPane.columnIndex="1">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
@@ -209,7 +201,7 @@
                   <Insets left="55.0" top="160.0" />
                </GridPane.margin>
             </Label>
-            <Label fx:id="lblMagnetURI13" alignment="TOP_LEFT" nodeOrientation="LEFT_TO_RIGHT" text="Option 2 oder so" GridPane.columnIndex="1">
+            <Label fx:id="lblSeedAfter" alignment="TOP_LEFT" nodeOrientation="LEFT_TO_RIGHT" text="Nachher seeden" GridPane.columnIndex="1">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
@@ -217,7 +209,7 @@
                   <Insets left="55.0" top="90.0" />
                </GridPane.margin>
             </Label>
-            <CheckBox mnemonicParsing="false" selected="true" wrapText="true" GridPane.columnIndex="1">
+            <CheckBox fx:id="chbDownloadAll" mnemonicParsing="false" selected="true" wrapText="true" GridPane.columnIndex="1">
                <font>
                   <Font size="17.0" />
                </font>
@@ -225,7 +217,7 @@
                   <Insets left="280.0" top="20.0" />
                </GridPane.margin>
             </CheckBox>
-            <CheckBox mnemonicParsing="false" selected="true" wrapText="true" GridPane.columnIndex="1">
+            <CheckBox fx:id="chbDefaultPort" mnemonicParsing="false" selected="true" wrapText="true" GridPane.columnIndex="1">
                <font>
                   <Font size="17.0" />
                </font>
@@ -233,7 +225,7 @@
                   <Insets left="280.0" top="160.0" />
                </GridPane.margin>
             </CheckBox>
-            <CheckBox mnemonicParsing="false" wrapText="true" GridPane.columnIndex="1">
+            <CheckBox fx:id="chbSeedAfterDownload" mnemonicParsing="false" wrapText="true" GridPane.columnIndex="1">
                <font>
                   <Font size="17.0" />
                </font>
@@ -241,20 +233,12 @@
                   <Insets left="280.0" top="90.0" />
                </GridPane.margin>
             </CheckBox>
-            <CheckBox mnemonicParsing="false" wrapText="true" GridPane.columnIndex="1">
-               <font>
-                  <Font size="17.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets left="280.0" top="230.0" />
-               </GridPane.margin>
-            </CheckBox>
             <ListView fx:id="livFiles" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="250.0" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="60.0" top="-120.0" />
                </GridPane.margin>
             </ListView>
-            <Button fx:id="btnStartDownload1" minWidth="-Infinity" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Ausgewählte Packete hinzufügen" wrapText="true" GridPane.rowIndex="1">
+            <Button fx:id="btnAddPartsofTorrent" minWidth="-Infinity" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Ausgewählte Packete hinzufügen" wrapText="true" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
@@ -270,6 +254,11 @@
                   <Insets left="55.0" top="-60.0" />
                </GridPane.margin>
             </Label>
+            <TextField fx:id="txtPort" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="250.0" promptText="Alternativport" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets bottom="-220.0" left="60.0" />
+               </GridPane.margin>
+            </TextField>
          </children>
       </GridPane>
       <Label rotate="-19.75" text="share better" textFill="WHITE">

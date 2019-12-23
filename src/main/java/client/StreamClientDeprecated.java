@@ -4,36 +4,21 @@ import bt.Bt;
 import bt.BtClientBuilder;
 import bt.data.Storage;
 import bt.data.file.FileSystemStorage;
-import bt.dht.DHTConfig;
-import bt.dht.DHTModule;
-import bt.protocol.crypto.EncryptionPolicy;
 import bt.runtime.BtClient;
 import bt.runtime.BtRuntime;
 import bt.runtime.Config;
 import bt.service.IRuntimeLifecycleBinder;
-import bt.torrent.fileselector.TorrentFileSelector;
 import bt.torrent.selector.PieceSelector;
 import bt.torrent.selector.RarestFirstSelector;
 import bt.torrent.selector.SequentialSelector;
-import com.google.inject.Module;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import support.SupportMethods;
 import testui.Controller;
-import testui.Select_Controller;
 import testui.UI_Controller;
 //import testui.TestStreamClient;
 
-import java.io.IOException;
-import java.net.InetAddress;
 import java.net.MalformedURLException;
-import java.net.UnknownHostException;
-import java.util.Optional;
-import java.util.stream.Stream;
 
 import static support.SupportMethods.buildConfig;
 import static support.SupportMethods.buildDHTModule;
@@ -125,7 +110,7 @@ public class StreamClientDeprecated implements Client {
         //  ToDo:   Continue here somewhere, idk
         //  ToDo:   Test with own hotspot
 
-        if(!options.shouldDownloadAllFiles()){
+        if(options.shouldDownloadAllFiles()){
             StreamFileSelector fileSelector = new StreamFileSelector();
             clientBuilder.fileSelector(fileSelector);
             runtime.service(IRuntimeLifecycleBinder.class).onShutdown(fileSelector::shutdown);

@@ -93,7 +93,7 @@ public class StreamClient {
 
     private StreamClient(StreamOptions options) {
         this.options = options;
-        this.printer = new SessionStatePrinter(/*new UI_Controller()*/);
+        this.printer = new SessionStatePrinter();
 
         Config config = buildConfig(options);
         BtRuntime runtime = BtRuntime.builder(config).module(buildDHTModule(options)).autoLoadModules().build();
@@ -101,13 +101,11 @@ public class StreamClient {
         PieceSelector selector = options.downloadSequentially() ? SequentialSelector.sequential() : RarestFirstSelector.randomizedRarest();
         BtClientBuilder clientBuilder = Bt.client(runtime).storage(storage).selector(selector);
 
-        if (!options.shouldDownloadAllFiles()) {
+        if (options.shouldDownloadAllFiles()) {
             StreamFileSelector fileSelector = new StreamFileSelector();
             clientBuilder.fileSelector(fileSelector);
             runtime.service(IRuntimeLifecycleBinder.class).onShutdown(fileSelector::shutdown);
         }
-
-        //clientBuilder.afterTorrentFetched(var10001::onTorrentFetched);
 
         clientBuilder.afterFilesChosen(this.printer::onFilesChosen);
         if (options.getMetainfoFile() != null) {

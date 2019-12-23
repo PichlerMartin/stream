@@ -78,6 +78,17 @@ public class UI_Controller {
     @FXML
     private GridPane GPSettings;
 
+    //  ToDo:   Continue with working on the user interface
+
+    @FXML
+    private CheckBox chbDefaultPort;
+
+    @FXML
+    private CheckBox chbDownloadAll;
+
+    @FXML
+    private CheckBox chbSeedAfterDownload;
+
     @FXML
     ComboBox<String> cboxSelectLanguage;
 
@@ -224,14 +235,14 @@ public class UI_Controller {
     public void onEnter(ActionEvent ae){
 
 
-        new Thread(this::ActualWorkingTorrentInvocation).start();
-        //  Works, but needs review in class files
+        //new Thread(this::ActualWorkingTorrentInvocation).start();
+        //  Works sometimes, but needs review in class files
         //  FixMe:  Check multiple folders and task manager for downloads, also test upper implementation
 
         //new Thread(this::ownTorrentImplementation).start();
         //  Does not work, prints errors
 
-        //new Thread(this::AtomashpolskiyExample).start();
+        new Thread(this::AtomashpolskiyExample).start();
         //  Works, prints status warnings
     }
 

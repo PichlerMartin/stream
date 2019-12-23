@@ -78,8 +78,8 @@ public class StreamOptions {
         return this.dhtPort;
     }
 
-    public boolean shouldDownloadAllFiles() {
-        return this.downloadAllFiles;
+    boolean shouldDownloadAllFiles() {
+        return !this.downloadAllFiles;
     }
 
     public void setDownloadAllFiles(boolean delta){
