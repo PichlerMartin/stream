@@ -9,7 +9,6 @@ import bt.dht.DHTModule;
 import bt.runtime.BtClient;
 import bt.runtime.Config;
 import client.StreamClient;
-import client.StreamOptions;
 import com.google.inject.Module;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,7 +19,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import meta.Globals;
-import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,8 +27,6 @@ import java.nio.file.Paths;
 import java.util.*;
 
 import static meta.Globals.DOWNLOAD_DIRECTORY;
-import static support.SupportMethods.*;
-import static support.SupportMethods.registerLog4jShutdownHook;
 
 public class UI_Controller {
 
@@ -228,14 +224,14 @@ public class UI_Controller {
     public void onEnter(ActionEvent ae){
 
 
-        new Thread(this::ActualWorkingTorrentInvocation).start();
+        //new Thread(this::ActualWorkingTorrentInvocation).start();
         //  Works, but needs review in class files
         //  FixMe:  Check multiple folders and task manager for downloads, also test upper implementation
 
-        //this.ownTorrentImplementation();
+        new Thread(this::ownTorrentImplementation).start();
         //  Does not work
 
-        //AtomashpolskiyExample();
+        //new Thread(this::AtomashpolskiyExample).start();
         //  Does not work
     }
 
@@ -307,14 +303,11 @@ public class UI_Controller {
     }
 
     private void ownTorrentImplementation() {
-
-        StreamOptions options = new StreamOptions(Globals.MAGNET_LINK, new File(Globals.DOWNLOAD_DIRECTORY));
-
-        configureLogging(options.getLogLevel());
-        configureSecurity(LoggerFactory.getLogger(StreamClient.class));
-        registerLog4jShutdownHook();
-
-        new Thread(() -> StreamClient.main(new String[]{"-d", Globals.DOWNLOAD_DIRECTORY, "-m", Globals.MAGNET_LINK})).start();
+        try{
+            StreamClient.main(new String[]{"-d", Globals.DOWNLOAD_DIRECTORY, "-m", Globals.MAGNET_LINK});
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     public void ActualWorkingTorrentInvocation(){

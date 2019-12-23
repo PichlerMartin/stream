@@ -23,6 +23,7 @@ import org.apache.logging.log4j.core.LoggerContext;
 import org.apache.logging.log4j.core.config.Configurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import support.SupportMethods;
 
 import java.io.File;
 import java.net.InetAddress;
@@ -32,6 +33,7 @@ import java.net.UnknownHostException;
 import java.security.Security;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public class StreamClient {
     private static final Logger LOGGER = LoggerFactory.getLogger(StreamClient.class);
@@ -40,7 +42,11 @@ public class StreamClient {
     private final BtClient client;
 
     public static void main(String[] args) {
-        Options options = Options.parse(args);
+        StreamOptions options = new StreamOptions(args[1], new File(args[3]));
+
+        SupportMethods.configureLogging(options.getLogLevel());
+        SupportMethods.configureSecurity(LOGGER);
+        SupportMethods.registerLog4jShutdownHook();
 
         StreamClient client = new StreamClient(options);
         client.start();
@@ -48,7 +54,7 @@ public class StreamClient {
 
     private static void configureLogging(Options.LogLevel logLevel) {
         Level log4jLogLevel;
-        switch((Options.LogLevel) Objects.requireNonNull(logLevel)) {
+        switch(Objects.requireNonNull(logLevel)) {
             case NORMAL:
                 log4jLogLevel = Level.INFO;
                 break;
@@ -95,11 +101,11 @@ public class StreamClient {
         BtRuntime runtime = BtRuntime.builder(config).module(buildDHTModule(options)).autoLoadModules().build();
         Storage storage = new FileSystemStorage(options.getTargetDirectory().toPath());
         PieceSelector selector = options.downloadSequentially() ? SequentialSelector.sequential() : RarestFirstSelector.randomizedRarest();
-        BtClientBuilder clientBuilder = (BtClientBuilder)((BtClientBuilder)Bt.client(runtime).storage(storage)).selector((PieceSelector)selector);
+        BtClientBuilder clientBuilder = Bt.client(runtime).storage(storage).selector(selector);
         if (!options.shouldDownloadAllFiles()) {
             StreamFileSelector fileSelector = new StreamFileSelector();
             clientBuilder.fileSelector(fileSelector);
-            ((IRuntimeLifecycleBinder)runtime.service(IRuntimeLifecycleBinder.class)).onShutdown(fileSelector::shutdown);
+            runtime.service(IRuntimeLifecycleBinder.class).onShutdown(fileSelector::shutdown);
         }
 
         SessionStatePrinter var10001 = this.printer;
@@ -107,13 +113,13 @@ public class StreamClient {
         var10001 = this.printer;
         clientBuilder.afterFilesChosen(var10001::onFilesChosen);
         if (options.getMetainfoFile() != null) {
-            clientBuilder = (BtClientBuilder)clientBuilder.torrent(toUrl(options.getMetainfoFile()));
+            clientBuilder = clientBuilder.torrent(toUrl(options.getMetainfoFile()));
         } else {
             if (options.getMagnetUri() == null) {
                 throw new IllegalStateException("Torrent file or magnet URI is required");
             }
 
-            clientBuilder = (BtClientBuilder)clientBuilder.magnet(options.getMagnetUri());
+            clientBuilder = clientBuilder.magnet(options.getMagnetUri());
         }
 
         this.client = clientBuilder.build();
@@ -124,15 +130,11 @@ public class StreamClient {
         final Optional<Integer> portOverride = tryGetPort(options.getPort());
         return new Config() {
             public InetAddress getAcceptorAddress() {
-                return (InetAddress)acceptorAddressOverride.orElseGet(() -> {
-                    return super.getAcceptorAddress();
-                });
+                return acceptorAddressOverride.orElseGet(super::getAcceptorAddress);
             }
 
             public int getAcceptorPort() {
-                return (Integer)portOverride.orElseGet(() -> {
-                    return super.getAcceptorPort();
-                });
+                return portOverride.orElseGet(super::getAcceptorPort);
             }
 
             public int getNumOfHashingThreads() {
@@ -172,7 +174,7 @@ public class StreamClient {
         final Optional<Integer> dhtPortOverride = tryGetPort(options.getDhtPort());
         return new DHTModule(new DHTConfig() {
             public int getListeningPort() {
-                return (Integer)dhtPortOverride.orElseGet(() -> {
+                return dhtPortOverride.orElseGet(() -> {
                     return super.getListeningPort();
                 });
             }
