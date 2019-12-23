@@ -33,16 +33,15 @@ import java.net.UnknownHostException;
 import java.security.Security;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 public class StreamClient {
     private static final Logger LOGGER = LoggerFactory.getLogger(StreamClient.class);
-    private final Options options;
+    private final StreamOptions options;
     private final SessionStatePrinter printer;
     private final BtClient client;
 
     public static void main(String[] args) {
-        StreamOptions options = new StreamOptions(args[1], new File(args[3]));
+        StreamOptions options = new StreamOptions(args[3], new File(args[1]));
 
         SupportMethods.configureLogging(options.getLogLevel());
         SupportMethods.configureSecurity(LOGGER);
@@ -84,34 +83,33 @@ public class StreamClient {
     }
 
     private static void registerLog4jShutdownHook() {
-        Runtime.getRuntime().addShutdownHook(new Thread() {
-            public void run() {
-                if (LogManager.getContext() instanceof LoggerContext) {
-                    Configurator.shutdown((LoggerContext)LogManager.getContext());
-                }
-
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            if (LogManager.getContext() instanceof LoggerContext) {
+                Configurator.shutdown((LoggerContext)LogManager.getContext());
             }
-        });
+
+        }));
     }
 
-    public StreamClient(Options options) {
+    private StreamClient(StreamOptions options) {
         this.options = options;
         this.printer = new SessionStatePrinter(/*new UI_Controller()*/);
+
         Config config = buildConfig(options);
         BtRuntime runtime = BtRuntime.builder(config).module(buildDHTModule(options)).autoLoadModules().build();
         Storage storage = new FileSystemStorage(options.getTargetDirectory().toPath());
         PieceSelector selector = options.downloadSequentially() ? SequentialSelector.sequential() : RarestFirstSelector.randomizedRarest();
         BtClientBuilder clientBuilder = Bt.client(runtime).storage(storage).selector(selector);
+
         if (!options.shouldDownloadAllFiles()) {
             StreamFileSelector fileSelector = new StreamFileSelector();
             clientBuilder.fileSelector(fileSelector);
             runtime.service(IRuntimeLifecycleBinder.class).onShutdown(fileSelector::shutdown);
         }
 
-        SessionStatePrinter var10001 = this.printer;
         //clientBuilder.afterTorrentFetched(var10001::onTorrentFetched);
-        var10001 = this.printer;
-        clientBuilder.afterFilesChosen(var10001::onFilesChosen);
+
+        clientBuilder.afterFilesChosen(this.printer::onFilesChosen);
         if (options.getMetainfoFile() != null) {
             clientBuilder = clientBuilder.torrent(toUrl(options.getMetainfoFile()));
         } else {
@@ -125,7 +123,7 @@ public class StreamClient {
         this.client = clientBuilder.build();
     }
 
-    private static Config buildConfig(final Options options) {
+    private static Config buildConfig(final StreamOptions options) {
         final Optional<InetAddress> acceptorAddressOverride = getAcceptorAddressOverride(options);
         final Optional<Integer> portOverride = tryGetPort(options.getPort());
         return new Config() {
@@ -157,7 +155,7 @@ public class StreamClient {
         }
     }
 
-    private static Optional<InetAddress> getAcceptorAddressOverride(Options options) {
+    private static Optional<InetAddress> getAcceptorAddressOverride(StreamOptions options) {
         String inetAddress = options.getInetAddress();
         if (inetAddress == null) {
             return Optional.empty();
@@ -170,13 +168,11 @@ public class StreamClient {
         }
     }
 
-    private static Module buildDHTModule(Options options) {
+    private static Module buildDHTModule(StreamOptions options) {
         final Optional<Integer> dhtPortOverride = tryGetPort(options.getDhtPort());
         return new DHTModule(new DHTConfig() {
             public int getListeningPort() {
-                return dhtPortOverride.orElseGet(() -> {
-                    return super.getListeningPort();
-                });
+                return dhtPortOverride.orElseGet(super::getListeningPort);
             }
 
             public boolean shouldUseRouterBootstrap() {
