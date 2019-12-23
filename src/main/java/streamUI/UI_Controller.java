@@ -224,15 +224,15 @@ public class UI_Controller {
     public void onEnter(ActionEvent ae){
 
 
-        //new Thread(this::ActualWorkingTorrentInvocation).start();
+        new Thread(this::ActualWorkingTorrentInvocation).start();
         //  Works, but needs review in class files
         //  FixMe:  Check multiple folders and task manager for downloads, also test upper implementation
 
-        new Thread(this::ownTorrentImplementation).start();
-        //  Does not work
+        //new Thread(this::ownTorrentImplementation).start();
+        //  Does not work, prints errors
 
         //new Thread(this::AtomashpolskiyExample).start();
-        //  Does not work
+        //  Works, prints status warnings
     }
 
     @FXML
