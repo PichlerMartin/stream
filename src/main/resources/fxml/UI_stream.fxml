@@ -169,7 +169,7 @@
                   <Insets left="310.0" top="135.0" />
                </GridPane.margin>
             </Button>
-            <Button fx:id="btnStartDownload" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Download starten" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Button fx:id="btnStartDownload" disable="true" mnemonicParsing="false" onAction="#handleOnStartDownload" style="-fx-background-color: transparent;" text="Download starten" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
@@ -238,7 +238,7 @@
                   <Insets left="60.0" top="-120.0" />
                </GridPane.margin>
             </ListView>
-            <Button fx:id="btnAddPartsofTorrent" minWidth="-Infinity" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Ausgewählte Packete hinzufügen" wrapText="true" GridPane.rowIndex="1">
+            <Button fx:id="btnAddPartsofTorrent" disable="true" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleOnAddSelectedParts" style="-fx-background-color: transparent;" text="Ausgewählte Packete hinzufügen" wrapText="true" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>

@@ -26,7 +26,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
-import static meta.Globals.DOWNLOAD_DIRECTORY;
+import static meta.Globals.*;
 
 public class UI_Controller {
 
@@ -53,6 +53,12 @@ public class UI_Controller {
 
     @FXML
     private Button btnHelp;
+
+    @FXML
+    private Button btnAddPartsofTorrent;
+
+    @FXML
+    private Button btnStartDownload;
 
     @FXML
     private Button btnStorageLocation;
@@ -99,8 +105,6 @@ public class UI_Controller {
             Locale.GERMAN,
             Locale.ENGLISH
     };
-
-
 
     @FXML
     public void handleOnClickedbtnTorrents (ActionEvent event) {
@@ -165,6 +169,7 @@ public class UI_Controller {
         File directory = dirChooser.showDialog(stage);
 
         txtDownloadLocation.setText(directory.toString());
+        DIRECTORY_SELECTED = true;
 
         this.onDirectorySelected(event);
     }
@@ -249,6 +254,7 @@ public class UI_Controller {
     @FXML
     private void onDirectorySelected(ActionEvent ae){
         DOWNLOAD_DIRECTORY = txtDownloadLocation.getText();
+        MAGNET_LINK = txtMagnetURI.getText();
 
         List<String> files = new ArrayList<>();
         List<String> folders = new ArrayList<>();
@@ -263,6 +269,21 @@ public class UI_Controller {
 
         livFiles.getItems().addAll(folders);
         livFiles.getItems().addAll(files);
+
+        livFiles.getItems().clear();
+
+        if (txtMagnetURI.getText().contains("magnet:?xt=urn:btih:") && DIRECTORY_SELECTED)
+            this.btnAddPartsofTorrent.setVisible(true);
+    }
+
+    @FXML
+    private void handleOnAddSelectedParts(ActionEvent ae){
+
+    }
+
+    @FXML
+    private void handleOnStartDownload (ActionEvent ae){
+
     }
 
     /**
