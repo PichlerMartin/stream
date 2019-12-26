@@ -135,9 +135,9 @@
             <Insets left="450.0" top="50.0" />
          </GridPane.margin>
          <children>
-            <TextField fx:id="txtDownloadLocation" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" onAction="#handleOnDirectoryEntered" prefWidth="250.0">
+            <TextField fx:id="txtDownloadLocation" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="250.0">
                <GridPane.margin>
-                  <Insets left="60.0" top="135.0" />
+                  <Insets left="60.0" top="205.0" />
                </GridPane.margin>
             </TextField>
             <Label fx:id="lblMagnetURI" minWidth="-Infinity" text="Magnet URI">
@@ -153,7 +153,7 @@
                   <Font name="System Bold" size="17.0" />
                </font>
                <GridPane.margin>
-                  <Insets left="60.0" top="80.0" />
+                  <Insets left="60.0" top="150.0" />
                </GridPane.margin>
             </Label>
             <TextField fx:id="txtMagnetURI" alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" onAction="#handleOnMagnetURIEntered" prefWidth="250.0">
@@ -166,7 +166,7 @@
                   <Font name="System Bold" size="17.0" />
                </font>
                <GridPane.margin>
-                  <Insets left="310.0" top="135.0" />
+                  <Insets left="310.0" top="205.0" />
                </GridPane.margin>
             </Button>
             <Button fx:id="btnStartDownload" disable="true" mnemonicParsing="false" onAction="#handleOnStartDownload" style="-fx-background-color: transparent;" text="Download starten" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -235,7 +235,7 @@
             </CheckBox>
             <ListView fx:id="livFiles" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="250.0" GridPane.rowIndex="1">
                <GridPane.margin>
-                  <Insets left="60.0" top="-120.0" />
+                  <Insets left="60.0" top="-50.0" />
                </GridPane.margin>
             </ListView>
             <Button fx:id="btnAddPartsofTorrent" disable="true" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleOnAddSelectedParts" style="-fx-background-color: transparent;" text="Ausgewählte Packete hinzufügen" wrapText="true" GridPane.rowIndex="1">
@@ -243,7 +243,7 @@
                   <Font name="System Bold" size="17.0" />
                </font>
                <GridPane.margin>
-                  <Insets left="52.0" top="70.0" />
+                  <Insets left="52.0" top="140.0" />
                </GridPane.margin>
             </Button>
             <Label minWidth="-Infinity" text="Optionen" GridPane.columnIndex="1">
@@ -259,6 +259,43 @@
                   <Insets bottom="-220.0" left="60.0" />
                </GridPane.margin>
             </TextField>
+            <TextField fx:id="txtTorrentFile" alignment="TOP_LEFT" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" onAction="#handleOnTorrentFileSelected" prefWidth="250.0">
+               <GridPane.margin>
+                  <Insets left="60.0" top="100.0" />
+               </GridPane.margin>
+            </TextField>
+            <Label fx:id="lblTorrentFile" minWidth="-Infinity" text="Torrent Datei">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="60.0" top="45.0" />
+               </GridPane.margin>
+            </Label>
+            <CheckBox fx:id="chbUseMagnetURI" mnemonicParsing="false" onAction="#handleOnUseMagnetURI" selected="true" wrapText="true">
+               <font>
+                  <Font size="17.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="30.0" top="-5.0" />
+               </GridPane.margin>
+            </CheckBox>
+            <CheckBox fx:id="chbUseTorrentFile" mnemonicParsing="false" onAction="#handleOnUseTorrentFile" wrapText="true">
+               <font>
+                  <Font size="17.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="30.0" top="100.0" />
+               </GridPane.margin>
+            </CheckBox>
+            <Button fx:id="btnSelectTorrentFile" disable="true" mnemonicParsing="false" onAction="#handleOnClickedbtnSelectTorrentFile" style="-fx-background-color: transparent;" text="...">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="310.0" top="100.0" />
+               </GridPane.margin>
+            </Button>
          </children>
       </GridPane>
       <Label rotate="-19.75" text="share better" textFill="WHITE">

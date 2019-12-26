@@ -35,6 +35,18 @@ public class UI_Controller {
     private Stage parentStage;
 
     @FXML
+    private Stage stage;
+
+    @FXML
+    private TextField txtDownloadLocation;
+
+    @FXML
+    private TextField txtMagnetURI;
+
+    @FXML
+    private TextField txtTorrentFile;
+
+    @FXML
     private Button btnTorrents;
 
     @FXML
@@ -59,33 +71,13 @@ public class UI_Controller {
     private Button btnAddPartsofTorrent;
 
     @FXML
+    private Button btnSelectTorrentFile;
+
+    @FXML
     private Button btnStartDownload;
 
     @FXML
     private Button btnStorageLocation;
-
-    @FXML
-    private TextField txtDownloadLocation;
-
-    @FXML
-    private TextField txtMagnetURI;
-
-    @FXML
-    private ListView<String> livFiles;
-
-    @FXML
-    private VBox VBoxTorrents;
-
-    @FXML
-    private TableView TVTorrentsList;
-
-    @FXML
-    private GridPane GPAddTorrent;
-
-    @FXML
-    private GridPane GPSettings;
-
-    //  ToDo:   Continue with working on the user interface
 
     @FXML
     private CheckBox chbDefaultPort;
@@ -97,10 +89,29 @@ public class UI_Controller {
     private CheckBox chbSeedAfterDownload;
 
     @FXML
+    private CheckBox chbUseTorrentFile;
+
+    @FXML
+    private CheckBox chbUseMagnetURI;
+
+    @FXML
+    private ListView<String> livFiles;
+
+    @FXML
+    private VBox VBoxTorrents;
+
+    @FXML
     ComboBox<String> cboxSelectLanguage;
 
     @FXML
-    private Stage stage;
+    private TableView TVTorrentsList;
+
+
+    @FXML
+    private GridPane GPAddTorrent;
+
+    @FXML
+    private GridPane GPSettings;
 
     Locale[] supportedLocales = {
             Locale.GERMAN,
@@ -410,6 +421,26 @@ public class UI_Controller {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+    }
+
+    public void handleOnTorrentFileSelected(ActionEvent actionEvent) {
+    }
+
+    public void handleOnUseMagnetURI(ActionEvent actionEvent) {
+        chbUseMagnetURI.setDisable(true);
+        txtMagnetURI.setDisable(true);
+        chbUseTorrentFile.setDisable(false);
+        chbUseTorrentFile.setSelected(false);
+    }
+
+    public void handleOnUseTorrentFile(ActionEvent actionEvent) {
+        chbUseTorrentFile.setDisable(true);
+        txtTorrentFile.setDisable(true);
+        chbUseMagnetURI.setDisable(false);
+        chbUseMagnetURI.setSelected(false);
+    }
+
+    public void handleOnClickedbtnSelectTorrentFile(ActionEvent actionEvent) {
     }
     //endregion Pichler part
 }
