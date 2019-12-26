@@ -26,6 +26,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
+import static java.nio.file.Files.exists;
 import static meta.Globals.*;
 
 public class UI_Controller {
@@ -168,10 +169,40 @@ public class UI_Controller {
         dirChooser.setInitialDirectory(new File(System.getProperty("user.home")));
         File directory = dirChooser.showDialog(stage);
 
-        txtDownloadLocation.setText(directory.toString());
-        DIRECTORY_SELECTED = true;
+        if (directory != null && exists(directory.toPath())){
+            txtDownloadLocation.setText(directory.toString());
+            DIRECTORY_SELECTED = true;
 
-        this.onDirectorySelected(event);
+            this.onDirectorySelected(event);
+        } else {
+            this.showWarning("Bitte Verzeichnis wählen",
+                    "Um fortzufahren wählen Sie bitte ein gültiges Verzeichnis.",
+                    false);
+        }
+    }
+
+    private void showWarning(String titel, String header, String message, boolean showOK) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(titel);
+        alert.setHeaderText(header);
+        alert.setContentText(message);
+        alert.showAndWait().ifPresent(rs -> {
+            if (rs == ButtonType.OK && showOK) {
+                System.out.println("Pressed OK.");
+            }
+        });
+    }
+
+    private void showWarning(String header, String message, boolean showOK) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Warnung");
+        alert.setHeaderText(header);
+        alert.setContentText(message);
+        alert.showAndWait().ifPresent(rs -> {
+            if (rs == ButtonType.OK && showOK) {
+                System.out.println("Pressed OK.");
+            }
+        });
     }
 
     private void resetVisibility() {
@@ -237,18 +268,33 @@ public class UI_Controller {
 
     //region Pichler part
     @FXML
-    public void onEnter(ActionEvent ae){
+    public void handleOnMagnetURIEntered(ActionEvent ae){
+        if (txtMagnetURI.getText().contains("magnet:?xt=urn:btih:")) {
+            MAGNET_LINK = txtMagnetURI.getText();
+            txtDownloadLocation.requestFocus();
+        }
+        else {
+            showWarning("Magnet URI ungültig",
+                    "Bitte geben Sie eine gültige Magnet URI in das Textfeld ein um fortzufahren",
+                    false);
+        }
+    }
 
+    @FXML
+    public void handleOnDirectoryEntered(ActionEvent ae){
+        File directory = new File(txtDownloadLocation.getText());
 
-        //new Thread(this::ActualWorkingTorrentInvocation).start();
-        //  Works sometimes, but needs review in class files
-        //  FixMe:  Check multiple folders and task manager for downloads, also test upper implementation
+        if (directory.isDirectory() && exists(directory.toPath())){
+            livFiles.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+            txtDownloadLocation.setText(directory.toString());
+            DIRECTORY_SELECTED = true;
 
-        //new Thread(this::ownTorrentImplementation).start();
-        //  Does not work, prints errors
-
-        new Thread(this::AtomashpolskiyExample).start();
-        //  Works, prints status warnings
+            this.onDirectorySelected(ae);
+        } else {
+            this.showWarning("Bitte Verzeichnis wählen",
+                    "Um fortzufahren wählen Sie bitte ein gültiges Verzeichnis.",
+                    false);
+        }
     }
 
     @FXML
@@ -282,26 +328,24 @@ public class UI_Controller {
         if(chbDownloadAll.isSelected() || livFiles.getSelectionModel().getSelectedItems().size() >= 1){
             btnStartDownload.setDisable(false);
         } else {
-            this.showWarningSelectFiles();
+            this.showWarning("Wählen Sie Elemente",
+                    "Um Datein zum Download hinzuzufügen, müssen Sie zuerst Elemente aus der Listbox auswählen, bzw." +
+                            "die rechte Box markieren.",
+                    false);
         }
-    }
-
-    private void showWarningSelectFiles() {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Warnung");
-        alert.setHeaderText("Wählen Sie Elemente");
-        alert.setContentText("Um Datein zum Download hinzuzufügen, müssen Sie zuerst Elemente aus der Listbox auswählen, bzw." +
-                "die rechte Box markieren.");
-        alert.showAndWait().ifPresent(rs -> {
-            if (rs == ButtonType.OK) {
-                System.out.println("Pressed OK.");
-            }
-        });
     }
 
     @FXML
     private void handleOnStartDownload (ActionEvent ae){
+        //new Thread(this::ActualWorkingTorrentInvocation).start();
+        //  Works sometimes, but needs review in class files
+        //  FixMe:  Check multiple folders and task manager for downloads, also test upper implementation
 
+        //new Thread(this::ownTorrentImplementation).start();
+        //  Does not work, prints errors
+
+        new Thread(this::AtomashpolskiyExample).start();
+        //  Works, prints status warnings
     }
 
     /**

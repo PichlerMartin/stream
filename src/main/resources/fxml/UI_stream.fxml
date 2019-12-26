@@ -135,7 +135,7 @@
             <Insets left="450.0" top="50.0" />
          </GridPane.margin>
          <children>
-            <TextField fx:id="txtDownloadLocation" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="250.0">
+            <TextField fx:id="txtDownloadLocation" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" onAction="#handleOnDirectoryEntered" prefWidth="250.0">
                <GridPane.margin>
                   <Insets left="60.0" top="135.0" />
                </GridPane.margin>
@@ -156,7 +156,7 @@
                   <Insets left="60.0" top="80.0" />
                </GridPane.margin>
             </Label>
-            <TextField fx:id="txtMagnetURI" alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" onAction="#onEnter" prefWidth="250.0">
+            <TextField fx:id="txtMagnetURI" alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" onAction="#handleOnMagnetURIEntered" prefWidth="250.0">
                <GridPane.margin>
                   <Insets left="60.0" top="-5.0" />
                </GridPane.margin>
