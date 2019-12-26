@@ -272,7 +272,7 @@
                   <Insets left="60.0" top="45.0" />
                </GridPane.margin>
             </Label>
-            <CheckBox fx:id="chbUseMagnetURI" mnemonicParsing="false" onAction="#handleOnUseMagnetURI" selected="true" wrapText="true">
+            <CheckBox fx:id="chbUseMagnetURI" disable="true" mnemonicParsing="false" onAction="#handleOnUseMagnetURI" selected="true" wrapText="true">
                <font>
                   <Font size="17.0" />
                </font>

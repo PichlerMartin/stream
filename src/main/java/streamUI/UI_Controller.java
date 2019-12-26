@@ -220,6 +220,8 @@ public class UI_Controller {
         VBoxTorrents.setVisible(false);
         GPAddTorrent.setVisible(false);
         GPSettings.setVisible(false);
+
+        //  ToDo:   Implement disabled-property reset in ui
     }
 
     public void setStage (Stage CurrentStage) {
@@ -428,14 +430,18 @@ public class UI_Controller {
 
     public void handleOnUseMagnetURI(ActionEvent actionEvent) {
         chbUseMagnetURI.setDisable(true);
-        txtMagnetURI.setDisable(true);
+        txtMagnetURI.setDisable(false);
+
+        txtTorrentFile.setDisable(true);
         chbUseTorrentFile.setDisable(false);
         chbUseTorrentFile.setSelected(false);
     }
 
     public void handleOnUseTorrentFile(ActionEvent actionEvent) {
         chbUseTorrentFile.setDisable(true);
-        txtTorrentFile.setDisable(true);
+        txtTorrentFile.setDisable(false);
+
+        txtMagnetURI.setDisable(true);
         chbUseMagnetURI.setDisable(false);
         chbUseMagnetURI.setSelected(false);
     }
