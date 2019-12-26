@@ -270,15 +270,33 @@ public class UI_Controller {
         livFiles.getItems().addAll(folders);
         livFiles.getItems().addAll(files);
 
-        livFiles.getItems().clear();
+        //livFiles.getItems().clear();
+        livFiles.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         if (txtMagnetURI.getText().contains("magnet:?xt=urn:btih:") && DIRECTORY_SELECTED)
-            this.btnAddPartsofTorrent.setVisible(true);
+            this.btnAddPartsofTorrent.setDisable(false);
     }
 
     @FXML
     private void handleOnAddSelectedParts(ActionEvent ae){
+        if(chbDownloadAll.isSelected() || livFiles.getSelectionModel().getSelectedItems().size() >= 1){
+            btnStartDownload.setDisable(false);
+        } else {
+            this.showWarningSelectFiles();
+        }
+    }
 
+    private void showWarningSelectFiles() {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Warnung");
+        alert.setHeaderText("Wählen Sie Elemente");
+        alert.setContentText("Um Datein zum Download hinzuzufügen, müssen Sie zuerst Elemente aus der Listbox auswählen, bzw." +
+                "die rechte Box markieren.");
+        alert.showAndWait().ifPresent(rs -> {
+            if (rs == ButtonType.OK) {
+                System.out.println("Pressed OK.");
+            }
+        });
     }
 
     @FXML
