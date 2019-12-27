@@ -135,7 +135,7 @@
             <Insets left="450.0" top="50.0" />
          </GridPane.margin>
          <children>
-            <TextField fx:id="txtDownloadLocation" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="250.0">
+            <TextField fx:id="txtDownloadLocation" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" onAction="#handleOnDirectorySelected" prefWidth="250.0">
                <GridPane.margin>
                   <Insets left="60.0" top="205.0" />
                </GridPane.margin>

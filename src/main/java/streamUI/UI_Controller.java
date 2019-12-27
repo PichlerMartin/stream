@@ -10,9 +10,6 @@ import bt.runtime.BtClient;
 import bt.runtime.Config;
 import client.StreamClient;
 import com.google.inject.Module;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -120,7 +117,7 @@ public class UI_Controller implements Initializable {
     @FXML
     private GridPane GPSettings;
 
-    Locale[] supportedLocales = {
+    private Locale[] supportedLocales = {
             Locale.GERMAN,
             Locale.ENGLISH
     };
@@ -128,55 +125,61 @@ public class UI_Controller implements Initializable {
     @Override
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
+        int maxLength = 6;
+
         //  forces the field txtPort to be numeric only
         //  https://stackoverflow.com/questions/7555564/what-is-the-recommended-way-to-make-a-numeric-textfield-in-javafx
-        txtPort.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    txtPort.setText(newValue.replaceAll("[^\\d]", ""));
-                }
+        txtPort.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                txtPort.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+
+        //  https://stackoverflow.com/questions/15159988/javafx-2-2-textfield-maxlength
+        txtPort.textProperty().addListener((ov, oldValue, newValue) -> {
+            if (txtPort.getText().length() > maxLength) {
+                String s = txtPort.getText().substring(0, maxLength);
+                txtPort.setText(s);
             }
         });
     }
 
     @FXML
-    public void handleOnClickedbtnTorrents (ActionEvent event) {
+    public void handleOnClickedbtnTorrents() {
         resetVisibility();
         VBoxTorrents.setVisible(true);
         TVTorrentsList.setPlaceholder(new Label("No Torrents found!"));
     }
 
     @FXML
-    public void handleOnClickedbtnAddTorrents (ActionEvent event) {
+    public void handleOnClickedbtnAddTorrents () {
         resetVisibility();
         GPAddTorrent.setVisible(true);
     }
 
     @FXML
-    public void handleOnClickedbtnDownloading (ActionEvent event) {
+    public void handleOnClickedbtnDownloading () {
         resetVisibility();
         VBoxTorrents.setVisible(true);
         TVTorrentsList.setPlaceholder(new Label("No downloading Torrents found!"));
     }
 
     @FXML
-    public void handleOnClickedbtnUploading (ActionEvent event) {
+    public void handleOnClickedbtnUploading () {
         resetVisibility();
         VBoxTorrents.setVisible(true);
         TVTorrentsList.setPlaceholder(new Label("No uploading Torrents found!"));
     }
 
     @FXML
-    public void handleOnClickedbtnFinished (ActionEvent event) {
+    public void handleOnClickedbtnFinished () {
         resetVisibility();
         VBoxTorrents.setVisible(true);
         TVTorrentsList.setPlaceholder(new Label("No Torrents found!"));
     }
 
     @FXML
-    public void handleOnClickedbtnSettings (ActionEvent event) {
+    public void handleOnClickedbtnSettings () {
 
         resetVisibility();
         GPSettings.setVisible(true);
@@ -187,7 +190,7 @@ public class UI_Controller implements Initializable {
     }
 
     @FXML
-    public void handleOnClickedCbox (ActionEvent event) {
+    public void handleOnClickedCbox () {
         for (Locale loc: supportedLocales) {
             if (loc.getDisplayName().equals(cboxSelectLanguage.getValue())) {
                 changeLanguage(loc);
@@ -196,7 +199,7 @@ public class UI_Controller implements Initializable {
     }
 
     @FXML
-    public void handleOnClickedbtnStorageLocation (ActionEvent event) {
+    public void handleOnClickedbtnStorageLocation () {
 
         DirectoryChooser dirChooser = new DirectoryChooser();
         dirChooser.setTitle("Speichern unter");
@@ -207,7 +210,7 @@ public class UI_Controller implements Initializable {
             txtDownloadLocation.setText(directory.toString());
             DIRECTORY_SELECTED = true;
 
-            this.onDirectorySelected(event);
+            this.onDirectorySelected();
         } else {
             this.showWarning("Bitte Verzeichnis wählen",
                     "Um fortzufahren wählen Sie bitte ein gültiges Verzeichnis.",
@@ -304,7 +307,7 @@ public class UI_Controller implements Initializable {
 
     //region Pichler part
     @FXML
-    public void handleOnMagnetURIEntered(ActionEvent ae){
+    public void handleOnMagnetURIEntered(){
         if (txtMagnetURI.getText().contains("magnet:?xt=urn:btih:")) {
             MAGNET_LINK = txtMagnetURI.getText();
             txtDownloadLocation.requestFocus();
@@ -317,7 +320,7 @@ public class UI_Controller implements Initializable {
     }
 
     @FXML
-    public void handleOnDirectoryEntered(ActionEvent ae){
+    public void handleOnDirectoryEntered(){
         File directory = new File(txtDownloadLocation.getText());
 
         if (this.isDirectoryValid(directory)){
@@ -325,7 +328,7 @@ public class UI_Controller implements Initializable {
             txtDownloadLocation.setText(directory.toString());
             DIRECTORY_SELECTED = true;
 
-            this.onDirectorySelected(ae);
+            this.onDirectorySelected();
         } else {
             this.showWarning("Bitte Verzeichnis wählen",
                     "Um fortzufahren wählen Sie bitte ein gültiges Verzeichnis.",
@@ -334,7 +337,7 @@ public class UI_Controller implements Initializable {
     }
 
     @FXML
-    private void onDirectorySelected(ActionEvent ae){
+    private void onDirectorySelected(){
         DOWNLOAD_DIRECTORY = txtDownloadLocation.getText();
         MAGNET_LINK = txtMagnetURI.getText();
 
@@ -360,7 +363,7 @@ public class UI_Controller implements Initializable {
     }
 
     @FXML
-    private void handleOnAddSelectedParts(ActionEvent ae){
+    private void handleOnAddSelectedParts(){
         if(chbDownloadAll.isSelected() || livFiles.getSelectionModel().getSelectedItems().size() >= 1){
             btnStartDownload.setDisable(false);
         } else {
@@ -372,7 +375,7 @@ public class UI_Controller implements Initializable {
     }
 
     @FXML
-    private void handleOnStartDownload (ActionEvent ae){
+    private void handleOnStartDownload (){
         //new Thread(this::ActualWorkingTorrentInvocation).start();
         //  Works sometimes, but needs review in class files
         //  FixMe:  Check multiple folders and task manager for downloads, also test upper implementation
@@ -449,11 +452,11 @@ public class UI_Controller implements Initializable {
     }
 
     @FXML
-    public void handleOnTorrentFileSelected(ActionEvent actionEvent) {
+    public void handleOnTorrentFileSelected() {
     }
 
     @FXML
-    public void handleOnUseMagnetURI(ActionEvent actionEvent) {
+    public void handleOnUseMagnetURI() {
         chbUseMagnetURI.setDisable(true);
         txtMagnetURI.setDisable(false);
 
@@ -463,7 +466,7 @@ public class UI_Controller implements Initializable {
     }
 
     @FXML
-    public void handleOnUseTorrentFile(ActionEvent actionEvent) {
+    public void handleOnUseTorrentFile() {
         chbUseTorrentFile.setDisable(true);
         txtTorrentFile.setDisable(false);
 
@@ -474,11 +477,11 @@ public class UI_Controller implements Initializable {
 
 
     @FXML
-    public void handleOnClickedbtnSelectTorrentFile(ActionEvent actionEvent) {
+    public void handleOnClickedbtnSelectTorrentFile() {
     }
 
     @FXML
-    public void handleOnClickedUseDefaultPort(ActionEvent actionEvent) {
+    public void handleOnClickedUseDefaultPort() {
         if (chbDefaultPort.isSelected()){
             txtPort.setDisable(true);
         } else {
@@ -487,16 +490,16 @@ public class UI_Controller implements Initializable {
     }
 
     @FXML
-    public void handleOnClickedSeedAfterDownload(ActionEvent actionEvent){
+    public void handleOnClickedSeedAfterDownload(){
 
     }
 
     @FXML
-    public void handleOnDirectorySelected(ActionEvent actionEvent){
+    public void handleOnDirectorySelected(){
         if (isDirectoryValid(new File(txtDownloadLocation.getText()))){
             DOWNLOAD_DIRECTORY = txtDownloadLocation.getText();
             DIRECTORY_SELECTED = true;
-            this.onDirectorySelected(actionEvent);
+            this.onDirectorySelected();
         } else {
             this.showWarning("Bitte Verzeichnis wählen",
                     "Um fortzufahren wählen Sie bitte ein gültiges Verzeichnis.",
