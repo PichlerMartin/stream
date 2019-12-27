@@ -225,7 +225,7 @@
                   <Insets left="280.0" top="160.0" />
                </GridPane.margin>
             </CheckBox>
-            <CheckBox fx:id="chbSeedAfterDownload" mnemonicParsing="false" wrapText="true" GridPane.columnIndex="1">
+            <CheckBox fx:id="chbSeedAfterDownload" mnemonicParsing="false" onAction="#handleOnClickedSeedAfterDownload" wrapText="true" GridPane.columnIndex="1">
                <font>
                   <Font size="17.0" />
                </font>

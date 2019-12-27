@@ -9,6 +9,7 @@ import bt.dht.DHTModule;
 import bt.runtime.BtClient;
 import bt.runtime.Config;
 import client.StreamClient;
+import com.google.common.io.Files;
 import com.google.inject.Module;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -201,10 +202,7 @@ public class UI_Controller implements Initializable {
     @FXML
     public void handleOnClickedbtnStorageLocation () {
 
-        DirectoryChooser dirChooser = new DirectoryChooser();
-        dirChooser.setTitle("Speichern unter");
-        dirChooser.setInitialDirectory(new File(System.getProperty("user.home")));
-        File directory = dirChooser.showDialog(stage);
+        File directory = this.openFileDialog("Speichern unter");
 
         if (this.isDirectoryValid(directory)){
             txtDownloadLocation.setText(directory.toString());
@@ -352,10 +350,9 @@ public class UI_Controller implements Initializable {
             }
         }
 
+        livFiles.getItems().clear();
         livFiles.getItems().addAll(folders);
         livFiles.getItems().addAll(files);
-
-        //livFiles.getItems().clear();
         livFiles.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         if (txtMagnetURI.getText().contains("magnet:?xt=urn:btih:") && DIRECTORY_SELECTED)
@@ -390,7 +387,7 @@ public class UI_Controller implements Initializable {
     /**
      * Description
      * Diese Methode besteht aus dem Example welche von dem Ersteller der Bt-Bibliothek, atomashpolskiy,
-     * zur Verfügnug gestellt wurde.
+     * zur Verf&uuml;gnug gestellt wurde.
      *
      * https://github.com/atomashpolskiy/bittorrent
      */
@@ -458,9 +455,10 @@ public class UI_Controller implements Initializable {
     @FXML
     public void handleOnUseMagnetURI() {
         chbUseMagnetURI.setDisable(true);
-        txtMagnetURI.setDisable(false);
-
         txtTorrentFile.setDisable(true);
+        btnSelectTorrentFile.setDisable(true);
+
+        txtMagnetURI.setDisable(false);
         chbUseTorrentFile.setDisable(false);
         chbUseTorrentFile.setSelected(false);
     }
@@ -468,9 +466,10 @@ public class UI_Controller implements Initializable {
     @FXML
     public void handleOnUseTorrentFile() {
         chbUseTorrentFile.setDisable(true);
-        txtTorrentFile.setDisable(false);
-
         txtMagnetURI.setDisable(true);
+
+        btnSelectTorrentFile.setDisable(false);
+        txtTorrentFile.setDisable(false);
         chbUseMagnetURI.setDisable(false);
         chbUseMagnetURI.setSelected(false);
     }
@@ -478,6 +477,23 @@ public class UI_Controller implements Initializable {
 
     @FXML
     public void handleOnClickedbtnSelectTorrentFile() {
+
+        File torrentfile = this.openFileDialog("Torrent Datei wählen");
+
+        if (this.isTorrentFileValid(torrentfile)){
+            txtTorrentFile.setText(torrentfile.toString());
+        } else {
+            this.showWarning("Bitte gültige Torrent Datei wählen",
+                    "Um fortzufahren w\u00e4hlen Sie bitte eine Datei mit der Endung \".torrent\"",
+                    false);
+        }
+    }
+
+    private File openFileDialog(String header) {
+        DirectoryChooser dirChooser = new DirectoryChooser();
+        dirChooser.setTitle(header);
+        dirChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+        return dirChooser.showDialog(stage);
     }
 
     @FXML
@@ -491,7 +507,7 @@ public class UI_Controller implements Initializable {
 
     @FXML
     public void handleOnClickedSeedAfterDownload(){
-
+        SEED_AFTER_DOWNLOAD = !SEED_AFTER_DOWNLOAD;
     }
 
     @FXML
@@ -508,7 +524,11 @@ public class UI_Controller implements Initializable {
     }
 
     private boolean isDirectoryValid(File directory){
-        return directory.isDirectory() && exists(directory.toPath()) && exists(directory.toPath());
+        return directory != null && !directory.getPath().equals("") && directory.isDirectory() && exists(directory.toPath()) && exists(directory.toPath());
+    }
+
+    private boolean isTorrentFileValid(File torrentfile) {
+        return torrentfile.exists() && (Files.getFileExtension(torrentfile.getPath()).equals("torrent"));
     }
 
     public Stage getParentStage() {
