@@ -10,8 +10,11 @@ import bt.runtime.BtClient;
 import bt.runtime.Config;
 import client.StreamClient;
 import com.google.inject.Module;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -22,6 +25,7 @@ import meta.Globals;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
@@ -29,7 +33,7 @@ import java.util.*;
 import static java.nio.file.Files.exists;
 import static meta.Globals.*;
 
-public class UI_Controller {
+public class UI_Controller implements Initializable {
 
     @FXML
     private Stage parentStage;
@@ -120,6 +124,22 @@ public class UI_Controller {
             Locale.GERMAN,
             Locale.ENGLISH
     };
+
+    @Override
+    @FXML
+    public void initialize(URL location, ResourceBundle resources) {
+        //  forces the field txtPort to be numeric only
+        //  https://stackoverflow.com/questions/7555564/what-is-the-recommended-way-to-make-a-numeric-textfield-in-javafx
+        txtPort.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    txtPort.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+    }
 
     @FXML
     public void handleOnClickedbtnTorrents (ActionEvent event) {
@@ -428,9 +448,11 @@ public class UI_Controller {
         }
     }
 
+    @FXML
     public void handleOnTorrentFileSelected(ActionEvent actionEvent) {
     }
 
+    @FXML
     public void handleOnUseMagnetURI(ActionEvent actionEvent) {
         chbUseMagnetURI.setDisable(true);
         txtMagnetURI.setDisable(false);
@@ -440,6 +462,7 @@ public class UI_Controller {
         chbUseTorrentFile.setSelected(false);
     }
 
+    @FXML
     public void handleOnUseTorrentFile(ActionEvent actionEvent) {
         chbUseTorrentFile.setDisable(true);
         txtTorrentFile.setDisable(false);
@@ -449,9 +472,12 @@ public class UI_Controller {
         chbUseMagnetURI.setSelected(false);
     }
 
+
+    @FXML
     public void handleOnClickedbtnSelectTorrentFile(ActionEvent actionEvent) {
     }
 
+    @FXML
     public void handleOnClickedUseDefaultPort(ActionEvent actionEvent) {
         if (chbDefaultPort.isSelected()){
             txtPort.setDisable(true);
@@ -460,10 +486,12 @@ public class UI_Controller {
         }
     }
 
+    @FXML
     public void handleOnClickedSeedAfterDownload(ActionEvent actionEvent){
 
     }
 
+    @FXML
     public void handleOnDirectorySelected(ActionEvent actionEvent){
         if (isDirectoryValid(new File(txtDownloadLocation.getText()))){
             DOWNLOAD_DIRECTORY = txtDownloadLocation.getText();

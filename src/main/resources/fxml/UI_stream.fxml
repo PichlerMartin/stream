@@ -217,7 +217,7 @@
                   <Insets left="280.0" top="20.0" />
                </GridPane.margin>
             </CheckBox>
-            <CheckBox fx:id="chbDefaultPort" mnemonicParsing="false" selected="true" wrapText="true" GridPane.columnIndex="1">
+            <CheckBox fx:id="chbDefaultPort" mnemonicParsing="false" onAction="#handleOnClickedUseDefaultPort" selected="true" wrapText="true" GridPane.columnIndex="1">
                <font>
                   <Font size="17.0" />
                </font>
