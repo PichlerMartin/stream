@@ -9,7 +9,6 @@ import bt.dht.DHTModule;
 import bt.runtime.BtClient;
 import bt.runtime.Config;
 import client.StreamClient;
-import com.google.common.io.Files;
 import com.google.inject.Module;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,6 +19,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import meta.Globals;
+import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -211,33 +211,16 @@ public class UI_Controller implements Initializable {
             this.onDirectorySelected();
         } else {
             this.showWarning("Bitte Verzeichnis wählen",
-                    "Um fortzufahren wählen Sie bitte ein gültiges Verzeichnis.",
-                    false);
+                    "Um fortzufahren wählen Sie bitte ein gültiges Verzeichnis.");
         }
     }
 
-    private void showWarning(String titel, String header, String message, boolean showOK) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle(titel);
-        alert.setHeaderText(header);
-        alert.setContentText(message);
-        alert.showAndWait().ifPresent(rs -> {
-            if (rs == ButtonType.OK && showOK) {
-                System.out.println("Pressed OK.");
-            }
-        });
-    }
-
-    private void showWarning(String header, String message, boolean showOK) {
+    private void showWarning(String header, String message) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Warnung");
         alert.setHeaderText(header);
         alert.setContentText(message);
-        alert.showAndWait().ifPresent(rs -> {
-            if (rs == ButtonType.OK && showOK) {
-                System.out.println("Pressed OK.");
-            }
-        });
+        alert.show();
     }
 
     private void resetVisibility() {
@@ -248,11 +231,11 @@ public class UI_Controller implements Initializable {
         //  ToDo:   Implement disabled-property reset in ui
     }
 
-    public void setStage (Stage CurrentStage) {
+    private void setStage (Stage CurrentStage) {
         this.stage = CurrentStage;
     }
 
-    public void setParentStage (Stage root) {
+    private void setParentStage (Stage root) {
 
         Locale currentLocale = Locale.GERMAN;
 
@@ -267,7 +250,7 @@ public class UI_Controller implements Initializable {
     /**
      * This method is called by buttons, which have been entered
      * It changes the style and the colour of the text in the caller button
-     * @param event
+     * @param event: is used to retrieve the source of the event
      */
     @FXML
     public void handleOnMenuEntryEntered (MouseEvent event) {
@@ -280,7 +263,7 @@ public class UI_Controller implements Initializable {
     /**
      * This method changes the style and colour of the caller button back to the original state
      * If the mouse leaves one of the buttons, this method is called
-     * @param event
+     * @param event: is used to retrieve the source of the event
      */
     @FXML
     public void handleOnMenuEntryLeft (MouseEvent event) {
@@ -311,8 +294,7 @@ public class UI_Controller implements Initializable {
         }
         else {
             showWarning("Magnet URI ungültig",
-                    "Bitte geben Sie eine gültige Magnet URI in das Textfeld ein um fortzufahren",
-                    false);
+                    "Bitte geben Sie eine gültige Magnet URI in das Textfeld ein um fortzufahren");
         }
     }
 
@@ -328,8 +310,7 @@ public class UI_Controller implements Initializable {
             this.onDirectorySelected();
         } else {
             this.showWarning("Bitte Verzeichnis wählen",
-                    "Um fortzufahren wählen Sie bitte ein gültiges Verzeichnis.",
-                    false);
+                    "Um fortzufahren wählen Sie bitte ein gültiges Verzeichnis.");
         }
     }
 
@@ -365,8 +346,7 @@ public class UI_Controller implements Initializable {
         } else {
             this.showWarning("Wählen Sie Elemente",
                     "Um Datein zum Download hinzuzufügen, müssen Sie zuerst Elemente aus der Listbox auswählen, bzw." +
-                            "die rechte Box markieren.",
-                    false);
+                            "die rechte Box markieren.");
         }
     }
 
@@ -457,8 +437,7 @@ public class UI_Controller implements Initializable {
         }
         else {
             this.showWarning("Bitte gültige Torrent Datei wählen",
-                    "Um fortzufahren w\u00e4hlen Sie bitte eine Datei mit der Endung \".torrent\"",
-                    false);
+                    "Um fortzufahren w\u00e4hlen Sie bitte eine Datei mit der Endung \".torrent\"");
         }
     }
 
@@ -494,8 +473,7 @@ public class UI_Controller implements Initializable {
             txtTorrentFile.setText(torrentfile.toString());
         } else {
             this.showWarning("Bitte gültige Torrent Datei wählen",
-                    "Um fortzufahren w\u00e4hlen Sie bitte eine Datei mit der Endung \".torrent\"",
-                    false);
+                    "Um fortzufahren w\u00e4hlen Sie bitte eine Datei mit der Endung \".torrent\"");
         }
     }
 
@@ -528,8 +506,7 @@ public class UI_Controller implements Initializable {
             this.onDirectorySelected();
         } else {
             this.showWarning("Bitte Verzeichnis wählen",
-                    "Um fortzufahren wählen Sie bitte ein gültiges Verzeichnis.",
-                    false);
+                    "Um fortzufahren wählen Sie bitte ein gültiges Verzeichnis.");
         }
     }
 
@@ -538,7 +515,7 @@ public class UI_Controller implements Initializable {
     }
 
     private boolean isTorrentFileValid(File torrentfile) {
-        return torrentfile != null && torrentfile.exists() && (Files.getFileExtension(torrentfile.getPath()).equals("torrent"));
+        return torrentfile != null && torrentfile.exists() && (FilenameUtils.getExtension(torrentfile.getPath()).equals("torrent"));
     }
 
     public Stage getParentStage() {

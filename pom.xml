@@ -14,6 +14,11 @@
             <version>RELEASE</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.5</version>
+        </dependency>
     </dependencies>
 
     <properties>
@@ -58,6 +63,12 @@
             </dependency>
 
             <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>2.6</version>
+            </dependency>
+
+            <dependency>
                 <groupId>pl.pragmatists</groupId>
                 <artifactId>JUnitParams</artifactId>
                 <version>1.1.0</version>
@@ -67,12 +78,6 @@
                 <groupId> net.sf.jopt-simple </groupId>
                 <artifactId> jopt-simple </artifactId>
                 <version> ${jopts-version} </version>
-            </dependency>
-
-            <dependency>
-                <groupId> org.apache.logging.log4j </groupId>
-                <artifactId> log4j-core </artifactId>
-                <version> ${log4j-version} </version>
             </dependency>
 
             <dependency>
