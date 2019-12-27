@@ -290,7 +290,7 @@ public class UI_Controller implements Initializable {
     }
 
 
-    public void changeLanguage(Locale loc) {
+    private void changeLanguage(Locale loc) {
 
         ResourceBundle labels = ResourceBundle.getBundle("ResourceBundle", loc);
         btnTorrents.setText(labels.getString("btnTorrents"));
@@ -300,7 +300,6 @@ public class UI_Controller implements Initializable {
         btnFinished.setText(labels.getString("btnFinished"));
         btnSettings.setText(labels.getString("btnSettings"));
         btnHelp.setText(labels.getString("btnHelp"));
-
     }
 
     //region Pichler part
@@ -450,6 +449,17 @@ public class UI_Controller implements Initializable {
 
     @FXML
     public void handleOnTorrentFileSelected() {
+        File torrentfile = new File(txtTorrentFile.getText());
+
+        if (this.isTorrentFileValid(torrentfile)) {
+            TORRENT_FILE = torrentfile.getPath();
+            txtDownloadLocation.requestFocus();
+        }
+        else {
+            this.showWarning("Bitte gültige Torrent Datei wählen",
+                    "Um fortzufahren w\u00e4hlen Sie bitte eine Datei mit der Endung \".torrent\"",
+                    false);
+        }
     }
 
     @FXML
@@ -528,7 +538,7 @@ public class UI_Controller implements Initializable {
     }
 
     private boolean isTorrentFileValid(File torrentfile) {
-        return torrentfile.exists() && (Files.getFileExtension(torrentfile.getPath()).equals("torrent"));
+        return torrentfile != null && torrentfile.exists() && (Files.getFileExtension(torrentfile.getPath()).equals("torrent"));
     }
 
     public Stage getParentStage() {
