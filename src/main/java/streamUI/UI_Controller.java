@@ -47,6 +47,9 @@ public class UI_Controller {
     private TextField txtTorrentFile;
 
     @FXML
+    private TextField txtPort;
+
+    @FXML
     private Button btnTorrents;
 
     @FXML
@@ -180,7 +183,7 @@ public class UI_Controller {
         dirChooser.setInitialDirectory(new File(System.getProperty("user.home")));
         File directory = dirChooser.showDialog(stage);
 
-        if (directory != null && exists(directory.toPath())){
+        if (this.isDirectoryValid(directory)){
             txtDownloadLocation.setText(directory.toString());
             DIRECTORY_SELECTED = true;
 
@@ -297,7 +300,7 @@ public class UI_Controller {
     public void handleOnDirectoryEntered(ActionEvent ae){
         File directory = new File(txtDownloadLocation.getText());
 
-        if (directory.isDirectory() && exists(directory.toPath())){
+        if (this.isDirectoryValid(directory)){
             livFiles.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
             txtDownloadLocation.setText(directory.toString());
             DIRECTORY_SELECTED = true;
@@ -319,7 +322,7 @@ public class UI_Controller {
         List<String> folders = new ArrayList<>();
 
         for (final File fileEntry : Objects.requireNonNull(new File(DOWNLOAD_DIRECTORY).listFiles())) {
-            if (fileEntry.isDirectory()) {
+            if (this.isDirectoryValid(fileEntry)) {
                 folders.add(fileEntry.getPath());
             } else {
                 files.add(fileEntry.getPath());
@@ -447,6 +450,38 @@ public class UI_Controller {
     }
 
     public void handleOnClickedbtnSelectTorrentFile(ActionEvent actionEvent) {
+    }
+
+    public void handleOnClickedUseDefaultPort(ActionEvent actionEvent) {
+        if (chbDefaultPort.isSelected()){
+            txtPort.setDisable(true);
+        } else {
+            txtPort.setDisable(false);
+        }
+    }
+
+    public void handleOnClickedSeedAfterDownload(ActionEvent actionEvent){
+
+    }
+
+    public void handleOnDirectorySelected(ActionEvent actionEvent){
+        if (isDirectoryValid(new File(txtDownloadLocation.getText()))){
+            DOWNLOAD_DIRECTORY = txtDownloadLocation.getText();
+            DIRECTORY_SELECTED = true;
+            this.onDirectorySelected(actionEvent);
+        } else {
+            this.showWarning("Bitte Verzeichnis wählen",
+                    "Um fortzufahren wählen Sie bitte ein gültiges Verzeichnis.",
+                    false);
+        }
+    }
+
+    private boolean isDirectoryValid(File directory){
+        return directory.isDirectory() && exists(directory.toPath()) && exists(directory.toPath());
+    }
+
+    public Stage getParentStage() {
+        return parentStage;
     }
     //endregion Pichler part
 }
