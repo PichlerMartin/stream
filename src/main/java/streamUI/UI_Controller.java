@@ -202,9 +202,8 @@ public class UI_Controller implements Initializable {
 
         if (this.isDirectoryValid(directory)){
             txtDownloadLocation.setText(directory.toString());
-            DIRECTORY_SELECTED = true;
 
-            this.onDirectorySelected();
+            if (this.checkIfDownloadCanBeInitialized()) prepareDownload();
         } else {
             this.showWarning("Bitte Verzeichnis wählen",
                     "Um fortzufahren wählen Sie bitte ein gültiges Verzeichnis.");
@@ -297,8 +296,6 @@ public class UI_Controller implements Initializable {
     @FXML
     public void handleOnDirectorySelected(){
         if (isDirectoryValid(new File(txtDownloadLocation.getText()))){
-            DIRECTORY_SELECTED = true;
-
             if (checkIfDownloadCanBeInitialized())prepareDownload();
         } else {
             this.showWarning("Bitte Verzeichnis wählen",
@@ -352,21 +349,16 @@ public class UI_Controller implements Initializable {
 
     @FXML
     private void onDirectorySelected(){
-        DOWNLOAD_DIRECTORY = txtDownloadLocation.getText();
-        MAGNET_LINK = txtMagnetURI.getText();
-
         livFiles.getItems().clear();
         livFiles.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
-        if (isMagnetLinkValid(txtMagnetURI.getText()) && DIRECTORY_SELECTED)
-            this.btnAddPartsofTorrent.setDisable(false);
+        this.btnAddPartsofTorrent.setDisable(false);
     }
 
     @FXML
     private void handleOnStartDownload (){
         //new Thread(this::ActualWorkingTorrentInvocation).start();
         //  Works sometimes, but needs review in class files
-        //  FixMe:  Check multiple folders and task manager for downloads, also test upper implementation
 
         //new Thread(this::ownTorrentImplementation).start();
         //  Does not work, prints errors
@@ -539,12 +531,9 @@ public class UI_Controller implements Initializable {
         MAGNET_LINK = txtMagnetURI.getText();
         TORRENT_FILE = txtTorrentFile.getText();
         DOWNLOAD_DIRECTORY = txtDownloadLocation.getText();
+        DIRECTORY_SELECTED = true;
 
         this.onDirectorySelected();
-    }
-
-    public Stage getParentStage() {
-        return parentStage;
     }
     //endregion Pichler part
 }
