@@ -40,6 +40,8 @@ public class StreamClient {
         SupportMethods.configureSecurity(LOGGER);
         SupportMethods.registerLog4jShutdownHook();
 
+        //  FIXME:  This class is essentially the same as the CliClient class from bt.cli except the SessionStatePrinter (this class is used in ownTorrentImplementation other in ActualWorkingTorrentInvocation
+
         StreamClient client = new StreamClient(options);
         client.start();
     }
