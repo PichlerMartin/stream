@@ -36,23 +36,23 @@ public class StreamOptions {
         this.targetDirectory = targetDirectory;
     }
 
-    public File getMetainfoFile() {
+    File getMetainfoFile() {
         return this.metainfoFile;
     }
 
-    public String getMagnetUri() {
+    String getMagnetUri() {
         return this.magnetUri;
     }
 
-    public File getTargetDirectory() {
+    File getTargetDirectory() {
         return this.targetDirectory;
     }
 
-    public boolean shouldSeedAfterDownloaded() {
+    boolean shouldSeedAfterDownloaded() {
         return this.seedAfterDownloaded;
     }
 
-    public boolean downloadSequentially() {
+    boolean downloadSequentially() {
         return this.sequential;
     }
 

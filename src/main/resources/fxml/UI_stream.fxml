@@ -157,7 +157,7 @@
             <Insets left="60.0" top="-5.0" />
          </GridPane.margin>
       </TextField>
-      <Button fx:id="btnStorageLocation" mnemonicParsing="false" onAction="#handleOnClickedbtnStorageLocation" style="-fx-background-color: transparent;" text="...">
+      <Button mnemonicParsing="false" onAction="#handleOnClickedbtnStorageLocation" style="-fx-background-color: transparent;" text="...">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
@@ -165,7 +165,7 @@
             <Insets left="310.0" top="205.0" />
          </GridPane.margin>
       </Button>
-      <Button fx:id="btnStartDownload" disable="true" mnemonicParsing="false" onAction="#handleOnStartDownload" style="-fx-background-color: transparent;" text="Download starten" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <Button fx:id="btnStartDownload" mnemonicParsing="false" onAction="#handleOnStartDownload" style="-fx-background-color: transparent;" text="Download starten" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <font>
             <Font name="System Bold" size="25.0" />
          </font>
@@ -221,7 +221,7 @@
             <Insets left="280.0" top="160.0" />
          </GridPane.margin>
       </CheckBox>
-      <CheckBox fx:id="chbSeedAfterDownload" mnemonicParsing="false" onAction="#handleOnClickedSeedAfterDownload" wrapText="true" GridPane.columnIndex="1">
+      <CheckBox mnemonicParsing="false" onAction="#handleOnClickedSeedAfterDownload" wrapText="true" GridPane.columnIndex="1">
          <font>
             <Font size="17.0" />
          </font>

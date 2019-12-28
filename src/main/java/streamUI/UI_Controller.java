@@ -25,9 +25,11 @@ import org.apache.commons.io.FilenameUtils;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+import java.util.ResourceBundle;
 
 import static java.nio.file.Files.exists;
 import static meta.Globals.*;
@@ -410,15 +412,8 @@ public class UI_Controller implements Initializable {
             }
         });
 
-
-        Path targetDirectory = Paths.get(DOWNLOAD_DIRECTORY);
-
-        if (isMagnetLinkValid(txtMagnetURI.getText())) {
-            Globals.MAGNET_LINK = txtMagnetURI.getText();
-        }
-
         // create file system based backend for torrent data
-        Storage storage = new FileSystemStorage(targetDirectory);
+        Storage storage = new FileSystemStorage(Paths.get(DOWNLOAD_DIRECTORY));
 
         // create client with a private runtime
         BtClient client = Bt.client()
