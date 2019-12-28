@@ -2,7 +2,6 @@ package client;
 
 import bt.Bt;
 import bt.BtClientBuilder;
-import bt.cli.Options;
 import bt.cli.SessionStatePrinter;
 import bt.data.Storage;
 import bt.data.file.FileSystemStorage;
@@ -17,10 +16,6 @@ import bt.torrent.selector.PieceSelector;
 import bt.torrent.selector.RarestFirstSelector;
 import bt.torrent.selector.SequentialSelector;
 import com.google.inject.Module;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.LoggerContext;
-import org.apache.logging.log4j.core.config.Configurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import support.SupportMethods;
@@ -30,8 +25,6 @@ import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
-import java.security.Security;
-import java.util.Objects;
 import java.util.Optional;
 
 public class StreamClient {
@@ -49,46 +42,6 @@ public class StreamClient {
 
         StreamClient client = new StreamClient(options);
         client.start();
-    }
-
-    private static void configureLogging(Options.LogLevel logLevel) {
-        Level log4jLogLevel;
-        switch(Objects.requireNonNull(logLevel)) {
-            case NORMAL:
-                log4jLogLevel = Level.INFO;
-                break;
-            case VERBOSE:
-                log4jLogLevel = Level.DEBUG;
-                break;
-            case TRACE:
-                log4jLogLevel = Level.TRACE;
-                break;
-            default:
-                throw new IllegalArgumentException("Unknown log level: " + logLevel.name());
-        }
-
-        Configurator.setLevel("bt", log4jLogLevel);
-    }
-
-    private static void configureSecurity() {
-        String key = "crypto.policy";
-        String value = "unlimited";
-
-        try {
-            Security.setProperty(key, value);
-        } catch (Exception var3) {
-            LOGGER.error(String.format("Failed to set security property '%s' to '%s'", key, value), var3);
-        }
-
-    }
-
-    private static void registerLog4jShutdownHook() {
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            if (LogManager.getContext() instanceof LoggerContext) {
-                Configurator.shutdown((LoggerContext)LogManager.getContext());
-            }
-
-        }));
     }
 
     private StreamClient(StreamOptions options) {

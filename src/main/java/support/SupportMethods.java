@@ -5,6 +5,7 @@ import bt.dht.DHTModule;
 import bt.protocol.crypto.EncryptionPolicy;
 import bt.runtime.Config;
 import client.StreamOptions;
+import client.StreamOptions.LogLevel;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.LoggerContext;
@@ -27,10 +28,6 @@ import java.util.Optional;
  * called within the StreamClient.java class, and are tailored for its needs.
  */
 public abstract class SupportMethods {
-
-    public static void printHello(){
-        System.out.println("Hello");
-    }
 
     public static URL toUrl(File file) {
         try {
@@ -61,14 +58,11 @@ public abstract class SupportMethods {
      * https://stackoverflow.com/questions/31416784/thread-with-lambda-expression
      */
     public static void registerLog4jShutdownHook() {
-        Runtime.getRuntime().addShutdownHook(new Thread() {
-            @Override
-            public void run() {
-                if( LogManager.getContext() instanceof LoggerContext) {
-                    Configurator.shutdown((LoggerContext)LogManager.getContext());
-                }
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            if( LogManager.getContext() instanceof LoggerContext) {
+                Configurator.shutdown((LoggerContext)LogManager.getContext());
             }
-        });
+        }));
     }
 
     /**
@@ -76,7 +70,7 @@ public abstract class SupportMethods {
      * @param logLevel: log level, beschreibt den Grad des Logging abhängig vom Verwendungszweck
      *                d.h.: NORMAL im gewöhnlichen Betrieb, VERBOSE beim Debuggen und TRACE
      */
-    public static void configureLogging(StreamOptions.LogLevel logLevel) {
+    public static void configureLogging(LogLevel logLevel) {
         Level log4jLogLevel;
         switch (Objects.requireNonNull(logLevel)) {
             case NORMAL: {
