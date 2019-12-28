@@ -415,18 +415,20 @@ public class UI_Controller implements Initializable {
         // create file system based backend for torrent data
         Storage storage = new FileSystemStorage(Paths.get(DOWNLOAD_DIRECTORY));
 
-        // create client with a private runtime
-        BtClient client = Bt.client()
-                .config(config)
-                .storage(storage)
-                .magnet(Globals.MAGNET_LINK)
-                .autoLoadModules()
-                .module(dhtModule)
-                .stopWhenDownloaded()
-                .build();
+        try {
+            BtClient client = Bt.client()
+                    .config(config)
+                    .storage(storage)
+                    .magnet(MAGNET_LINK)
+                    .autoLoadModules()
+                    .module(dhtModule)
+                    .stopWhenDownloaded()
+                    .build();
 
-        // launch
-        client.startAsync().join();
+            client.startAsync().join();
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
     }
 
     @Deprecated
