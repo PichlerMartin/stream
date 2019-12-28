@@ -9,8 +9,12 @@ A simple and comfy torrent client in Java 8
 </sup>
 </strong></p>
 
+<p align="center"> 
+<img src="https://i.ibb.co/28NTH0B/logo.png" height="400" widht="400">
+    </p>
+
 <p align="center">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Comingsoon.gif" alt="Demo GIF">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Comingsoon.gif" alt="Demo GIF" height="400" widht="400">
 </p>
 
 ## Update Log
