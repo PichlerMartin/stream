@@ -10,5 +10,7 @@ public class Globals {
     public static Integer PORT = -1;
     public static boolean USE_DEFAULT_PORT = true;
     public static Boolean DOWNLOAD_ALL = true;
+    public static Boolean USE_MAGNET_LINK = true;
+    public static Boolean USE_TORRENT_FILE = false;
     public static Boolean SEED_AFTER_DOWNLOAD = false;
 }

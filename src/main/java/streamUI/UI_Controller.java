@@ -287,17 +287,6 @@ public class UI_Controller implements Initializable {
     }
 
     //region Pichler part
-    @FXML
-    public void handleOnMagnetURIEntered(){
-        if (isMagnetLinkValid(txtMagnetURI.getText())) {
-            MAGNET_LINK = txtMagnetURI.getText();
-            txtDownloadLocation.requestFocus();
-        }
-        else {
-            showWarning("Magnet URI ungültig",
-                    "Bitte geben Sie eine gültige Magnet URI in das Textfeld ein um fortzufahren");
-        }
-    }
 
     @FXML
     public void handleOnDirectoryEntered(){
@@ -366,24 +355,23 @@ public class UI_Controller implements Initializable {
     }
 
     @FXML
+    public void handleOnMagnetURIEntered(){
+        if (isMagnetLinkValid(txtMagnetURI.getText())) {
+            MAGNET_LINK = txtMagnetURI.getText();
+            txtDownloadLocation.requestFocus();
+        }
+        else {
+            showWarning("Magnet URI ungültig",
+                    "Bitte geben Sie eine gültige Magnet URI in das Textfeld ein um fortzufahren");
+        }
+    }
+
+    @FXML
     private void onDirectorySelected(){
         DOWNLOAD_DIRECTORY = txtDownloadLocation.getText();
         MAGNET_LINK = txtMagnetURI.getText();
 
-        List<String> files = new ArrayList<>();
-        List<String> folders = new ArrayList<>();
-
-        for (final File fileEntry : Objects.requireNonNull(new File(DOWNLOAD_DIRECTORY).listFiles())) {
-            if (this.isDirectoryValid(fileEntry)) {
-                folders.add(fileEntry.getPath());
-            } else {
-                files.add(fileEntry.getPath());
-            }
-        }
-
         livFiles.getItems().clear();
-        livFiles.getItems().addAll(folders);
-        livFiles.getItems().addAll(files);
         livFiles.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         if (isMagnetLinkValid(txtMagnetURI.getText()) && DIRECTORY_SELECTED)
@@ -472,21 +460,29 @@ public class UI_Controller implements Initializable {
         chbUseMagnetURI.setDisable(true);
         txtTorrentFile.setDisable(true);
         btnSelectTorrentFile.setDisable(true);
+        USE_MAGNET_LINK =true;
 
+        USE_TORRENT_FILE =false;
         txtMagnetURI.setDisable(false);
         chbUseTorrentFile.setDisable(false);
         chbUseTorrentFile.setSelected(false);
+
+        if (checkIfDownloadCanBeInitialized())prepareDownload();
     }
 
     @FXML
     public void handleOnUseTorrentFile() {
         chbUseTorrentFile.setDisable(true);
         txtMagnetURI.setDisable(true);
+        USE_TORRENT_FILE =true;
 
+        USE_MAGNET_LINK =true;
         btnSelectTorrentFile.setDisable(false);
         txtTorrentFile.setDisable(false);
         chbUseMagnetURI.setDisable(false);
         chbUseMagnetURI.setSelected(false);
+
+        if (checkIfDownloadCanBeInitialized())prepareDownload();
     }
 
     private File openFileDialog(String header, FileDialogType type) {
@@ -518,8 +514,10 @@ public class UI_Controller implements Initializable {
     public void handleOnClickedUseDefaultPort() {
         if (chbDefaultPort.isSelected()){
             txtPort.setDisable(true);
+            USE_DEFAULT_PORT = true;
         } else {
             txtPort.setDisable(false);
+            USE_DEFAULT_PORT = false;
         }
     }
 
@@ -552,6 +550,10 @@ public class UI_Controller implements Initializable {
         }
 
         return false;
+    }
+
+    private void prepareDownload(){
+
     }
 
     public Stage getParentStage() {
