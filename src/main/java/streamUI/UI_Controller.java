@@ -27,8 +27,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import static java.nio.file.Files.exists;
 import static meta.Globals.*;
@@ -114,6 +113,8 @@ public class UI_Controller implements Initializable {
     @FXML
     private GridPane GPSettings;
 
+    private Map<String, Boolean> Controls = new HashMap<>();
+
     private Locale[] supportedLocales = {
             Locale.GERMAN,
             Locale.ENGLISH
@@ -139,6 +140,19 @@ public class UI_Controller implements Initializable {
                 txtPort.setText(s);
             }
         });
+
+        Controls.put(txtTorrentFile.getId(), txtTorrentFile.isDisabled());
+        Controls.put(txtDownloadLocation.getId(), txtDownloadLocation.isDisabled());
+        Controls.put(txtMagnetURI.getId(), txtMagnetURI.isDisabled());
+        Controls.put(txtPort.getId(), txtPort.isDisabled());
+        Controls.put(btnSelectTorrentFile.getId(), btnSelectTorrentFile.isDisabled());
+        Controls.put(btnAddTorrents.getId(), btnAddTorrents.isDisabled());
+        Controls.put(btnStartDownload.getId(), btnStartDownload.isDisabled());
+        Controls.put(chbUseTorrentFile.getId(), chbUseTorrentFile.isDisabled());
+        Controls.put(chbDefaultPort.getId(), chbDefaultPort.isDisabled());
+        Controls.put(chbDownloadAll.getId(), chbDownloadAll.isDisabled());
+        Controls.put(chbUseMagnetURI.getId(), chbUseMagnetURI.isDisabled());
+        Controls.put(livFiles.getId(), livFiles.isDisabled());
     }
 
     @FXML
@@ -222,6 +236,12 @@ public class UI_Controller implements Initializable {
         VBoxTorrents.setVisible(false);
         GPAddTorrent.setVisible(false);
         GPSettings.setVisible(false);
+
+        GPAddTorrent.getChildren().forEach(node -> {
+            if (Controls.containsKey((node.getId()))){
+                node.setDisable(Controls.get(node.getId()));
+            }
+        });
 
         //  ToDo:   Implement disabled-property reset in ui
     }
