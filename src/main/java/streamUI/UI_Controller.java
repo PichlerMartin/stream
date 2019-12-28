@@ -27,7 +27,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import static java.nio.file.Files.exists;
 import static meta.Globals.*;
@@ -83,16 +84,10 @@ public class UI_Controller implements Initializable {
     private Button btnStartDownload;
 
     @FXML
-    private Button btnStorageLocation;
-
-    @FXML
     private CheckBox chbDefaultPort;
 
     @FXML
     private CheckBox chbDownloadAll;
-
-    @FXML
-    private CheckBox chbSeedAfterDownload;
 
     @FXML
     private CheckBox chbUseTorrentFile;
@@ -289,22 +284,6 @@ public class UI_Controller implements Initializable {
     //region Pichler part
 
     @FXML
-    public void handleOnDirectoryEntered(){
-        File directory = new File(txtDownloadLocation.getText());
-
-        if (this.isDirectoryValid(directory)){
-            livFiles.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-            txtDownloadLocation.setText(directory.toString());
-            DIRECTORY_SELECTED = true;
-
-            this.onDirectorySelected();
-        } else {
-            this.showWarning("Bitte Verzeichnis wählen",
-                    "Um fortzufahren wählen Sie bitte ein gültiges Verzeichnis.");
-        }
-    }
-
-    @FXML
     private void handleOnAddSelectedParts(){
         if(chbDownloadAll.isSelected() || livFiles.getSelectionModel().getSelectedItems().size() >= 1){
             btnStartDownload.setDisable(false);
@@ -318,9 +297,9 @@ public class UI_Controller implements Initializable {
     @FXML
     public void handleOnDirectorySelected(){
         if (isDirectoryValid(new File(txtDownloadLocation.getText()))){
-            DOWNLOAD_DIRECTORY = txtDownloadLocation.getText();
             DIRECTORY_SELECTED = true;
-            this.onDirectorySelected();
+
+            if (checkIfDownloadCanBeInitialized())prepareDownload();
         } else {
             this.showWarning("Bitte Verzeichnis wählen",
                     "Um fortzufahren wählen Sie bitte ein gültiges Verzeichnis.");
@@ -334,6 +313,9 @@ public class UI_Controller implements Initializable {
 
         if (this.isTorrentFileValid(torrentfile)){
             txtTorrentFile.setText(torrentfile.toString());
+            txtDownloadLocation.requestFocus();
+
+            if (checkIfDownloadCanBeInitialized())prepareDownload();
         } else {
             this.showWarning("Bitte gültige Torrent Datei wählen",
                     "Um fortzufahren w\u00e4hlen Sie bitte eine Datei mit der Endung \".torrent\"");
@@ -345,8 +327,9 @@ public class UI_Controller implements Initializable {
         File torrentfile = new File(txtTorrentFile.getText());
 
         if (this.isTorrentFileValid(torrentfile)) {
-            TORRENT_FILE = torrentfile.getPath();
             txtDownloadLocation.requestFocus();
+
+            if (checkIfDownloadCanBeInitialized())prepareDownload();
         }
         else {
             this.showWarning("Bitte gültige Torrent Datei wählen",
@@ -357,8 +340,9 @@ public class UI_Controller implements Initializable {
     @FXML
     public void handleOnMagnetURIEntered(){
         if (isMagnetLinkValid(txtMagnetURI.getText())) {
-            MAGNET_LINK = txtMagnetURI.getText();
             txtDownloadLocation.requestFocus();
+
+            if (checkIfDownloadCanBeInitialized())prepareDownload();
         }
         else {
             showWarning("Magnet URI ungültig",
@@ -439,7 +423,8 @@ public class UI_Controller implements Initializable {
         client.startAsync().join();
     }
 
-    private void ownTorrentImplementation() {
+    @Deprecated
+    public void ownTorrentImplementation() {
         try{
             StreamClient.main(new String[]{"-d", Globals.DOWNLOAD_DIRECTORY, "-m", Globals.MAGNET_LINK});
         } catch (Exception ex) {
@@ -447,6 +432,7 @@ public class UI_Controller implements Initializable {
         }
     }
 
+    @Deprecated
     public void ActualWorkingTorrentInvocation(){
         try{
             CliClient.main(new String[]{"-d", Globals.DOWNLOAD_DIRECTORY, "-m", Globals.MAGNET_LINK});
@@ -545,15 +531,16 @@ public class UI_Controller implements Initializable {
 
         if (this.isTorrentFileValid(new File(torrentfile)) && this.isDirectoryValid(new File(directory))){
             return true;
-        } else if (this.isMagnetLinkValid(magnetlink) && this.isDirectoryValid(new File(directory))) {
-            return true;
-        }
+        } else return this.isMagnetLinkValid(magnetlink) && this.isDirectoryValid(new File(directory));
 
-        return false;
     }
 
     private void prepareDownload(){
+        MAGNET_LINK = txtMagnetURI.getText();
+        TORRENT_FILE = txtTorrentFile.getText();
+        DOWNLOAD_DIRECTORY = txtDownloadLocation.getText();
 
+        this.onDirectorySelected();
     }
 
     public Stage getParentStage() {
