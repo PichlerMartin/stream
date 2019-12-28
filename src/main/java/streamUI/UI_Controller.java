@@ -289,7 +289,7 @@ public class UI_Controller implements Initializable {
     //region Pichler part
     @FXML
     public void handleOnMagnetURIEntered(){
-        if (txtMagnetURI.getText().contains("magnet:?xt=urn:btih:")) {
+        if (isMagnetLinkValid(txtMagnetURI.getText())) {
             MAGNET_LINK = txtMagnetURI.getText();
             txtDownloadLocation.requestFocus();
         }
@@ -386,7 +386,7 @@ public class UI_Controller implements Initializable {
         livFiles.getItems().addAll(files);
         livFiles.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
-        if (txtMagnetURI.getText().contains("magnet:?xt=urn:btih:") && DIRECTORY_SELECTED)
+        if (isMagnetLinkValid(txtMagnetURI.getText()) && DIRECTORY_SELECTED)
             this.btnAddPartsofTorrent.setDisable(false);
     }
 
@@ -430,7 +430,7 @@ public class UI_Controller implements Initializable {
 
         Path targetDirectory = Paths.get(DOWNLOAD_DIRECTORY);
 
-        if (txtMagnetURI.getText().contains("magnet:?xt=urn:btih:")) {
+        if (isMagnetLinkValid(txtMagnetURI.getText())) {
             Globals.MAGNET_LINK = txtMagnetURI.getText();
         }
 
@@ -536,8 +536,22 @@ public class UI_Controller implements Initializable {
         return torrentfile != null && torrentfile.exists() && (FilenameUtils.getExtension(torrentfile.getPath()).equals("torrent"));
     }
 
+    private boolean isMagnetLinkValid(String magnetlink){
+        return magnetlink.contains("magnet:?xt=urn:btih:");
+    }
+
     private boolean checkIfDownloadCanBeInitialized(){
-        return new Random().nextBoolean();
+        String torrentfile = txtTorrentFile.getText();
+        String magnetlink = txtMagnetURI.getText();
+        String directory = txtDownloadLocation.getText();
+
+        if (this.isTorrentFileValid(new File(torrentfile)) && this.isDirectoryValid(new File(directory))){
+            return true;
+        } else if (this.isMagnetLinkValid(magnetlink) && this.isDirectoryValid(new File(directory))) {
+            return true;
+        }
+
+        return false;
     }
 
     public Stage getParentStage() {
