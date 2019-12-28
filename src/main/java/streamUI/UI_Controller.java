@@ -120,6 +120,7 @@ public class UI_Controller implements Initializable {
             Locale.ENGLISH
     };
 
+    @SuppressWarnings("Duplicates")
     @Override
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
@@ -242,8 +243,6 @@ public class UI_Controller implements Initializable {
                 node.setDisable(Controls.get(node.getId()));
             }
         });
-
-        //  ToDo:   Implement disabled-property reset in ui
     }
 
     void setStage(Stage CurrentStage) {
