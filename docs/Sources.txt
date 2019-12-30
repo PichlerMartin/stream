@@ -36,10 +36,13 @@ https://upload.wikimedia.org/wikipedia/commons/1/10/MS_Project_Logo.png
 
 Code & Tutorials:
 
+September 2019
 https://howtodoinjava.com/ant/ant-build-jar-file-example/
 https://www3.ntu.edu.sg/home/ehchua/programming/java/JavaNativeInterface.html
 https://medium.com/@bschlining/a-simple-java-native-interface-jni-example-in-java-and-scala-68fdafe76f5f
 https://www.baeldung.com/jni
+
+Oktober 2019
 https://www.eviltester.com/2017/10/maven-local-dependencies.html
 https://www.mkyong.com/java/java-files-walk-examples/
 https://www.javabrahman.com/error-handling/java-resolve-error-java-nio-file-nosuchfileexception/
@@ -48,6 +51,8 @@ https://www.mkyong.com/java8/java-8-foreach-examples/
 https://docs.oracle.com/javafx/2/ui_controls/list-view.htm
 https://docs.oracle.com/javafx/2/ui_controls/progress.htm
 http://journals.ecs.soton.ac.uk/java/tutorial/java/threads/simple.html
+
+November 2019
 https://alvinalexander.com/java/java-8-lambda-thread-runnable-syntax-examples
 https://docs.oracle.com/javase/tutorial/uiswing/components/progress.html
 https://www.geeksforgeeks.org/javafx-progressbar/
@@ -62,11 +67,14 @@ http://grails.asia/java-string-array-declaration
 
 Stackoverflow Links:
 
+September 2019
 https://stackoverflow.com/questions/17729228/java-read-many-txt-files-on-a-folder-and-process-them
 https://stackoverflow.com/questions/1844688/how-to-read-all-files-in-a-folder-from-java
 https://stackoverflow.com/questions/4871051/getting-the-current-working-directory-in-java
 https://stackoverflow.com/questions/39866421/java-dynamically-add-items-to-a-listview?rq=1
 https://stackoverflow.com/questions/19407536/how-to-refresh-a-progress-bar-in-java
+
+October 2019
 https://stackoverflow.com/questions/11409912/android-how-to-update-value-of-progressbar
 https://stackoverflow.com/questions/32757069/updating-progressbar-value-within-a-for-loop
 https://stackoverflow.com/questions/13264017/getting-selected-element-from-listview
@@ -79,6 +87,8 @@ https://stackoverflow.com/questions/19749085/calculating-the-info-hash-of-a-torr
 https://stackoverflow.com/questions/3436823/how-to-calculate-the-hash-value-of-a-torrent-using-java
 https://stackoverflow.com/questions/5531455/how-to-hash-some-string-with-sha256-in-java
 https://stackoverflow.com/questions/4895523/java-string-to-sha1
+
+November 2019
 https://stackoverflow.com/questions/4662215/how-to-extract-a-substring-using-regex
 https://stackoverflow.com/questions/7683448/in-java-how-to-get-substring-from-a-string-till-a-character-c
 https://stackoverflow.com/questions/24666805/java-only-read-first-line-of-a-file/46239829
@@ -89,6 +99,19 @@ https://stackoverflow.com/questions/30308065/changing-the-text-of-a-label-from-a
 https://stackoverflow.com/questions/2436142/how-do-i-pause-main-until-all-other-threads-have-died
 https://stackoverflow.com/questions/21896533/javafx-2-2-onload-method-equivalent
 https://stackoverflow.com/questions/46284261/how-to-call-same-method-for-mouse-click-event-and-enter-key-press-in-javafx
+
+December 2019
+https://stackoverflow.com/questions/11662857/javafx-2-1-messagebox
+https://stackoverflow.com/questions/17871329/disabling-a-button-in-javafx
+https://stackoverflow.com/questions/24158394/javafx-listview-multiple-selection
+http://tutorials.jenkov.com/javafx/listview.html
+https://stackoverflow.com/questions/24158394/javafx-listview-multiple-selection
+https://stackoverflow.com/questions/30607807/how-to-select-multiple-items-from-a-list-view-javafx-8?noredirect=1&lq=1
+https://stackoverflow.com/questions/15571496/how-to-check-if-a-folder-exists
+https://stackoverflow.com/questions/997482/does-java-support-default-parameter-values
+https://stackoverflow.com/questions/8293774/set-caret-position-in-javafx-scene-control-textarea-and-javafx-scene-control-tex
+https://stackoverflow.com/questions/24821287/is-there-a-way-to-select-a-text-field-in-code-without-clicking-on-it-javafx
+https://stackoverflow.com/questions/468789/is-there-a-way-in-java-to-determine-if-a-path-is-valid-without-attempting-to-cre
 
 Usefull Websites:
 
