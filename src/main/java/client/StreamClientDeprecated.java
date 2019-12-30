@@ -14,10 +14,6 @@ import bt.torrent.selector.SequentialSelector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import support.SupportMethods;
-import testui.Controller;
-import testui.UI_Controller;
-
-import java.net.MalformedURLException;
 
 import static support.SupportMethods.buildConfig;
 import static support.SupportMethods.buildDHTModule;
@@ -29,6 +25,7 @@ import static support.SupportMethods.buildDHTModule;
  * Klasse StreamClientDeprecated in der ein modifiziertes Objekt der Client-Klasse aus der Bt-Library
  * erzeugt wird, welches dazu dient den Download cer Dateien zu überwachen
  */
+@Deprecated
 public class StreamClientDeprecated implements Client {
     private static final Logger LOGGER = LoggerFactory.getLogger(StreamClientDeprecated.class);
 
@@ -45,12 +42,9 @@ public class StreamClientDeprecated implements Client {
      *
      * @param options ist ein Objekt der Options Klasse welche die Kommandozeilenargumente (argsv)
      *                enthält, dem Client die nötigen Daten gibt, z.B.: Torrent-File, Download Ort, ...
-     * @throws MalformedURLException wird geworfen wenn z.B.: die URL des Torrent-Files nicht existiert
      */
-    public StreamClientDeprecated(StreamOptions options, Controller controller) {
+    public StreamClientDeprecated(StreamOptions options) {
         this.options = options;
-
-        controller = controller != null ? controller : new UI_Controller();
 
         SupportMethods.configureLogging(options.getLogLevel());
         SupportMethods.configureSecurity(LOGGER);
@@ -74,6 +68,7 @@ public class StreamClientDeprecated implements Client {
      * Startet den state (lambda expression) für eine bestimmte Zeit (1000)
      * Ausführung wird in einem neuen Thread gestartet
      */
+    @Deprecated
     public void start(){
 
         printer.startLogPrinter();
