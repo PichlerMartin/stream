@@ -25,6 +25,7 @@ public class UI_Main extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception{
+        @Deprecated
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/UI_Network_Test.fxml"));
         Parent root = loader.load();
         UI_Controller c = loader.getController();
@@ -35,6 +36,12 @@ public class UI_Main extends Application {
 
         c.setParentStage(primaryStage);
         primaryStage.show();
+
+        //  Above code is deprecated
+        //  Below is executed
+
+        streamUI.UI_Main ui = new streamUI.UI_Main();
+        ui.start(primaryStage);
     }
 
     /**

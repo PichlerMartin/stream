@@ -4,50 +4,33 @@ import bt.Bt;
 import bt.BtClientBuilder;
 import bt.data.Storage;
 import bt.data.file.FileSystemStorage;
-import bt.dht.DHTConfig;
-import bt.dht.DHTModule;
-import bt.protocol.crypto.EncryptionPolicy;
 import bt.runtime.BtClient;
 import bt.runtime.BtRuntime;
 import bt.runtime.Config;
 import bt.service.IRuntimeLifecycleBinder;
-import bt.torrent.fileselector.TorrentFileSelector;
 import bt.torrent.selector.PieceSelector;
 import bt.torrent.selector.RarestFirstSelector;
 import bt.torrent.selector.SequentialSelector;
-import com.google.inject.Module;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import support.SupportMethods;
-import testui.Controller;
-import testui.Select_Controller;
-import testui.UI_Controller;
-//import testui.TestStreamClient;
-
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.MalformedURLException;
-import java.net.UnknownHostException;
-import java.util.Optional;
-import java.util.stream.Stream;
 
 import static support.SupportMethods.buildConfig;
 import static support.SupportMethods.buildDHTModule;
+
+//import testui.TestStreamClient;
 
 /**
  * Description
  * Klasse StreamClientDeprecated in der ein modifiziertes Objekt der Client-Klasse aus der Bt-Library
  * erzeugt wird, welches dazu dient den Download cer Dateien zu überwachen
  */
+@Deprecated
 public class StreamClientDeprecated implements Client {
     private static final Logger LOGGER = LoggerFactory.getLogger(StreamClientDeprecated.class);
 
     private final StreamOptions options;
-    private final StreamLogPrinter printer;
+    private final StreamStatusProcessor printer;
     private final BtClient client;
 
     //  ToDo:   implement self-written StreamClientDeprecated class
@@ -59,18 +42,15 @@ public class StreamClientDeprecated implements Client {
      *
      * @param options ist ein Objekt der Options Klasse welche die Kommandozeilenargumente (argsv)
      *                enthält, dem Client die nötigen Daten gibt, z.B.: Torrent-File, Download Ort, ...
-     * @throws MalformedURLException wird geworfen wenn z.B.: die URL des Torrent-Files nicht existiert
      */
-    public StreamClientDeprecated(StreamOptions options, Controller controller) {
+    public StreamClientDeprecated(StreamOptions options) {
         this.options = options;
-
-        controller = controller != null ? controller : new UI_Controller();
 
         SupportMethods.configureLogging(options.getLogLevel());
         SupportMethods.configureSecurity(LOGGER);
         SupportMethods.registerLog4jShutdownHook();
 
-        this.printer = new StreamLogPrinter(controller);
+        this.printer = new StreamStatusProcessor();
 
         Config config = buildConfig(this.options);
 
@@ -88,9 +68,10 @@ public class StreamClientDeprecated implements Client {
      * Startet den state (lambda expression) für eine bestimmte Zeit (1000)
      * Ausführung wird in einem neuen Thread gestartet
      */
+    @Deprecated
     public void start(){
 
-        printer.startLogPrinter();
+        printer.startStatusProcessor();
         client.startAsync (state -> {
             boolean complete = (state.getPiecesRemaining()==0);
             if (complete){
@@ -125,7 +106,7 @@ public class StreamClientDeprecated implements Client {
         //  ToDo:   Continue here somewhere, idk
         //  ToDo:   Test with own hotspot
 
-        if(!options.shouldDownloadAllFiles()){
+        if(options.shouldDownloadAllFiles()){
             StreamFileSelector fileSelector = new StreamFileSelector();
             clientBuilder.fileSelector(fileSelector);
             runtime.service(IRuntimeLifecycleBinder.class).onShutdown(fileSelector::shutdown);

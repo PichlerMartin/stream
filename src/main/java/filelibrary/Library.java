@@ -14,15 +14,15 @@ public interface Library {
      */
     int max_capacity = 5;
 
-    public String getPath();
+    String getPath();
 
-    public String getName();
+    String getName();
 
-    public List<TorrentInFileSystem> getContents();
+    List<TorrentInFileSystem> getContents();
 
-    public void setContents(List<TorrentInFileSystem> torrents);
+    void setContents(List<TorrentInFileSystem> torrents);
 
-    public void addTorrent(TorrentInFileSystem torrent);
+    void addTorrent(TorrentInFileSystem torrent);
 
     /**
      * Description

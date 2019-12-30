@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import meta.Globals;
 import org.slf4j.LoggerFactory;
 import support.StreamContext;
 
@@ -42,9 +43,12 @@ public class Select_Controller implements Initializable {
     public void Click_ConfirmFileList(ActionEvent ms) throws IOException {
         Stage stage = (Stage) btn_confirm.getScene().getWindow();
 
-        //GlobalClient.start();
-        //CliClient.main(new String[]{"-d", "C:\\", "-m", "magnet:?xt=urn:btih:d1eb2b5cf80e286a7f848ab0c31638856db102d4"});
-        StreamClient.main(new String[]{"-d", "C:\\", "-m", "magnet:?xt=urn:btih:d1eb2b5cf80e286a7f848ab0c31638856db102d4"});
+        this.ownGlobalTorrentImplementation();
+
+        //  ToDo:   Below call are outsourced in streamUI/UI_Controller.java
+        //this.ActualWorkingTorrentInvocation();
+        //this.ownTorrentImplementation();
+        //this.AtomashpolskiyExample();
 
         stage.close();
     }
@@ -63,8 +67,19 @@ public class Select_Controller implements Initializable {
 
     }
 
+    private void ownGlobalTorrentImplementation() {
+
+        StreamOptions options = new StreamOptions(Globals.MAGNET_LINK, new File(Globals.DOWNLOAD_DIRECTORY));
+
+        configureLogging(options.getLogLevel());
+        configureSecurity(LoggerFactory.getLogger(StreamClient.class));
+        registerLog4jShutdownHook();
+
+        GlobalClient.start();
+    }
+
     /**
-     * Lädt zu Testzwecken Standardeinstellungen in die Variablen DownloadDirectory und MagnetLink,
+     * Lädt zu Testzwecken Standardeinstellungen in die Variablen Globals.DOWNLOAD_DIRECTORY und MagnetLink,
      * diese zwei Variablen dienen zur konkretisierung der Mindest-Daten welche zum Download einer
      * Torrent-Datei notwendig sind. In den nachfolgenden If-Statements wird überprüft ob eine andere
      * Magnet-URI bzw. ein Verzeichnis gewünscht ist. Anschließend werden Objekte der wichtigen Klassen
@@ -74,30 +89,14 @@ public class Select_Controller implements Initializable {
      * @throws MalformedURLException: wird geworfen, wenn eine URL nicht dem Standardformat entspricht
      */
     public void Click_LoadFiles(ActionEvent actionEvent) throws MalformedURLException {
-        String DownloadDirectory = "C:\\";
-        String MagnetLink = "magnet:?xt=urn:btih:d1eb2b5cf80e286a7f848ab0c31638856db102d4";
-        //MagnetLink = "magnet:?xt=urn:btih:223f7484d326ad8efd3cf1e548ded524833cb77e" /* + "&dn=Avengers.Endgame.2019.1080p.BRRip.x264-MP4&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969" */;
-        MagnetLink = "magnet:?xt=urn:btih:223f7484d326ad8efd3cf1e548ded524833cb77e&dn=Avengers.Endgame.2019.1080p.BRRip.x264-MP4&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969";
-        String TorrentFile = "C:\\Users\\Pichler Martin\\Downloads\\Torrents\\VanBeethoven.torrent";
-
         if (txt_dldirectory.getText().contains("\\")) {
-            DownloadDirectory = txt_dldirectory.getText();
+            Globals.DOWNLOAD_DIRECTORY = txt_dldirectory.getText();
         }
 
         if (txt_magnetlink.getText().contains("magnet:?xt=urn:btih:")) {
-            MagnetLink = txt_magnetlink.getText();
+            Globals.MAGNET_LINK = txt_magnetlink.getText();
         }
 
-        StreamOptions options = new StreamOptions(MagnetLink, new File(DownloadDirectory));
-
-        configureLogging(options.getLogLevel());
-        configureSecurity(LoggerFactory.getLogger(StreamClient.class));
-        registerLog4jShutdownHook();
-
-        //StreamClient streamClient = new StreamClient(options/*, null*/);
-
         StreamContext.getInstance().currentController().setLabel(new Label("Torrent fetched"));
-
-        //GlobalClient = streamClient;
     }
 }

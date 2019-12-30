@@ -7,6 +7,19 @@
     <groupId>stream</groupId>
     <artifactId>stream</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <dependencies>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.5</version>
+        </dependency>
+    </dependencies>
 
     <properties>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -17,6 +30,14 @@
         <slf4j-version> 1.7.21 </slf4j-version>
         <log4j-version> 2.4.1 </log4j-version>
     </properties>
+
+    <distributionManagement>
+        <repository>
+            <id>stream</id>
+            <name>GitHub PichlerMartin Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/PichlerMartin/stream</url>
+        </repository>
+    </distributionManagement>
 
     <build>
         <plugins>
@@ -42,6 +63,12 @@
             </dependency>
 
             <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>2.6</version>
+            </dependency>
+
+            <dependency>
                 <groupId>pl.pragmatists</groupId>
                 <artifactId>JUnitParams</artifactId>
                 <version>1.1.0</version>
@@ -51,12 +78,6 @@
                 <groupId> net.sf.jopt-simple </groupId>
                 <artifactId> jopt-simple </artifactId>
                 <version> ${jopts-version} </version>
-            </dependency>
-
-            <dependency>
-                <groupId> org.apache.logging.log4j </groupId>
-                <artifactId> log4j-core </artifactId>
-                <version> ${log4j-version} </version>
             </dependency>
 
             <dependency>

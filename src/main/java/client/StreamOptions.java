@@ -36,23 +36,23 @@ public class StreamOptions {
         this.targetDirectory = targetDirectory;
     }
 
-    public File getMetainfoFile() {
+    File getMetainfoFile() {
         return this.metainfoFile;
     }
 
-    public String getMagnetUri() {
+    String getMagnetUri() {
         return this.magnetUri;
     }
 
-    public File getTargetDirectory() {
+    File getTargetDirectory() {
         return this.targetDirectory;
     }
 
-    public boolean shouldSeedAfterDownloaded() {
+    boolean shouldSeedAfterDownloaded() {
         return this.seedAfterDownloaded;
     }
 
-    public boolean downloadSequentially() {
+    boolean downloadSequentially() {
         return this.sequential;
     }
 
@@ -60,10 +60,10 @@ public class StreamOptions {
         return this.enforceEncryption;
     }
 
-    public StreamOptions.LogLevel getLogLevel() {
-        return this.traceLogging ? StreamOptions.LogLevel.TRACE :
-                (this.verboseLogging ? StreamOptions.LogLevel.VERBOSE :
-                        StreamOptions.LogLevel.NORMAL);
+    public LogLevel getLogLevel() {
+        return this.traceLogging ? LogLevel.TRACE :
+                (this.verboseLogging ? LogLevel.VERBOSE :
+                        LogLevel.NORMAL);
     }
 
     public String getInetAddress() {
@@ -78,12 +78,8 @@ public class StreamOptions {
         return this.dhtPort;
     }
 
-    public boolean shouldDownloadAllFiles() {
-        return this.downloadAllFiles;
-    }
-
-    public void setDownloadAllFiles(boolean delta){
-        this.downloadAllFiles = delta;
+    boolean shouldDownloadAllFiles() {
+        return !this.downloadAllFiles;
     }
 
     public enum LogLevel {

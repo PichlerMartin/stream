@@ -18,22 +18,22 @@ public class DownloadRate {
     }
 
 
-    public DownloadRate(long delta) {
-        if (delta < 0L) {
-            delta = 0L;
+    public DownloadRate(long x_rate) {
+        if (x_rate < 0L) {
+            x_rate = 0L;
             this.quantity = 0.0D;
             this.measureUnit = "B";
-        } else if (delta < 1024L) {
-            this.quantity = (double)delta;
+        } else if (x_rate < 1024L) {
+            this.quantity = (double)x_rate;
             this.measureUnit = "B";
-        } else if (delta < 1048576L) {
-            this.quantity = (double)(delta / 1024L);
+        } else if (x_rate < 1048576L) {
+            this.quantity = (double)(x_rate / 1024L);
             this.measureUnit = "KB";
         } else {
-            this.quantity = (double)delta / 1048576.0D;
+            this.quantity = (double)x_rate / 1048576.0D;
             this.measureUnit = "MB";
         }
 
-        this.bytes = delta;
+        this.bytes = x_rate;
     }
 }
