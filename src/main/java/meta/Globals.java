@@ -28,4 +28,6 @@ public class Globals {
     public static final String FORMAT_DOWNLOADING_VERBOSE = "Downloading from %3d peers... Ready: %.2f%%, Target: %.2f%%,  Down: %s, Up: %s, Elapsed: %s, Remaining: %s";
     public static final String FORMAT_SEEDING = "Download is complete, seeding to %d peers... Up: %s";
     public static final String FORMAT_DOWNLOADING_SILENT = "Downloading %s (%,d B)";
+    public static final String FORMAT_DOWNLOAD_PART = "Download '%s'? (hit <Enter> or type 'y' to confirm or type 'n' to skip)";
+    public static final String FORMAT_ILLEGAL_KEYPRESS = "*** Invalid key pressed. Please, use only <Enter>, 'y' or 'n' ***";
 }
