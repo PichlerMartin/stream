@@ -23,7 +23,6 @@ import meta.Globals;
 import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.HashMap;
@@ -429,20 +428,12 @@ public class UI_Controller implements Initializable {
 
     @Deprecated
     public void ownTorrentImplementation() {
-        try{
-            StreamClient.main(new String[]{"-d", Globals.DOWNLOAD_DIRECTORY, "-m", Globals.MAGNET_LINK});
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        StreamClient.main(new String[]{"-d", Globals.DOWNLOAD_DIRECTORY, "-m", Globals.MAGNET_LINK});
     }
 
     @Deprecated
     public void ActualWorkingTorrentInvocation(){
-        try{
-            CliClient.main(new String[]{"-d", Globals.DOWNLOAD_DIRECTORY, "-m", Globals.MAGNET_LINK, "a", "n"});
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        CliClient.main(new String[]{"-d", Globals.DOWNLOAD_DIRECTORY, "-m", Globals.MAGNET_LINK, "a", "n"});
     }
 
     @FXML
