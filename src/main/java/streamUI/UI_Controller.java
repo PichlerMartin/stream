@@ -376,11 +376,11 @@ public class UI_Controller implements Initializable {
 
     @FXML
     private void handleOnStartDownload (){
-        // new Thread(this::ownTorrentImplementation).start();
+        new Thread(this::ownTorrentImplementation).start();
         // Does not work, prints errors
         // Update 30.12.2019, 18:25: now works
 
-        new Thread(this::AtomashpolskiyExample).start();
+        // new Thread(this::AtomashpolskiyExample).start();
         // Works, prints status warnings
 
     }
