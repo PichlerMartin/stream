@@ -25,7 +25,7 @@ public class Globals {
     /**
      * String-formatters
      */
-    private static final String FORMAT_DOWNLOADING_VERBOSE = "Downloading from %3d peers... Ready: %.2f%%, Target: %.2f%%,  Down: %s, Up: %s, Elapsed: %s, Remaining: %s";
-    private static final String FORMAT_SEEDING = "Download is complete, seeding to %d peers... Up: %s";
-    private static final String FORMAT_DOWNLOADING_SILENT = "Downloading %s (%,d B)";
+    public static final String FORMAT_DOWNLOADING_VERBOSE = "Downloading from %3d peers... Ready: %.2f%%, Target: %.2f%%,  Down: %s, Up: %s, Elapsed: %s, Remaining: %s";
+    public static final String FORMAT_SEEDING = "Download is complete, seeding to %d peers... Up: %s";
+    public static final String FORMAT_DOWNLOADING_SILENT = "Downloading %s (%,d B)";
 }

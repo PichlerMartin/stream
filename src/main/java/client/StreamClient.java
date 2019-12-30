@@ -29,7 +29,7 @@ import java.util.Optional;
 public class StreamClient {
     private static final Logger LOGGER = LoggerFactory.getLogger(StreamClient.class);
     private final StreamOptions options;
-    private final StreamLogPrinter printer;
+    private final StreamStatusProcessor printer;
     private final BtClient client;
 
     public static void main(String[] args) {
@@ -39,15 +39,13 @@ public class StreamClient {
         SupportMethods.configureSecurity(LOGGER);
         SupportMethods.registerLog4jShutdownHook();
 
-        //  FIXME:  This class is essentially the same as the CliClient class from bt.cli except the StreamLogPrinter (this class is used in ownTorrentImplementation other in ActualWorkingTorrentInvocation
-
         StreamClient client = new StreamClient(options);
         client.start();
     }
 
     private StreamClient(StreamOptions options) {
         this.options = options;
-        this.printer = new StreamLogPrinter();
+        this.printer = new StreamStatusProcessor();
 
         Config config = buildConfig(options);
         BtRuntime runtime = BtRuntime.builder(config).module(buildDHTModule(options)).autoLoadModules().build();

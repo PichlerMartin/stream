@@ -30,7 +30,7 @@ public class StreamClientDeprecated implements Client {
     private static final Logger LOGGER = LoggerFactory.getLogger(StreamClientDeprecated.class);
 
     private final StreamOptions options;
-    private final StreamLogPrinter printer;
+    private final StreamStatusProcessor printer;
     private final BtClient client;
 
     //  ToDo:   implement self-written StreamClientDeprecated class
@@ -50,7 +50,7 @@ public class StreamClientDeprecated implements Client {
         SupportMethods.configureSecurity(LOGGER);
         SupportMethods.registerLog4jShutdownHook();
 
-        this.printer = new StreamLogPrinter();
+        this.printer = new StreamStatusProcessor();
 
         Config config = buildConfig(this.options);
 

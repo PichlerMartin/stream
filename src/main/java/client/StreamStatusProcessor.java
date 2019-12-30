@@ -11,10 +11,11 @@ import java.time.Duration;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
-import static client.StreamLogPrinter.ExecutionStage.DOWNLOADING;
+import static client.StreamStatusProcessor.ExecutionStage.DOWNLOADING;
 import static java.lang.String.format;
+import static meta.Globals.*;
 
-public class StreamLogPrinter {
+public class StreamStatusProcessor {
     //region    getters and setters
     public AtomicReference<Torrent> getTorrent() {
         return torrent;
@@ -35,7 +36,7 @@ public class StreamLogPrinter {
     private long downloaded;
     private long uploaded;
 
-    StreamLogPrinter(){
+    StreamStatusProcessor(){
         this.torrent = new AtomicReference<>(null);
         this.sessionState = new AtomicReference<>(null);
         this.processingStage = new AtomicReference<>(ExecutionStage.FETCHING_METADATA);
@@ -58,14 +59,11 @@ public class StreamLogPrinter {
         this.processingStage.set(DOWNLOADING);
     }
 
-    void onDownloadComplete() {
-
-        this.processingStage.set(ExecutionStage.SEEDING);
-    }
+    void onDownloadComplete() { this.processingStage.set(ExecutionStage.SEEDING); }
 
     void startLogPrinter(){
         this.started = System.currentTimeMillis();
-        System.out.println("Metadata is being fetched... Please be pacient...");
+        System.out.println("Metadata is being fetched... Please be patient...");
 
         Thread logPrintThread = new Thread(() ->{
             do{
@@ -82,8 +80,9 @@ public class StreamLogPrinter {
                 }
 
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(1000L);
                 } catch (InterruptedException ex){
+                    ex.printStackTrace();
                     return;
                 }
             } while (!this.shutdown.get());
@@ -93,24 +92,25 @@ public class StreamLogPrinter {
         logPrintThread.start();
     }
 
-    private void printLog(Torrent torrent, TorrentSessionState sessionState, ExecutionStage downloadingStage, DownloadStats downloadStats) {
+    private void printLog(Torrent torrent, TorrentSessionState sessionState, ExecutionStage executionStage, DownloadStats downloadStats) {
         int peerCount = sessionState.getConnectedPeers().size();
-        String up = format("%5.1f %2s/s", downloadStats.getUploadRate().getQuantity(), downloadStats.getUploadRate().getMeasureUnit());
+        String down = formatDownloadRate(downloadStats.getDownloadRate());
+        String up = formatDownloadRate(downloadStats.getDownloadRate());
 
-        switch (downloadingStage) {
+        switch (executionStage) {
             case DOWNLOADING: {
-                double completePercents = ((double) sessionState.getPiecesComplete()) / ((double) sessionState.getPiecesTotal()) * 100;
-                double requiredPercents = (((double) sessionState.getPiecesComplete()) + ((double) sessionState.getPiecesRemaining())) / ((double) sessionState.getPiecesTotal()) * 100;
-                String down = format("%5.1f %2s/s", downloadStats.getDownloadRate().getQuantity(), downloadStats.getDownloadRate().getMeasureUnit());
+                double completePercents = calculateCompletePercentage(sessionState.getPiecesTotal(), sessionState.getPiecesComplete());
+                double requiredPercents = calculateTargetPercentage(sessionState.getPiecesTotal(), sessionState.getPiecesComplete(), sessionState.getPiecesRemaining());
+
                 String elapsedTime = getDuration(downloadStats.getElapsedTime());
                 String remainingTime = formatTime(getRemainingTime(torrent.getChunkSize(),
                         downloadStats.getDownloadRate().getBytes(), sessionState.getPiecesRemaining()));
 
-                System.out.println("Dwonloading from " + peerCount + " peers... Ready: " + completePercents + ", Target: " + requiredPercents + ", Down: " + down + ", Up: " + up + ", Elapsed: " + elapsedTime +", Remaining: " + remainingTime);
+                System.out.println(format(FORMAT_DOWNLOADING_VERBOSE, peerCount, completePercents, requiredPercents, down, up, elapsedTime, remainingTime));
                 break;
             }
             case SEEDING: {
-                System.out.println("Download was completed, seeding to " + peerCount + " peers... Up: " + up);
+                System.out.println(format(FORMAT_SEEDING, peerCount, up));
                 break;
             }
             default: {
@@ -127,19 +127,20 @@ public class StreamLogPrinter {
         }
     }
 
-    private static String getDuration(Duration elapsedTime) {
-        long seconds = elapsedTime.getSeconds();
-        long absSeconds = Math.abs(seconds);
-        String positive = format("%d:%02d:%02d", absSeconds / 3600, (absSeconds % 3600) / 60, absSeconds % 60);
-        return seconds < 0 ? "-" + positive : positive;
+    private static double calculateCompletePercentage(double total, double completed) {
+        return completed / total * 100.0D;
+    }
+
+    private static double calculateTargetPercentage(double total, double completed, double remaining) {
+        return (completed + remaining) / total * 100.0D;
+    }
+
+    private static String formatDownloadRate(DownloadRate rate) {
+        return String.format("%5.1f %2s/s", rate.getQuantity(), rate.getMeasureUnit());
     }
 
     private Duration returnTimeElapsed() {
         return Duration.ofMillis(System.currentTimeMillis() - this.started);
-    }
-
-    void stop() {
-        this.shutdown.set(true);
     }
 
     private static int getRemainingTime(long chunkSize, long downloaded, int piecesRemaining) {
@@ -148,6 +149,16 @@ public class StreamLogPrinter {
         }
         long remainingBytes = chunkSize * piecesRemaining;
         return (int) (remainingBytes / downloaded);
+    }
+
+    private static String getDuration(Duration elapsedTime) {
+        long seconds = elapsedTime.getSeconds();
+        long absSeconds = Math.abs(seconds);
+        String positive = format("%d:%02d:%02d", absSeconds / 3600L, (absSeconds % 3600L) / 60L, absSeconds % 60L);
+        return seconds < 0 ? "-" + positive : positive;
+    }
+    void stop() {
+        this.shutdown.set(true);
     }
 
     public enum ExecutionStage {
