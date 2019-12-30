@@ -2,7 +2,6 @@ package client;
 
 import bt.Bt;
 import bt.BtClientBuilder;
-import bt.cli.SessionStatePrinter;
 import bt.data.Storage;
 import bt.data.file.FileSystemStorage;
 import bt.dht.DHTConfig;
@@ -30,7 +29,7 @@ import java.util.Optional;
 public class StreamClient {
     private static final Logger LOGGER = LoggerFactory.getLogger(StreamClient.class);
     private final StreamOptions options;
-    private final SessionStatePrinter printer;
+    private final StreamLogPrinter printer;
     private final BtClient client;
 
     public static void main(String[] args) {
@@ -40,7 +39,7 @@ public class StreamClient {
         SupportMethods.configureSecurity(LOGGER);
         SupportMethods.registerLog4jShutdownHook();
 
-        //  FIXME:  This class is essentially the same as the CliClient class from bt.cli except the SessionStatePrinter (this class is used in ownTorrentImplementation other in ActualWorkingTorrentInvocation
+        //  FIXME:  This class is essentially the same as the CliClient class from bt.cli except the StreamLogPrinter (this class is used in ownTorrentImplementation other in ActualWorkingTorrentInvocation
 
         StreamClient client = new StreamClient(options);
         client.start();
@@ -48,7 +47,7 @@ public class StreamClient {
 
     private StreamClient(StreamOptions options) {
         this.options = options;
-        this.printer = new SessionStatePrinter();
+        this.printer = new StreamLogPrinter();
 
         Config config = buildConfig(options);
         BtRuntime runtime = BtRuntime.builder(config).module(buildDHTModule(options)).autoLoadModules().build();

@@ -6,7 +6,6 @@ import download.DownloadRate;
 import download.DownloadStats;
 import javafx.scene.control.Label;
 import support.StreamContext;
-import testui.Controller;
 
 import java.time.Duration;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -24,7 +23,6 @@ public class StreamLogPrinter {
     }
 
     private AtomicReference<Torrent> torrent;
-    private Controller controller;
     private AtomicReference<TorrentSessionState> sessionState;
     private AtomicReference<ProcessingStage> processingStage;
     private AtomicBoolean shutdown;
@@ -33,18 +31,16 @@ public class StreamLogPrinter {
     private long downloaded;
     private long uploaded;
 
-    public StreamLogPrinter(Controller controller){
+    StreamLogPrinter(){
         this.torrent = new AtomicReference<>(null);
         this.sessionState = new AtomicReference<>(null);
         this.processingStage = new AtomicReference<>(ProcessingStage.FETCHING_METADATA);
         this.shutdown = new AtomicBoolean(false);
-        this.controller = controller;
     }
 
-    public void updateTorrentStage(TorrentSessionState sessionState){this.sessionState.set(sessionState);}
+    void updateTorrentStage(TorrentSessionState sessionState){this.sessionState.set(sessionState);}
 
-    public void whenTorrentFetched(Torrent torrent){
-        this.controller.setLabel(new Label("Torrent fetched"));
+    void whenTorrentFetched(Torrent torrent){
         System.out.println("Downloading now");
         StreamContext.getInstance().currentController().setLabel(new Label("Torrent fetched"));
         this.torrent.set(torrent);
@@ -137,7 +133,7 @@ public class StreamLogPrinter {
         return Duration.ofMillis(System.currentTimeMillis() - this.started);
     }
 
-    public void stop() {
+    void stop() {
         this.shutdown.set(true);
     }
 
@@ -149,13 +145,13 @@ public class StreamLogPrinter {
         return (int) (remainingBytes / downloaded);
     }
 
-    public static enum ProcessingStage {
+    public enum ProcessingStage {
         FETCHING_METADATA,
         CHOOSING_FILES,
         DOWNLOADING,
         SEEDING;
 
-        private ProcessingStage() {
+        ProcessingStage() {
         }
     }
 }
