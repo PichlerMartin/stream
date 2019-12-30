@@ -1,7 +1,6 @@
 package streamUI;
 
 import bt.Bt;
-import bt.cli.CliClient;
 import bt.data.Storage;
 import bt.data.file.FileSystemStorage;
 import bt.dht.DHTConfig;
@@ -377,13 +376,11 @@ public class UI_Controller implements Initializable {
 
     @FXML
     private void handleOnStartDownload (){
-        //new Thread(this::ActualWorkingTorrentInvocation).start();
-        //  Works sometimes, but needs review in class files
+        // new Thread(this::ownTorrentImplementation).start();
+        // Does not work, prints errors
+        // Update 30.12.2019, 18:25: now works
 
-        new Thread(this::ownTorrentImplementation).start();
-        //  Does not work, prints errors
-
-        // new Thread(this::AtomashpolskiyExample).start();
+        new Thread(this::AtomashpolskiyExample).start();
         // Works, prints status warnings
 
     }
@@ -430,11 +427,6 @@ public class UI_Controller implements Initializable {
     @Deprecated
     public void ownTorrentImplementation() {
         StreamClient.main(new String[]{"-d", Globals.DOWNLOAD_DIRECTORY, "-m", Globals.MAGNET_LINK});
-    }
-
-    @Deprecated
-    public void ActualWorkingTorrentInvocation(){
-        CliClient.main(new String[]{"-d", Globals.DOWNLOAD_DIRECTORY, "-m", Globals.MAGNET_LINK, "a", "n"});
     }
 
     @FXML
