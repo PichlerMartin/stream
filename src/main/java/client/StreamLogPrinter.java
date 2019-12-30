@@ -11,9 +11,11 @@ import java.time.Duration;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
-import static client.StreamLogPrinter.ProcessingStage.DOWNLOADING;
+import static client.StreamLogPrinter.ExecutionStage.DOWNLOADING;
+import static java.lang.String.format;
 
 public class StreamLogPrinter {
+    //region    getters and setters
     public AtomicReference<Torrent> getTorrent() {
         return torrent;
     }
@@ -22,9 +24,11 @@ public class StreamLogPrinter {
         this.torrent = torrent;
     }
 
+    //endregion getters and setter
+
     private AtomicReference<Torrent> torrent;
     private AtomicReference<TorrentSessionState> sessionState;
-    private AtomicReference<ProcessingStage> processingStage;
+    private AtomicReference<ExecutionStage> processingStage;
     private AtomicBoolean shutdown;
 
     private long started;
@@ -34,7 +38,7 @@ public class StreamLogPrinter {
     StreamLogPrinter(){
         this.torrent = new AtomicReference<>(null);
         this.sessionState = new AtomicReference<>(null);
-        this.processingStage = new AtomicReference<>(ProcessingStage.FETCHING_METADATA);
+        this.processingStage = new AtomicReference<>(ExecutionStage.FETCHING_METADATA);
         this.shutdown = new AtomicBoolean(false);
     }
 
@@ -42,9 +46,10 @@ public class StreamLogPrinter {
 
     void whenTorrentFetched(Torrent torrent){
         System.out.println("Downloading now");
+        System.out.println(format(FORMAT_DOWNLOADING_SILENT, torrent.getName(), torrent.getSize()));
         StreamContext.getInstance().currentController().setLabel(new Label("Torrent fetched"));
         this.torrent.set(torrent);
-        this.processingStage.set(ProcessingStage.CHOOSING_FILES);
+        this.processingStage.set(ExecutionStage.CHOOSING_FILES);
     }
 
 
@@ -55,7 +60,7 @@ public class StreamLogPrinter {
 
     void onDownloadComplete() {
 
-        this.processingStage.set(ProcessingStage.SEEDING);
+        this.processingStage.set(ExecutionStage.SEEDING);
     }
 
     void startLogPrinter(){
@@ -88,15 +93,15 @@ public class StreamLogPrinter {
         logPrintThread.start();
     }
 
-    private void printLog(Torrent torrent, TorrentSessionState sessionState, ProcessingStage downloadingStage, DownloadStats downloadStats) {
+    private void printLog(Torrent torrent, TorrentSessionState sessionState, ExecutionStage downloadingStage, DownloadStats downloadStats) {
         int peerCount = sessionState.getConnectedPeers().size();
-        String up = String.format("%5.1f %2s/s", downloadStats.getUploadRate().getQuantity(), downloadStats.getUploadRate().getMeasureUnit());
+        String up = format("%5.1f %2s/s", downloadStats.getUploadRate().getQuantity(), downloadStats.getUploadRate().getMeasureUnit());
 
         switch (downloadingStage) {
             case DOWNLOADING: {
                 double completePercents = ((double) sessionState.getPiecesComplete()) / ((double) sessionState.getPiecesTotal()) * 100;
                 double requiredPercents = (((double) sessionState.getPiecesComplete()) + ((double) sessionState.getPiecesRemaining())) / ((double) sessionState.getPiecesTotal()) * 100;
-                String down = String.format("%5.1f %2s/s", downloadStats.getDownloadRate().getQuantity(), downloadStats.getDownloadRate().getMeasureUnit());
+                String down = format("%5.1f %2s/s", downloadStats.getDownloadRate().getQuantity(), downloadStats.getDownloadRate().getMeasureUnit());
                 String elapsedTime = getDuration(downloadStats.getElapsedTime());
                 String remainingTime = formatTime(getRemainingTime(torrent.getChunkSize(),
                         downloadStats.getDownloadRate().getBytes(), sessionState.getPiecesRemaining()));
@@ -125,7 +130,7 @@ public class StreamLogPrinter {
     private static String getDuration(Duration elapsedTime) {
         long seconds = elapsedTime.getSeconds();
         long absSeconds = Math.abs(seconds);
-        String positive = String.format("%d:%02d:%02d", absSeconds / 3600, (absSeconds % 3600) / 60, absSeconds % 60);
+        String positive = format("%d:%02d:%02d", absSeconds / 3600, (absSeconds % 3600) / 60, absSeconds % 60);
         return seconds < 0 ? "-" + positive : positive;
     }
 
@@ -145,13 +150,13 @@ public class StreamLogPrinter {
         return (int) (remainingBytes / downloaded);
     }
 
-    public enum ProcessingStage {
+    public enum ExecutionStage {
         FETCHING_METADATA,
         CHOOSING_FILES,
         DOWNLOADING,
         SEEDING;
 
-        ProcessingStage() {
+        ExecutionStage() {
         }
     }
 }
