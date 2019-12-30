@@ -377,14 +377,15 @@ public class UI_Controller implements Initializable {
 
     @FXML
     private void handleOnStartDownload (){
-        new Thread(this::ActualWorkingTorrentInvocation).start();
+        //new Thread(this::ActualWorkingTorrentInvocation).start();
         //  Works sometimes, but needs review in class files
 
-        //new Thread(this::ownTorrentImplementation).start();
+        new Thread(this::ownTorrentImplementation).start();
         //  Does not work, prints errors
 
-       // new Thread(this::AtomashpolskiyExample).start();
-        //  Works, prints status warnings
+        // new Thread(this::AtomashpolskiyExample).start();
+        // Works, prints status warnings
+
     }
 
     /**
