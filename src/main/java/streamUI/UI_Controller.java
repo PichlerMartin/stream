@@ -378,13 +378,13 @@ public class UI_Controller implements Initializable {
 
     @FXML
     private void handleOnStartDownload (){
-        //new Thread(this::ActualWorkingTorrentInvocation).start();
+        new Thread(this::ActualWorkingTorrentInvocation).start();
         //  Works sometimes, but needs review in class files
 
         //new Thread(this::ownTorrentImplementation).start();
         //  Does not work, prints errors
 
-        new Thread(this::AtomashpolskiyExample).start();
+       // new Thread(this::AtomashpolskiyExample).start();
         //  Works, prints status warnings
     }
 
@@ -439,7 +439,7 @@ public class UI_Controller implements Initializable {
     @Deprecated
     public void ActualWorkingTorrentInvocation(){
         try{
-            CliClient.main(new String[]{"-d", Globals.DOWNLOAD_DIRECTORY, "-m", Globals.MAGNET_LINK});
+            CliClient.main(new String[]{"-d", Globals.DOWNLOAD_DIRECTORY, "-m", Globals.MAGNET_LINK, "a", "n"});
         } catch (IOException ex) {
             ex.printStackTrace();
         }

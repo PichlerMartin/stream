@@ -60,10 +60,10 @@ public class StreamOptions {
         return this.enforceEncryption;
     }
 
-    public StreamOptions.LogLevel getLogLevel() {
-        return this.traceLogging ? StreamOptions.LogLevel.TRACE :
-                (this.verboseLogging ? StreamOptions.LogLevel.VERBOSE :
-                        StreamOptions.LogLevel.NORMAL);
+    public LogLevel getLogLevel() {
+        return this.traceLogging ? LogLevel.TRACE :
+                (this.verboseLogging ? LogLevel.VERBOSE :
+                        LogLevel.NORMAL);
     }
 
     public String getInetAddress() {
@@ -80,10 +80,6 @@ public class StreamOptions {
 
     boolean shouldDownloadAllFiles() {
         return !this.downloadAllFiles;
-    }
-
-    public void setDownloadAllFiles(boolean delta){
-        this.downloadAllFiles = delta;
     }
 
     public enum LogLevel {

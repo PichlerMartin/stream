@@ -16,12 +16,13 @@ import org.slf4j.LoggerFactory;
 import support.SupportMethods;
 import testui.Controller;
 import testui.UI_Controller;
-//import testui.TestStreamClient;
 
 import java.net.MalformedURLException;
 
 import static support.SupportMethods.buildConfig;
 import static support.SupportMethods.buildDHTModule;
+
+//import testui.TestStreamClient;
 
 /**
  * Description
@@ -55,7 +56,7 @@ public class StreamClientDeprecated implements Client {
         SupportMethods.configureSecurity(LOGGER);
         SupportMethods.registerLog4jShutdownHook();
 
-        this.printer = new StreamLogPrinter(controller);
+        this.printer = new StreamLogPrinter();
 
         Config config = buildConfig(this.options);
 

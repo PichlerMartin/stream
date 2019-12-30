@@ -61,7 +61,7 @@ public class StreamClient {
             runtime.service(IRuntimeLifecycleBinder.class).onShutdown(fileSelector::shutdown);
         }
 
-        clientBuilder.afterTorrentFetched(this.printer::onTorrentFetched);
+        //clientBuilder.afterTorrentFetched(this.printer::onTorrentFetched);
         clientBuilder.afterFilesChosen(this.printer::onFilesChosen);
 
         if (options.getMetainfoFile() != null) {
@@ -144,9 +144,9 @@ public class StreamClient {
     }
 
     public void start() {
-        this.printer.start();
-        this.client.startAsync((state) -> {
-            boolean complete = state.getPiecesRemaining() == 0;
+        this.printer.startLogPrinter();
+        this.client.startAsync((torrentStage) -> {
+            boolean complete = torrentStage.getPiecesRemaining() == 0;
             if (complete) {
                 if (this.options.shouldSeedAfterDownloaded()) {
                     this.printer.onDownloadComplete();
@@ -156,7 +156,7 @@ public class StreamClient {
                 }
             }
 
-            this.printer.updateState(state);
+            this.printer.updateTorrentStage(torrentStage);
         }, 1000L).join();
     }
 }

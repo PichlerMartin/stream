@@ -49,16 +49,16 @@ public class StreamLogPrinter {
 
 
 
-    public void onFilesChosen() {
+    void onFilesChosen() {
         this.processingStage.set(DOWNLOADING);
     }
 
-    public void onDownloadComplete() {
+    void onDownloadComplete() {
 
         this.processingStage.set(ProcessingStage.SEEDING);
     }
 
-    public void startLogPrinter(){
+    void startLogPrinter(){
         this.started = System.currentTimeMillis();
         System.out.println("Metadata is being fetched... Please be pacient...");
 
