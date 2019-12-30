@@ -53,15 +53,11 @@ public class StreamStatusProcessor {
         this.processingStage.set(ExecutionStage.CHOOSING_FILES);
     }
 
-
-
-    void onFilesChosen() {
-        this.processingStage.set(DOWNLOADING);
-    }
+    void onFilesChosen() { this.processingStage.set(DOWNLOADING);}
 
     void onDownloadComplete() { this.processingStage.set(ExecutionStage.SEEDING); }
 
-    void startLogPrinter(){
+    void startStatusProcessor(){
         this.started = System.currentTimeMillis();
         System.out.println("Metadata is being fetched... Please be patient...");
 
@@ -69,11 +65,11 @@ public class StreamStatusProcessor {
             do{
                 TorrentSessionState sessionState = this.sessionState.get();
                 if(sessionState != null){
-                    Duration elapsedtime = this.returnTimeElapsed();
-                    DownloadRate downloadRate = new DownloadRate(sessionState.getDownloaded() - this.downloaded);
-                    DownloadRate uploadRate = new DownloadRate(sessionState.getDownloaded() - this.uploaded);
+                    Duration elapsed = this.returnTimeElapsed();
+                    DownloadRate down = new DownloadRate(sessionState.getDownloaded() - this.downloaded);
+                    DownloadRate up = new DownloadRate(sessionState.getDownloaded() - this.uploaded);
 
-                    printLog(torrent.get(), sessionState, processingStage.get(), new DownloadStats(elapsedtime, downloadRate, uploadRate));
+                    processStatus(torrent.get(), sessionState, processingStage.get(), new DownloadStats(elapsed, down, up));
 
                     this.downloaded = sessionState.getDownloaded();
                     this.uploaded = sessionState.getUploaded();
@@ -92,7 +88,7 @@ public class StreamStatusProcessor {
         logPrintThread.start();
     }
 
-    private void printLog(Torrent torrent, TorrentSessionState sessionState, ExecutionStage executionStage, DownloadStats downloadStats) {
+    private void processStatus(Torrent torrent, TorrentSessionState sessionState, ExecutionStage executionStage, DownloadStats downloadStats) {
         int peerCount = sessionState.getConnectedPeers().size();
         String down = formatDownloadRate(downloadStats.getDownloadRate());
         String up = formatDownloadRate(downloadStats.getDownloadRate());

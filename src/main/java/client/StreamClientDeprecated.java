@@ -71,7 +71,7 @@ public class StreamClientDeprecated implements Client {
     @Deprecated
     public void start(){
 
-        printer.startLogPrinter();
+        printer.startStatusProcessor();
         client.startAsync (state -> {
             boolean complete = (state.getPiecesRemaining()==0);
             if (complete){

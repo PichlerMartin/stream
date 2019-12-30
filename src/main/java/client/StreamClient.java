@@ -59,7 +59,7 @@ public class StreamClient {
             runtime.service(IRuntimeLifecycleBinder.class).onShutdown(fileSelector::shutdown);
         }
 
-        clientBuilder.afterTorrentFetched(this.printer::onTorrentFetched);
+        clientBuilder.afterTorrentFetched(this.printer::whenTorrentFetched);
         clientBuilder.afterFilesChosen(this.printer::onFilesChosen);
 
         if (options.getMetainfoFile() != null) {
@@ -142,7 +142,7 @@ public class StreamClient {
     }
 
     public void start() {
-        this.printer.startLogPrinter();
+        this.printer.startStatusProcessor();
         this.client.startAsync((torrentStage) -> {
             boolean complete = torrentStage.getPiecesRemaining() == 0;
             if (complete) {
