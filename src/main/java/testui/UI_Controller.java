@@ -41,9 +41,10 @@ public class UI_Controller implements Controller {
     /**
      * Description
      * Hilfsmethode, welche dazu dient, dass das UI richtig lädt
+     *
      * @param root: der Stage-Root des UI
      */
-    public void setParentStage (Stage root) {
+    public void setParentStage(Stage root) {
         this.parentStage = root;
     }
 
@@ -70,7 +71,8 @@ public class UI_Controller implements Controller {
 
     /**
      * Loads all files from the resources/torrents directory at startup, for testing purposes
-     * @param actionEvent:  ActionEvent-Parameter, currently not in use
+     *
+     * @param actionEvent: ActionEvent-Parameter, currently not in use
      * @throws IOException: In case the files won't load properly
      */
     public void LoadStartConfiguration(ActionEvent actionEvent) throws IOException {
@@ -79,12 +81,12 @@ public class UI_Controller implements Controller {
 
             Object[] directoryContent = paths.toArray();
 
-            for (Object s: directoryContent
-                 ) {
+            for (Object s : directoryContent
+            ) {
                 String content = s.toString();
                 String contentname = content.substring(content.lastIndexOf('\\') + 1);
 
-                if (!contentname.equals("torrents")){
+                if (!contentname.equals("torrents")) {
                     torrents.addTorrent(new TorrentInFileSystem(content, contentname.substring(0, contentname.length() - 8)));
                 }
             }
@@ -97,7 +99,6 @@ public class UI_Controller implements Controller {
     }
 
     /**
-     *
      * https://stackoverflow.com/questions/3436823/how-to-calculate-the-hash-value-of-a-torrent-using-java
      *
      * @param torrentPath: path to torrent file
@@ -119,7 +120,7 @@ public class UI_Controller implements Controller {
             //s3 = s3.substring(0, s3.lastIndexOf(':'));
             text = s1 + s2 + ":...................." + s3.substring(0, s3.lastIndexOf(':'));
 
-        } catch (IOException ex){
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
 
@@ -128,18 +129,20 @@ public class UI_Controller implements Controller {
 
     /**
      * @param mouseEvent: mouse event get thrown when clicked
-     * desc:    https://stackoverflow.com/questions/32757069/updating-progressbar-value-within-a-for-loop
+     *                    desc:    https://stackoverflow.com/questions/32757069/updating-progressbar-value-within-a-for-loop
      */
     public void click_makeProgress(MouseEvent mouseEvent) {
         new Thread(() -> {
-            for(int i = 0; i <=100; i++){
+            for (int i = 0; i <= 100; i++) {
                 final int position = i;
                 Platform.runLater(() -> {
-                    prog_m.setProgress(position/100.0);
+                    prog_m.setProgress(position / 100.0);
                 });
-                try{
+                try {
                     Thread.sleep(100);
-                }catch(Exception e){ System.err.println(e); }
+                } catch (Exception e) {
+                    System.err.println(e);
+                }
             }
         }).start();
     }
@@ -148,6 +151,7 @@ public class UI_Controller implements Controller {
     public Label getLabel() {
         return this.lbl_status;
     }
+
     @Override
     public void setLabel(Label status) {
         this.lbl_status = status;

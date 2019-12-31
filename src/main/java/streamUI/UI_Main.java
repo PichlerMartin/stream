@@ -9,6 +9,10 @@ import javafx.stage.Stage;
 
 public class UI_Main extends Application {
 
+    public static void main(String[] args) {
+        launch(args);
+    }
+
     @Override
     public void start(Stage primaryStage) throws Exception {
 
@@ -27,9 +31,5 @@ public class UI_Main extends Application {
 
         c.setParentStage(primaryStage);
         primaryStage.show();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }

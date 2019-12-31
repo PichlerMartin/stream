@@ -42,13 +42,13 @@ public abstract class SupportMethods {
      * Private Methode, die die Security-Policies bei der Klassenvariable "Security"
      * setzt um sie später auf den Client zuzuschreiben
      */
-    public static void configureSecurity(Logger LOGGER){
+    public static void configureSecurity(Logger LOGGER) {
         String key = "crypto.policy";
         String value = "unlimited";
-        try{
+        try {
             Security.setProperty(key, value);
 
-        } catch (Exception e){
+        } catch (Exception e) {
             LOGGER.error("Security Property konnte nicht von '" + key + "' auf '" + value + "' gesetzt werden", e);
 
         }
@@ -59,16 +59,15 @@ public abstract class SupportMethods {
      */
     public static void registerLog4jShutdownHook() {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            if( LogManager.getContext() instanceof LoggerContext) {
-                Configurator.shutdown((LoggerContext)LogManager.getContext());
+            if (LogManager.getContext() instanceof LoggerContext) {
+                Configurator.shutdown((LoggerContext) LogManager.getContext());
             }
         }));
     }
 
     /**
-     *
      * @param logLevel: log level, beschreibt den Grad des Logging abhängig vom Verwendungszweck
-     *                d.h.: NORMAL im gewöhnlichen Betrieb, VERBOSE beim Debuggen und TRACE
+     *                  d.h.: NORMAL im gewöhnlichen Betrieb, VERBOSE beim Debuggen und TRACE
      */
     public static void configureLogging(LogLevel logLevel) {
         Level log4jLogLevel;
@@ -103,57 +102,61 @@ public abstract class SupportMethods {
      * @param options das Options Objekt
      * @return
      */
-    public static DHTModule buildDHTModule(StreamOptions options){
+    public static DHTModule buildDHTModule(StreamOptions options) {
         Optional<Integer> dhtPortOverride = tryGetPort(options.getDhtPort());
 
-        return new DHTModule(new DHTConfig(){
+        return new DHTModule(new DHTConfig() {
             @Override
-            public int getListeningPort(){
+            public int getListeningPort() {
                 return dhtPortOverride.orElseGet(super::getListeningPort);
             }
 
             @Override
-            public boolean shouldUseRouterBootstrap(){
+            public boolean shouldUseRouterBootstrap() {
                 return true;
             }
         });
     }
 
-    private static Optional <Integer> tryGetPort (Integer port) {
+    private static Optional<Integer> tryGetPort(Integer port) {
         if (port == null) {
-            return Optional.empty ();
-        } else if (port <1024 || port> 65535) {
-            throw new IllegalArgumentException ("Invalid port:" + port +
+            return Optional.empty();
+        } else if (port < 1024 || port > 65535) {
+            throw new IllegalArgumentException("Invalid port:" + port +
                     "; expected 1024..65535");
         }
-        return Optional.of (port);
+        return Optional.of(port);
     }
 
-    public static Config buildConfig (StreamOptions options) {
-        Optional <InetAddress> acceptorAddressOverride = getAcceptorAddressOverride (options);
-        Optional<Integer> portOverride = tryGetPort (options.getPort ());
-        return new Config () {
+    public static Config buildConfig(StreamOptions options) {
+        Optional<InetAddress> acceptorAddressOverride = getAcceptorAddressOverride(options);
+        Optional<Integer> portOverride = tryGetPort(options.getPort());
+        return new Config() {
             @Override
-            public InetAddress getAcceptorAddress () {
-                return acceptorAddressOverride.orElseGet (super :: getAcceptorAddress); }
-            @Override
-            public int getAcceptorPort () {
-                return portOverride.orElseGet (super :: getAcceptorPort);
+            public InetAddress getAcceptorAddress() {
+                return acceptorAddressOverride.orElseGet(super::getAcceptorAddress);
             }
+
             @Override
-            public int getNumOfHashingThreads () {
-                return Runtime.getRuntime (). availableProcessors ();
+            public int getAcceptorPort() {
+                return portOverride.orElseGet(super::getAcceptorPort);
             }
+
             @Override
-            public EncryptionPolicy getEncryptionPolicy () {
-                return options.enforceEncryption ()?
+            public int getNumOfHashingThreads() {
+                return Runtime.getRuntime().availableProcessors();
+            }
+
+            @Override
+            public EncryptionPolicy getEncryptionPolicy() {
+                return options.enforceEncryption() ?
                         EncryptionPolicy.REQUIRE_ENCRYPTED
                         : EncryptionPolicy.PREFER_PLAINTEXT;
             }
         };
     }
 
-    private static Optional <InetAddress> getAcceptorAddressOverride (StreamOptions options) {
+    private static Optional<InetAddress> getAcceptorAddressOverride(StreamOptions options) {
         String inetAddress = options.getInetAddress();
         if (inetAddress == null) {
             return Optional.empty();

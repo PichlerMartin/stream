@@ -23,16 +23,20 @@ public class StreamFileSelector extends TorrentFileSelector {
         this.shutdown = new AtomicBoolean(false);
     }
 
+    private static String getPromptMessage(TorrentFile file) {
+        return format(FORMAT_DOWNLOAD_PART, join("/", file.getPathElements()));
+    }
+
     @Override
     protected SelectionResult select(TorrentFile file) {
 
-        while(!this.shutdown.get()) {
+        while (!this.shutdown.get()) {
             System.out.println(getPromptMessage(file));
 
             String nextCommand = this.readNextCommand(new Scanner(System.in));
             byte result = -1;
 
-            switch(nextCommand.hashCode()) {
+            switch (nextCommand.hashCode()) {
                 case 0:
                     if (nextCommand.equals("")) {
                         result = 0;
@@ -59,7 +63,7 @@ public class StreamFileSelector extends TorrentFileSelector {
                     }
             }
 
-            switch(result) {
+            switch (result) {
                 case 0:
                 case 1:
                 case 2:
@@ -86,10 +90,6 @@ public class StreamFileSelector extends TorrentFileSelector {
         }
 
         return nextCommand;
-    }
-
-    private static String getPromptMessage(TorrentFile file) {
-        return format(FORMAT_DOWNLOAD_PART, join("/", file.getPathElements()));
     }
 
     void shutdown() {

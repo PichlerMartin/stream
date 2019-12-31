@@ -32,17 +32,6 @@ public class StreamClient {
     private final StreamStatusProcessor printer;
     private final BtClient client;
 
-    public static void main(String[] args) {
-        StreamOptions options = new StreamOptions(args[3], new File(args[1]));
-
-        SupportMethods.configureLogging(options.getLogLevel());
-        SupportMethods.configureSecurity(LOGGER);
-        SupportMethods.registerLog4jShutdownHook();
-
-        StreamClient client = new StreamClient(options);
-        client.start();
-    }
-
     private StreamClient(StreamOptions options) {
         this.options = options;
         this.printer = new StreamStatusProcessor();
@@ -73,6 +62,17 @@ public class StreamClient {
         }
 
         this.client = clientBuilder.build();
+    }
+
+    public static void main(String[] args) {
+        StreamOptions options = new StreamOptions(args[3], new File(args[1]));
+
+        SupportMethods.configureLogging(options.getLogLevel());
+        SupportMethods.configureSecurity(LOGGER);
+        SupportMethods.registerLog4jShutdownHook();
+
+        StreamClient client = new StreamClient(options);
+        client.start();
     }
 
     private static Config buildConfig(final StreamOptions options) {

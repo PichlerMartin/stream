@@ -38,6 +38,7 @@ public class Select_Controller implements Initializable {
      * Description
      * Bestätigt die aufgelistete Menge an Dateien, welche dann in das Download-Verzeichnis
      * geladen werden. Dieser Vorgang findet in einem neuen Thread statt.
+     *
      * @param ms: Action Event des Button(-Clicks)
      */
     public void Click_ConfirmFileList(ActionEvent ms) throws IOException {

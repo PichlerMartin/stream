@@ -35,74 +35,51 @@ import static meta.Globals.*;
 public class UI_Controller implements Initializable {
 
     @FXML
+    ComboBox<String> cboxSelectLanguage;
+    @FXML
     private Stage parentStage;
-
     @FXML
     private Stage stage;
-
     @FXML
     private TextField txtDownloadLocation;
-
     @FXML
     private TextField txtMagnetURI;
-
     @FXML
     private TextField txtTorrentFile;
-
     @FXML
     private TextField txtPort;
-
     @FXML
     private Button btnTorrents;
-
     @FXML
     private Button btnAddTorrents;
-
     @FXML
     private Button btnDownloading;
-
     @FXML
     private Button btnUploading;
-
     @FXML
     private Button btnFinished;
-
     @FXML
     private Button btnSettings;
-
     @FXML
     private Button btnHelp;
-
     @FXML
     private Button btnAddPartsofTorrent;
-
     @FXML
     private Button btnSelectTorrentFile;
-
     @FXML
     private Button btnStartDownload;
-
     @FXML
     private CheckBox chbDefaultPort;
-
     @FXML
     private CheckBox chbDownloadAll;
-
     @FXML
     private CheckBox chbUseTorrentFile;
-
     @FXML
     private CheckBox chbUseMagnetURI;
-
     @FXML
     private ListView<String> livFiles;
-
     @FXML
     private VBox VBoxTorrents;
-
-    @FXML
-    ComboBox<String> cboxSelectLanguage;
-
     @FXML
     private TableView TVTorrentsList;
 
@@ -164,46 +141,46 @@ public class UI_Controller implements Initializable {
     }
 
     @FXML
-    public void handleOnClickedbtnAddTorrents () {
+    public void handleOnClickedbtnAddTorrents() {
         resetVisibility();
         GPAddTorrent.setVisible(true);
     }
 
     @FXML
-    public void handleOnClickedbtnDownloading () {
+    public void handleOnClickedbtnDownloading() {
         resetVisibility();
         VBoxTorrents.setVisible(true);
         TVTorrentsList.setPlaceholder(new Label("No downloading Torrents found!"));
     }
 
     @FXML
-    public void handleOnClickedbtnUploading () {
+    public void handleOnClickedbtnUploading() {
         resetVisibility();
         VBoxTorrents.setVisible(true);
         TVTorrentsList.setPlaceholder(new Label("No uploading Torrents found!"));
     }
 
     @FXML
-    public void handleOnClickedbtnFinished () {
+    public void handleOnClickedbtnFinished() {
         resetVisibility();
         VBoxTorrents.setVisible(true);
         TVTorrentsList.setPlaceholder(new Label("No Torrents found!"));
     }
 
     @FXML
-    public void handleOnClickedbtnSettings () {
+    public void handleOnClickedbtnSettings() {
 
         resetVisibility();
         GPSettings.setVisible(true);
 
-        for (Locale loc: supportedLocales) {
+        for (Locale loc : supportedLocales) {
             cboxSelectLanguage.getItems().add(loc.getDisplayName());
         }
     }
 
     @FXML
-    public void handleOnClickedCbox () {
-        for (Locale loc: supportedLocales) {
+    public void handleOnClickedCbox() {
+        for (Locale loc : supportedLocales) {
             if (loc.getDisplayName().equals(cboxSelectLanguage.getValue())) {
                 changeLanguage(loc);
             }
@@ -211,11 +188,11 @@ public class UI_Controller implements Initializable {
     }
 
     @FXML
-    public void handleOnClickedbtnStorageLocation () {
+    public void handleOnClickedbtnStorageLocation() {
 
         File directory = this.openFileDialog("Speichern unter", FileDialogType.DIRECTORY);
 
-        if (this.isDirectoryValid(directory)){
+        if (this.isDirectoryValid(directory)) {
             txtDownloadLocation.setText(directory.toString());
 
             if (this.checkIfDownloadCanBeInitialized()) prepareDownload();
@@ -239,7 +216,7 @@ public class UI_Controller implements Initializable {
         GPSettings.setVisible(false);
 
         GPAddTorrent.getChildren().forEach(node -> {
-            if (Controls.containsKey((node.getId()))){
+            if (Controls.containsKey((node.getId()))) {
                 node.setDisable(Controls.get(node.getId()));
             }
         });
@@ -264,12 +241,13 @@ public class UI_Controller implements Initializable {
     /**
      * This method is called by buttons, which have been entered
      * It changes the style and the colour of the text in the caller button
+     *
      * @param event: is used to retrieve the source of the event
      */
     @FXML
-    public void handleOnMenuEntryEntered (MouseEvent event) {
+    public void handleOnMenuEntryEntered(MouseEvent event) {
 
-        Button btnEnteredBtn = (Button)event.getSource();
+        Button btnEnteredBtn = (Button) event.getSource();
         btnEnteredBtn.setStyle(btnEnteredBtn.getStyle() + "; -fx-underline: true; -fx-text-fill:  #1b3957");
 
     }
@@ -277,12 +255,13 @@ public class UI_Controller implements Initializable {
     /**
      * This method changes the style and colour of the caller button back to the original state
      * If the mouse leaves one of the buttons, this method is called
+     *
      * @param event: is used to retrieve the source of the event
      */
     @FXML
-    public void handleOnMenuEntryLeft (MouseEvent event) {
+    public void handleOnMenuEntryLeft(MouseEvent event) {
 
-        Button btnLeftbtn = (Button)event.getSource();
+        Button btnLeftbtn = (Button) event.getSource();
         btnLeftbtn.setStyle(btnLeftbtn.getStyle() + "; -fx-underline: false; -fx-text-fill: white");
     }
 
@@ -302,8 +281,8 @@ public class UI_Controller implements Initializable {
     //region Pichler part
 
     @FXML
-    private void handleOnAddSelectedParts(){
-        if(chbDownloadAll.isSelected() || livFiles.getSelectionModel().getSelectedItems().size() >= 1){
+    private void handleOnAddSelectedParts() {
+        if (chbDownloadAll.isSelected() || livFiles.getSelectionModel().getSelectedItems().size() >= 1) {
             btnStartDownload.setDisable(false);
         } else {
             this.showWarning("Wählen Sie Elemente",
@@ -313,9 +292,9 @@ public class UI_Controller implements Initializable {
     }
 
     @FXML
-    public void handleOnDirectorySelected(){
-        if (isDirectoryValid(new File(txtDownloadLocation.getText()))){
-            if (checkIfDownloadCanBeInitialized())prepareDownload();
+    public void handleOnDirectorySelected() {
+        if (isDirectoryValid(new File(txtDownloadLocation.getText()))) {
+            if (checkIfDownloadCanBeInitialized()) prepareDownload();
         } else {
             this.showWarning("Bitte Verzeichnis wählen",
                     "Um fortzufahren wählen Sie bitte ein gültiges Verzeichnis.");
@@ -327,11 +306,11 @@ public class UI_Controller implements Initializable {
 
         File torrentfile = this.openFileDialog("Torrent Datei wählen", FileDialogType.TORRENT);
 
-        if (this.isTorrentFileValid(torrentfile)){
+        if (this.isTorrentFileValid(torrentfile)) {
             txtTorrentFile.setText(torrentfile.toString());
             txtDownloadLocation.requestFocus();
 
-            if (checkIfDownloadCanBeInitialized())prepareDownload();
+            if (checkIfDownloadCanBeInitialized()) prepareDownload();
         } else {
             this.showWarning("Bitte gültige Torrent Datei wählen",
                     "Um fortzufahren w\u00e4hlen Sie bitte eine Datei mit der Endung \".torrent\"");
@@ -345,29 +324,27 @@ public class UI_Controller implements Initializable {
         if (this.isTorrentFileValid(torrentfile)) {
             txtDownloadLocation.requestFocus();
 
-            if (checkIfDownloadCanBeInitialized())prepareDownload();
-        }
-        else {
+            if (checkIfDownloadCanBeInitialized()) prepareDownload();
+        } else {
             this.showWarning("Bitte gültige Torrent Datei wählen",
                     "Um fortzufahren w\u00e4hlen Sie bitte eine Datei mit der Endung \".torrent\"");
         }
     }
 
     @FXML
-    public void handleOnMagnetURIEntered(){
+    public void handleOnMagnetURIEntered() {
         if (isMagnetLinkValid(txtMagnetURI.getText())) {
             txtDownloadLocation.requestFocus();
 
-            if (checkIfDownloadCanBeInitialized())prepareDownload();
-        }
-        else {
+            if (checkIfDownloadCanBeInitialized()) prepareDownload();
+        } else {
             showWarning("Magnet URI ungültig",
                     "Bitte geben Sie eine gültige Magnet URI in das Textfeld ein um fortzufahren");
         }
     }
 
     @FXML
-    private void onDirectorySelected(){
+    private void onDirectorySelected() {
         livFiles.getItems().clear();
         livFiles.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
@@ -375,7 +352,7 @@ public class UI_Controller implements Initializable {
     }
 
     @FXML
-    private void handleOnStartDownload (){
+    private void handleOnStartDownload() {
         new Thread(this::ownTorrentImplementation).start();
         // Does not work, prints errors
         // Update 30.12.2019, 18:25: now works
@@ -383,16 +360,18 @@ public class UI_Controller implements Initializable {
         // new Thread(this::AtomashpolskiyExample).start();
         // Works, prints status warnings
 
+        // ToDo:    Fill list-view with torrent-contents
     }
 
     /**
      * Description
      * Diese Methode besteht aus dem Example welche von dem Ersteller der Bt-Bibliothek, atomashpolskiy,
      * zur Verf&uuml;gnug gestellt wurde.
-     *
+     * <p>
      * https://github.com/atomashpolskiy/bittorrent
      */
-    private void AtomashpolskiyExample() {
+    @Deprecated
+    public void AtomashpolskiyExample() {
         // enable multithreaded verification of torrent data
         Config config = new Config() {
             @Override
@@ -424,8 +403,7 @@ public class UI_Controller implements Initializable {
         client.startAsync().join();
     }
 
-    @Deprecated
-    public void ownTorrentImplementation() {
+    private void ownTorrentImplementation() {
         StreamClient.main(new String[]{"-d", Globals.DOWNLOAD_DIRECTORY, "-m", Globals.MAGNET_LINK});
     }
 
@@ -434,39 +412,39 @@ public class UI_Controller implements Initializable {
         chbUseMagnetURI.setDisable(true);
         txtTorrentFile.setDisable(true);
         btnSelectTorrentFile.setDisable(true);
-        USE_MAGNET_LINK =true;
+        USE_MAGNET_LINK = true;
 
-        USE_TORRENT_FILE =false;
+        USE_TORRENT_FILE = false;
         txtMagnetURI.setDisable(false);
         chbUseTorrentFile.setDisable(false);
         chbUseTorrentFile.setSelected(false);
 
-        if (checkIfDownloadCanBeInitialized())prepareDownload();
+        if (checkIfDownloadCanBeInitialized()) prepareDownload();
     }
 
     @FXML
     public void handleOnUseTorrentFile() {
         chbUseTorrentFile.setDisable(true);
         txtMagnetURI.setDisable(true);
-        USE_TORRENT_FILE =true;
+        USE_TORRENT_FILE = true;
 
-        USE_MAGNET_LINK =true;
+        USE_MAGNET_LINK = true;
         btnSelectTorrentFile.setDisable(false);
         txtTorrentFile.setDisable(false);
         chbUseMagnetURI.setDisable(false);
         chbUseMagnetURI.setSelected(false);
 
-        if (checkIfDownloadCanBeInitialized())prepareDownload();
+        if (checkIfDownloadCanBeInitialized()) prepareDownload();
     }
 
     private File openFileDialog(String header, FileDialogType type) {
-        if (type.equals(FileDialogType.DIRECTORY)){
+        if (type.equals(FileDialogType.DIRECTORY)) {
             DirectoryChooser dirChooser = new DirectoryChooser();
 
             dirChooser.setTitle(header);
             dirChooser.setInitialDirectory(new File(System.getProperty("user.home")));
             return dirChooser.showDialog(stage);
-        } else if (type.equals(FileDialogType.TORRENT)){
+        } else if (type.equals(FileDialogType.TORRENT)) {
             FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Torrent files (*.torrent)", "*.torrent");
             FileChooser fileChooser = new FileChooser();
             fileChooser.getExtensionFilters().add(extFilter);
@@ -479,14 +457,9 @@ public class UI_Controller implements Initializable {
         }
     }
 
-    enum FileDialogType{
-        DIRECTORY,
-        TORRENT
-    }
-
     @FXML
     public void handleOnClickedUseDefaultPort() {
-        if (chbDefaultPort.isSelected()){
+        if (chbDefaultPort.isSelected()) {
             txtPort.setDisable(true);
             USE_DEFAULT_PORT = true;
         } else {
@@ -496,11 +469,11 @@ public class UI_Controller implements Initializable {
     }
 
     @FXML
-    public void handleOnClickedSeedAfterDownload(){
+    public void handleOnClickedSeedAfterDownload() {
         SEED_AFTER_DOWNLOAD = !SEED_AFTER_DOWNLOAD;
     }
 
-    private boolean isDirectoryValid(File directory){
+    private boolean isDirectoryValid(File directory) {
         return directory != null && !directory.getPath().equals("") && directory.isDirectory() && exists(directory.toPath()) && exists(directory.toPath());
     }
 
@@ -508,28 +481,33 @@ public class UI_Controller implements Initializable {
         return torrentfile != null && torrentfile.exists() && (FilenameUtils.getExtension(torrentfile.getPath()).equals("torrent"));
     }
 
-    private boolean isMagnetLinkValid(String magnetlink){
+    private boolean isMagnetLinkValid(String magnetlink) {
         return magnetlink.contains("magnet:?xt=urn:btih:");
     }
 
-    private boolean checkIfDownloadCanBeInitialized(){
+    private boolean checkIfDownloadCanBeInitialized() {
         String torrentfile = txtTorrentFile.getText();
         String magnetlink = txtMagnetURI.getText();
         String directory = txtDownloadLocation.getText();
 
-        if (this.isTorrentFileValid(new File(torrentfile)) && this.isDirectoryValid(new File(directory))){
+        if (this.isTorrentFileValid(new File(torrentfile)) && this.isDirectoryValid(new File(directory))) {
             return true;
         } else return this.isMagnetLinkValid(magnetlink) && this.isDirectoryValid(new File(directory));
 
     }
 
-    private void prepareDownload(){
+    private void prepareDownload() {
         MAGNET_LINK = txtMagnetURI.getText();
         TORRENT_FILE = txtTorrentFile.getText();
         DOWNLOAD_DIRECTORY = txtDownloadLocation.getText();
         DIRECTORY_SELECTED = true;
 
         this.onDirectorySelected();
+    }
+
+    enum FileDialogType {
+        DIRECTORY,
+        TORRENT
     }
     //endregion Pichler part
 }

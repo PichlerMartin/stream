@@ -31,7 +31,7 @@ public class StreamOptions {
         this.downloadAllFiles = downloadAllFiles;
     }
 
-    public StreamOptions(String magnetUri, File targetDirectory){
+    public StreamOptions(String magnetUri, File targetDirectory) {
         this.magnetUri = magnetUri;
         this.targetDirectory = targetDirectory;
     }

@@ -69,15 +69,15 @@ public class StreamClientDeprecated implements Client {
      * Ausführung wird in einem neuen Thread gestartet
      */
     @Deprecated
-    public void start(){
+    public void start() {
 
         printer.startStatusProcessor();
-        client.startAsync (state -> {
-            boolean complete = (state.getPiecesRemaining()==0);
-            if (complete){
-                if(options.shouldSeedAfterDownloaded()){
+        client.startAsync(state -> {
+            boolean complete = (state.getPiecesRemaining() == 0);
+            if (complete) {
+                if (options.shouldSeedAfterDownloaded()) {
                     printer.onDownloadComplete();
-                } else{
+                } else {
                     printer.stop();
                     client.stop();
                 }
@@ -93,12 +93,12 @@ public class StreamClientDeprecated implements Client {
      * der Funktion gespeist, und danach werden einige Optionen festgelegt, u.a. "Sollten alle
      * Dateien heruntergeladen werden?", usw.
      *
-     * @param runtime: ein generisches Runtime-Objekt der Bt-Library
-     * @param storage: der Speicherplatz auf der Festplatte
+     * @param runtime:  ein generisches Runtime-Objekt der Bt-Library
+     * @param storage:  der Speicherplatz auf der Festplatte
      * @param selector: Hilfsobjekt zur auswahl der einzelnen Torrent-Dateien
      * @return: gibt den fertigen Client zurück
      */
-    private BtClient GetClient(BtRuntime runtime, Storage storage, PieceSelector selector){
+    private BtClient GetClient(BtRuntime runtime, Storage storage, PieceSelector selector) {
         BtClientBuilder clientBuilder = Bt.client(runtime).storage(storage).selector(selector);
 
         //options.setDownloadAllFiles(true);
@@ -106,23 +106,23 @@ public class StreamClientDeprecated implements Client {
         //  ToDo:   Continue here somewhere, idk
         //  ToDo:   Test with own hotspot
 
-        if(options.shouldDownloadAllFiles()){
+        if (options.shouldDownloadAllFiles()) {
             StreamFileSelector fileSelector = new StreamFileSelector();
             clientBuilder.fileSelector(fileSelector);
             runtime.service(IRuntimeLifecycleBinder.class).onShutdown(fileSelector::shutdown);
         }
 
-        clientBuilder.afterTorrentFetched (printer :: whenTorrentFetched);
+        clientBuilder.afterTorrentFetched(printer::whenTorrentFetched);
         clientBuilder.afterFilesChosen(printer::onFilesChosen);
 
         if (options.getMetainfoFile() != null) {
             clientBuilder = clientBuilder.torrent(SupportMethods.toUrl(options.getMetainfoFile()));
         } else if (options.getMagnetUri() != null) {
-            clientBuilder = clientBuilder.magnet (options.getMagnetUri ());
+            clientBuilder = clientBuilder.magnet(options.getMagnetUri());
         } else {
-            throw new IllegalStateException ("Torrent file or magnet URI is required");
+            throw new IllegalStateException("Torrent file or magnet URI is required");
         }
 
-        return clientBuilder.build ();
+        return clientBuilder.build();
     }
 }
