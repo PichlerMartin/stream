@@ -359,8 +359,6 @@ public class UI_Controller implements Initializable {
 
         // new Thread(this::AtomashpolskiyExample).start();
         // Works, prints status warnings
-
-        // ToDo:    Fill list-view with torrent-contents
     }
 
     /**
