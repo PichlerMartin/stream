@@ -488,10 +488,17 @@ public class UI_Controller implements Initializable {
         String magnetlink = txtMagnetURI.getText();
         String directory = txtDownloadLocation.getText();
 
+        if (this.isMagnetLinkValid(magnetlink)) {
+            this.listTorrentParts();
+        }
+
         if (this.isTorrentFileValid(new File(torrentfile)) && this.isDirectoryValid(new File(directory))) {
             return true;
         } else return this.isMagnetLinkValid(magnetlink) && this.isDirectoryValid(new File(directory));
 
+    }
+
+    private void listTorrentParts() {
     }
 
     private void prepareDownload() {

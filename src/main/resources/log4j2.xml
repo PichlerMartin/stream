@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration status="warn" shutdownHook="disable">
+    <!--
+        This config file for log4j2 contains all necessary declarations for the different loggers
+        used in the program. Some content is by crunchify.com, some is copied from bt-cli-demo (can
+        be found in the bt-cli-demo directory under src/target or something). However this log process
+        creates two log file under "log", but does not write any data to them. If time is left this
+        issues should be looked after and eventually fixed. (try to look up the i-net addresses from
+        the "diplomarbeit_quellenverzeichnis.xlsx" file, dated with 30.12.2019 and 31.12.2019, search
+        for "asynchronous logger with log4j2")
+    -->
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{YYYY-MM-dd HH:mm:ss} [%t] %-5p %c{1}:%L - %msg%n"/>

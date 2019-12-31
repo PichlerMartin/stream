@@ -115,8 +115,8 @@ public class StreamClient {
         } else {
             try {
                 return Optional.of(InetAddress.getByName(inetAddress));
-            } catch (UnknownHostException var3) {
-                throw new IllegalArgumentException("Failed to parse the acceptor's internet address", var3);
+            } catch (UnknownHostException ex) {
+                throw new IllegalArgumentException("Failed to parse the acceptor's internet address", ex);
             }
         }
     }
@@ -137,8 +137,8 @@ public class StreamClient {
     private static URL toUrl(File file) {
         try {
             return file.toURI().toURL();
-        } catch (MalformedURLException var2) {
-            throw new IllegalArgumentException("Unexpected error", var2);
+        } catch (MalformedURLException ex) {
+            throw new IllegalArgumentException("Unexpected error", ex);
         }
     }
 
