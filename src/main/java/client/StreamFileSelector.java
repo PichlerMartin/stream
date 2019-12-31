@@ -3,6 +3,7 @@ package client;
 import bt.metainfo.TorrentFile;
 import bt.torrent.fileselector.SelectionResult;
 import bt.torrent.fileselector.TorrentFileSelector;
+import javafx.scene.control.ListView;
 
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -17,14 +18,35 @@ public class StreamFileSelector extends TorrentFileSelector {
 
     private AtomicReference<Thread> currentThread;
     private AtomicBoolean shutdown;
+    private ListView<String> listView = null;
 
     StreamFileSelector() {
         this.currentThread = new AtomicReference<>(null);
         this.shutdown = new AtomicBoolean(false);
     }
 
+    StreamFileSelector(ListView<String> listView) {
+        this.currentThread = new AtomicReference<>(null);
+        this.shutdown = new AtomicBoolean(false);
+        this.listView = listView;
+    }
+
     private static String getPromptMessage(TorrentFile file) {
         return format(FORMAT_DOWNLOAD_PART, join("/", file.getPathElements()));
+    }
+
+    protected SelectionResult selectToListView(TorrentFile file) {
+        while (!this.shutdown.get()) {
+            System.out.println(getPromptMessage(file));
+            this.listView.getItems().add(format("%s", join("/", file.getPathElements())));
+        }
+
+        /*
+          ToDo:   This method is called first to load all torrent-parts into the list view
+          ToDo:   but origin of select needs to be identified, continue later
+        */
+
+        return SelectionResult.select().build();
     }
 
     @Override
