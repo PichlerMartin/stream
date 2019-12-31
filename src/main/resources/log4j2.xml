@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="WARN">
-
-    <!-- Author:  Crunchify.com  -->
+<configuration status="warn" shutdownHook="disable">
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{YYYY-MM-dd HH:mm:ss} [%t] %-5p %c{1}:%L - %msg%n"/>
@@ -16,11 +14,40 @@
             <DefaultRolloverStrategy max="20"/>
         </RollingFile>
 
+        <File name="bt-core" append="false" fileName="log/bt.log">
+            <PatternLayout pattern="[%d{dd/MMM/yyyy:HH:mm:ss,SSS}] %-5p %c{1}: %m%n%ex"/>
+        </File>
+
+        <File name="bt-dht" append="false" fileName="log/bt-dht.log">
+            <PatternLayout pattern="[%d{dd/MMM/yyyy:HH:mm:ss,SSS}] %-5p %c{1}: %m%n%ex"/>
+        </File>
+
+        <Async name="A1" bufferSize="1000">
+            <appender-ref ref="bt-core"/>
+        </Async>
+
+        <Async name="A2" bufferSize="1000">
+            <appender-ref ref="bt-dht"/>
+        </Async>
+
     </Appenders>
     <Loggers>
-        <Root level="info">
-            <AppenderRef ref="Console"/>
-            <AppenderRef ref="RollingFile"/>
-        </Root>
+        <logger name="STDOUT" level="trace" additivity="false">
+            <appender-ref ref="A1"/>
+        </logger>
+        <logger name="STDERR" level="trace" additivity="false">
+            <appender-ref ref="A1"/>
+        </logger>
+
+        <logger name="bt" level="info" additivity="false">
+            <appender-ref ref="bt-core"/>
+        </logger>
+        <logger name="bt.dht" level="debug" additivity="false">
+            <appender-ref ref="bt-dht"/>
+        </logger>
+
+        <root level="warn">
+            <appender-ref ref="A1"/>
+        </root>
     </Loggers>
-</Configuration>
+</configuration>

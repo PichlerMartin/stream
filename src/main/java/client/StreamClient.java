@@ -20,8 +20,6 @@ import org.slf4j.LoggerFactory;
 import support.SupportMethods;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintStream;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -73,14 +71,6 @@ public class StreamClient {
         SupportMethods.configureLogging(options.getLogLevel());
         SupportMethods.configureSecurity(LOGGER);
         SupportMethods.registerLog4jShutdownHook();
-
-        PrintStream fileOut = null;
-        try {
-            fileOut = new PrintStream("log/bt.log");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        System.setOut(fileOut);
 
         StreamClient client = new StreamClient(options);
         client.start();

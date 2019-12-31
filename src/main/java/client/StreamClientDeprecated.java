@@ -43,6 +43,7 @@ public class StreamClientDeprecated implements Client {
      * @param options ist ein Objekt der Options Klasse welche die Kommandozeilenargumente (argsv)
      *                enthält, dem Client die nötigen Daten gibt, z.B.: Torrent-File, Download Ort, ...
      */
+    @Deprecated
     public StreamClientDeprecated(StreamOptions options) {
         this.options = options;
 
@@ -98,6 +99,7 @@ public class StreamClientDeprecated implements Client {
      * @param selector: Hilfsobjekt zur auswahl der einzelnen Torrent-Dateien
      * @return: gibt den fertigen Client zurück
      */
+    @Deprecated
     private BtClient GetClient(BtRuntime runtime, Storage storage, PieceSelector selector) {
         BtClientBuilder clientBuilder = Bt.client(runtime).storage(storage).selector(selector);
 
