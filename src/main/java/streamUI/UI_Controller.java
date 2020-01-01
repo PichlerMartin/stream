@@ -489,7 +489,9 @@ public class UI_Controller implements Initializable {
         String directory = txtDownloadLocation.getText();
 
         if (this.isMagnetLinkValid(magnetlink)) {
-            this.listTorrentParts();
+            this.listTorrentPartsFromLink(magnetlink);
+        } else if (this.isTorrentFileValid(new File(torrentfile))) {
+            this.listTorrentPartsFromFile(torrentfile);
         }
 
         if (this.isTorrentFileValid(new File(torrentfile)) && this.isDirectoryValid(new File(directory))) {
@@ -498,7 +500,12 @@ public class UI_Controller implements Initializable {
 
     }
 
-    private void listTorrentParts() {
+    private void listTorrentPartsFromFile(String torrentfile) {
+        StreamClient.getTorrentPartsFromFile(torrentfile);
+    }
+
+    private void listTorrentPartsFromLink(String magnetlink) {
+        StreamClient.getTorrentPartsFromLink(magnetlink);
     }
 
     private void prepareDownload() {

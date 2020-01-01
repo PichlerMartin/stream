@@ -38,6 +38,10 @@ public class StreamFileSelector extends TorrentFileSelector {
     protected SelectionResult selectToListView(TorrentFile file) {
         while (!this.shutdown.get()) {
             System.out.println(getPromptMessage(file));
+
+            String nextCommand = this.readNextCommand(new Scanner(System.in));
+            byte result = -1;
+            StreamClient.putFileNameAndChoice(file);
             this.listView.getItems().add(format("%s", join("/", file.getPathElements())));
         }
 

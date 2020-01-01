@@ -36,6 +36,14 @@ public class StreamOptions {
         this.targetDirectory = targetDirectory;
     }
 
+    public StreamOptions(String magnetUri) {
+        this.magnetUri = magnetUri;
+    }
+
+    public StreamOptions(File metainfoFile) {
+        this.metainfoFile = metainfoFile;
+    }
+
     File getMetainfoFile() {
         return this.metainfoFile;
     }
