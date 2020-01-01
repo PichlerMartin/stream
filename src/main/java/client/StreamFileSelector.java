@@ -4,6 +4,7 @@ import bt.metainfo.TorrentFile;
 import bt.torrent.fileselector.SelectionResult;
 import bt.torrent.fileselector.TorrentFileSelector;
 import javafx.scene.control.ListView;
+import streamUI.UI_Controller;
 
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -35,21 +36,22 @@ public class StreamFileSelector extends TorrentFileSelector {
         return format(FORMAT_DOWNLOAD_PART, join("/", file.getPathElements()));
     }
 
-    /*
     protected void selectToListView(TorrentFile file) {
         while (!this.shutdown.get()) {
             System.out.println(getPromptMessage(file));
 
             String nextCommand = this.readNextCommand(new Scanner(System.in));
 
+            UI_Controller ui_controller = new UI_Controller();
+
             switch (this.readKey(nextCommand)) {
                 case 0:
                 case 1:
                 case 2:
-                    UI_Controller.putFileNameAndChoice(file, true);
+                    ui_controller.putFileNameAndChoice(file, true);
                 case 3:
                 case 4:
-                    UI_Controller.putFileNameAndChoice(file, true);
+                    ui_controller.putFileNameAndChoice(file, true);
                 default:
                     try {
                         throw new Exception("Illegal Keypress");
@@ -63,13 +65,10 @@ public class StreamFileSelector extends TorrentFileSelector {
           ToDo:   This method is called first to load all torrent-parts into the list view
           ToDo:   but origin of select needs to be identified, continue later
         */
-    //}
+    }
 
     @Override
     protected SelectionResult select(TorrentFile file) {
-
-        int i = 0 / 0;
-
         while (!this.shutdown.get()) {
             System.out.println(getPromptMessage(file));
 
