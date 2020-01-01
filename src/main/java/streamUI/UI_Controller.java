@@ -5,6 +5,7 @@ import bt.data.Storage;
 import bt.data.file.FileSystemStorage;
 import bt.dht.DHTConfig;
 import bt.dht.DHTModule;
+import bt.metainfo.TorrentFile;
 import bt.runtime.BtClient;
 import bt.runtime.Config;
 import client.StreamClient;
@@ -29,6 +30,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import static java.lang.String.format;
+import static java.lang.String.join;
 import static java.nio.file.Files.exists;
 import static meta.Globals.*;
 
@@ -96,6 +99,11 @@ public class UI_Controller implements Initializable {
             Locale.GERMAN,
             Locale.ENGLISH
     };
+
+    public void putFileNameAndChoice(TorrentFile file, boolean b) {
+        livFiles.getItems().add(format("%s", join("/", file.getPathElements())));
+        livFiles.getSelectionModel().select(format("%s", join("/", file.getPathElements())));
+    }
 
     @SuppressWarnings("Duplicates")
     @Override

@@ -35,61 +35,47 @@ public class StreamFileSelector extends TorrentFileSelector {
         return format(FORMAT_DOWNLOAD_PART, join("/", file.getPathElements()));
     }
 
-    protected SelectionResult selectToListView(TorrentFile file) {
+    /*
+    protected void selectToListView(TorrentFile file) {
         while (!this.shutdown.get()) {
             System.out.println(getPromptMessage(file));
 
             String nextCommand = this.readNextCommand(new Scanner(System.in));
-            byte result = -1;
-            StreamClient.putFileNameAndChoice(file);
-            this.listView.getItems().add(format("%s", join("/", file.getPathElements())));
+
+            switch (this.readKey(nextCommand)) {
+                case 0:
+                case 1:
+                case 2:
+                    UI_Controller.putFileNameAndChoice(file, true);
+                case 3:
+                case 4:
+                    UI_Controller.putFileNameAndChoice(file, true);
+                default:
+                    try {
+                        throw new Exception("Illegal Keypress");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+            }
         }
 
         /*
           ToDo:   This method is called first to load all torrent-parts into the list view
           ToDo:   but origin of select needs to be identified, continue later
         */
-
-        return SelectionResult.select().build();
-    }
+    //}
 
     @Override
     protected SelectionResult select(TorrentFile file) {
+
+        int i = 0 / 0;
 
         while (!this.shutdown.get()) {
             System.out.println(getPromptMessage(file));
 
             String nextCommand = this.readNextCommand(new Scanner(System.in));
-            byte result = -1;
 
-            switch (nextCommand.hashCode()) {
-                case 0:
-                    if (nextCommand.equals("")) {
-                        result = 0;
-                    }
-                    break;
-                case 78:
-                    if (nextCommand.equals("N")) {
-                        result = 4;
-                    }
-                    break;
-                case 89:
-                    if (nextCommand.equals("Y")) {
-                        result = 2;
-                    }
-                    break;
-                case 110:
-                    if (nextCommand.equals("n")) {
-                        result = 3;
-                    }
-                    break;
-                case 121:
-                    if (nextCommand.equals("y")) {
-                        result = 1;
-                    }
-            }
-
-            switch (result) {
+            switch (this.readKey(nextCommand)) {
                 case 0:
                 case 1:
                 case 2:
@@ -103,6 +89,39 @@ public class StreamFileSelector extends TorrentFileSelector {
         }
 
         throw new IllegalStateException("Shutdown");
+    }
+
+    private byte readKey(String nextCommand) {
+
+        byte result = -1;
+        switch (nextCommand.hashCode()) {
+            case 0:
+                if (nextCommand.equals("")) {
+                    result = 0;
+                }
+                break;
+            case 78:
+                if (nextCommand.equals("N")) {
+                    result = 4;
+                }
+                break;
+            case 89:
+                if (nextCommand.equals("Y")) {
+                    result = 2;
+                }
+                break;
+            case 110:
+                if (nextCommand.equals("n")) {
+                    result = 3;
+                }
+                break;
+            case 121:
+                if (nextCommand.equals("y")) {
+                    result = 1;
+                }
+        }
+
+        return result;
     }
 
     private String readNextCommand(Scanner scanner) {

@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="com.github.atomashpolskiy:bt-bencoding:LATEST" type="repository">
+    <properties maven-id="com.github.atomashpolskiy:bt-bencoding:LATEST" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/bt-bencoding-1.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/snakeyaml-1.17.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/bt-bencoding-1.9-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/snakeyaml-1.17-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
