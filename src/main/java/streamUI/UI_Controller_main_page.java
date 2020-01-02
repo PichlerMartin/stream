@@ -11,8 +11,12 @@ import bt.runtime.Config;
 import client.StreamClient;
 import com.google.inject.Module;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -23,6 +27,7 @@ import meta.Globals;
 import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.HashMap;
@@ -35,7 +40,7 @@ import static java.lang.String.join;
 import static java.nio.file.Files.exists;
 import static meta.Globals.*;
 
-public class UI_Controller implements Initializable {
+public class UI_Controller_main_page implements Initializable {
 
     @FXML
     ComboBox<String> cboxSelectLanguage;
@@ -360,13 +365,31 @@ public class UI_Controller implements Initializable {
     }
 
     @FXML
-    private void handleOnStartDownload() {
+    private void handleOnStartDownload() throws IOException {
         new Thread(this::ownTorrentImplementation).start();
         // Does not work, prints errors
         // Update 30.12.2019, 18:25: now works
 
         // new Thread(this::AtomashpolskiyExample).start();
         // Works, prints status warnings
+
+        Stage secondStage = new Stage();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/UI_stream_parts_page.fxml"));
+        Parent root = loader.load();
+
+        root.setStyle("-fx-background-image: url('/images/stream_UI_background.png'); -fx-background-repeat: no-repeat; -fx-background-size: 1215 765");
+        UI_Controller_parts_page c = loader.getController();
+
+        c.setStage(secondStage);
+        Scene s = new Scene(root, 800, 300);
+        secondStage.setTitle("stream");
+        secondStage.getIcons().add(new Image("/images/streamAppIcon_blue.PNG"));
+        secondStage.setScene(s);
+        secondStage.setResizable(false);
+
+        c.setParentStage(secondStage);
+        secondStage.show();
     }
 
     /**

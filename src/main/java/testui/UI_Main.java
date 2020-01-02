@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 
 /**
  * Description
- * Die Main-Methode, von welcher aus die UI_Controller-Klasse angesteuert wird. Dieses Klassenkonstrukt
+ * Die Main-Methode, von welcher aus die UI_Controller_main_page-Klasse angesteuert wird. Dieses Klassenkonstrukt
  * dient dem Zweck der Ertestung verschiedener Möglichkeiten welche die Bt-Library bietet.
  * <p>
  * Manche Methoden wurden übernommen, andere verändert und eine Vielzahl von Modifikationen wurde

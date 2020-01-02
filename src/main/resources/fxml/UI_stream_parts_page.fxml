@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<GridPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+          minWidth="-Infinity" prefHeight="300.0" prefWidth="800.0"
+          style="-fx-background-repeat: no-repeat; -fx-background-color: #1b3957;"
+          xmlns="http://javafx.com/javafx/8.0.171" fx:controller="streamUI.UI_Controller_parts_page">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+    </rowConstraints>
+    <Label rotate="-19.75" text="stream" textFill="WHITE">
+        <font>
+            <Font name="System Bold" size="70.0"/>
+        </font>
+        <GridPane.margin>
+            <Insets left="30.0"/>
+        </GridPane.margin>
+        <opaqueInsets>
+            <Insets/>
+        </opaqueInsets>
+    </Label>
+    <GridPane fx:id="GPAddTorrent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+              nodeOrientation="LEFT_TO_RIGHT" prefHeight="251.0" prefWidth="493.0"
+              style="-fx-background-color: #ffffffcf; -fx-background-radius: 50;">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="506.1333374023437" minWidth="10.0"
+                               prefWidth="351.2000732421875"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints maxHeight="261.06666259765626" minHeight="10.0" prefHeight="177.8666748046875"
+                            vgrow="SOMETIMES"/>
+        </rowConstraints>
+        <GridPane.margin>
+            <Insets left="300.0"/>
+        </GridPane.margin>
+        <ListView fx:id="livFiles" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                  prefHeight="150.0" prefWidth="380.0">
+            <GridPane.margin>
+                <Insets left="60.0" top="-50.0"/>
+            </GridPane.margin>
+        </ListView>
+        <Button fx:id="btnAddPartsofTorrent" disable="true" minWidth="-Infinity" mnemonicParsing="false"
+                onAction="#handleOnAddSelectedParts" style="-fx-background-color: transparent;"
+                text="Ausgewählte Packete hinzufügen" wrapText="true">
+            <font>
+                <Font name="System Bold" size="17.0"/>
+            </font>
+            <GridPane.margin>
+                <Insets left="52.0" top="140.0"/>
+            </GridPane.margin>
+        </Button>
+        <opaqueInsets>
+            <Insets/>
+        </opaqueInsets>
+    </GridPane>
+    <Label rotate="-19.75" text="share better" textFill="WHITE">
+        <font>
+            <Font name="System Bold" size="25.0"/>
+        </font>
+        <GridPane.margin>
+            <Insets left="123.0" top="50.0"/>
+        </GridPane.margin>
+    </Label>
+</GridPane>

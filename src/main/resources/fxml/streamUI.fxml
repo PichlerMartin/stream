@@ -9,7 +9,7 @@
 <GridPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
           minWidth="-Infinity"
           prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #1b3957;"
-          xmlns="http://javafx.com/javafx/9.0.1" fx:controller="streamUI.UI_Controller">
+          xmlns="http://javafx.com/javafx/9.0.1" fx:controller="streamUI.UI_Controller_main_page">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
     </columnConstraints>

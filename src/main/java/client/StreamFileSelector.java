@@ -4,7 +4,7 @@ import bt.metainfo.TorrentFile;
 import bt.torrent.fileselector.SelectionResult;
 import bt.torrent.fileselector.TorrentFileSelector;
 import javafx.scene.control.ListView;
-import streamUI.UI_Controller;
+import streamUI.UI_Controller_main_page;
 
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -42,7 +42,7 @@ public class StreamFileSelector extends TorrentFileSelector {
 
             String nextCommand = this.readNextCommand(new Scanner(System.in));
 
-            UI_Controller ui_controller = new UI_Controller();
+            UI_Controller_main_page ui_controller = new UI_Controller_main_page();
 
             switch (this.readKey(nextCommand)) {
                 case 0:
