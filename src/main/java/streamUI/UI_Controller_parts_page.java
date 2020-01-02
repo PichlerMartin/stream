@@ -1,9 +1,12 @@
 package streamUI;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
+import tasks.UpdateTorrentPartsTask;
 
 import java.net.URL;
 import java.util.HashMap;
@@ -25,6 +28,20 @@ public class UI_Controller_parts_page implements Initializable {
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
         Controls.put(livFiles.getId(), livFiles.isDisabled());
+
+        ObservableList<String> torrents = FXCollections.observableArrayList();
+
+        torrents
+
+        UpdateTorrentPartsTask torrentUpdateTask = UpdateTorrentPartsTask(friends);
+
+        livFiles.itemsProperty().bind(torrentUpdateTask);
+
+        try {
+            torrentUpdateTask.call();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     void setStage(Stage CurrentStage) {

@@ -4,7 +4,7 @@ import bt.metainfo.TorrentFile;
 import bt.torrent.fileselector.SelectionResult;
 import bt.torrent.fileselector.TorrentFileSelector;
 import javafx.scene.control.ListView;
-import streamUI.UI_Controller_main_page;
+import meta.TorrentParts;
 
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -19,7 +19,6 @@ public class StreamFileSelector extends TorrentFileSelector {
 
     private AtomicReference<Thread> currentThread;
     private AtomicBoolean shutdown;
-    private ListView<String> listView = null;
 
     StreamFileSelector() {
         this.currentThread = new AtomicReference<>(null);
@@ -29,7 +28,6 @@ public class StreamFileSelector extends TorrentFileSelector {
     StreamFileSelector(ListView<String> listView) {
         this.currentThread = new AtomicReference<>(null);
         this.shutdown = new AtomicBoolean(false);
-        this.listView = listView;
     }
 
     private static String getPromptMessage(TorrentFile file) {
@@ -42,16 +40,14 @@ public class StreamFileSelector extends TorrentFileSelector {
 
             String nextCommand = this.readNextCommand(new Scanner(System.in));
 
-            UI_Controller_main_page ui_controller = new UI_Controller_main_page();
-
             switch (this.readKey(nextCommand)) {
                 case 0:
                 case 1:
                 case 2:
-                    ui_controller.putFileNameAndChoice(file, true);
+                    TorrentParts.setPARTS(file, true);
                 case 3:
                 case 4:
-                    ui_controller.putFileNameAndChoice(file, true);
+                    TorrentParts.setPARTS(file, false);
                 default:
                     try {
                         throw new Exception("Illegal Keypress");

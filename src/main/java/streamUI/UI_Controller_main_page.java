@@ -365,13 +365,22 @@ public class UI_Controller_main_page implements Initializable {
     }
 
     @FXML
-    private void handleOnStartDownload() throws IOException {
+    private void handleOnStartDownload() {
         new Thread(this::ownTorrentImplementation).start();
+
+        try {
+            this.showTorrentPartsStage();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         // Does not work, prints errors
         // Update 30.12.2019, 18:25: now works
 
         // new Thread(this::AtomashpolskiyExample).start();
         // Works, prints status warnings
+    }
+
+    private void showTorrentPartsStage() throws IOException {
 
         Stage secondStage = new Stage();
 
