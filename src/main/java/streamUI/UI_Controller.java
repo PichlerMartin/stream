@@ -75,13 +75,46 @@ public class UI_Controller implements Initializable {
     private Button btnHelp;
 
     @FXML
+    private Label lblAddTorrent;
+
+    @FXML
+    private Label lblMagnetURI;
+
+    @FXML
+    private Label lblTorrentFile;
+
+    @FXML
+    private Label lblFileLocation;
+
+    @FXML
+    private Label lblOptions;
+
+    @FXML
+    private Label lblDownloadAll;
+
+    @FXML
+    private Label lblSeedLater;
+
+    @FXML
+    private Label lblUseDefaultPort;
+
+    @FXML
+    private Button btnStartDownload;
+
+    @FXML
     private Button btnAddPartsofTorrent;
 
     @FXML
     private Button btnSelectTorrentFile;
 
     @FXML
-    private Button btnStartDownload;
+    private Label lblSettings;
+
+    @FXML
+    private Label lblLanguage;
+
+    @FXML
+    private Label lblDarkMode;
 
     @FXML
     private CheckBox chbDefaultPort;
@@ -215,62 +248,6 @@ public class UI_Controller implements Initializable {
         initializeTableView(TVFinishedTorrentsList);
 
         TVFinishedTorrentsList.getItems().add(new Torrent("4", "finished", "Torrent 1", "100%", "500 Mb"));
-    }
-
-    public class Torrent {
-        private String number = null;
-        private String status = null;
-        private String name = null;
-        private String progress = null;
-        private String size = null;
-
-        public Torrent (String number, String status, String name, String progress, String size) {
-            this.number = number;
-            this.status = status;
-            this.name = name;
-            this.progress = progress;
-            this.size = size;
-        }
-
-        public String getNumber() {
-            return number;
-        }
-
-        public void setNumber(String number) {
-            this.number = number;
-        }
-
-        public String getStatus() {
-            return status;
-        }
-
-        public void setStatus(String status) {
-            this.status = status;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getProgress() {
-            return progress;
-        }
-
-        public void setProgress(String progress) {
-            this.progress = progress;
-        }
-
-        public String getSize() {
-            return size;
-        }
-
-        public void setSize(String size) {
-            this.size = size;
-        }
     }
 
     private void initializeTableView (TableView tableView) {
@@ -407,6 +384,7 @@ public class UI_Controller implements Initializable {
     private void changeLanguage(Locale loc) {
 
         ResourceBundle labels = ResourceBundle.getBundle("ResourceBundle", loc);
+
         btnTorrents.setText(labels.getString("btnTorrents"));
         btnAddTorrents.setText(labels.getString("btnAddTorrents"));
         btnDownloading.setText(labels.getString("btnDownloading"));
@@ -414,6 +392,22 @@ public class UI_Controller implements Initializable {
         btnFinished.setText(labels.getString("btnFinished"));
         btnSettings.setText(labels.getString("btnSettings"));
         btnHelp.setText(labels.getString("btnHelp"));
+
+        lblAddTorrent.setText(labels.getString("lblAddTorrent"));
+        lblMagnetURI.setText(labels.getString("lblMagnetURI"));
+        lblTorrentFile.setText(labels.getString("lblTorrentFile"));
+        lblFileLocation.setText(labels.getString("lblFileLocation"));
+        btnAddPartsofTorrent.setText(labels.getString("btnAddPartsofTorrent"));
+        lblOptions.setText(labels.getString("lblOptions"));
+        lblDownloadAll.setText(labels.getString("lblDownloadAll"));
+        lblSeedLater.setText(labels.getString("lblSeedLater"));
+        lblUseDefaultPort.setText(labels.getString("lblUseDefaultPort"));
+        txtPort.setPromptText(labels.getString("phAlternativePort"));
+        btnStartDownload.setText(labels.getString("btnStartDownload"));
+
+        lblSettings.setText(labels.getString("lblSettings"));
+        lblLanguage.setText(labels.getString("lblLanguage"));
+        lblDarkMode.setText(labels.getString("lblDarkMode"));
     }
 
     //region Pichler part

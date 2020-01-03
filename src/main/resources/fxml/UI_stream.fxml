@@ -102,6 +102,180 @@
          <Insets left="89.0" top="435.0" />
       </GridPane.margin>
    </Button>
+   <GridPane fx:id="GPAddTorrent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #ffffffcf; -fx-background-radius: 50;" visible="false" GridPane.rowIndex="1">
+      <columnConstraints>
+         <ColumnConstraints hgrow="SOMETIMES" maxWidth="506.1333374023437" minWidth="10.0" prefWidth="351.2000732421875" />
+         <ColumnConstraints hgrow="SOMETIMES" maxWidth="366.86663818359375" minWidth="10.0" prefWidth="349.59992675781245" />
+      </columnConstraints>
+      <rowConstraints>
+         <RowConstraints maxHeight="292.2666412353516" minHeight="10.0" prefHeight="226.1333251953125" vgrow="SOMETIMES" />
+         <RowConstraints maxHeight="261.06666259765626" minHeight="10.0" prefHeight="177.8666748046875" vgrow="SOMETIMES" />
+      </rowConstraints>
+      <GridPane.margin>
+         <Insets left="450.0" top="50.0" />
+      </GridPane.margin>
+      <TextField fx:id="txtDownloadLocation" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" onAction="#handleOnDirectorySelected" prefWidth="250.0">
+         <GridPane.margin>
+            <Insets left="60.0" top="205.0" />
+         </GridPane.margin>
+      </TextField>
+      <Label fx:id="lblMagnetURI" minWidth="-Infinity" text="Magnet URI">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="60.0" top="-60.0" />
+         </GridPane.margin>
+      </Label>
+      <Label fx:id="lblFileLocation" minWidth="-Infinity" text="Speicherort">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="60.0" top="150.0" />
+         </GridPane.margin>
+      </Label>
+      <TextField fx:id="txtMagnetURI" alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" onAction="#handleOnMagnetURIEntered" prefWidth="250.0">
+         <GridPane.margin>
+            <Insets left="60.0" top="-5.0" />
+         </GridPane.margin>
+      </TextField>
+      <Button mnemonicParsing="false" onAction="#handleOnClickedbtnStorageLocation" style="-fx-background-color: transparent;" text="...">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="310.0" top="205.0" />
+         </GridPane.margin>
+      </Button>
+      <Button fx:id="btnStartDownload" mnemonicParsing="false" onAction="#handleOnStartDownload" style="-fx-background-color: transparent;" text="Download starten" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="40.0" top="-80.0" />
+         </GridPane.margin>
+      </Button>
+      <Label fx:id="lblAddTorrent" text="Torrent hinzufügen">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="60.0" top="-160.0" />
+         </GridPane.margin>
+      </Label>
+      <Label fx:id="lblDownloadAll" alignment="TOP_LEFT" nodeOrientation="LEFT_TO_RIGHT" text="Alle herunterladen" GridPane.columnIndex="1">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="55.0" top="20.0" />
+         </GridPane.margin>
+      </Label>
+      <Label fx:id="lblUseDefaultPort" alignment="TOP_LEFT" nodeOrientation="LEFT_TO_RIGHT" text="Benutze Default-Port" GridPane.columnIndex="1">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="55.0" top="160.0" />
+         </GridPane.margin>
+      </Label>
+      <Label fx:id="lblSeedLater" alignment="TOP_LEFT" nodeOrientation="LEFT_TO_RIGHT" text="Nachher seeden" GridPane.columnIndex="1">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="55.0" top="90.0" />
+         </GridPane.margin>
+      </Label>
+      <CheckBox fx:id="chbDownloadAll" mnemonicParsing="false" selected="true" wrapText="true" GridPane.columnIndex="1">
+         <font>
+            <Font size="17.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="280.0" top="20.0" />
+         </GridPane.margin>
+      </CheckBox>
+      <CheckBox fx:id="chbDefaultPort" mnemonicParsing="false" onAction="#handleOnClickedUseDefaultPort" selected="true" wrapText="true" GridPane.columnIndex="1">
+         <font>
+            <Font size="17.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="280.0" top="160.0" />
+         </GridPane.margin>
+      </CheckBox>
+      <CheckBox mnemonicParsing="false" onAction="#handleOnClickedSeedAfterDownload" wrapText="true" GridPane.columnIndex="1">
+         <font>
+            <Font size="17.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="280.0" top="90.0" />
+         </GridPane.margin>
+      </CheckBox>
+      <ListView fx:id="livFiles" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="250.0" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets left="60.0" top="-50.0" />
+         </GridPane.margin>
+      </ListView>
+      <Button fx:id="btnAddPartsofTorrent" disable="true" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleOnAddSelectedParts" style="-fx-background-color: transparent;" text="Ausgewählte Packete hinzufügen" wrapText="true" GridPane.rowIndex="1">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="52.0" top="140.0" />
+         </GridPane.margin>
+      </Button>
+      <Label fx:id="lblOptions" minWidth="-Infinity" text="Optionen" GridPane.columnIndex="1">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="55.0" top="-60.0" />
+         </GridPane.margin>
+      </Label>
+      <TextField fx:id="txtPort" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="250.0" promptText="Alternativport" GridPane.columnIndex="1">
+         <GridPane.margin>
+            <Insets bottom="-220.0" left="60.0" />
+         </GridPane.margin>
+      </TextField>
+      <TextField fx:id="txtTorrentFile" alignment="TOP_LEFT" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" onAction="#handleOnTorrentFileSelected" prefWidth="250.0">
+         <GridPane.margin>
+            <Insets left="60.0" top="100.0" />
+         </GridPane.margin>
+      </TextField>
+      <Label fx:id="lblTorrentFile" minWidth="-Infinity" text="Torrent Datei">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="60.0" top="45.0" />
+         </GridPane.margin>
+      </Label>
+      <CheckBox fx:id="chbUseMagnetURI" disable="true" mnemonicParsing="false" onAction="#handleOnUseMagnetURI" selected="true" wrapText="true">
+         <font>
+            <Font size="17.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="30.0" top="-5.0" />
+         </GridPane.margin>
+      </CheckBox>
+      <CheckBox fx:id="chbUseTorrentFile" mnemonicParsing="false" onAction="#handleOnUseTorrentFile" wrapText="true">
+         <font>
+            <Font size="17.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="30.0" top="100.0" />
+         </GridPane.margin>
+      </CheckBox>
+      <Button fx:id="btnSelectTorrentFile" disable="true" mnemonicParsing="false" onAction="#handleOnClickedbtnSelectTorrentFile" style="-fx-background-color: transparent;" text="...">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="310.0" top="100.0" />
+         </GridPane.margin>
+      </Button>
+   </GridPane>
    <VBox fx:id="VBoxTorrents" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #ffffffcf; -fx-background-radius: 50;" visible="false" GridPane.rowIndex="1">
       <GridPane.margin>
          <Insets left="450.0" top="50.0" />
@@ -119,7 +293,7 @@
          </VBox.margin>
       </TableView>
    </VBox>
-   <VBox fx:id="VBoxDownloadingTorrents" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #ffffffcf; -fx-background-radius: 50;" GridPane.rowIndex="1">
+   <VBox fx:id="VBoxDownloadingTorrents" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #ffffffcf; -fx-background-radius: 50;" visible="false" GridPane.rowIndex="1">
       <children>
          <TableView fx:id="TVDownloadingTorrentsList" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: Transparent; -fx-font-size: 17;">
             <columns>
@@ -176,180 +350,6 @@
          </TableView>
       </children>
    </VBox>
-   <GridPane fx:id="GPAddTorrent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #ffffffcf; -fx-background-radius: 50;" visible="false" GridPane.rowIndex="1">
-      <columnConstraints>
-         <ColumnConstraints hgrow="SOMETIMES" maxWidth="506.1333374023437" minWidth="10.0" prefWidth="351.2000732421875" />
-         <ColumnConstraints hgrow="SOMETIMES" maxWidth="366.86663818359375" minWidth="10.0" prefWidth="349.59992675781245" />
-      </columnConstraints>
-      <rowConstraints>
-         <RowConstraints maxHeight="292.2666412353516" minHeight="10.0" prefHeight="226.1333251953125" vgrow="SOMETIMES" />
-         <RowConstraints maxHeight="261.06666259765626" minHeight="10.0" prefHeight="177.8666748046875" vgrow="SOMETIMES" />
-      </rowConstraints>
-      <GridPane.margin>
-         <Insets left="450.0" top="50.0" />
-      </GridPane.margin>
-      <TextField fx:id="txtDownloadLocation" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" onAction="#handleOnDirectorySelected" prefWidth="250.0">
-         <GridPane.margin>
-            <Insets left="60.0" top="205.0" />
-         </GridPane.margin>
-      </TextField>
-      <Label minWidth="-Infinity" text="Magnet URI">
-         <font>
-            <Font name="System Bold" size="17.0" />
-         </font>
-         <GridPane.margin>
-            <Insets left="60.0" top="-60.0" />
-         </GridPane.margin>
-      </Label>
-      <Label minWidth="-Infinity" text="Speicherort">
-         <font>
-            <Font name="System Bold" size="17.0" />
-         </font>
-         <GridPane.margin>
-            <Insets left="60.0" top="150.0" />
-         </GridPane.margin>
-      </Label>
-      <TextField fx:id="txtMagnetURI" alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" onAction="#handleOnMagnetURIEntered" prefWidth="250.0">
-         <GridPane.margin>
-            <Insets left="60.0" top="-5.0" />
-         </GridPane.margin>
-      </TextField>
-      <Button mnemonicParsing="false" onAction="#handleOnClickedbtnStorageLocation" style="-fx-background-color: transparent;" text="...">
-         <font>
-            <Font name="System Bold" size="17.0" />
-         </font>
-         <GridPane.margin>
-            <Insets left="310.0" top="205.0" />
-         </GridPane.margin>
-      </Button>
-      <Button fx:id="btnStartDownload" mnemonicParsing="false" onAction="#handleOnStartDownload" style="-fx-background-color: transparent;" text="Download starten" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
-         <font>
-            <Font name="System Bold" size="25.0" />
-         </font>
-         <GridPane.margin>
-            <Insets left="40.0" top="-80.0" />
-         </GridPane.margin>
-      </Button>
-      <Label text="Torrent hinzufügen">
-         <font>
-            <Font name="System Bold" size="30.0" />
-         </font>
-         <GridPane.margin>
-            <Insets left="60.0" top="-160.0" />
-         </GridPane.margin>
-      </Label>
-      <Label alignment="TOP_LEFT" nodeOrientation="LEFT_TO_RIGHT" text="Alle herunterladen" GridPane.columnIndex="1">
-         <font>
-            <Font name="System Bold" size="17.0" />
-         </font>
-         <GridPane.margin>
-            <Insets left="55.0" top="20.0" />
-         </GridPane.margin>
-      </Label>
-      <Label alignment="TOP_LEFT" nodeOrientation="LEFT_TO_RIGHT" text="Benutze Default-Port" GridPane.columnIndex="1">
-         <font>
-            <Font name="System Bold" size="17.0" />
-         </font>
-         <GridPane.margin>
-            <Insets left="55.0" top="160.0" />
-         </GridPane.margin>
-      </Label>
-      <Label alignment="TOP_LEFT" nodeOrientation="LEFT_TO_RIGHT" text="Nachher seeden" GridPane.columnIndex="1">
-         <font>
-            <Font name="System Bold" size="17.0" />
-         </font>
-         <GridPane.margin>
-            <Insets left="55.0" top="90.0" />
-         </GridPane.margin>
-      </Label>
-      <CheckBox fx:id="chbDownloadAll" mnemonicParsing="false" selected="true" wrapText="true" GridPane.columnIndex="1">
-         <font>
-            <Font size="17.0" />
-         </font>
-         <GridPane.margin>
-            <Insets left="280.0" top="20.0" />
-         </GridPane.margin>
-      </CheckBox>
-      <CheckBox fx:id="chbDefaultPort" mnemonicParsing="false" onAction="#handleOnClickedUseDefaultPort" selected="true" wrapText="true" GridPane.columnIndex="1">
-         <font>
-            <Font size="17.0" />
-         </font>
-         <GridPane.margin>
-            <Insets left="280.0" top="160.0" />
-         </GridPane.margin>
-      </CheckBox>
-      <CheckBox mnemonicParsing="false" onAction="#handleOnClickedSeedAfterDownload" wrapText="true" GridPane.columnIndex="1">
-         <font>
-            <Font size="17.0" />
-         </font>
-         <GridPane.margin>
-            <Insets left="280.0" top="90.0" />
-         </GridPane.margin>
-      </CheckBox>
-      <ListView fx:id="livFiles" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="250.0" GridPane.rowIndex="1">
-         <GridPane.margin>
-            <Insets left="60.0" top="-50.0" />
-         </GridPane.margin>
-      </ListView>
-      <Button fx:id="btnAddPartsofTorrent" disable="true" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleOnAddSelectedParts" style="-fx-background-color: transparent;" text="Ausgewählte Packete hinzufügen" wrapText="true" GridPane.rowIndex="1">
-         <font>
-            <Font name="System Bold" size="17.0" />
-         </font>
-         <GridPane.margin>
-            <Insets left="52.0" top="140.0" />
-         </GridPane.margin>
-      </Button>
-      <Label minWidth="-Infinity" text="Optionen" GridPane.columnIndex="1">
-         <font>
-            <Font name="System Bold" size="25.0" />
-         </font>
-         <GridPane.margin>
-            <Insets left="55.0" top="-60.0" />
-         </GridPane.margin>
-      </Label>
-      <TextField fx:id="txtPort" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="250.0" promptText="Alternativport" GridPane.columnIndex="1">
-         <GridPane.margin>
-            <Insets bottom="-220.0" left="60.0" />
-         </GridPane.margin>
-      </TextField>
-      <TextField fx:id="txtTorrentFile" alignment="TOP_LEFT" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" onAction="#handleOnTorrentFileSelected" prefWidth="250.0">
-         <GridPane.margin>
-            <Insets left="60.0" top="100.0" />
-         </GridPane.margin>
-      </TextField>
-      <Label minWidth="-Infinity" text="Torrent Datei">
-         <font>
-            <Font name="System Bold" size="17.0" />
-         </font>
-         <GridPane.margin>
-            <Insets left="60.0" top="45.0" />
-         </GridPane.margin>
-      </Label>
-      <CheckBox fx:id="chbUseMagnetURI" disable="true" mnemonicParsing="false" onAction="#handleOnUseMagnetURI" selected="true" wrapText="true">
-         <font>
-            <Font size="17.0" />
-         </font>
-         <GridPane.margin>
-            <Insets left="30.0" top="-5.0" />
-         </GridPane.margin>
-      </CheckBox>
-      <CheckBox fx:id="chbUseTorrentFile" mnemonicParsing="false" onAction="#handleOnUseTorrentFile" wrapText="true">
-         <font>
-            <Font size="17.0" />
-         </font>
-         <GridPane.margin>
-            <Insets left="30.0" top="100.0" />
-         </GridPane.margin>
-      </CheckBox>
-      <Button fx:id="btnSelectTorrentFile" disable="true" mnemonicParsing="false" onAction="#handleOnClickedbtnSelectTorrentFile" style="-fx-background-color: transparent;" text="...">
-         <font>
-            <Font name="System Bold" size="17.0" />
-         </font>
-         <GridPane.margin>
-            <Insets left="310.0" top="100.0" />
-         </GridPane.margin>
-      </Button>
-   </GridPane>
    <Label rotate="-19.75" text="share better" textFill="WHITE">
       <font>
          <Font name="System Bold" size="25.0" />
@@ -358,7 +358,7 @@
          <Insets left="123.0" top="121.0" />
       </GridPane.margin>
    </Label>
-   <GridPane fx:id="GPSettings" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #ffffffcf; -fx-background-radius: 50;" visible="false" GridPane.rowIndex="1">
+   <GridPane fx:id="GPSettings" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #ffffffcf; -fx-background-radius: 50;" GridPane.rowIndex="1">
       <columnConstraints>
          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
       </columnConstraints>
@@ -369,7 +369,7 @@
       <GridPane.margin>
          <Insets left="450.0" top="50.0" />
       </GridPane.margin>
-      <Label text="Einstellungen">
+      <Label fx:id="lblSettings" text="Einstellungen">
          <font>
             <Font name="System Bold" size="30.0" />
          </font>
@@ -377,7 +377,7 @@
             <Insets left="60.0" top="-110.0" />
          </GridPane.margin>
       </Label>
-      <Label text="Sprache">
+      <Label fx:id="lblLanguage" text="Sprache">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
@@ -385,7 +385,7 @@
             <Insets left="85.0" />
          </GridPane.margin>
       </Label>
-      <Label text="Dark Mode">
+      <Label fx:id="lblDarkMode" text="Dark Mode">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
