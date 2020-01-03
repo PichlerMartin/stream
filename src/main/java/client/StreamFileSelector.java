@@ -8,11 +8,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import meta.TorrentParts;
 import streamUI.UI_Controller_singlepart_page;
-import tasks.UpdateTorrentPartsTask;
 
 import java.io.IOException;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
@@ -36,27 +35,19 @@ public class StreamFileSelector extends TorrentFileSelector {
         return format(FORMAT_DOWNLOAD_PART, join("/", file.getPathElements()));
     }
 
-    protected void selectSinglePart(TorrentFile file) {
+    protected SelectionResult selectSinglePart(TorrentFile file) {
         try {
             this.showSinglePartStage(file);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        switch (this.readKey(nextCommand)) {
-            case 0:
-            case 1:
-            case 2:
-                TorrentParts.setPARTS(file, true);
-            case 3:
-            case 4:
-                TorrentParts.setPARTS(file, false);
-            default:
-                try {
-                    throw new Exception("Illegal Keypress");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        boolean selectionResult = new Random().nextBoolean();
+
+        if (selectionResult){
+            return SelectionResult.select().build();
+        } else {
+            return SelectionResult.skip();
         }
 
         /*

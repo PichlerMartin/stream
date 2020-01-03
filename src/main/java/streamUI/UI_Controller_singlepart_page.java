@@ -12,6 +12,8 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static java.lang.String.join;
+
 public class UI_Controller_singlepart_page implements Initializable {
     @FXML
     public GridPane GPAddTorrent;
@@ -38,6 +40,8 @@ public class UI_Controller_singlepart_page implements Initializable {
 
     public void initData(TorrentFile file) {
         this.file = file;
+
+        txtTorrentPartName.setText(join("/", file.getPathElements()));
     }
 
     public void setStage(Stage CurrentStage) {
