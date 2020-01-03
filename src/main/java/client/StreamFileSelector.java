@@ -3,11 +3,16 @@ package client;
 import bt.metainfo.TorrentFile;
 import bt.torrent.fileselector.SelectionResult;
 import bt.torrent.fileselector.TorrentFileSelector;
-import javafx.scene.control.ListView;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 import meta.TorrentParts;
+import streamUI.UI_Controller_singlepart_page;
 import tasks.UpdateTorrentPartsTask;
 
-import java.util.HashMap;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
@@ -27,50 +32,40 @@ public class StreamFileSelector extends TorrentFileSelector {
         this.shutdown = new AtomicBoolean(false);
     }
 
-    StreamFileSelector(ListView<String> listView) {
-        this.currentThread = new AtomicReference<>(null);
-        this.shutdown = new AtomicBoolean(false);
-    }
-
     private static String getPromptMessage(TorrentFile file) {
         return format(FORMAT_DOWNLOAD_PART, join("/", file.getPathElements()));
     }
 
-    protected void selectToListView(TorrentFile file) {
-        while (!this.shutdown.get()) {
-            System.out.println(getPromptMessage(file));
+    protected void selectSinglePart(TorrentFile file) {
+        try {
+            this.showSinglePartStage(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-            String nextCommand = this.readNextCommand(new Scanner(System.in));
+        UpdateTorrentPartsTask torrentUpdateTask = new UpdateTorrentPartsTask(torrents);
 
+        try {
+            torrentUpdateTask.call();
+        } catch (Exception e) {
 
-            HashMap<String, Boolean> torrents = new HashMap<>();
+            e.printStackTrace();
+        }
 
-            UpdateTorrentPartsTask torrentUpdateTask = new UpdateTorrentPartsTask(torrents);
-
-            //livFiles.itemsProperty().bind(torrentUpdateTask);
-
-            try {
-                torrentUpdateTask.call();
-            } catch (Exception e) {
-
-                e.printStackTrace();
-            }
-
-            switch (this.readKey(nextCommand)) {
-                case 0:
-                case 1:
-                case 2:
-                    TorrentParts.setPARTS(file, true);
-                case 3:
-                case 4:
-                    TorrentParts.setPARTS(file, false);
-                default:
-                    try {
-                        throw new Exception("Illegal Keypress");
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-            }
+        switch (this.readKey(nextCommand)) {
+            case 0:
+            case 1:
+            case 2:
+                TorrentParts.setPARTS(file, true);
+            case 3:
+            case 4:
+                TorrentParts.setPARTS(file, false);
+            default:
+                try {
+                    throw new Exception("Illegal Keypress");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
         }
 
         /*
@@ -78,6 +73,30 @@ public class StreamFileSelector extends TorrentFileSelector {
           ToDo:   but origin of select needs to be identified, continue later
         */
     }
+
+    private void showSinglePartStage(TorrentFile file) throws IOException {
+
+        Stage secondStage = new Stage();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/UI_stream_singlepart_page.fxml"));
+        Parent root = loader.load();
+
+        root.setStyle("-fx-background-image: url('/images/stream_UI_background.png'); -fx-background-repeat: no-repeat; -fx-background-size: 1215 765");
+        UI_Controller_singlepart_page c = loader.getController();
+
+        c.setStage(secondStage);
+        Scene s = new Scene(root);
+        secondStage.setTitle("stream");
+        secondStage.getIcons().add(new Image("/images/streamAppIcon_blue.PNG"));
+        secondStage.setScene(s);
+        secondStage.setResizable(false);
+
+        c.setParentStage(secondStage);
+        secondStage.show();
+
+        System.out.println(getPromptMessage(file));
+    }
+
 
     @Override
     protected SelectionResult select(TorrentFile file) {

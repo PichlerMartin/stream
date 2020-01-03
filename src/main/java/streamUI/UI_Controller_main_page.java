@@ -105,6 +105,7 @@ public class UI_Controller_main_page implements Initializable {
             Locale.ENGLISH
     };
 
+    @Deprecated
     public void putFileNameAndChoice(TorrentFile file, boolean b) {
         livFiles.getItems().add(format("%s", join("/", file.getPathElements())));
         livFiles.getSelectionModel().select(format("%s", join("/", file.getPathElements())));
