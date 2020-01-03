@@ -19,7 +19,6 @@ import java.util.concurrent.atomic.AtomicReference;
 import static java.lang.String.format;
 import static java.lang.String.join;
 import static meta.Globals.FORMAT_DOWNLOAD_PART;
-import static meta.Globals.FORMAT_ILLEGAL_KEYPRESS;
 
 public class StreamFileSelector extends TorrentFileSelector {
 
@@ -35,7 +34,7 @@ public class StreamFileSelector extends TorrentFileSelector {
         return format(FORMAT_DOWNLOAD_PART, join("/", file.getPathElements()));
     }
 
-    protected SelectionResult selectSinglePart(TorrentFile file) {
+    private SelectionResult selectSinglePart(TorrentFile file) {
         try {
             this.showSinglePartStage(file);
         } catch (IOException e) {
@@ -49,11 +48,6 @@ public class StreamFileSelector extends TorrentFileSelector {
         } else {
             return SelectionResult.skip();
         }
-
-        /*
-          ToDo:   This method is called first to load all torrent-parts into the list view
-          ToDo:   but origin of select needs to be identified, continue later
-        */
     }
 
     private void showSinglePartStage(TorrentFile file) throws IOException {
@@ -77,13 +71,14 @@ public class StreamFileSelector extends TorrentFileSelector {
 
         c.setParentStage(secondStage);
         secondStage.show();
-
-        System.out.println(getPromptMessage(file));
     }
 
 
     @Override
     protected SelectionResult select(TorrentFile file) {
+        return this.selectSinglePart(file);
+
+        /*
         while (!this.shutdown.get()) {
             System.out.println(getPromptMessage(file));
 
@@ -103,6 +98,8 @@ public class StreamFileSelector extends TorrentFileSelector {
         }
 
         throw new IllegalStateException("Shutdown");
+
+         */
     }
 
     private byte readKey(String nextCommand) {
