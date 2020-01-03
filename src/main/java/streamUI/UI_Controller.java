@@ -7,11 +7,14 @@ import bt.dht.DHTConfig;
 import bt.dht.DHTModule;
 import bt.runtime.BtClient;
 import bt.runtime.Config;
+import bt.torrent.TorrentRegistry;
 import client.StreamClient;
 import com.google.inject.Module;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -22,12 +25,10 @@ import meta.Globals;
 import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
+import java.lang.reflect.Array;
 import java.net.URL;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import static java.nio.file.Files.exists;
 import static meta.Globals.*;
@@ -101,11 +102,28 @@ public class UI_Controller implements Initializable {
     private VBox VBoxTorrents;
 
     @FXML
+    private VBox VBoxDownloadingTorrents;
+
+    @FXML
+    private VBox VBoxUploadingTorrents;
+
+    @FXML
+    private VBox VBoxFinishedTorrents;
+
+    @FXML
     ComboBox<String> cboxSelectLanguage;
 
     @FXML
     private TableView TVTorrentsList;
 
+    @FXML
+    private TableView TVDownloadingTorrentsList;
+
+    @FXML
+    private TableView TVUploadingTorrentsList;
+
+    @FXML
+    private TableView TVFinishedTorrentsList;
 
     @FXML
     private GridPane GPAddTorrent;
@@ -160,7 +178,9 @@ public class UI_Controller implements Initializable {
     public void handleOnClickedbtnTorrents() {
         resetVisibility();
         VBoxTorrents.setVisible(true);
-        TVTorrentsList.setPlaceholder(new Label("No Torrents found!"));
+        initializeTableView(TVTorrentsList);
+
+        TVTorrentsList.getItems().add(new Torrent("1", "done", "Torrent 1", "100%", "500 Mb"));
     }
 
     @FXML
@@ -172,22 +192,118 @@ public class UI_Controller implements Initializable {
     @FXML
     public void handleOnClickedbtnDownloading () {
         resetVisibility();
-        VBoxTorrents.setVisible(true);
-        TVTorrentsList.setPlaceholder(new Label("No downloading Torrents found!"));
+        VBoxDownloadingTorrents.setVisible(true);
+        initializeTableView(TVDownloadingTorrentsList);
+
+        TVDownloadingTorrentsList.getItems().add(new Torrent("2", "downloading", "Torrent 1", "100%", "500 Mb"));
     }
 
     @FXML
     public void handleOnClickedbtnUploading () {
         resetVisibility();
-        VBoxTorrents.setVisible(true);
-        TVTorrentsList.setPlaceholder(new Label("No uploading Torrents found!"));
+        VBoxUploadingTorrents.setVisible(true);
+        initializeTableView(TVUploadingTorrentsList);
+
+        TVUploadingTorrentsList.getItems().add(new Torrent("3", "uploading", "Torrent 1", "100%", "500 Mb"));
     }
 
     @FXML
     public void handleOnClickedbtnFinished () {
+
         resetVisibility();
-        VBoxTorrents.setVisible(true);
-        TVTorrentsList.setPlaceholder(new Label("No Torrents found!"));
+        VBoxFinishedTorrents.setVisible(true);
+        initializeTableView(TVFinishedTorrentsList);
+
+        TVFinishedTorrentsList.getItems().add(new Torrent("4", "finished", "Torrent 1", "100%", "500 Mb"));
+    }
+
+    public class Torrent {
+        private String number = null;
+        private String status = null;
+        private String name = null;
+        private String progress = null;
+        private String size = null;
+
+        public Torrent (String number, String status, String name, String progress, String size) {
+            this.number = number;
+            this.status = status;
+            this.name = name;
+            this.progress = progress;
+            this.size = size;
+        }
+
+        public String getNumber() {
+            return number;
+        }
+
+        public void setNumber(String number) {
+            this.number = number;
+        }
+
+        public String getStatus() {
+            return status;
+        }
+
+        public void setStatus(String status) {
+            this.status = status;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getProgress() {
+            return progress;
+        }
+
+        public void setProgress(String progress) {
+            this.progress = progress;
+        }
+
+        public String getSize() {
+            return size;
+        }
+
+        public void setSize(String size) {
+            this.size = size;
+        }
+    }
+
+    private void initializeTableView (TableView tableView) {
+
+        tableView.setStyle("-fx-background-color: transparent; -fx-base: None; -fx-font-size: 17; -fx-alignment: center");
+        tableView.setPlaceholder(new Label("No Torrents found!"));
+        tableView.setVisible(true);
+
+        TableColumn t1 = new TableColumn("Number");
+        TableColumn t2 = new TableColumn("Status");
+        TableColumn t3 = new TableColumn("Name");
+        TableColumn t4 = new TableColumn("Progress");
+        TableColumn t5 = new TableColumn("Size");
+
+        t1.setPrefWidth(80);
+        t1.setStyle("-fx-alignment: center");
+        t2.setPrefWidth(100);
+        t2.setStyle("-fx-alignment: center");
+        t3.setPrefWidth(220);
+        t3.setStyle("-fx-alignment: center");
+        t4.setPrefWidth(95);
+        t4.setStyle("-fx-alignment: center");
+        t5.setPrefWidth(105);
+        t5.setStyle("-fx-alignment: center");
+
+        tableView.getColumns().clear();
+        tableView.getColumns().addAll(t1, t2, t3, t4,t5);
+
+        t1.setCellValueFactory(new PropertyValueFactory<>("number"));
+        t2.setCellValueFactory(new PropertyValueFactory<>("status"));
+        t3.setCellValueFactory(new PropertyValueFactory<>("name"));
+        t4.setCellValueFactory(new PropertyValueFactory<>("progress"));
+        t5.setCellValueFactory(new PropertyValueFactory<>("size"));
     }
 
     @FXML
@@ -235,6 +351,9 @@ public class UI_Controller implements Initializable {
 
     private void resetVisibility() {
         VBoxTorrents.setVisible(false);
+        VBoxDownloadingTorrents.setVisible(false);
+        VBoxUploadingTorrents.setVisible(false);
+        VBoxFinishedTorrents.setVisible(false);
         GPAddTorrent.setVisible(false);
         GPSettings.setVisible(false);
 
@@ -254,9 +373,7 @@ public class UI_Controller implements Initializable {
         Locale currentLocale = Locale.GERMAN;
 
         this.parentStage = root;
-        resetVisibility();
-        VBoxTorrents.setVisible(true);
-        TVTorrentsList.setPlaceholder(new Label("No Torrents found!"));
+        handleOnClickedbtnTorrents();
 
         changeLanguage(currentLocale);
     }
