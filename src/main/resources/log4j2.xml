@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration status="warn" shutdownHook="disable">
+<configuration status="debug" shutdownHook="disable">
     <!--
         This config file for log4j2 contains all necessary declarations for the different loggers
         used in the program. Some content is by crunchify.com, some is copied from bt-cli-demo (can
@@ -55,7 +55,8 @@
             <appender-ref ref="bt-dht"/>
         </logger>
 
-        <root level="warn">
+        <!--    Change setting here to warn afterwards (and in first line)  -->
+        <root level="debug">
             <appender-ref ref="A1"/>
         </root>
     </Loggers>

@@ -5,7 +5,9 @@ import bt.torrent.fileselector.SelectionResult;
 import bt.torrent.fileselector.TorrentFileSelector;
 import javafx.scene.control.ListView;
 import meta.TorrentParts;
+import tasks.UpdateTorrentPartsTask;
 
+import java.util.HashMap;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
@@ -39,6 +41,20 @@ public class StreamFileSelector extends TorrentFileSelector {
             System.out.println(getPromptMessage(file));
 
             String nextCommand = this.readNextCommand(new Scanner(System.in));
+
+
+            HashMap<String, Boolean> torrents = new HashMap<>();
+
+            UpdateTorrentPartsTask torrentUpdateTask = new UpdateTorrentPartsTask(torrents);
+
+            //livFiles.itemsProperty().bind(torrentUpdateTask);
+
+            try {
+                torrentUpdateTask.call();
+            } catch (Exception e) {
+
+                e.printStackTrace();
+            }
 
             switch (this.readKey(nextCommand)) {
                 case 0:
