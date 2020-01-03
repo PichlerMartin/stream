@@ -1,5 +1,6 @@
 package streamUI;
 
+import bt.metainfo.TorrentFile;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -25,6 +26,9 @@ public class UI_Controller_singlepart_page implements Initializable {
     @FXML
     private Button btnReject;
 
+    private TorrentFile file;
+
+
     @SuppressWarnings("Duplicates")
     @Override
     @FXML
@@ -32,8 +36,8 @@ public class UI_Controller_singlepart_page implements Initializable {
 
     }
 
-    void initData(Customer customer) {
-        customerName.setText(customer.getName());
+    public void initData(TorrentFile file) {
+        this.file = file;
     }
 
     public void setStage(Stage CurrentStage) {

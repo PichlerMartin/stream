@@ -43,15 +43,6 @@ public class StreamFileSelector extends TorrentFileSelector {
             e.printStackTrace();
         }
 
-        UpdateTorrentPartsTask torrentUpdateTask = new UpdateTorrentPartsTask(torrents);
-
-        try {
-            torrentUpdateTask.call();
-        } catch (Exception e) {
-
-            e.printStackTrace();
-        }
-
         switch (this.readKey(nextCommand)) {
             case 0:
             case 1:
@@ -83,6 +74,8 @@ public class StreamFileSelector extends TorrentFileSelector {
 
         root.setStyle("-fx-background-image: url('/images/stream_UI_background.png'); -fx-background-repeat: no-repeat; -fx-background-size: 1215 765");
         UI_Controller_singlepart_page c = loader.getController();
+
+        c.initData(file);
 
         c.setStage(secondStage);
         Scene s = new Scene(root);
