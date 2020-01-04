@@ -37,6 +37,7 @@ public class StreamFileSelector extends TorrentFileSelector {
     private SelectionResult selectSinglePart(TorrentFile file) {
         try {
             this.showSinglePartStage(file);
+            System.out.println();
         } catch (IOException e) {
             e.printStackTrace();
         }
