@@ -34,13 +34,20 @@ public class StreamFileSelector extends TorrentFileSelector {
         return format(FORMAT_DOWNLOAD_PART, join("/", file.getPathElements()));
     }
 
+    /**
+     * https://stackoverflow.com/questions/31416784/thread-with-lambda-expression
+     * @param file: Torrent file containing information name, etc.
+     * @return whether file is selected or nah
+     */
     private SelectionResult selectSinglePart(TorrentFile file) {
-        try {
-            this.showSinglePartStage(file);
-            System.out.println();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        new Thread(() -> {
+            try {
+                this.showSinglePartStage(file);
+            } catch (IOException e) {
+                // handle: log or throw in a wrapped RuntimeException
+                throw new RuntimeException("IOException caught in lambda", e);
+            }
+        }).start();
 
         boolean selectionResult = new Random().nextBoolean();
 
