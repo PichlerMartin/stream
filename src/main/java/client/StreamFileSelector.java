@@ -5,6 +5,7 @@ import bt.torrent.fileselector.SelectionResult;
 import bt.torrent.fileselector.TorrentFileSelector;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -12,7 +13,9 @@ import javafx.stage.Stage;
 import streamUI.UI_Controller_singlepart_page;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.Random;
+import java.util.ResourceBundle;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
@@ -21,7 +24,7 @@ import static java.lang.String.format;
 import static java.lang.String.join;
 import static meta.Globals.FORMAT_DOWNLOAD_PART;
 
-public class StreamFileSelector extends TorrentFileSelector {
+public class StreamFileSelector extends TorrentFileSelector implements Initializable {
 
     private AtomicReference<Thread> currentThread;
     private AtomicBoolean shutdown;
@@ -85,7 +88,7 @@ public class StreamFileSelector extends TorrentFileSelector {
         secondStage.get().setResizable(false);
 
         c.setParentStage(secondStage.get());
-        secondStage.get().show();
+        secondStage.get().showAndWait();
     }
 
 
@@ -169,6 +172,11 @@ public class StreamFileSelector extends TorrentFileSelector {
         if (currentThread != null) {
             currentThread.interrupt();
         }
+
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
 
     }
 }
