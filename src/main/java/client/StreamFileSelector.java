@@ -83,10 +83,9 @@ public class StreamFileSelector extends TorrentFileSelector implements Initializ
         c.initData(file);
 
         c.setStage(secondStage.get());
-        Scene s = new Scene(root);
         secondStage.get().setTitle("stream");
         secondStage.get().getIcons().add(new Image("/images/streamAppIcon_blue.PNG"));
-        secondStage.get().setScene(s);
+        secondStage.get().setScene(new Scene(root, 800, 300));
         secondStage.get().setResizable(false);
 
         c.setParentStage(secondStage.get());
