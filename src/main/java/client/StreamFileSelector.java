@@ -3,6 +3,7 @@ package client;
 import bt.metainfo.TorrentFile;
 import bt.torrent.fileselector.SelectionResult;
 import bt.torrent.fileselector.TorrentFileSelector;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -59,8 +60,14 @@ public class StreamFileSelector extends TorrentFileSelector {
     }
 
     private void showSinglePartStage(TorrentFile file) throws IOException {
-
-        Stage secondStage = new Stage();
+        /*
+         https://stackoverflow.com/questions/17850191/why-am-i-getting-java-lang-illegalstateexception-not-on-fx-application-thread
+         Avoid throwing IllegalStateException by running from a non-JavaFX thread.
+        */
+        AtomicReference<Stage> secondStage = new AtomicReference<>();
+        Platform.runLater(
+                () -> secondStage.set(new Stage())
+        );
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/UI_stream_singlepart_page.fxml"));
         Parent root = loader.load();
@@ -70,15 +77,15 @@ public class StreamFileSelector extends TorrentFileSelector {
 
         c.initData(file);
 
-        c.setStage(secondStage);
+        c.setStage(secondStage.get());
         Scene s = new Scene(root);
-        secondStage.setTitle("stream");
-        secondStage.getIcons().add(new Image("/images/streamAppIcon_blue.PNG"));
-        secondStage.setScene(s);
-        secondStage.setResizable(false);
+        secondStage.get().setTitle("stream");
+        secondStage.get().getIcons().add(new Image("/images/streamAppIcon_blue.PNG"));
+        secondStage.get().setScene(s);
+        secondStage.get().setResizable(false);
 
-        c.setParentStage(secondStage);
-        secondStage.show();
+        c.setParentStage(secondStage.get());
+        secondStage.get().show();
     }
 
 
