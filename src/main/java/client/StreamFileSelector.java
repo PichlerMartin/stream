@@ -8,6 +8,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import streamUI.UI_Controller_singlepart_page;
@@ -88,7 +90,23 @@ public class StreamFileSelector extends TorrentFileSelector implements Initializ
         secondStage.get().setResizable(false);
 
         c.setParentStage(secondStage.get());
-        secondStage.get().showAndWait();
+
+        /*
+
+        https://stackoverflow.com/questions/43647368/how-can-i-get-make-my-program-wait-until-javafx-window-has-been-closed-before-co
+
+        */
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
+        alert.setContentText("Would you like to enter another number?");
+        alert.setOnHidden(e -> {
+            if (alert.getResult() == ButtonType.YES) {
+                secondStage.get().show();
+            }
+        });
+        secondStage.get().setOnHidden(e -> alert.show());
+
+        secondStage.get().show();
     }
 
 

@@ -35,13 +35,11 @@ public class UI_Controller_singlepart_page implements Initializable {
     @Override
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
-
+        txtTorrentPartName.setText(join("/", file.getPathElements()));
     }
 
     public void initData(TorrentFile file) {
         this.file = file;
-
-        txtTorrentPartName.setText(join("/", file.getPathElements()));
     }
 
     public void setStage(Stage CurrentStage) {
