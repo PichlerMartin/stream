@@ -6,10 +6,12 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
@@ -102,7 +104,7 @@
          <Insets left="89.0" top="435.0" />
       </GridPane.margin>
    </Button>
-   <GridPane fx:id="GPAddTorrent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #ffffffcf; -fx-background-radius: 50;" visible="false" GridPane.rowIndex="1">
+   <GridPane fx:id="GPAddTorrent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #ffffffcf; -fx-background-radius: 50;" GridPane.rowIndex="1">
       <columnConstraints>
          <ColumnConstraints hgrow="SOMETIMES" maxWidth="506.1333374023437" minWidth="10.0" prefWidth="351.2000732421875" />
          <ColumnConstraints hgrow="SOMETIMES" maxWidth="366.86663818359375" minWidth="10.0" prefWidth="349.59992675781245" />
@@ -114,30 +116,33 @@
       <GridPane.margin>
          <Insets left="450.0" top="50.0" />
       </GridPane.margin>
-      <TextField fx:id="txtDownloadLocation" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" onAction="#handleOnDirectorySelected" prefWidth="250.0">
+      <RadioButton fx:id="rdoUseMagnetURI" mnemonicParsing="false" onAction="#handleOnUseMagnetURI" selected="true" text="Magnet URI">
          <GridPane.margin>
-            <Insets left="60.0" top="205.0" />
+            <Insets left="60.0" top="-75.0" />
          </GridPane.margin>
-      </TextField>
-      <Label fx:id="lblMagnetURI" minWidth="-Infinity" text="Magnet URI">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
+         <toggleGroup>
+            <ToggleGroup fx:id="TGAddTorrent" />
+         </toggleGroup>
+      </RadioButton>
+      <TextField fx:id="txtDownloadLocation" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" onAction="#handleOnDirectorySelected" prefWidth="250.0">
          <GridPane.margin>
-            <Insets left="60.0" top="-60.0" />
+            <Insets left="60.0" top="230.0" />
          </GridPane.margin>
-      </Label>
+      </TextField>
       <Label fx:id="lblFileLocation" minWidth="-Infinity" text="Speicherort">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
          <GridPane.margin>
-            <Insets left="60.0" top="150.0" />
+            <Insets left="60.0" top="175.0" />
          </GridPane.margin>
       </Label>
       <TextField fx:id="txtMagnetURI" alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" onAction="#handleOnMagnetURIEntered" prefWidth="250.0">
          <GridPane.margin>
-            <Insets left="60.0" top="-5.0" />
+            <Insets left="60.0" top="-10.0" />
          </GridPane.margin>
       </TextField>
       <Button mnemonicParsing="false" onAction="#handleOnClickedbtnStorageLocation" style="-fx-background-color: transparent;" text="...">
@@ -145,7 +150,7 @@
             <Font name="System Bold" size="17.0" />
          </font>
          <GridPane.margin>
-            <Insets left="310.0" top="205.0" />
+            <Insets left="310.0" top="230.0" />
          </GridPane.margin>
       </Button>
       <Button fx:id="btnStartDownload" mnemonicParsing="false" onAction="#handleOnStartDownload" style="-fx-background-color: transparent;" text="Download starten" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -235,46 +240,30 @@
       </Label>
       <TextField fx:id="txtPort" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="250.0" promptText="Alternativport" GridPane.columnIndex="1">
          <GridPane.margin>
-            <Insets bottom="-220.0" left="60.0" />
+            <Insets left="55.0" top="225.0" />
          </GridPane.margin>
       </TextField>
       <TextField fx:id="txtTorrentFile" alignment="TOP_LEFT" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" onAction="#handleOnTorrentFileSelected" prefWidth="250.0">
          <GridPane.margin>
-            <Insets left="60.0" top="100.0" />
+            <Insets left="60.0" top="115.0" />
          </GridPane.margin>
       </TextField>
-      <Label fx:id="lblTorrentFile" minWidth="-Infinity" text="Torrent Datei">
-         <font>
-            <Font name="System Bold" size="17.0" />
-         </font>
-         <GridPane.margin>
-            <Insets left="60.0" top="45.0" />
-         </GridPane.margin>
-      </Label>
-      <CheckBox fx:id="chbUseMagnetURI" disable="true" mnemonicParsing="false" onAction="#handleOnUseMagnetURI" selected="true" wrapText="true">
-         <font>
-            <Font size="17.0" />
-         </font>
-         <GridPane.margin>
-            <Insets left="30.0" top="-5.0" />
-         </GridPane.margin>
-      </CheckBox>
-      <CheckBox fx:id="chbUseTorrentFile" mnemonicParsing="false" onAction="#handleOnUseTorrentFile" wrapText="true">
-         <font>
-            <Font size="17.0" />
-         </font>
-         <GridPane.margin>
-            <Insets left="30.0" top="100.0" />
-         </GridPane.margin>
-      </CheckBox>
       <Button fx:id="btnSelectTorrentFile" disable="true" mnemonicParsing="false" onAction="#handleOnClickedbtnSelectTorrentFile" style="-fx-background-color: transparent;" text="...">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
          <GridPane.margin>
-            <Insets left="310.0" top="100.0" />
+            <Insets left="310.0" top="115.0" />
          </GridPane.margin>
       </Button>
+      <RadioButton fx:id="rdoUseTorrentFile" mnemonicParsing="false" onAction="#handleOnUseTorrentFile" text="Torrent Datei" toggleGroup="$TGAddTorrent">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="60.0" top="50.0" />
+         </GridPane.margin>
+      </RadioButton>
    </GridPane>
    <VBox fx:id="VBoxTorrents" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #ffffffcf; -fx-background-radius: 50;" visible="false" GridPane.rowIndex="1">
       <GridPane.margin>
@@ -358,7 +347,7 @@
          <Insets left="123.0" top="121.0" />
       </GridPane.margin>
    </Label>
-   <GridPane fx:id="GPSettings" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #ffffffcf; -fx-background-radius: 50;" GridPane.rowIndex="1">
+   <GridPane fx:id="GPSettings" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #ffffffcf; -fx-background-radius: 50;" visible="false" GridPane.rowIndex="1">
       <columnConstraints>
          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
       </columnConstraints>

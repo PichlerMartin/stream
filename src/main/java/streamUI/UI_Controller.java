@@ -80,12 +80,6 @@ public class UI_Controller implements Initializable {
     private Label lblAddTorrent;
 
     @FXML
-    private Label lblMagnetURI;
-
-    @FXML
-    private Label lblTorrentFile;
-
-    @FXML
     private Label lblFileLocation;
 
     @FXML
@@ -96,6 +90,12 @@ public class UI_Controller implements Initializable {
 
     @FXML
     private Label lblSeedLater;
+
+    @FXML
+    private RadioButton rdoUseMagnetURI;
+
+    @FXML
+    private RadioButton rdoUseTorrentFile;
 
     @FXML
     private Label lblUseDefaultPort;
@@ -132,12 +132,6 @@ public class UI_Controller implements Initializable {
 
     @FXML
     private CheckBox chbDownloadAll;
-
-    @FXML
-    private CheckBox chbUseTorrentFile;
-
-    @FXML
-    private CheckBox chbUseMagnetURI;
 
     @FXML
     private ListView<String> livFiles;
@@ -213,10 +207,10 @@ public class UI_Controller implements Initializable {
         Controls.put(btnSelectTorrentFile.getId(), btnSelectTorrentFile.isDisabled());
         Controls.put(btnAddTorrents.getId(), btnAddTorrents.isDisabled());
         Controls.put(btnStartDownload.getId(), btnStartDownload.isDisabled());
-        Controls.put(chbUseTorrentFile.getId(), chbUseTorrentFile.isDisabled());
+        Controls.put(rdoUseTorrentFile.getId(), rdoUseTorrentFile.isDisabled());
         Controls.put(chbDefaultPort.getId(), chbDefaultPort.isDisabled());
         Controls.put(chbDownloadAll.getId(), chbDownloadAll.isDisabled());
-        Controls.put(chbUseMagnetURI.getId(), chbUseMagnetURI.isDisabled());
+        Controls.put(rdoUseMagnetURI.getId(), rdoUseMagnetURI.isDisabled());
         Controls.put(livFiles.getId(), livFiles.isDisabled());
     }
 
@@ -430,8 +424,8 @@ public class UI_Controller implements Initializable {
         btnHelp.setText(labels.getString("btnHelp"));
 
         lblAddTorrent.setText(labels.getString("lblAddTorrent"));
-        lblMagnetURI.setText(labels.getString("lblMagnetURI"));
-        lblTorrentFile.setText(labels.getString("lblTorrentFile"));
+        rdoUseMagnetURI.setText(labels.getString("rdoMagnetURI"));
+        rdoUseTorrentFile.setText(labels.getString("rdoTorrentFile"));
         lblFileLocation.setText(labels.getString("lblFileLocation"));
         btnAddPartsofTorrent.setText(labels.getString("btnAddPartsofTorrent"));
         lblOptions.setText(labels.getString("lblOptions"));
@@ -616,30 +610,26 @@ public class UI_Controller implements Initializable {
 
     @FXML
     public void handleOnUseMagnetURI() {
-        chbUseMagnetURI.setDisable(true);
+
         txtTorrentFile.setDisable(true);
         btnSelectTorrentFile.setDisable(true);
         USE_MAGNET_LINK =true;
 
         USE_TORRENT_FILE =false;
         txtMagnetURI.setDisable(false);
-        chbUseTorrentFile.setDisable(false);
-        chbUseTorrentFile.setSelected(false);
 
         if (checkIfDownloadCanBeInitialized())prepareDownload();
     }
 
     @FXML
     public void handleOnUseTorrentFile() {
-        chbUseTorrentFile.setDisable(true);
+
         txtMagnetURI.setDisable(true);
         USE_TORRENT_FILE =true;
 
         USE_MAGNET_LINK =true;
         btnSelectTorrentFile.setDisable(false);
         txtTorrentFile.setDisable(false);
-        chbUseMagnetURI.setDisable(false);
-        chbUseMagnetURI.setSelected(false);
 
         if (checkIfDownloadCanBeInitialized())prepareDownload();
     }
