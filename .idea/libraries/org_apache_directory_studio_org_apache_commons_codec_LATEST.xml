@@ -1,0 +1,16 @@
+<component name="libraryTable">
+  <library name="org.apache.directory.studio:org.apache.commons.codec:LATEST" type="repository">
+    <properties maven-id="org.apache.directory.studio:org.apache.commons.codec:LATEST" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/org.apache.commons.codec-1.8.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-codec-1.8.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/lib/commons-codec-1.8-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/org.apache.commons.codec-1.8-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-codec-1.8-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

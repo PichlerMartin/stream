@@ -16,6 +16,58 @@ import static java.lang.String.format;
 import static meta.Globals.*;
 
 public class StreamStatusProcessor {
+    private AtomicReference<Torrent> torrent;
+    private AtomicReference<TorrentSessionState> sessionState;
+
+    //endregion getters and setter
+    private AtomicReference<ExecutionStage> processingStage;
+    private AtomicBoolean shutdown;
+    private long started;
+    private long downloaded;
+    private long uploaded;
+
+    StreamStatusProcessor() {
+        this.torrent = new AtomicReference<>(null);
+        this.sessionState = new AtomicReference<>(null);
+        this.processingStage = new AtomicReference<>(ExecutionStage.FETCHING_METADATA);
+        this.shutdown = new AtomicBoolean(false);
+    }
+
+    private static String formatTime(int remainingSeconds) {
+        if (remainingSeconds < 0) {
+            return "\u221E"; // infinity
+        } else {
+            return getDuration(Duration.ofSeconds(remainingSeconds));
+        }
+    }
+
+    private static double calculateCompletePercentage(double total, double completed) {
+        return completed / total * 100.0D;
+    }
+
+    private static double calculateTargetPercentage(double total, double completed, double remaining) {
+        return (completed + remaining) / total * 100.0D;
+    }
+
+    private static String formatDownloadRate(DownloadRate rate) {
+        return String.format("%5.1f %2s/s", rate.getQuantity(), rate.getMeasureUnit());
+    }
+
+    private static int getRemainingTime(long chunkSize, long downloaded, int piecesRemaining) {
+        if (downloaded == 0) {
+            return -1;
+        }
+        long remainingBytes = chunkSize * piecesRemaining;
+        return (int) (remainingBytes / downloaded);
+    }
+
+    private static String getDuration(Duration elapsedTime) {
+        long seconds = elapsedTime.getSeconds();
+        long absSeconds = Math.abs(seconds);
+        String positive = format("%d:%02d:%02d", absSeconds / 3600L, (absSeconds % 3600L) / 60L, absSeconds % 60L);
+        return seconds < 0 ? "-" + positive : positive;
+    }
+
     //region    getters and setters
     public AtomicReference<Torrent> getTorrent() {
         return torrent;
@@ -25,27 +77,11 @@ public class StreamStatusProcessor {
         this.torrent = torrent;
     }
 
-    //endregion getters and setter
-
-    private AtomicReference<Torrent> torrent;
-    private AtomicReference<TorrentSessionState> sessionState;
-    private AtomicReference<ExecutionStage> processingStage;
-    private AtomicBoolean shutdown;
-
-    private long started;
-    private long downloaded;
-    private long uploaded;
-
-    StreamStatusProcessor(){
-        this.torrent = new AtomicReference<>(null);
-        this.sessionState = new AtomicReference<>(null);
-        this.processingStage = new AtomicReference<>(ExecutionStage.FETCHING_METADATA);
-        this.shutdown = new AtomicBoolean(false);
+    void updateTorrentStage(TorrentSessionState sessionState) {
+        this.sessionState.set(sessionState);
     }
 
-    void updateTorrentStage(TorrentSessionState sessionState){this.sessionState.set(sessionState);}
-
-    void whenTorrentFetched(Torrent torrent){
+    void whenTorrentFetched(Torrent torrent) {
         System.out.println("Downloading now");
         System.out.println(format(FORMAT_DOWNLOADING_SILENT, torrent.getName(), torrent.getSize()));
         StreamContext.getInstance().currentController().setLabel(new Label("Torrent fetched"));
@@ -53,18 +89,22 @@ public class StreamStatusProcessor {
         this.processingStage.set(ExecutionStage.CHOOSING_FILES);
     }
 
-    void onFilesChosen() { this.processingStage.set(DOWNLOADING);}
+    void onFilesChosen() {
+        this.processingStage.set(DOWNLOADING);
+    }
 
-    void onDownloadComplete() { this.processingStage.set(ExecutionStage.SEEDING); }
+    void onDownloadComplete() {
+        this.processingStage.set(ExecutionStage.SEEDING);
+    }
 
-    void startStatusProcessor(){
+    void startStatusProcessor() {
         this.started = System.currentTimeMillis();
         System.out.println("Metadata is being fetched... Please be patient...");
 
-        Thread logPrintThread = new Thread(() ->{
-            do{
+        Thread logPrintThread = new Thread(() -> {
+            do {
                 TorrentSessionState sessionState = this.sessionState.get();
-                if(sessionState != null){
+                if (sessionState != null) {
                     Duration elapsed = this.returnTimeElapsed();
                     DownloadRate down = new DownloadRate(sessionState.getDownloaded() - this.downloaded);
                     DownloadRate up = new DownloadRate(sessionState.getDownloaded() - this.uploaded);
@@ -77,7 +117,7 @@ public class StreamStatusProcessor {
 
                 try {
                     Thread.sleep(1000L);
-                } catch (InterruptedException ex){
+                } catch (InterruptedException ex) {
                     ex.printStackTrace();
                     return;
                 }
@@ -115,44 +155,10 @@ public class StreamStatusProcessor {
         }
     }
 
-    private static String formatTime(int remainingSeconds) {
-        if (remainingSeconds < 0) {
-            return "\u221E"; // infinity
-        } else {
-            return getDuration(Duration.ofSeconds(remainingSeconds));
-        }
-    }
-
-    private static double calculateCompletePercentage(double total, double completed) {
-        return completed / total * 100.0D;
-    }
-
-    private static double calculateTargetPercentage(double total, double completed, double remaining) {
-        return (completed + remaining) / total * 100.0D;
-    }
-
-    private static String formatDownloadRate(DownloadRate rate) {
-        return String.format("%5.1f %2s/s", rate.getQuantity(), rate.getMeasureUnit());
-    }
-
     private Duration returnTimeElapsed() {
         return Duration.ofMillis(System.currentTimeMillis() - this.started);
     }
 
-    private static int getRemainingTime(long chunkSize, long downloaded, int piecesRemaining) {
-        if (downloaded == 0) {
-            return -1;
-        }
-        long remainingBytes = chunkSize * piecesRemaining;
-        return (int) (remainingBytes / downloaded);
-    }
-
-    private static String getDuration(Duration elapsedTime) {
-        long seconds = elapsedTime.getSeconds();
-        long absSeconds = Math.abs(seconds);
-        String positive = format("%d:%02d:%02d", absSeconds / 3600L, (absSeconds % 3600L) / 60L, absSeconds % 60L);
-        return seconds < 0 ? "-" + positive : positive;
-    }
     void stop() {
         this.shutdown.set(true);
     }

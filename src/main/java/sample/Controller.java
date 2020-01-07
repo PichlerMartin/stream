@@ -40,7 +40,7 @@ public class Controller {
         btn1.setText(txt1.getText());
     }
 
-    public void setParentStage (Stage root) {
+    public void setParentStage(Stage root) {
         this.parentStage = root;
     }
 }

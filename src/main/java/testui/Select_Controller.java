@@ -38,6 +38,7 @@ public class Select_Controller implements Initializable {
      * Description
      * Bestätigt die aufgelistete Menge an Dateien, welche dann in das Download-Verzeichnis
      * geladen werden. Dieser Vorgang findet in einem neuen Thread statt.
+     *
      * @param ms: Action Event des Button(-Clicks)
      */
     public void Click_ConfirmFileList(ActionEvent ms) throws IOException {
@@ -45,7 +46,7 @@ public class Select_Controller implements Initializable {
 
         this.ownGlobalTorrentImplementation();
 
-        //  ToDo:   Below call are outsourced in streamUI/UI_Controller.java
+        //  ToDo:   Below call are outsourced in streamUI/UI_Controller_main_page.java
         //this.ActualWorkingTorrentInvocation();
         //this.ownTorrentImplementation();
         //this.AtomashpolskiyExample();

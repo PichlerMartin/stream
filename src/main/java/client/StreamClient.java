@@ -28,20 +28,10 @@ import java.util.Optional;
 
 public class StreamClient {
     private static final Logger LOGGER = LoggerFactory.getLogger(StreamClient.class);
+
     private final StreamOptions options;
     private final StreamStatusProcessor printer;
     private final BtClient client;
-
-    public static void main(String[] args) {
-        StreamOptions options = new StreamOptions(args[3], new File(args[1]));
-
-        SupportMethods.configureLogging(options.getLogLevel());
-        SupportMethods.configureSecurity(LOGGER);
-        SupportMethods.registerLog4jShutdownHook();
-
-        StreamClient client = new StreamClient(options);
-        client.start();
-    }
 
     private StreamClient(StreamOptions options) {
         this.options = options;
@@ -73,6 +63,17 @@ public class StreamClient {
         }
 
         this.client = clientBuilder.build();
+    }
+
+    public static void main(String[] args) {
+        StreamOptions options = new StreamOptions(args[3], new File(args[1]));
+
+        SupportMethods.configureLogging(options.getLogLevel());
+        SupportMethods.configureSecurity(LOGGER);
+        SupportMethods.registerLog4jShutdownHook();
+
+        StreamClient client = new StreamClient(options);
+        client.start();
     }
 
     private static Config buildConfig(final StreamOptions options) {
@@ -114,8 +115,8 @@ public class StreamClient {
         } else {
             try {
                 return Optional.of(InetAddress.getByName(inetAddress));
-            } catch (UnknownHostException var3) {
-                throw new IllegalArgumentException("Failed to parse the acceptor's internet address", var3);
+            } catch (UnknownHostException ex) {
+                throw new IllegalArgumentException("Failed to parse the acceptor's internet address", ex);
             }
         }
     }
@@ -136,8 +137,8 @@ public class StreamClient {
     private static URL toUrl(File file) {
         try {
             return file.toURI().toURL();
-        } catch (MalformedURLException var2) {
-            throw new IllegalArgumentException("Unexpected error", var2);
+        } catch (MalformedURLException ex) {
+            throw new IllegalArgumentException("Unexpected error", ex);
         }
     }
 

@@ -31,9 +31,17 @@ public class StreamOptions {
         this.downloadAllFiles = downloadAllFiles;
     }
 
-    public StreamOptions(String magnetUri, File targetDirectory){
+    public StreamOptions(String magnetUri, File targetDirectory) {
         this.magnetUri = magnetUri;
         this.targetDirectory = targetDirectory;
+    }
+
+    public StreamOptions(String magnetUri) {
+        this.magnetUri = magnetUri;
+    }
+
+    public StreamOptions(File metainfoFile) {
+        this.metainfoFile = metainfoFile;
     }
 
     File getMetainfoFile() {

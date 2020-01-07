@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="com.github.luccappellaro:jzopfli:LATEST" type="repository">
+    <properties maven-id="com.github.luccappellaro:jzopfli:LATEST" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/jzopfli-0.0.4.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/lib/jzopfli-0.0.4-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/jzopfli-0.0.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

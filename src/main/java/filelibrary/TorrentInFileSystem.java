@@ -1,6 +1,6 @@
 package filelibrary;
 
-public class TorrentInFileSystem{
+public class TorrentInFileSystem {
     private final String path;
     private final String name;
 

@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="net.sf.jopt-simple:jopt-simple:LATEST" type="repository">
+    <properties maven-id="net.sf.jopt-simple:jopt-simple:LATEST" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/jopt-simple-6.0-alpha-3.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/lib/jopt-simple-6.0-alpha-3-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/jopt-simple-6.0-alpha-3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

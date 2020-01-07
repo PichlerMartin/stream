@@ -5,6 +5,7 @@ import bt.data.Storage;
 import bt.data.file.FileSystemStorage;
 import bt.dht.DHTConfig;
 import bt.dht.DHTModule;
+import bt.metainfo.TorrentFile;
 import bt.runtime.BtClient;
 import bt.runtime.Config;
 import bt.torrent.TorrentRegistry;
@@ -12,9 +13,13 @@ import client.StreamClient;
 import com.google.inject.Module;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -27,52 +32,45 @@ import sun.util.locale.LocaleUtils;
 
 import java.io.File;
 import java.lang.reflect.Array;
+import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.prefs.Preferences;
 
+import static java.lang.String.format;
+import static java.lang.String.join;
 import static java.nio.file.Files.exists;
 import static meta.Globals.*;
 
-public class UI_Controller implements Initializable {
+public class UI_Controller_main_page implements Initializable {
 
+    @FXML
+    ComboBox<String> cboxSelectLanguage;
     @FXML
     private Stage parentStage;
-
     @FXML
     private Stage stage;
-
     @FXML
     private TextField txtDownloadLocation;
-
     @FXML
     private TextField txtMagnetURI;
-
     @FXML
     private TextField txtTorrentFile;
-
     @FXML
     private TextField txtPort;
-
     @FXML
     private Button btnTorrents;
-
     @FXML
     private Button btnAddTorrents;
-
     @FXML
     private Button btnDownloading;
-
     @FXML
     private Button btnUploading;
-
     @FXML
     private Button btnFinished;
-
     @FXML
     private Button btnSettings;
-
     @FXML
     private Button btnHelp;
 
@@ -105,11 +103,10 @@ public class UI_Controller implements Initializable {
 
     @FXML
     private Button btnAddPartsofTorrent;
-
     @FXML
     private Button btnSelectTorrentFile;
-
     @FXML
+    private Button btnStartDownload;
     private Label lblSettings;
 
     @FXML
@@ -119,18 +116,22 @@ public class UI_Controller implements Initializable {
     private Label lblDarkMode;
 
     @FXML
+    private CheckBox chbDefaultPort;
     private Label lblDefaultDirectory;
 
     @FXML
+    private CheckBox chbDownloadAll;
     private TextField txtDefaultDirectory;
 
     @FXML
     private ToggleButton togDarkMode;
 
     @FXML
+    private CheckBox chbUseTorrentFile;
     private Button btnDefaultDirectory;
 
     @FXML
+    private CheckBox chbUseMagnetURI;
     private CheckBox chbDefaultPort;
 
     @FXML
@@ -138,7 +139,6 @@ public class UI_Controller implements Initializable {
 
     @FXML
     private ListView<String> livFiles;
-
     @FXML
     private VBox VBoxTorrents;
 
@@ -178,6 +178,12 @@ public class UI_Controller implements Initializable {
             Locale.GERMAN,
             Locale.ENGLISH
     };
+
+    @Deprecated
+    public void putFileNameAndChoice(TorrentFile file, boolean b) {
+        livFiles.getItems().add(format("%s", join("/", file.getPathElements())));
+        livFiles.getSelectionModel().select(format("%s", join("/", file.getPathElements())));
+    }
 
     private Preferences pref = Preferences.userRoot().node(this.getClass().getName());
 
@@ -226,13 +232,13 @@ public class UI_Controller implements Initializable {
     }
 
     @FXML
-    public void handleOnClickedbtnAddTorrents () {
+    public void handleOnClickedbtnAddTorrents() {
         resetVisibility();
         GPAddTorrent.setVisible(true);
     }
 
     @FXML
-    public void handleOnClickedbtnDownloading () {
+    public void handleOnClickedbtnDownloading() {
         resetVisibility();
         VBoxDownloadingTorrents.setVisible(true);
 
@@ -240,7 +246,7 @@ public class UI_Controller implements Initializable {
     }
 
     @FXML
-    public void handleOnClickedbtnUploading () {
+    public void handleOnClickedbtnUploading() {
         resetVisibility();
         VBoxUploadingTorrents.setVisible(true);
 
@@ -300,7 +306,8 @@ public class UI_Controller implements Initializable {
     }
 
     @FXML
-    public void handleOnClickedbtnSettings () {
+    public void handleOnClickedbtnSettings() {
+
         resetVisibility();
         GPSettings.setVisible(true);
         txtDefaultDirectory.setText(pref.get("DefaultDirectory", ""));
@@ -334,8 +341,8 @@ public class UI_Controller implements Initializable {
     }
 
     @FXML
-    public void handleOnClickedCbox () {
-        for (Locale loc: supportedLocales) {
+    public void handleOnClickedCbox() {
+        for (Locale loc : supportedLocales) {
             if (loc.getDisplayName().equals(cboxSelectLanguage.getValue())) {
                 changeLanguage(loc);
                 pref.put("language", loc.toString());
@@ -344,14 +351,14 @@ public class UI_Controller implements Initializable {
     }
 
     @FXML
-    public void handleOnClickedbtnStorageLocation () {
+    public void handleOnClickedbtnStorageLocation() {
 
         Locale currentLocale = Locale.forLanguageTag(pref.get("language", Locale.GERMAN.toString()));
         ResourceBundle labels = ResourceBundle.getBundle("ResourceBundle", currentLocale);
 
         File directory = this.openFileDialog(labels.getString("StorageLocSaveAs"), FileDialogType.DIRECTORY);
 
-        if (this.isDirectoryValid(directory)){
+        if (this.isDirectoryValid(directory)) {
             txtDownloadLocation.setText(directory.toString());
 
             if (this.checkIfDownloadCanBeInitialized()) prepareDownload();
@@ -380,7 +387,7 @@ public class UI_Controller implements Initializable {
         GPSettings.setVisible(false);
 
         GPAddTorrent.getChildren().forEach(node -> {
-            if (Controls.containsKey((node.getId()))){
+            if (Controls.containsKey((node.getId()))) {
                 node.setDisable(Controls.get(node.getId()));
             }
         });
@@ -405,12 +412,13 @@ public class UI_Controller implements Initializable {
     /**
      * This method is called by buttons, which have been entered
      * It changes the style and the colour of the text in the caller button
+     *
      * @param event: is used to retrieve the source of the event
      */
     @FXML
-    public void handleOnMenuEntryEntered (MouseEvent event) {
+    public void handleOnMenuEntryEntered(MouseEvent event) {
 
-        Button btnEnteredBtn = (Button)event.getSource();
+        Button btnEnteredBtn = (Button) event.getSource();
         btnEnteredBtn.setStyle(btnEnteredBtn.getStyle() + "; -fx-underline: true; -fx-text-fill:  #1b3957");
 
     }
@@ -418,12 +426,13 @@ public class UI_Controller implements Initializable {
     /**
      * This method changes the style and colour of the caller button back to the original state
      * If the mouse leaves one of the buttons, this method is called
+     *
      * @param event: is used to retrieve the source of the event
      */
     @FXML
-    public void handleOnMenuEntryLeft (MouseEvent event) {
+    public void handleOnMenuEntryLeft(MouseEvent event) {
 
-        Button btnLeftbtn = (Button)event.getSource();
+        Button btnLeftbtn = (Button) event.getSource();
         btnLeftbtn.setStyle(btnLeftbtn.getStyle() + "; -fx-underline: false; -fx-text-fill: white");
     }
 
@@ -534,11 +543,11 @@ public class UI_Controller implements Initializable {
         ResourceBundle labels = ResourceBundle.getBundle("ResourceBundle", currentLocale);
         File torrentfile = this.openFileDialog(labels.getString("SelectTorrentFile"), FileDialogType.TORRENT);
 
-        if (this.isTorrentFileValid(torrentfile)){
+        if (this.isTorrentFileValid(torrentfile)) {
             txtTorrentFile.setText(torrentfile.toString());
             txtDownloadLocation.requestFocus();
 
-            if (checkIfDownloadCanBeInitialized())prepareDownload();
+            if (checkIfDownloadCanBeInitialized()) prepareDownload();
         } else {
             this.showWarning(labels.getString("SelectTorrentWarningH"),
                     labels.getString("SelectTorrentWarningM"));
@@ -579,7 +588,7 @@ public class UI_Controller implements Initializable {
     }
 
     @FXML
-    private void onDirectorySelected(){
+    private void onDirectorySelected() {
         livFiles.getItems().clear();
         livFiles.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
@@ -587,24 +596,63 @@ public class UI_Controller implements Initializable {
     }
 
     @FXML
-    private void handleOnStartDownload (){
-        // new Thread(this::ownTorrentImplementation).start();
+    private void handleOnStartDownload() {
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        new Thread(this::ownTorrentImplementation).start();
+
+        /*
+        Code below calls showTorrentPartsStage(), new window is displayed
+        FIXME:  Implement new window with torrent parts
+
+        try {
+            this.showTorrentPartsStage();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        */
+
         // Does not work, prints errors
         // Update 30.12.2019, 18:25: now works
 
-        new Thread(this::AtomashpolskiyExample).start();
+        // new Thread(this::AtomashpolskiyExample).start();
         // Works, prints status warnings
+    }
 
+    @Deprecated
+    public void showTorrentPartsStage() throws IOException {
+
+        Stage secondStage = new Stage();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/UI_stream_parts_page.fxml"));
+        Parent root = loader.load();
+
+        root.setStyle("-fx-background-image: url('/images/stream_UI_background.png'); -fx-background-repeat: no-repeat; -fx-background-size: 1215 765");
+        UI_Controller_parts_page c = loader.getController();
+
+        c.setStage(secondStage);
+        Scene s = new Scene(root, 800, 300);
+        secondStage.setTitle("stream");
+        secondStage.getIcons().add(new Image("/images/streamAppIcon_blue.PNG"));
+        secondStage.setScene(s);
+        secondStage.setResizable(false);
+
+        c.setParentStage(secondStage);
+        secondStage.show();
     }
 
     /**
      * Description
      * Diese Methode besteht aus dem Example welche von dem Ersteller der Bt-Bibliothek, atomashpolskiy,
      * zur Verf&uuml;gnug gestellt wurde.
-     *
+     * <p>
      * https://github.com/atomashpolskiy/bittorrent
      */
-    private void AtomashpolskiyExample() {
+    @Deprecated
+    public void AtomashpolskiyExample() {
         // enable multithreaded verification of torrent data
         Config config = new Config() {
             @Override
@@ -636,8 +684,7 @@ public class UI_Controller implements Initializable {
         client.startAsync().join();
     }
 
-    @Deprecated
-    public void ownTorrentImplementation() {
+    private void ownTorrentImplementation() {
         StreamClient.main(new String[]{"-d", Globals.DOWNLOAD_DIRECTORY, "-m", Globals.MAGNET_LINK});
     }
 
@@ -646,29 +693,29 @@ public class UI_Controller implements Initializable {
 
         txtTorrentFile.setDisable(true);
         btnSelectTorrentFile.setDisable(true);
-        USE_MAGNET_LINK =true;
+        USE_MAGNET_LINK = true;
 
-        USE_TORRENT_FILE =false;
+        USE_TORRENT_FILE = false;
         txtMagnetURI.setDisable(false);
 
-        if (checkIfDownloadCanBeInitialized())prepareDownload();
+        if (checkIfDownloadCanBeInitialized()) prepareDownload();
     }
 
     @FXML
     public void handleOnUseTorrentFile() {
 
         txtMagnetURI.setDisable(true);
-        USE_TORRENT_FILE =true;
+        USE_TORRENT_FILE = true;
 
-        USE_MAGNET_LINK =true;
+        USE_MAGNET_LINK = true;
         btnSelectTorrentFile.setDisable(false);
         txtTorrentFile.setDisable(false);
 
-        if (checkIfDownloadCanBeInitialized())prepareDownload();
+        if (checkIfDownloadCanBeInitialized()) prepareDownload();
     }
 
     private File openFileDialog(String header, FileDialogType type) {
-        if (type.equals(FileDialogType.DIRECTORY)){
+        if (type.equals(FileDialogType.DIRECTORY)) {
             DirectoryChooser dirChooser = new DirectoryChooser();
             dirChooser.setTitle(header);
 
@@ -679,7 +726,7 @@ public class UI_Controller implements Initializable {
 
             dirChooser.setInitialDirectory(new File(pref.get("DefaultDirectory", "user.home")));
             return dirChooser.showDialog(stage);
-        } else if (type.equals(FileDialogType.TORRENT)){
+        } else if (type.equals(FileDialogType.TORRENT)) {
             FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Torrent files (*.torrent)", "*.torrent");
             FileChooser fileChooser = new FileChooser();
             fileChooser.getExtensionFilters().add(extFilter);
@@ -692,14 +739,9 @@ public class UI_Controller implements Initializable {
         }
     }
 
-    enum FileDialogType{
-        DIRECTORY,
-        TORRENT
-    }
-
     @FXML
     public void handleOnClickedUseDefaultPort() {
-        if (chbDefaultPort.isSelected()){
+        if (chbDefaultPort.isSelected()) {
             txtPort.setDisable(true);
             USE_DEFAULT_PORT = true;
         } else {
@@ -709,11 +751,11 @@ public class UI_Controller implements Initializable {
     }
 
     @FXML
-    public void handleOnClickedSeedAfterDownload(){
+    public void handleOnClickedSeedAfterDownload() {
         SEED_AFTER_DOWNLOAD = !SEED_AFTER_DOWNLOAD;
     }
 
-    private boolean isDirectoryValid(File directory){
+    private boolean isDirectoryValid(File directory) {
         return directory != null && !directory.getPath().equals("") && directory.isDirectory() && exists(directory.toPath()) && exists(directory.toPath());
     }
 
@@ -721,28 +763,47 @@ public class UI_Controller implements Initializable {
         return torrentfile != null && torrentfile.exists() && (FilenameUtils.getExtension(torrentfile.getPath()).equals("torrent"));
     }
 
-    private boolean isMagnetLinkValid(String magnetlink){
+    private boolean isMagnetLinkValid(String magnetlink) {
         return magnetlink.contains("magnet:?xt=urn:btih:");
     }
 
-    private boolean checkIfDownloadCanBeInitialized(){
+    private boolean checkIfDownloadCanBeInitialized() {
         String torrentfile = txtTorrentFile.getText();
         String magnetlink = txtMagnetURI.getText();
         String directory = txtDownloadLocation.getText();
 
-        if (this.isTorrentFileValid(new File(torrentfile)) && this.isDirectoryValid(new File(directory))){
+
+        /*
+        if-statement below is for showing the window where a list-view is displayed, so
+        the user can select the files they want to download, but does not work properly
+        because access of torrent parts is locked
+        FIXME:  retrieve torrent parts from StreamClient.java-class
+
+        if (this.isMagnetLinkValid(magnetlink)) {
+            this.listTorrentPartsFromLink(magnetlink);
+        } else if (this.isTorrentFileValid(new File(torrentfile))) {
+            this.listTorrentPartsFromFile(torrentfile);
+        }
+        */
+
+        if (this.isTorrentFileValid(new File(torrentfile)) && this.isDirectoryValid(new File(directory))) {
             return true;
         } else return this.isMagnetLinkValid(magnetlink) && this.isDirectoryValid(new File(directory));
 
     }
 
-    private void prepareDownload(){
+    private void prepareDownload() {
         MAGNET_LINK = txtMagnetURI.getText();
         TORRENT_FILE = txtTorrentFile.getText();
         DOWNLOAD_DIRECTORY = txtDownloadLocation.getText();
         DIRECTORY_SELECTED = true;
 
         this.onDirectorySelected();
+    }
+
+    enum FileDialogType {
+        DIRECTORY,
+        TORRENT
     }
     //endregion Pichler part
 }

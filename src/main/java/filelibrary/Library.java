@@ -27,6 +27,7 @@ public interface Library {
     /**
      * Description
      * Nach der Dateigröße soll jede Library geordnet werden können
+     *
      * @return: gibt die geordnete liste zurück
      */
     List<String> sortByFileSize();
@@ -34,10 +35,11 @@ public interface Library {
     /**
      * Description
      * Ein Operator wird übergeben, nach dem dann geordnet wird
+     *
      * @param sortOperator: der "Sort-Operator" (ein Kriterium)
      * @return
      */
-    default List<String> sortByOperator(SortOperator sortOperator){
+    default List<String> sortByOperator(SortOperator sortOperator) {
         return null;
     }
 
