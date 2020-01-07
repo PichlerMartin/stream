@@ -173,7 +173,7 @@ public class UI_Controller_main_page implements Initializable {
         livFiles.getSelectionModel().select(format("%s", join("/", file.getPathElements())));
     }
 
-    private Preferences pref = Preferences.userRoot().node(this.getClass().getName());
+    private Preferences pref = Preferences.userNodeForPackage(getClass());
 
     @SuppressWarnings("Duplicates")
     @Override
@@ -340,7 +340,7 @@ public class UI_Controller_main_page implements Initializable {
     }
 
     @FXML
-    public void handleOnClickedbtnStorageLocation() {
+    public void handleOnClickedbtnStorageLocation() throws IOException {
 
         Locale currentLocale = Locale.forLanguageTag(pref.get("language", Locale.GERMAN.toString()));
         ResourceBundle labels = ResourceBundle.getBundle("ResourceBundle", currentLocale);
@@ -388,6 +388,7 @@ public class UI_Controller_main_page implements Initializable {
 
     void setParentStage(Stage root) {
 
+        //pref.clear();
         String prefLanguage = pref.get("language", Locale.GERMAN.toString());
         Locale currentLocale = Locale.forLanguageTag(prefLanguage);
 
@@ -469,8 +470,7 @@ public class UI_Controller_main_page implements Initializable {
         lblDarkMode.setText(labels.getString("lblDarkMode"));
         if (togDarkMode.isSelected()) {togDarkMode.setText(labels.getString("togDarkModeOn"));}
         else {togDarkMode.setText(labels.getString("togDarkModeOff"));}
-        //lblDefaultDirectory.setText(labels.getString("lblDefaultDirectory"));
-        //  FixMe:  Error when running above line of code, any idea, Topeiner?
+        lblDefaultDirectory.setText(labels.getString("lblDefaultDirectory"));
 
         initializeTableView(TVTorrentsList, labels);
         initializeTableView(TVDownloadingTorrentsList, labels);
@@ -479,7 +479,7 @@ public class UI_Controller_main_page implements Initializable {
     }
 
     @FXML
-    public void handleOnClickedbtnDefaultDirectory () {
+    public void handleOnClickedbtnDefaultDirectory () throws IOException {
 
         Locale currentLocale = Locale.forLanguageTag(pref.get("language", Locale.GERMAN.toString()));
         ResourceBundle labels = ResourceBundle.getBundle("ResourceBundle", currentLocale);
@@ -527,7 +527,7 @@ public class UI_Controller_main_page implements Initializable {
     }
 
     @FXML
-    public void handleOnClickedbtnSelectTorrentFile() {
+    public void handleOnClickedbtnSelectTorrentFile() throws IOException {
 
         Locale currentLocale = Locale.forLanguageTag(pref.get("language", Locale.GERMAN.toString()));
         ResourceBundle labels = ResourceBundle.getBundle("ResourceBundle", currentLocale);
@@ -710,12 +710,13 @@ public class UI_Controller_main_page implements Initializable {
             dirChooser.setTitle(header);
 
             File defaultDir = new File(pref.get("DefaultDirectory", "user.home"));
-            if(!defaultDir.exists()) {
-                defaultDir = new File("user.home");
+            if(!isDirectoryValid(defaultDir)) {
+                defaultDir = new File(System.getProperty("user.home"));
             }
 
-            dirChooser.setInitialDirectory(new File(pref.get("DefaultDirectory", "user.home")));
+            dirChooser.setInitialDirectory(defaultDir);
             return dirChooser.showDialog(stage);
+
         } else if (type.equals(FileDialogType.TORRENT)) {
             FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Torrent files (*.torrent)", "*.torrent");
             FileChooser fileChooser = new FileChooser();
