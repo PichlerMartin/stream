@@ -367,13 +367,24 @@ public class UI_Controller_main_page implements Initializable {
 
     @FXML
     private void handleOnStartDownload() {
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         new Thread(this::ownTorrentImplementation).start();
+
+        /*
+        Code below calls showTorrentPartsStage(), new window is displayed
+        FIXME:  Implement new window with torrent parts
 
         try {
             this.showTorrentPartsStage();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        */
+
         // Does not work, prints errors
         // Update 30.12.2019, 18:25: now works
 
@@ -381,7 +392,8 @@ public class UI_Controller_main_page implements Initializable {
         // Works, prints status warnings
     }
 
-    private void showTorrentPartsStage() throws IOException {
+    @Deprecated
+    public void showTorrentPartsStage() throws IOException {
 
         Stage secondStage = new Stage();
 
@@ -529,24 +541,24 @@ public class UI_Controller_main_page implements Initializable {
         String magnetlink = txtMagnetURI.getText();
         String directory = txtDownloadLocation.getText();
 
+
+        /*
+        if-statement below is for showing the window where a list-view is displayed, so
+        the user can select the files they want to download, but does not work properly
+        because access of torrent parts is locked
+        FIXME:  retrieve torrent parts from StreamClient.java-class
+
         if (this.isMagnetLinkValid(magnetlink)) {
             this.listTorrentPartsFromLink(magnetlink);
         } else if (this.isTorrentFileValid(new File(torrentfile))) {
             this.listTorrentPartsFromFile(torrentfile);
         }
+        */
 
         if (this.isTorrentFileValid(new File(torrentfile)) && this.isDirectoryValid(new File(directory))) {
             return true;
         } else return this.isMagnetLinkValid(magnetlink) && this.isDirectoryValid(new File(directory));
 
-    }
-
-    private void listTorrentPartsFromFile(String torrentfile) {
-        StreamClient.getTorrentPartsFromFile(torrentfile);
-    }
-
-    private void listTorrentPartsFromLink(String magnetlink) {
-        StreamClient.getTorrentPartsFromLink(magnetlink);
     }
 
     private void prepareDownload() {

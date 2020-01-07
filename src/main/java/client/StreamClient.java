@@ -24,8 +24,6 @@ import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Optional;
 
 public class StreamClient {
@@ -76,22 +74,6 @@ public class StreamClient {
 
         StreamClient client = new StreamClient(options);
         client.start();
-    }
-
-    public static HashMap<String, Boolean> getTorrentPartsFromFile(String torrentfile) {
-        StreamClient partsfromfileclient = new StreamClient(new StreamOptions(torrentfile));
-
-        return new HashMap<>();
-    }
-
-    public static HashMap<String, Boolean> getTorrentPartsFromLink(String magnetlink) {
-        StreamClient partsfromlinkclient = new StreamClient(new StreamOptions(magnetlink));
-
-        return new HashMap<>();
-    }
-
-    private static List<String> getTorrentParts() {
-        return null;
     }
 
     private static Config buildConfig(final StreamOptions options) {

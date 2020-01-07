@@ -37,7 +37,7 @@ public class UI_Controller_singlepart_page implements Initializable {
     }
 
     public void initData(TorrentFile file) {
-        //this.file = file;
+        this.file = file;
     }
 
     public void setStage(Stage CurrentStage) {

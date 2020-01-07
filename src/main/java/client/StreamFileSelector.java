@@ -25,6 +25,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import static java.lang.String.format;
 import static java.lang.String.join;
 import static meta.Globals.FORMAT_DOWNLOAD_PART;
+import static meta.Globals.FORMAT_ILLEGAL_KEYPRESS;
 
 public class StreamFileSelector extends TorrentFileSelector implements Initializable {
 
@@ -44,7 +45,9 @@ public class StreamFileSelector extends TorrentFileSelector implements Initializ
      * https://stackoverflow.com/questions/31416784/thread-with-lambda-expression
      * @param file: Torrent file containing information name, etc.
      * @return whether file is selected or nah
+     * FIXME:   try to implement display of unique parts on one site fxml window
      */
+    @Deprecated
     private SelectionResult selectSinglePart(TorrentFile file) {
         new Thread(() -> {
             try {
@@ -111,9 +114,10 @@ public class StreamFileSelector extends TorrentFileSelector implements Initializ
 
     @Override
     protected SelectionResult select(TorrentFile file) {
-        return this.selectSinglePart(file);
+        //  Method below is for the invocation of "UI_stream_singlepart_page.fxml"
+        //  does not work yet
+        //  return this.selectSinglePart(file);
 
-        /*
         while (!this.shutdown.get()) {
             System.out.println(getPromptMessage(file));
 
@@ -133,8 +137,6 @@ public class StreamFileSelector extends TorrentFileSelector implements Initializ
         }
 
         throw new IllegalStateException("Shutdown");
-
-         */
     }
 
     private byte readKey(String nextCommand) {
