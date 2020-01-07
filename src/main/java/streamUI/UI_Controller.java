@@ -125,6 +125,9 @@ public class UI_Controller implements Initializable {
     private TextField txtDefaultDirectory;
 
     @FXML
+    private ToggleButton togDarkMode;
+
+    @FXML
     private Button btnDefaultDirectory;
 
     @FXML
@@ -304,6 +307,20 @@ public class UI_Controller implements Initializable {
     }
 
     @FXML
+    public void handleOnClickedtogDarkMode() {
+        Locale currentLocale = Locale.forLanguageTag(pref.get("language", Locale.GERMAN.toString()));
+        ResourceBundle labels = ResourceBundle.getBundle("ResourceBundle", currentLocale);
+
+        if (togDarkMode.isSelected()) {
+            //enable dark mode
+            togDarkMode.setText(labels.getString("togDarkModeOn"));
+        } else {
+            //disable dark mode
+            togDarkMode.setText(labels.getString("togDarkModeOff"));
+        }
+    }
+
+    @FXML
     public void handleOnClickedbtnHelp () {
     }
 
@@ -410,6 +427,20 @@ public class UI_Controller implements Initializable {
         btnLeftbtn.setStyle(btnLeftbtn.getStyle() + "; -fx-underline: false; -fx-text-fill: white");
     }
 
+    @FXML
+    public void handleOnSelectFileEntered (MouseEvent event) {
+
+        Button btnEnteredBtn = (Button)event.getSource();
+        btnEnteredBtn.setStyle(btnEnteredBtn.getStyle() + "; -fx-background-color:  #1b3957; -fx-text-fill: white");
+
+    }
+
+    @FXML
+    public void handleOnSelectFileLeft (MouseEvent event) {
+        Button btnLeftbtn = (Button)event.getSource();
+        btnLeftbtn.setStyle(btnLeftbtn.getStyle() + "; -fx-background-color: transparent; -fx-text-fill: black");
+    }
+
 
     private void changeLanguage(Locale loc) {
 
@@ -438,6 +469,8 @@ public class UI_Controller implements Initializable {
         lblSettings.setText(labels.getString("lblSettings"));
         lblLanguage.setText(labels.getString("lblLanguage"));
         lblDarkMode.setText(labels.getString("lblDarkMode"));
+        if (togDarkMode.isSelected()) {togDarkMode.setText(labels.getString("togDarkModeOn"));}
+        else {togDarkMode.setText(labels.getString("togDarkModeOff"));}
         lblDefaultDirectory.setText(labels.getString("lblDefaultDirectory"));
 
         initializeTableView(TVTorrentsList, labels);
