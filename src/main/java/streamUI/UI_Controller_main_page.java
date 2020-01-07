@@ -8,10 +8,8 @@ import bt.dht.DHTModule;
 import bt.metainfo.TorrentFile;
 import bt.runtime.BtClient;
 import bt.runtime.Config;
-import bt.torrent.TorrentRegistry;
 import client.StreamClient;
 import com.google.inject.Module;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -28,14 +26,15 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import meta.Globals;
 import org.apache.commons.io.FilenameUtils;
-import sun.util.locale.LocaleUtils;
 
 import java.io.File;
-import java.lang.reflect.Array;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
 import static java.lang.String.format;
@@ -106,7 +105,6 @@ public class UI_Controller_main_page implements Initializable {
     @FXML
     private Button btnSelectTorrentFile;
     @FXML
-    private Button btnStartDownload;
     private Label lblSettings;
 
     @FXML
@@ -117,25 +115,18 @@ public class UI_Controller_main_page implements Initializable {
 
     @FXML
     private CheckBox chbDefaultPort;
+
+    @FXML
     private Label lblDefaultDirectory;
 
     @FXML
     private CheckBox chbDownloadAll;
+
+    @FXML
     private TextField txtDefaultDirectory;
 
     @FXML
     private ToggleButton togDarkMode;
-
-    @FXML
-    private CheckBox chbUseTorrentFile;
-    private Button btnDefaultDirectory;
-
-    @FXML
-    private CheckBox chbUseMagnetURI;
-    private CheckBox chbDefaultPort;
-
-    @FXML
-    private CheckBox chbDownloadAll;
 
     @FXML
     private ListView<String> livFiles;
@@ -152,19 +143,16 @@ public class UI_Controller_main_page implements Initializable {
     private VBox VBoxFinishedTorrents;
 
     @FXML
-    ComboBox<String> cboxSelectLanguage;
+    private TableView<Object> TVTorrentsList;
 
     @FXML
-    private TableView TVTorrentsList;
+    private TableView<Object> TVDownloadingTorrentsList;
 
     @FXML
-    private TableView TVDownloadingTorrentsList;
+    private TableView<Object> TVUploadingTorrentsList;
 
     @FXML
-    private TableView TVUploadingTorrentsList;
-
-    @FXML
-    private TableView TVFinishedTorrentsList;
+    private TableView<Object> TVFinishedTorrentsList;
 
     @FXML
     private GridPane GPAddTorrent;
@@ -262,7 +250,7 @@ public class UI_Controller_main_page implements Initializable {
         //TVFinishedTorrentsList.getItems().add(new Torrent("4", "finished", "Torrent 1", "100%", "500 Mb"));
     }
 
-    private void initializeTableView (TableView tableView, ResourceBundle labels) {
+    private void initializeTableView (TableView<Object> tableView, ResourceBundle labels) {
 
         tableView.setStyle("-fx-background-color: transparent; -fx-base: None; -fx-font-size: 17; -fx-alignment: center");
 
@@ -278,11 +266,11 @@ public class UI_Controller_main_page implements Initializable {
 
         tableView.setVisible(true);
 
-        TableColumn t1 = new TableColumn(labels.getString("TVNumber"));
-        TableColumn t2 = new TableColumn(labels.getString("TVStatus"));
-        TableColumn t3 = new TableColumn(labels.getString("TVName"));
-        TableColumn t4 = new TableColumn(labels.getString("TVProgress"));
-        TableColumn t5 = new TableColumn(labels.getString("TVSize"));
+        TableColumn<Object, Object> t1 = new TableColumn<>(labels.getString("TVNumber"));
+        TableColumn<Object, Object> t2 = new TableColumn<>(labels.getString("TVStatus"));
+        TableColumn<Object, Object> t3 = new TableColumn<>(labels.getString("TVName"));
+        TableColumn<Object, Object> t4 = new TableColumn<>(labels.getString("TVProgress"));
+        TableColumn<Object, Object> t5 = new TableColumn<>(labels.getString("TVSize"));
 
         t1.setPrefWidth(80);
         t1.setStyle("-fx-alignment: center");
@@ -296,6 +284,7 @@ public class UI_Controller_main_page implements Initializable {
         t5.setStyle("-fx-alignment: center");
 
         tableView.getColumns().clear();
+        //noinspection unchecked
         tableView.getColumns().addAll(t1, t2, t3, t4,t5);
 
         t1.setCellValueFactory(new PropertyValueFactory<>("number"));
@@ -480,7 +469,8 @@ public class UI_Controller_main_page implements Initializable {
         lblDarkMode.setText(labels.getString("lblDarkMode"));
         if (togDarkMode.isSelected()) {togDarkMode.setText(labels.getString("togDarkModeOn"));}
         else {togDarkMode.setText(labels.getString("togDarkModeOff"));}
-        lblDefaultDirectory.setText(labels.getString("lblDefaultDirectory"));
+        //lblDefaultDirectory.setText(labels.getString("lblDefaultDirectory"));
+        //  FixMe:  Error when running above line of code, any idea, Topeiner?
 
         initializeTableView(TVTorrentsList, labels);
         initializeTableView(TVDownloadingTorrentsList, labels);

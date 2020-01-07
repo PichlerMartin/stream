@@ -282,62 +282,65 @@
          </VBox.margin>
       </TableView>
    </VBox>
-   <VBox fx:id="VBoxDownloadingTorrents" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #ffffffcf; -fx-background-radius: 50;" visible="false" GridPane.rowIndex="1">
-      <children>
-         <TableView fx:id="TVDownloadingTorrentsList" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: Transparent; -fx-font-size: 17;">
-            <columns>
-               <TableColumn text="Nummer" />
-               <TableColumn prefWidth="100.0" text="Status" />
-               <TableColumn prefWidth="220.0" text="Name" />
-               <TableColumn prefWidth="95.0" text="Fortschritt" />
-               <TableColumn prefWidth="105.0" text="Größe" />
-            </columns>
-            <VBox.margin>
-               <Insets left="50.0" top="40.0" />
-            </VBox.margin>
-         </TableView>
-      </children>
+   <VBox fx:id="VBoxDownloadingTorrents" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+         minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0"
+         style="-fx-background-color: #ffffffcf; -fx-background-radius: 50;" visible="false" GridPane.rowIndex="1">
       <GridPane.margin>
-         <Insets left="450.0" top="50.0" />
+         <Insets left="450.0" top="50.0"/>
       </GridPane.margin>
+      <TableView fx:id="TVDownloadingTorrentsList" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0"
+                 prefWidth="600.0" style="-fx-background-color: Transparent; -fx-font-size: 17;">
+         <columns>
+            <TableColumn text="Nummer"/>
+            <TableColumn prefWidth="100.0" text="Status"/>
+            <TableColumn prefWidth="220.0" text="Name"/>
+            <TableColumn prefWidth="95.0" text="Fortschritt"/>
+            <TableColumn prefWidth="105.0" text="Größe"/>
+         </columns>
+         <VBox.margin>
+            <Insets left="50.0" top="40.0"/>
+         </VBox.margin>
+      </TableView>
    </VBox>
-   <VBox fx:id="VBoxUploadingTorrents" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #ffffffcf; -fx-background-radius: 50;" visible="false" GridPane.rowIndex="1">
-      <children>
-         <TableView fx:id="TVUploadingTorrentsList" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: Transparent; -fx-font-size: 17;">
-            <columns>
-               <TableColumn text="Nummer" />
-               <TableColumn prefWidth="100.0" text="Status" />
-               <TableColumn prefWidth="220.0" text="Name" />
-               <TableColumn prefWidth="95.0" text="Fortschritt" />
-               <TableColumn prefWidth="105.0" text="Größe" />
-            </columns>
-            <VBox.margin>
-               <Insets left="50.0" top="40.0" />
-            </VBox.margin>
-         </TableView>
-      </children>
+   <VBox fx:id="VBoxUploadingTorrents" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+         minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0"
+         style="-fx-background-color: #ffffffcf; -fx-background-radius: 50;" visible="false" GridPane.rowIndex="1">
       <GridPane.margin>
-         <Insets left="450.0" top="50.0" />
+         <Insets left="450.0" top="50.0"/>
       </GridPane.margin>
+      <TableView fx:id="TVUploadingTorrentsList" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0"
+                 prefWidth="600.0" style="-fx-background-color: Transparent; -fx-font-size: 17;">
+         <columns>
+            <TableColumn text="Nummer"/>
+            <TableColumn prefWidth="100.0" text="Status"/>
+            <TableColumn prefWidth="220.0" text="Name"/>
+            <TableColumn prefWidth="95.0" text="Fortschritt"/>
+            <TableColumn prefWidth="105.0" text="Größe"/>
+         </columns>
+         <VBox.margin>
+            <Insets left="50.0" top="40.0"/>
+         </VBox.margin>
+      </TableView>
    </VBox>
-   <VBox fx:id="VBoxFinishedTorrents" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #ffffffcf; -fx-background-radius: 50;" visible="false" GridPane.rowIndex="1">
+   <VBox fx:id="VBoxFinishedTorrents" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+         minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0"
+         style="-fx-background-color: #ffffffcf; -fx-background-radius: 50;" visible="false" GridPane.rowIndex="1">
       <GridPane.margin>
-         <Insets left="450.0" top="50.0" />
+         <Insets left="450.0" top="50.0"/>
       </GridPane.margin>
-      <children>
-         <TableView fx:id="TVFinishedTorrentsList" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: transparent; -fx-font-size: 17;">
-            <VBox.margin>
-               <Insets left="50.0" top="40.0" />
-            </VBox.margin>
-            <columns>
-               <TableColumn text="Nummer" />
-               <TableColumn prefWidth="100.0" text="Status" />
-               <TableColumn prefWidth="220.0" text="Name" />
-               <TableColumn prefWidth="95.0" text="Fortschritt" />
-               <TableColumn prefWidth="105.0" text="Größe" />
-            </columns>
-         </TableView>
-      </children>
+      <TableView fx:id="TVFinishedTorrentsList" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0"
+                 prefWidth="600.0" style="-fx-background-color: transparent; -fx-font-size: 17;">
+         <VBox.margin>
+            <Insets left="50.0" top="40.0"/>
+         </VBox.margin>
+         <columns>
+            <TableColumn text="Nummer"/>
+            <TableColumn prefWidth="100.0" text="Status"/>
+            <TableColumn prefWidth="220.0" text="Name"/>
+            <TableColumn prefWidth="95.0" text="Fortschritt"/>
+            <TableColumn prefWidth="105.0" text="Größe"/>
+         </columns>
+      </TableView>
    </VBox>
    <Label rotate="-19.75" text="share better" textFill="WHITE">
       <font>
