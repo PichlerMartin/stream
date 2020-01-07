@@ -7,11 +7,14 @@ import bt.dht.DHTConfig;
 import bt.dht.DHTModule;
 import bt.runtime.BtClient;
 import bt.runtime.Config;
+import bt.torrent.TorrentRegistry;
 import client.StreamClient;
 import com.google.inject.Module;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -20,14 +23,14 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import meta.Globals;
 import org.apache.commons.io.FilenameUtils;
+import sun.util.locale.LocaleUtils;
 
 import java.io.File;
+import java.lang.reflect.Array;
 import java.net.URL;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
+import java.util.prefs.Preferences;
 
 import static java.nio.file.Files.exists;
 import static meta.Globals.*;
@@ -74,13 +77,58 @@ public class UI_Controller implements Initializable {
     private Button btnHelp;
 
     @FXML
+    private Label lblAddTorrent;
+
+    @FXML
+    private Label lblFileLocation;
+
+    @FXML
+    private Label lblOptions;
+
+    @FXML
+    private Label lblDownloadAll;
+
+    @FXML
+    private Label lblSeedLater;
+
+    @FXML
+    private RadioButton rdoUseMagnetURI;
+
+    @FXML
+    private RadioButton rdoUseTorrentFile;
+
+    @FXML
+    private Label lblUseDefaultPort;
+
+    @FXML
+    private Button btnStartDownload;
+
+    @FXML
     private Button btnAddPartsofTorrent;
 
     @FXML
     private Button btnSelectTorrentFile;
 
     @FXML
-    private Button btnStartDownload;
+    private Label lblSettings;
+
+    @FXML
+    private Label lblLanguage;
+
+    @FXML
+    private Label lblDarkMode;
+
+    @FXML
+    private Label lblDefaultDirectory;
+
+    @FXML
+    private TextField txtDefaultDirectory;
+
+    @FXML
+    private ToggleButton togDarkMode;
+
+    @FXML
+    private Button btnDefaultDirectory;
 
     @FXML
     private CheckBox chbDefaultPort;
@@ -89,16 +137,19 @@ public class UI_Controller implements Initializable {
     private CheckBox chbDownloadAll;
 
     @FXML
-    private CheckBox chbUseTorrentFile;
-
-    @FXML
-    private CheckBox chbUseMagnetURI;
-
-    @FXML
     private ListView<String> livFiles;
 
     @FXML
     private VBox VBoxTorrents;
+
+    @FXML
+    private VBox VBoxDownloadingTorrents;
+
+    @FXML
+    private VBox VBoxUploadingTorrents;
+
+    @FXML
+    private VBox VBoxFinishedTorrents;
 
     @FXML
     ComboBox<String> cboxSelectLanguage;
@@ -106,6 +157,14 @@ public class UI_Controller implements Initializable {
     @FXML
     private TableView TVTorrentsList;
 
+    @FXML
+    private TableView TVDownloadingTorrentsList;
+
+    @FXML
+    private TableView TVUploadingTorrentsList;
+
+    @FXML
+    private TableView TVFinishedTorrentsList;
 
     @FXML
     private GridPane GPAddTorrent;
@@ -119,6 +178,8 @@ public class UI_Controller implements Initializable {
             Locale.GERMAN,
             Locale.ENGLISH
     };
+
+    private Preferences pref = Preferences.userRoot().node(this.getClass().getName());
 
     @SuppressWarnings("Duplicates")
     @Override
@@ -149,10 +210,10 @@ public class UI_Controller implements Initializable {
         Controls.put(btnSelectTorrentFile.getId(), btnSelectTorrentFile.isDisabled());
         Controls.put(btnAddTorrents.getId(), btnAddTorrents.isDisabled());
         Controls.put(btnStartDownload.getId(), btnStartDownload.isDisabled());
-        Controls.put(chbUseTorrentFile.getId(), chbUseTorrentFile.isDisabled());
+        Controls.put(rdoUseTorrentFile.getId(), rdoUseTorrentFile.isDisabled());
         Controls.put(chbDefaultPort.getId(), chbDefaultPort.isDisabled());
         Controls.put(chbDownloadAll.getId(), chbDownloadAll.isDisabled());
-        Controls.put(chbUseMagnetURI.getId(), chbUseMagnetURI.isDisabled());
+        Controls.put(rdoUseMagnetURI.getId(), rdoUseMagnetURI.isDisabled());
         Controls.put(livFiles.getId(), livFiles.isDisabled());
     }
 
@@ -160,7 +221,8 @@ public class UI_Controller implements Initializable {
     public void handleOnClickedbtnTorrents() {
         resetVisibility();
         VBoxTorrents.setVisible(true);
-        TVTorrentsList.setPlaceholder(new Label("No Torrents found!"));
+
+        //TVTorrentsList.getItems().add(new Torrent("1", "done", "Torrent 1", "100%", "500 Mb"));
     }
 
     @FXML
@@ -172,33 +234,103 @@ public class UI_Controller implements Initializable {
     @FXML
     public void handleOnClickedbtnDownloading () {
         resetVisibility();
-        VBoxTorrents.setVisible(true);
-        TVTorrentsList.setPlaceholder(new Label("No downloading Torrents found!"));
+        VBoxDownloadingTorrents.setVisible(true);
+
+        //TVDownloadingTorrentsList.getItems().add(new Torrent("2", "downloading", "Torrent 1", "100%", "500 Mb"));
     }
 
     @FXML
     public void handleOnClickedbtnUploading () {
         resetVisibility();
-        VBoxTorrents.setVisible(true);
-        TVTorrentsList.setPlaceholder(new Label("No uploading Torrents found!"));
+        VBoxUploadingTorrents.setVisible(true);
+
+        //TVUploadingTorrentsList.getItems().add(new Torrent("3", "uploading", "Torrent 1", "100%", "500 Mb"));
     }
 
     @FXML
     public void handleOnClickedbtnFinished () {
+
         resetVisibility();
-        VBoxTorrents.setVisible(true);
-        TVTorrentsList.setPlaceholder(new Label("No Torrents found!"));
+        VBoxFinishedTorrents.setVisible(true);
+
+        //TVFinishedTorrentsList.getItems().add(new Torrent("4", "finished", "Torrent 1", "100%", "500 Mb"));
+    }
+
+    private void initializeTableView (TableView tableView, ResourceBundle labels) {
+
+        tableView.setStyle("-fx-background-color: transparent; -fx-base: None; -fx-font-size: 17; -fx-alignment: center");
+
+        if (tableView.getId().equals(TVTorrentsList.getId())) {
+            tableView.setPlaceholder(new Label(labels.getString("TVTorrents_NoContent")));
+        } else if (tableView.getId().equals(TVDownloadingTorrentsList.getId())) {
+            tableView.setPlaceholder(new Label(labels.getString("TVDownloading_NoContent")));
+        } else if (tableView.getId().equals(TVUploadingTorrentsList.getId())) {
+            tableView.setPlaceholder(new Label(labels.getString("TVUploading_NoContent")));
+        } else if (tableView.getId().equals(TVFinishedTorrentsList.getId())) {
+            tableView.setPlaceholder(new Label(labels.getString("TVFinished_NoContent")));
+        }
+
+        tableView.setVisible(true);
+
+        TableColumn t1 = new TableColumn(labels.getString("TVNumber"));
+        TableColumn t2 = new TableColumn(labels.getString("TVStatus"));
+        TableColumn t3 = new TableColumn(labels.getString("TVName"));
+        TableColumn t4 = new TableColumn(labels.getString("TVProgress"));
+        TableColumn t5 = new TableColumn(labels.getString("TVSize"));
+
+        t1.setPrefWidth(80);
+        t1.setStyle("-fx-alignment: center");
+        t2.setPrefWidth(100);
+        t2.setStyle("-fx-alignment: center");
+        t3.setPrefWidth(220);
+        t3.setStyle("-fx-alignment: center");
+        t4.setPrefWidth(95);
+        t4.setStyle("-fx-alignment: center");
+        t5.setPrefWidth(105);
+        t5.setStyle("-fx-alignment: center");
+
+        tableView.getColumns().clear();
+        tableView.getColumns().addAll(t1, t2, t3, t4,t5);
+
+        t1.setCellValueFactory(new PropertyValueFactory<>("number"));
+        t2.setCellValueFactory(new PropertyValueFactory<>("status"));
+        t3.setCellValueFactory(new PropertyValueFactory<>("name"));
+        t4.setCellValueFactory(new PropertyValueFactory<>("progress"));
+        t5.setCellValueFactory(new PropertyValueFactory<>("size"));
     }
 
     @FXML
     public void handleOnClickedbtnSettings () {
-
         resetVisibility();
         GPSettings.setVisible(true);
+        txtDefaultDirectory.setText(pref.get("DefaultDirectory", ""));
+    }
 
+    @FXML
+    public void handleOnClickedtogDarkMode() {
+        Locale currentLocale = Locale.forLanguageTag(pref.get("language", Locale.GERMAN.toString()));
+        ResourceBundle labels = ResourceBundle.getBundle("ResourceBundle", currentLocale);
+
+        if (togDarkMode.isSelected()) {
+            //enable dark mode
+            togDarkMode.setText(labels.getString("togDarkModeOn"));
+        } else {
+            //disable dark mode
+            togDarkMode.setText(labels.getString("togDarkModeOff"));
+        }
+    }
+
+    @FXML
+    public void handleOnClickedbtnHelp () {
+    }
+
+    private void initalizecboxSelectLanguage () {
         for (Locale loc: supportedLocales) {
             cboxSelectLanguage.getItems().add(loc.getDisplayName());
         }
+
+        Locale currentLoc = Locale.forLanguageTag(pref.get("language", Locale.GERMAN.toString()));
+        cboxSelectLanguage.getSelectionModel().select(currentLoc.getDisplayName());
     }
 
     @FXML
@@ -206,6 +338,7 @@ public class UI_Controller implements Initializable {
         for (Locale loc: supportedLocales) {
             if (loc.getDisplayName().equals(cboxSelectLanguage.getValue())) {
                 changeLanguage(loc);
+                pref.put("language", loc.toString());
             }
         }
     }
@@ -213,21 +346,26 @@ public class UI_Controller implements Initializable {
     @FXML
     public void handleOnClickedbtnStorageLocation () {
 
-        File directory = this.openFileDialog("Speichern unter", FileDialogType.DIRECTORY);
+        Locale currentLocale = Locale.forLanguageTag(pref.get("language", Locale.GERMAN.toString()));
+        ResourceBundle labels = ResourceBundle.getBundle("ResourceBundle", currentLocale);
+
+        File directory = this.openFileDialog(labels.getString("StorageLocSaveAs"), FileDialogType.DIRECTORY);
 
         if (this.isDirectoryValid(directory)){
             txtDownloadLocation.setText(directory.toString());
 
             if (this.checkIfDownloadCanBeInitialized()) prepareDownload();
         } else {
-            this.showWarning("Bitte Verzeichnis wählen",
-                    "Um fortzufahren wählen Sie bitte ein gültiges Verzeichnis.");
+            this.showWarning(labels.getString("DirectoryWarningH"),
+                    labels.getString("DirectoryWarningM"));
         }
     }
 
     private void showWarning(String header, String message) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Warnung");
+        Locale currentLocale = Locale.forLanguageTag(pref.get("language", Locale.GERMAN.toString()));
+        ResourceBundle labels = ResourceBundle.getBundle("ResourceBundle", currentLocale);
+        alert.setTitle(labels.getString("WarningTitle"));
         alert.setHeaderText(header);
         alert.setContentText(message);
         alert.show();
@@ -235,6 +373,9 @@ public class UI_Controller implements Initializable {
 
     private void resetVisibility() {
         VBoxTorrents.setVisible(false);
+        VBoxDownloadingTorrents.setVisible(false);
+        VBoxUploadingTorrents.setVisible(false);
+        VBoxFinishedTorrents.setVisible(false);
         GPAddTorrent.setVisible(false);
         GPSettings.setVisible(false);
 
@@ -251,12 +392,12 @@ public class UI_Controller implements Initializable {
 
     void setParentStage(Stage root) {
 
-        Locale currentLocale = Locale.GERMAN;
+        String prefLanguage = pref.get("language", Locale.GERMAN.toString());
+        Locale currentLocale = Locale.forLanguageTag(prefLanguage);
 
         this.parentStage = root;
-        resetVisibility();
-        VBoxTorrents.setVisible(true);
-        TVTorrentsList.setPlaceholder(new Label("No Torrents found!"));
+        handleOnClickedbtnTorrents();
+        initalizecboxSelectLanguage();
 
         changeLanguage(currentLocale);
     }
@@ -286,10 +427,25 @@ public class UI_Controller implements Initializable {
         btnLeftbtn.setStyle(btnLeftbtn.getStyle() + "; -fx-underline: false; -fx-text-fill: white");
     }
 
+    @FXML
+    public void handleOnSelectFileEntered (MouseEvent event) {
+
+        Button btnEnteredBtn = (Button)event.getSource();
+        btnEnteredBtn.setStyle(btnEnteredBtn.getStyle() + "; -fx-background-color:  #1b3957; -fx-text-fill: white");
+
+    }
+
+    @FXML
+    public void handleOnSelectFileLeft (MouseEvent event) {
+        Button btnLeftbtn = (Button)event.getSource();
+        btnLeftbtn.setStyle(btnLeftbtn.getStyle() + "; -fx-background-color: transparent; -fx-text-fill: black");
+    }
+
 
     private void changeLanguage(Locale loc) {
 
         ResourceBundle labels = ResourceBundle.getBundle("ResourceBundle", loc);
+
         btnTorrents.setText(labels.getString("btnTorrents"));
         btnAddTorrents.setText(labels.getString("btnAddTorrents"));
         btnDownloading.setText(labels.getString("btnDownloading"));
@@ -297,35 +453,86 @@ public class UI_Controller implements Initializable {
         btnFinished.setText(labels.getString("btnFinished"));
         btnSettings.setText(labels.getString("btnSettings"));
         btnHelp.setText(labels.getString("btnHelp"));
+
+        lblAddTorrent.setText(labels.getString("lblAddTorrent"));
+        rdoUseMagnetURI.setText(labels.getString("rdoMagnetURI"));
+        rdoUseTorrentFile.setText(labels.getString("rdoTorrentFile"));
+        lblFileLocation.setText(labels.getString("lblFileLocation"));
+        btnAddPartsofTorrent.setText(labels.getString("btnAddPartsofTorrent"));
+        lblOptions.setText(labels.getString("lblOptions"));
+        lblDownloadAll.setText(labels.getString("lblDownloadAll"));
+        lblSeedLater.setText(labels.getString("lblSeedLater"));
+        lblUseDefaultPort.setText(labels.getString("lblUseDefaultPort"));
+        txtPort.setPromptText(labels.getString("phAlternativePort"));
+        btnStartDownload.setText(labels.getString("btnStartDownload"));
+
+        lblSettings.setText(labels.getString("lblSettings"));
+        lblLanguage.setText(labels.getString("lblLanguage"));
+        lblDarkMode.setText(labels.getString("lblDarkMode"));
+        if (togDarkMode.isSelected()) {togDarkMode.setText(labels.getString("togDarkModeOn"));}
+        else {togDarkMode.setText(labels.getString("togDarkModeOff"));}
+        lblDefaultDirectory.setText(labels.getString("lblDefaultDirectory"));
+
+        initializeTableView(TVTorrentsList, labels);
+        initializeTableView(TVDownloadingTorrentsList, labels);
+        initializeTableView(TVUploadingTorrentsList, labels);
+        initializeTableView(TVFinishedTorrentsList, labels);
+    }
+
+    @FXML
+    public void handleOnClickedbtnDefaultDirectory () {
+
+        Locale currentLocale = Locale.forLanguageTag(pref.get("language", Locale.GERMAN.toString()));
+        ResourceBundle labels = ResourceBundle.getBundle("ResourceBundle", currentLocale);
+        File directory = this.openFileDialog(labels.getString("StorageLocSaveAs"), FileDialogType.DIRECTORY);
+
+        if (this.isDirectoryValid(directory)){
+
+            txtDefaultDirectory.setText(directory.toString());
+            pref.put("DefaultDirectory", directory.toString());
+
+        } else {
+
+            this.showWarning(labels.getString("DirectoryWarningH"),
+                    labels.getString("DirectoryWarningM"));
+
+        }
     }
 
     //region Pichler part
 
     @FXML
     private void handleOnAddSelectedParts(){
+        Locale currentLocale = Locale.forLanguageTag(pref.get("language", Locale.GERMAN.toString()));
+        ResourceBundle labels = ResourceBundle.getBundle("ResourceBundle", currentLocale);
+
         if(chbDownloadAll.isSelected() || livFiles.getSelectionModel().getSelectedItems().size() >= 1){
             btnStartDownload.setDisable(false);
         } else {
-            this.showWarning("Wählen Sie Elemente",
-                    "Um Datein zum Download hinzuzufügen, müssen Sie zuerst Elemente aus der Listbox auswählen, bzw." +
-                            "die rechte Box markieren.");
+            this.showWarning(labels.getString("SelectedPartsWarningH"),
+                    labels.getString("SelectedPartsWarningM"));
         }
     }
 
     @FXML
     public void handleOnDirectorySelected(){
+        Locale currentLocale = Locale.forLanguageTag(pref.get("language", Locale.GERMAN.toString()));
+        ResourceBundle labels = ResourceBundle.getBundle("ResourceBundle", currentLocale);
+
         if (isDirectoryValid(new File(txtDownloadLocation.getText()))){
             if (checkIfDownloadCanBeInitialized())prepareDownload();
         } else {
-            this.showWarning("Bitte Verzeichnis wählen",
-                    "Um fortzufahren wählen Sie bitte ein gültiges Verzeichnis.");
+            this.showWarning(labels.getString("DirectoryWarningH"),
+                    labels.getString("DirectoryWarningM"));
         }
     }
 
     @FXML
     public void handleOnClickedbtnSelectTorrentFile() {
 
-        File torrentfile = this.openFileDialog("Torrent Datei wählen", FileDialogType.TORRENT);
+        Locale currentLocale = Locale.forLanguageTag(pref.get("language", Locale.GERMAN.toString()));
+        ResourceBundle labels = ResourceBundle.getBundle("ResourceBundle", currentLocale);
+        File torrentfile = this.openFileDialog(labels.getString("SelectTorrentFile"), FileDialogType.TORRENT);
 
         if (this.isTorrentFileValid(torrentfile)){
             txtTorrentFile.setText(torrentfile.toString());
@@ -333,13 +540,15 @@ public class UI_Controller implements Initializable {
 
             if (checkIfDownloadCanBeInitialized())prepareDownload();
         } else {
-            this.showWarning("Bitte gültige Torrent Datei wählen",
-                    "Um fortzufahren w\u00e4hlen Sie bitte eine Datei mit der Endung \".torrent\"");
+            this.showWarning(labels.getString("SelectTorrentWarningH"),
+                    labels.getString("SelectTorrentWarningM"));
         }
     }
 
     @FXML
     public void handleOnTorrentFileSelected() {
+        Locale currentLocale = Locale.forLanguageTag(pref.get("language", Locale.GERMAN.toString()));
+        ResourceBundle labels = ResourceBundle.getBundle("ResourceBundle", currentLocale);
         File torrentfile = new File(txtTorrentFile.getText());
 
         if (this.isTorrentFileValid(torrentfile)) {
@@ -348,21 +557,24 @@ public class UI_Controller implements Initializable {
             if (checkIfDownloadCanBeInitialized())prepareDownload();
         }
         else {
-            this.showWarning("Bitte gültige Torrent Datei wählen",
-                    "Um fortzufahren w\u00e4hlen Sie bitte eine Datei mit der Endung \".torrent\"");
+            this.showWarning(labels.getString("SelectTorrentWarningH"),
+                    labels.getString("SelectTorrentWarningM"));
         }
     }
 
     @FXML
     public void handleOnMagnetURIEntered(){
+        Locale currentLocale = Locale.forLanguageTag(pref.get("language", Locale.GERMAN.toString()));
+        ResourceBundle labels = ResourceBundle.getBundle("ResourceBundle", currentLocale);
+
         if (isMagnetLinkValid(txtMagnetURI.getText())) {
             txtDownloadLocation.requestFocus();
 
             if (checkIfDownloadCanBeInitialized())prepareDownload();
         }
         else {
-            showWarning("Magnet URI ungültig",
-                    "Bitte geben Sie eine gültige Magnet URI in das Textfeld ein um fortzufahren");
+            showWarning(labels.getString("MagnetURIWarningH"),
+                    labels.getString("MagnetURIWarningM"));
         }
     }
 
@@ -431,30 +643,26 @@ public class UI_Controller implements Initializable {
 
     @FXML
     public void handleOnUseMagnetURI() {
-        chbUseMagnetURI.setDisable(true);
+
         txtTorrentFile.setDisable(true);
         btnSelectTorrentFile.setDisable(true);
         USE_MAGNET_LINK =true;
 
         USE_TORRENT_FILE =false;
         txtMagnetURI.setDisable(false);
-        chbUseTorrentFile.setDisable(false);
-        chbUseTorrentFile.setSelected(false);
 
         if (checkIfDownloadCanBeInitialized())prepareDownload();
     }
 
     @FXML
     public void handleOnUseTorrentFile() {
-        chbUseTorrentFile.setDisable(true);
+
         txtMagnetURI.setDisable(true);
         USE_TORRENT_FILE =true;
 
         USE_MAGNET_LINK =true;
         btnSelectTorrentFile.setDisable(false);
         txtTorrentFile.setDisable(false);
-        chbUseMagnetURI.setDisable(false);
-        chbUseMagnetURI.setSelected(false);
 
         if (checkIfDownloadCanBeInitialized())prepareDownload();
     }
@@ -462,9 +670,14 @@ public class UI_Controller implements Initializable {
     private File openFileDialog(String header, FileDialogType type) {
         if (type.equals(FileDialogType.DIRECTORY)){
             DirectoryChooser dirChooser = new DirectoryChooser();
-
             dirChooser.setTitle(header);
-            dirChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+
+            File defaultDir = new File(pref.get("DefaultDirectory", "user.home"));
+            if(!defaultDir.exists()) {
+                defaultDir = new File("user.home");
+            }
+
+            dirChooser.setInitialDirectory(new File(pref.get("DefaultDirectory", "user.home")));
             return dirChooser.showDialog(stage);
         } else if (type.equals(FileDialogType.TORRENT)){
             FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Torrent files (*.torrent)", "*.torrent");
