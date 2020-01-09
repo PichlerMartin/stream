@@ -10,6 +10,10 @@ import bt.runtime.BtClient;
 import bt.runtime.Config;
 import client.StreamClient;
 import com.google.inject.Module;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -24,17 +28,18 @@ import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import meta.Globals;
 import org.apache.commons.io.FilenameUtils;
+import org.springframework.cglib.core.Local;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.time.*;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
 import java.util.prefs.Preferences;
 
 import static java.lang.String.format;
@@ -71,7 +76,7 @@ public class UI_Controller_main_page implements Initializable {
     @FXML
     private Button btnSettings;
     @FXML
-    private Button btnHelp;
+    private Button btnAbout;
 
     @FXML
     private Label lblAddTorrent;
@@ -160,12 +165,32 @@ public class UI_Controller_main_page implements Initializable {
     @FXML
     private GridPane GPSettings;
 
+    @FXML
+    private GridPane GPAbout;
+
+    @FXML
+    private Label lblAbout;
+
+    @FXML
+    private Label lblDaysUntilRelease;
+
+    @FXML
+    private Label lblHoursUntilRelease;
+
+    @FXML
+    private Label lblMinutesUntilRelease;
+
+    @FXML
+    private Label lblSecondsUntilRelease;
+
     private Map<String, Boolean> Controls = new HashMap<>();
 
     private Locale[] supportedLocales = {
             Locale.GERMAN,
             Locale.ENGLISH
     };
+
+    private String releaseDate = "03 04 2020", releaseHour = "10", releaseMinute = "00", releaseSecond = "00";
 
     @Deprecated
     public void putFileNameAndChoice(TorrentFile file, boolean b) {
@@ -211,6 +236,10 @@ public class UI_Controller_main_page implements Initializable {
         Controls.put(livFiles.getId(), livFiles.isDisabled());
     }
 
+    /**
+     * function is called if user clicks on menu entry 'Torrents'
+     * sets the visibility of the relevant Vbox true
+     */
     @FXML
     public void handleOnClickedbtnTorrents() {
         resetVisibility();
@@ -219,12 +248,20 @@ public class UI_Controller_main_page implements Initializable {
         //TVTorrentsList.getItems().add(new Torrent("1", "done", "Torrent 1", "100%", "500 Mb"));
     }
 
+    /**
+     * function is called if user clicks on menu entry 'Add Torrents'
+     * sets the visibility of the relevant Vbox true
+     */
     @FXML
     public void handleOnClickedbtnAddTorrents() {
         resetVisibility();
         GPAddTorrent.setVisible(true);
     }
 
+    /**
+     * function is called if user clicks on menu entry 'Downloading'
+     * sets the visibility of the relevant Vbox true
+     */
     @FXML
     public void handleOnClickedbtnDownloading() {
         resetVisibility();
@@ -233,6 +270,10 @@ public class UI_Controller_main_page implements Initializable {
         //TVDownloadingTorrentsList.getItems().add(new Torrent("2", "downloading", "Torrent 1", "100%", "500 Mb"));
     }
 
+    /**
+     * function is called if user clicks on menu entry 'Uploading'
+     * sets the visibility of the relevant Vbox true
+     */
     @FXML
     public void handleOnClickedbtnUploading() {
         resetVisibility();
@@ -241,6 +282,10 @@ public class UI_Controller_main_page implements Initializable {
         //TVUploadingTorrentsList.getItems().add(new Torrent("3", "uploading", "Torrent 1", "100%", "500 Mb"));
     }
 
+    /**
+     * function is called if user clicks on menu entry 'Finished'
+     * sets the visibility of the relevant Vbox true
+     */
     @FXML
     public void handleOnClickedbtnFinished () {
 
@@ -250,10 +295,17 @@ public class UI_Controller_main_page implements Initializable {
         //TVFinishedTorrentsList.getItems().add(new Torrent("4", "finished", "Torrent 1", "100%", "500 Mb"));
     }
 
+    /**
+     * function is used for initializing the given tableView
+     * can also be used for changing the language of columns and the placeholder
+     * @param tableView given tableView which is modified in this method
+     * @param labels contains the values in a given language for the columns and placeholders
+     */
     private void initializeTableView (TableView<Object> tableView, ResourceBundle labels) {
 
         tableView.setStyle("-fx-background-color: transparent; -fx-base: None; -fx-font-size: 17; -fx-alignment: center");
 
+        //checks which tableView is given and sets the matching placeholder
         if (tableView.getId().equals(TVTorrentsList.getId())) {
             tableView.setPlaceholder(new Label(labels.getString("TVTorrents_NoContent")));
         } else if (tableView.getId().equals(TVDownloadingTorrentsList.getId())) {
@@ -266,6 +318,7 @@ public class UI_Controller_main_page implements Initializable {
 
         tableView.setVisible(true);
 
+        //create new columns in the given language
         TableColumn<Object, Object> t1 = new TableColumn<>(labels.getString("TVNumber"));
         TableColumn<Object, Object> t2 = new TableColumn<>(labels.getString("TVStatus"));
         TableColumn<Object, Object> t3 = new TableColumn<>(labels.getString("TVName"));
@@ -285,7 +338,7 @@ public class UI_Controller_main_page implements Initializable {
 
         tableView.getColumns().clear();
         //noinspection unchecked
-        tableView.getColumns().addAll(t1, t2, t3, t4,t5);
+        tableView.getColumns().addAll(t1, t2, t3, t4, t5);
 
         t1.setCellValueFactory(new PropertyValueFactory<>("number"));
         t2.setCellValueFactory(new PropertyValueFactory<>("status"));
@@ -294,6 +347,11 @@ public class UI_Controller_main_page implements Initializable {
         t5.setCellValueFactory(new PropertyValueFactory<>("size"));
     }
 
+    /**
+     * function is called if user clicks on menu entry 'Settings'
+     * sets the visibility of the relevant Gridpane true
+     * writes the default download directory in the textbox
+     */
     @FXML
     public void handleOnClickedbtnSettings() {
 
@@ -302,6 +360,10 @@ public class UI_Controller_main_page implements Initializable {
         txtDefaultDirectory.setText(pref.get("DefaultDirectory", ""));
     }
 
+    /**
+     * function is called if user clicks on toggleButton 'Dark mode'
+     * ToDo: implement .css files for light and dark mode
+     */
     @FXML
     public void handleOnClickedtogDarkMode() {
         Locale currentLocale = Locale.forLanguageTag(pref.get("language", Locale.GERMAN.toString()));
@@ -316,10 +378,21 @@ public class UI_Controller_main_page implements Initializable {
         }
     }
 
+    /**
+     * function is called if user clicks on menu entry 'About'
+     * ToDo: give a short overview over the application and describe how a torrent works and how it can be downloaded or seeded
+     */
     @FXML
-    public void handleOnClickedbtnHelp () {
+    public void handleOnClickedbtnAbout () {
+        resetVisibility();
+        GPAbout.setVisible(true);
     }
 
+    /**
+     * function fills the comboBox with the supported languages
+     * supported languages are stored in the the array supportedLocales
+     * the function also automatically selects the language which has been selected last time
+     */
     private void initalizecboxSelectLanguage () {
         for (Locale loc: supportedLocales) {
             cboxSelectLanguage.getItems().add(loc.getDisplayName());
@@ -329,6 +402,11 @@ public class UI_Controller_main_page implements Initializable {
         cboxSelectLanguage.getSelectionModel().select(currentLoc.getDisplayName());
     }
 
+    /**
+     * function is called if user decides to change language and selects a different language
+     * checks which language has been selected and then calls the function changeLanguage()
+     * writes the language which is currently used in the preferences
+     */
     @FXML
     public void handleOnClickedCbox() {
         for (Locale loc : supportedLocales) {
@@ -339,8 +417,13 @@ public class UI_Controller_main_page implements Initializable {
         }
     }
 
+    /**
+     * function is called if user clicks on the button '...' to change the download directory
+     * if the user selects a valid directory the function prepareDownload() is called
+     * otherwise the function showWarning() is called, which, surprise surprise, shows a given warning
+     */
     @FXML
-    public void handleOnClickedbtnStorageLocation() throws IOException {
+    public void handleOnClickedbtnStorageLocation() {
 
         Locale currentLocale = Locale.forLanguageTag(pref.get("language", Locale.GERMAN.toString()));
         ResourceBundle labels = ResourceBundle.getBundle("ResourceBundle", currentLocale);
@@ -357,6 +440,11 @@ public class UI_Controller_main_page implements Initializable {
         }
     }
 
+    /**
+     * function is called if the user selects a invalid directory or if he closes the
+     * @param header contains the header, which should be shown in the alert
+     * @param message contains the message, which should be shown in the alert
+     */
     private void showWarning(String header, String message) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         Locale currentLocale = Locale.forLanguageTag(pref.get("language", Locale.GERMAN.toString()));
@@ -367,6 +455,9 @@ public class UI_Controller_main_page implements Initializable {
         alert.show();
     }
 
+    /**
+     * function sets the visibility of all Vboxes and GridPanes to false
+     */
     private void resetVisibility() {
         VBoxTorrents.setVisible(false);
         VBoxDownloadingTorrents.setVisible(false);
@@ -374,6 +465,7 @@ public class UI_Controller_main_page implements Initializable {
         VBoxFinishedTorrents.setVisible(false);
         GPAddTorrent.setVisible(false);
         GPSettings.setVisible(false);
+        GPAbout.setVisible(false);
 
         GPAddTorrent.getChildren().forEach(node -> {
             if (Controls.containsKey((node.getId()))) {
@@ -386,9 +478,12 @@ public class UI_Controller_main_page implements Initializable {
         this.stage = CurrentStage;
     }
 
+    /**
+     * function sets the parent stage, gets the preferred language and changes the text of the
+     * ToDo: comment, modify resourceBundels for clock
+     * @param root
+     */
     void setParentStage(Stage root) {
-
-        //pref.clear();
         String prefLanguage = pref.get("language", Locale.GERMAN.toString());
         Locale currentLocale = Locale.forLanguageTag(prefLanguage);
 
@@ -397,6 +492,43 @@ public class UI_Controller_main_page implements Initializable {
         initalizecboxSelectLanguage();
 
         changeLanguage(currentLocale);
+
+        //changes the timer until final release
+        Timeline timerUntilRelease = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+
+                LocalDateTime localDateTime = LocalDateTime.now();
+                LocalDateTime releaseDate = LocalDateTime.of(2020, 04, 03, 10, 00, 00);
+
+                LocalDateTime tempDateTime = LocalDateTime.from(localDateTime);
+
+                String days = String.valueOf(tempDateTime.until(releaseDate, ChronoUnit.DAYS));
+                tempDateTime = tempDateTime.plusDays(Long.valueOf(days));
+
+                String hours = String.valueOf(tempDateTime.until(releaseDate, ChronoUnit.HOURS));
+                tempDateTime = tempDateTime.plusHours(Long.valueOf(hours));
+
+                String minutes = String.valueOf(tempDateTime.until(releaseDate, ChronoUnit.MINUTES));
+                tempDateTime = tempDateTime.plusMinutes(Long.valueOf(minutes));
+
+                String seconds = String.valueOf(tempDateTime.until(releaseDate, ChronoUnit.SECONDS));
+
+                if (days.length() < 2) { days = "0" + days;}
+                if (hours.length() < 2) { hours = "0" + hours;}
+                if (minutes.length() < 2) { minutes = "0" + minutes;}
+                if (seconds.length() < 2) { seconds = "0" + seconds;}
+
+                lblDaysUntilRelease.setText(days);
+                lblHoursUntilRelease.setText(hours);
+                lblMinutesUntilRelease.setText(minutes);
+                lblSecondsUntilRelease.setText(seconds);
+
+            }
+        }));
+        timerUntilRelease.setCycleCount(Timeline.INDEFINITE);
+        timerUntilRelease.play();
     }
 
     /**
@@ -451,7 +583,7 @@ public class UI_Controller_main_page implements Initializable {
         btnUploading.setText(labels.getString("btnUploading"));
         btnFinished.setText(labels.getString("btnFinished"));
         btnSettings.setText(labels.getString("btnSettings"));
-        btnHelp.setText(labels.getString("btnHelp"));
+        btnAbout.setText(labels.getString("btnAbout"));
 
         lblAddTorrent.setText(labels.getString("lblAddTorrent"));
         rdoUseMagnetURI.setText(labels.getString("rdoMagnetURI"));
@@ -464,6 +596,7 @@ public class UI_Controller_main_page implements Initializable {
         lblUseDefaultPort.setText(labels.getString("lblUseDefaultPort"));
         txtPort.setPromptText(labels.getString("phAlternativePort"));
         btnStartDownload.setText(labels.getString("btnStartDownload"));
+        lblAbout.setText(labels.getString("btnAbout"));
 
         lblSettings.setText(labels.getString("lblSettings"));
         lblLanguage.setText(labels.getString("lblLanguage"));
@@ -479,7 +612,7 @@ public class UI_Controller_main_page implements Initializable {
     }
 
     @FXML
-    public void handleOnClickedbtnDefaultDirectory () throws IOException {
+    public void handleOnClickedbtnDefaultDirectory () {
 
         Locale currentLocale = Locale.forLanguageTag(pref.get("language", Locale.GERMAN.toString()));
         ResourceBundle labels = ResourceBundle.getBundle("ResourceBundle", currentLocale);
@@ -527,7 +660,7 @@ public class UI_Controller_main_page implements Initializable {
     }
 
     @FXML
-    public void handleOnClickedbtnSelectTorrentFile() throws IOException {
+    public void handleOnClickedbtnSelectTorrentFile() {
 
         Locale currentLocale = Locale.forLanguageTag(pref.get("language", Locale.GERMAN.toString()));
         ResourceBundle labels = ResourceBundle.getBundle("ResourceBundle", currentLocale);
