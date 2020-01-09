@@ -18,6 +18,13 @@ A simple and comfy torrent client in Java 8
 </p>
 
 ## Update Log
+
+### update 07.01.2020
+the stream client is now in closed-beta phase! the client is now working and options like switching languages with ResourceBundles, setting a default download directory and storing this data in java preferences have already been implemented.<br />
+Here are some pictures of the updated ui:
+![ui-settings](https://i.ibb.co/PmmC3p7/stream-UI-Add-Torrent.png)
+picture of some settings:
+![ui-settings](https://i.ibb.co/ZcqXhyS/stream-UI-Settings.png)
  
 ### update 29.11.2019
  in order to make to function work you need to download the github repository bt-client-demo from its original creator and compile it into a .jar-file using intellij idea. after that, take said .jar and include it in your project as a java library
