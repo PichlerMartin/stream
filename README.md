@@ -15,7 +15,7 @@ A simple and comfy torrent client in Java 8
     stream ist eine kostenlose Applikation zum Dateitransfer, die mithilfe der Programmiersprache Java umgesetzt wurde.</br></br>
     Zur Datenübertragung wird das BitTorrent Protokoll genutzt. Mit diesem Protokoll ist es möglich, einfach und schnell auch große Dateien herunterzuladen und an andere zu verteilen.</br>
   stream ist eine Diplomarbeit von Martin Pichler und Marcel Topeiner, die im Zuge der Ausbildung in der HTL Paul Hahn entstanden ist.
-  Ziel dieser Arbeit war es, eine Java Applikation zu entwerfen, die auch von Personen benutzt werden kann, die sich weniger in dieser Materie auskennen. Trotzdem sollte die UI-Umsetzung möglichst modern und ansprechend aufgebaut sein.</br>
+  Ziel dieser Arbeit war es, eine Java Applikation zu entwerfen, die auch von Personen benutzt werden kann, die sich weniger in dieser Materie auskennen. Trotzdem sollte die UI-Umsetzung möglichst modern und ansprechend aufgebaut sein.</br></br>
 
 <p align="center">
     <img src="https://i.ibb.co/QYwvCdj/demo.gif" alt="Demo GIF">
