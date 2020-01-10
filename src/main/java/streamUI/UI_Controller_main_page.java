@@ -29,23 +29,25 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import meta.Globals;
+import support.Globals;
 import org.apache.commons.io.FilenameUtils;
-import org.springframework.cglib.core.Local;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
-import java.time.*;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
 import static java.lang.String.format;
 import static java.lang.String.join;
 import static java.nio.file.Files.exists;
-import static meta.Globals.*;
+import static support.Globals.*;
 
 public class UI_Controller_main_page implements Initializable {
 

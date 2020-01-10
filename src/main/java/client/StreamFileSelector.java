@@ -24,8 +24,8 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import static java.lang.String.format;
 import static java.lang.String.join;
-import static meta.Globals.FORMAT_DOWNLOAD_PART;
-import static meta.Globals.FORMAT_ILLEGAL_KEYPRESS;
+import static support.Globals.FORMAT_DOWNLOAD_PART;
+import static support.Globals.FORMAT_ILLEGAL_KEYPRESS;
 
 public class StreamFileSelector extends TorrentFileSelector implements Initializable {
 

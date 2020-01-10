@@ -1,4 +1,4 @@
-package meta;
+package support;
 
 import bt.metainfo.TorrentFile;
 

@@ -25,7 +25,6 @@
     <orderEntry type="library" name="com.ning:compress-lzf:LATEST" level="project" />
     <orderEntry type="library" name="org.slf4j:slf4j-simple:LATEST" level="project" />
     <orderEntry type="library" name="org.apache.directory.studio:org.apache.commons.codec:LATEST" level="project" />
-    <orderEntry type="library" name="bt-cli-demo" level="project" />
     <orderEntry type="library" name="Maven: org.jetbrains:annotations:18.0.0" level="project" />
     <orderEntry type="library" name="Maven: commons-io:commons-io:2.5" level="project" />
   </component>

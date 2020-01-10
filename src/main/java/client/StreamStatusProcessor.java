@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import static client.StreamStatusProcessor.ExecutionStage.DOWNLOADING;
 import static java.lang.String.format;
-import static meta.Globals.*;
+import static support.Globals.*;
 
 public class StreamStatusProcessor {
     private AtomicReference<Torrent> torrent;
