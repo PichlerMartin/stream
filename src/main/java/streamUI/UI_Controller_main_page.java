@@ -340,6 +340,10 @@ public class UI_Controller_main_page implements Initializable {
         //noinspection unchecked
         tableView.getColumns().addAll(t1, t2, t3, t4, t5);
 
+        /*
+            ToDo:   add functionality of checkboxes in torrent window
+         */
+
         t1.setCellValueFactory(new PropertyValueFactory<>("number"));
         t2.setCellValueFactory(new PropertyValueFactory<>("status"));
         t3.setCellValueFactory(new PropertyValueFactory<>("name"));
