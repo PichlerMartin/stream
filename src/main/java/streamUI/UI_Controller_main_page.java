@@ -172,6 +172,21 @@ public class UI_Controller_main_page implements Initializable {
     private Label lblAbout;
 
     @FXML
+    private Label lblTimeUntilRelease;
+
+    @FXML
+    private Label lblDays;
+
+    @FXML
+    private Label lblHours;
+
+    @FXML
+    private Label lblMinutes;
+
+    @FXML
+    private Label lblSeconds;
+
+    @FXML
     private Label lblDaysUntilRelease;
 
     @FXML
@@ -182,6 +197,9 @@ public class UI_Controller_main_page implements Initializable {
 
     @FXML
     private Label lblSecondsUntilRelease;
+
+    @FXML
+    private Label lblAboutStream;
 
     private Map<String, Boolean> Controls = new HashMap<>();
 
@@ -604,6 +622,14 @@ public class UI_Controller_main_page implements Initializable {
         if (togDarkMode.isSelected()) {togDarkMode.setText(labels.getString("togDarkModeOn"));}
         else {togDarkMode.setText(labels.getString("togDarkModeOff"));}
         lblDefaultDirectory.setText(labels.getString("lblDefaultDirectory"));
+
+        lblAbout.setText(labels.getString("lblAbout"));
+        lblTimeUntilRelease.setText(labels.getString("lblTimeUntilRelease"));
+        lblDays.setText(labels.getString("lblDays"));
+        lblHours.setText(labels.getString("lblHours"));
+        lblMinutes.setText(labels.getString("lblMinutes"));
+        lblSeconds.setText(labels.getString("lblSeconds"));
+        lblAboutStream.setText(labels.getString("lblAboutStream"));
 
         initializeTableView(TVTorrentsList, labels);
         initializeTableView(TVDownloadingTorrentsList, labels);

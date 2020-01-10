@@ -7,6 +7,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -96,12 +98,12 @@
          <Insets left="70.0" top="311.0" />
       </GridPane.margin>
    </Button>
-   <Button fx:id="btnAbout" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#handleOnClickedbtnAbout" onMouseEntered="#handleOnMenuEntryEntered" onMouseExited="#handleOnMenuEntryLeft" prefWidth="130.0" rotate="-19.5" style="-fx-background-color: transparent;" text="Über" textFill="WHITE" wrapText="true" GridPane.rowIndex="1">
+   <Button fx:id="btnAbout" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#handleOnClickedbtnAbout" onMouseEntered="#handleOnMenuEntryEntered" onMouseExited="#handleOnMenuEntryLeft" prefWidth="180.0" rotate="-19.5" style="-fx-background-color: transparent;" text="Über" textFill="WHITE" wrapText="true" GridPane.rowIndex="1">
       <font>
          <Font name="System Bold" size="34.0" />
       </font>
       <GridPane.margin>
-         <Insets left="89.0" top="435.0" />
+         <Insets left="85.0" top="417.0" />
       </GridPane.margin>
    </Button>
    <GridPane fx:id="GPAddTorrent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #ffffffcf; -fx-background-radius: 50;" visible="false" GridPane.rowIndex="1">
@@ -428,12 +430,12 @@
                <Insets left="60.0" top="-110.0" />
             </GridPane.margin>
          </Label>
-         <Label text="Zeit bis zum Release" textAlignment="CENTER">
+         <Label fx:id="lblTimeUntilRelease" alignment="CENTER" text="Zeit bis zum Release" textAlignment="CENTER">
             <font>
                <Font name="System Bold" size="24.0" />
             </font>
             <GridPane.margin>
-               <Insets left="258.0" />
+               <Insets left="240.0" />
             </GridPane.margin>
          </Label>
          <Label fx:id="lblSecondsUntilRelease" text="0 0" textAlignment="CENTER">
@@ -468,7 +470,7 @@
                <Insets left="225.0" top="175.0" />
             </GridPane.margin>
          </Label>
-         <Label text="Tage" textAlignment="CENTER">
+         <Label fx:id="lblDays" text="Tage" textAlignment="CENTER">
             <font>
                <Font name="System Bold" size="18.0" />
             </font>
@@ -476,7 +478,7 @@
                <Insets left="80.0" top="270.0" />
             </GridPane.margin>
          </Label>
-         <Label text="Minuten" textAlignment="CENTER">
+         <Label fx:id="lblMinutes" text="Minuten" textAlignment="CENTER">
             <font>
                <Font name="System Bold" size="18.0" />
             </font>
@@ -484,7 +486,7 @@
                <Insets left="380.0" top="270.0" />
             </GridPane.margin>
          </Label>
-         <Label text="Sekunden" textAlignment="CENTER">
+         <Label fx:id="lblSeconds" text="Sekunden" textAlignment="CENTER">
             <font>
                <Font name="System Bold" size="18.0" />
             </font>
@@ -492,7 +494,7 @@
                <Insets left="530.0" top="270.0" />
             </GridPane.margin>
          </Label>
-         <Label text="Stunden" textAlignment="CENTER">
+         <Label fx:id="lblHours" text="Stunden" textAlignment="CENTER">
             <font>
                <Font name="System Bold" size="18.0" />
             </font>
@@ -500,9 +502,32 @@
                <Insets left="230.0" top="270.0" />
             </GridPane.margin>
          </Label>
+         <Label fx:id="lblWhatIsStream" text="Was ist stream?" visible="false" GridPane.rowIndex="1">
+            <font>
+               <Font name="System Bold" size="18.0" />
+            </font>
+            <padding>
+               <Insets left="75.0" top="-120.0" />
+            </padding>
+         </Label>
+         <Label fx:id="lblAboutStream" prefWidth="550.0" text="stream ist eine kostenlose Applikation zum Dateitransfer, die mithilfe der Programmiersprache Java umgesetzt wurde.\nZur Datenübertragung wird das BitTorrent Protokoll genutzt.\  Mit diesem Protokoll ist es möglich, einfach und schnell auch große Dateien herunterzuladen und an andere zu verteilen.\n\  stream ist eine Diplomarbeit von Martin Pichler und Marcel Topeiner, die im Zuge der Ausbildung in der HTL Paul Hahn entstanden ist.\n\  Ziel dieser Arbeit war es, eine Java Applikation zu entwerfen, die auch von Personen benutzt werden kann, die sich weniger in dieser Materie auskennen.\  Trotzdem sollte die UI-Umsetzung möglichst modern und ansprechend aufgebaut sein." visible="false" wrapText="true" GridPane.rowIndex="1">
+            <font>
+               <Font name="System Bold" size="15.0" />
+            </font>
+            <GridPane.margin>
+               <Insets left="75.0" top="60.0" />
+            </GridPane.margin>
+            <padding>
+               <Insets top="15.0" />
+            </padding>
+            <graphic>
+               <ScrollBar orientation="VERTICAL" />
+            </graphic>
+         </Label>
       </children>
       <GridPane.margin>
          <Insets left="450.0" top="50.0" />
       </GridPane.margin>
    </GridPane>
+   <ScrollPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ffffffcf; -fx-background-radius: 50;" vbarPolicy="NEVER" visible="false" GridPane.rowIndex="1" />
 </GridPane>
