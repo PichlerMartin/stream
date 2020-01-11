@@ -1,0 +1,2 @@
+# Contribution guidlines
+if you want to contribute your own code to stream, please fork our repository and design your ideas on an own branch. when you are done with your work carry on to proposing a pull-request in order to give the stream-team the possibility to review your work. after that we'll decide whether we will allow you to push your code to the master branch of stream. thank you for your understanding
