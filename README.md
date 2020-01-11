@@ -28,6 +28,9 @@ A simple and comfy torrent client in Java 8
     <img src="https://i.ibb.co/QYwvCdj/demo.gif" alt="Demo GIF">
 </p>
 
+## Announcement
+because of the broad positive feedback which we received during the doors-open-days on the 10th and 11th of january we will leave this repository open to the public indefinitely
+
 ## Update Log
 
 ### update 07.01.2020
