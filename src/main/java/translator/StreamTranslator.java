@@ -1,14 +1,20 @@
 package translator;
 
+import com.gtranslate.Language;
+import com.gtranslate.Translator;
+
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Scanner;
 
 /**
  * https://whatsmate.github.io/2016-08-18-translate-text-java/
  */
-public class Translator {
+public class StreamTranslator {
     private static final String CLIENT_ID = "FREE_TRIAL_ACCOUNT";
     private static final String CLIENT_SECRET = "PUBLIC_SECRET";
     private static final String ENDPOINT = "http://api.whatsmate.net/v1/translation/translate";
@@ -22,7 +28,7 @@ public class Translator {
         String toLang = "es";
         String text = "Let's have some fun!";
 
-        List<String> properties = Translator.readFile();
+        List<String> properties = StreamTranslator.readFile();
         List<String> words = new ArrayList<>();
 
         for (String s:properties
@@ -32,7 +38,12 @@ public class Translator {
             }
         }
 
-        Translator.translate(fromLang, toLang, text);
+        //  code for google-translator api, does not work anymore, returns http error
+        Translator translate = Translator.getInstance();
+        text = translate.translate("Hello!", Language.ENGLISH, Language.ROMANIAN);
+        System.out.println(text); // "Bună ziua!"
+
+        StreamTranslator.translate(fromLang, toLang, text);
     }
 
     private static ArrayList<String> readFile(){
