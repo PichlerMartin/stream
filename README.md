@@ -71,7 +71,9 @@ picture of some settings:
  ![ui](https://i.ibb.co/ZHqmm01/MainPage.png)
 -->
 
-* **[HOME](https://github.com/PichlerMartin/stream)** – repository with documentation (please request after finishing
+## Navigation
+
+* **[HOME](https://github.com/PichlerMartin/stream)** – repository with documentation (will be added april 2020)
 * **[TROUBLESHOOTING](#troubleshooting)** - solutions for some common problems
 
 ## Media
