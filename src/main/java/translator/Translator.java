@@ -26,6 +26,10 @@ public class Translator {
         Translator.translate(fromLang, toLang, text);
     }
 
+    private static void translateProperties(){
+
+    }
+
     /**
      * Sends out a WhatsApp message via WhatsMate WA Gateway.
      */
