@@ -23,8 +23,11 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -199,7 +202,16 @@ public class UI_Controller_main_page implements Initializable {
     private Label lblSecondsUntilRelease;
 
     @FXML
-    private Label lblAboutStream;
+    private Label lblWhatIsStream;
+
+    @FXML
+    private TextFlow lblAboutStream;
+
+    @FXML
+    private ScrollPane sPaneAboutStream;
+
+    @FXML
+    private AnchorPane aPaneAboutStream;
 
     private Map<String, Boolean> Controls = new HashMap<>();
 
@@ -498,7 +510,7 @@ public class UI_Controller_main_page implements Initializable {
 
     /**
      * function sets the parent stage, gets the preferred language and changes the text of the
-     * ToDo: comment, modify resourceBundels for clock
+     * ToDo: comment, modify resourceBundles for clock
      * @param root
      */
     void setParentStage(Stage root) {
@@ -508,6 +520,9 @@ public class UI_Controller_main_page implements Initializable {
         this.parentStage = root;
         handleOnClickedbtnTorrents();
         initalizecboxSelectLanguage();
+        root.setOnShown(e ->
+                sPaneAboutStream.lookup(".scroll-pane").lookup(".viewport").setStyle("-fx-background-color:  #transparent; -fx-blend-mode: src-over"));
+        aPaneAboutStream.setStyle("-fx-background-color:  #transparent;");
 
         changeLanguage(currentLocale);
 
@@ -629,7 +644,9 @@ public class UI_Controller_main_page implements Initializable {
         lblHours.setText(labels.getString("lblHours"));
         lblMinutes.setText(labels.getString("lblMinutes"));
         lblSeconds.setText(labels.getString("lblSeconds"));
-        lblAboutStream.setText(labels.getString("lblAboutStream"));
+
+        lblWhatIsStream.setText(labels.getString("lblWhatIsStream"));
+        lblAboutStream.getChildren().add(new Text(labels.getString("lblAboutStream")));
 
         initializeTableView(TVTorrentsList, labels);
         initializeTableView(TVDownloadingTorrentsList, labels);
@@ -664,7 +681,7 @@ public class UI_Controller_main_page implements Initializable {
         Locale currentLocale = Locale.forLanguageTag(pref.get("language", Locale.GERMAN.toString()));
         ResourceBundle labels = ResourceBundle.getBundle("ResourceBundle", currentLocale);
 
-        if(chbDownloadAll.isSelected() || livFiles.getSelectionModel().getSelectedItems().size() >= 1){
+        if(chbDownloadAll.isSelected() || livFiles.getSelectionModel().getSelectedItems().size() >= 1) {
             btnStartDownload.setDisable(false);
         } else {
             this.showWarning(labels.getString("SelectedPartsWarningH"),

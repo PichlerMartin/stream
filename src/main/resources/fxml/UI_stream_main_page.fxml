@@ -7,18 +7,20 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.ScrollBar?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.TextFlow?>
 
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" style="-fx-background-repeat: no-repeat; -fx-background-color: #1b3957;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="streamUI.UI_Controller_main_page">
    <columnConstraints>
@@ -422,6 +424,140 @@
          <RowConstraints maxHeight="292.2666412353516" minHeight="10.0" prefHeight="226.1333251953125" vgrow="SOMETIMES" />
       </rowConstraints>
       <children>
+         <ScrollPane fx:id="sPaneAboutStream" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="380.0" prefWidth="650.0" style="-fx-background-color: transparent;">
+            <GridPane.margin>
+               <Insets left="25.0" top="315.0" />
+            </GridPane.margin>
+            <content>
+               <AnchorPane fx:id="aPaneAboutStream" style="-fx-background-color: transparent;">
+                  <children>
+                     <GridPane prefHeight="380.0" prefWidth="650.0" style="-fx-background-color: transparent;">
+                       <columnConstraints>
+                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                       </columnConstraints>
+                       <rowConstraints>
+                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       </rowConstraints>
+                        <children>
+                           <Rectangle arcHeight="5.0" arcWidth="5.0" blendMode="SRC_ATOP" fill="#1b3957" height="110.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="110.0">
+                              <GridPane.margin>
+                                 <Insets left="35.0" top="70.0" />
+                              </GridPane.margin>
+                           </Rectangle>
+                           <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1b3957" height="110.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="110.0">
+                              <GridPane.margin>
+                                 <Insets left="186.0" top="72.0" />
+                              </GridPane.margin>
+                           </Rectangle>
+                           <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1b3957" height="110.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="110.0">
+                              <GridPane.margin>
+                                 <Insets left="340.0" top="70.0" />
+                              </GridPane.margin>
+                           </Rectangle>
+                           <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1b3957" height="110.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="110.0">
+                              <GridPane.margin>
+                                 <Insets left="490.0" top="70.0" />
+                              </GridPane.margin>
+                           </Rectangle>
+                           <Label fx:id="lblTimeUntilRelease" alignment="CENTER" text="Zeit bis zum Release" textAlignment="CENTER">
+                              <font>
+                                 <Font name="System Bold" size="24.0" />
+                              </font>
+                              <GridPane.margin>
+                                 <Insets left="240.0" top="-125.0" />
+                              </GridPane.margin>
+                           </Label>
+                           <Label fx:id="lblSecondsUntilRelease" text="00" textAlignment="CENTER" textFill="WHITE">
+                              <font>
+                                 <Font name="System Bold" size="72.0" />
+                              </font>
+                              <GridPane.margin>
+                                 <Insets left="504.0" top="72.0" />
+                              </GridPane.margin>
+                           </Label>
+                           <Label fx:id="lblMinutesUntilRelease" text="00" textAlignment="CENTER" textFill="WHITE">
+                              <font>
+                                 <Font name="System Bold" size="72.0" />
+                              </font>
+                              <GridPane.margin>
+                                 <Insets left="353.0" top="72.0" />
+                              </GridPane.margin>
+                           </Label>
+                           <Label fx:id="lblDaysUntilRelease" text="00" textAlignment="CENTER" textFill="WHITE">
+                              <font>
+                                 <Font name="System Bold" size="72.0" />
+                              </font>
+                              <GridPane.margin>
+                                 <Insets left="50.0" top="72.0" />
+                              </GridPane.margin>
+                           </Label>
+                           <Label fx:id="lblHoursUntilRelease" text="00" textAlignment="CENTER" textFill="WHITE">
+                              <font>
+                                 <Font name="System Bold" size="72.0" />
+                              </font>
+                              <GridPane.margin>
+                                 <Insets left="200.0" top="72.0" />
+                              </GridPane.margin>
+                           </Label>
+                           <Label fx:id="lblDays" text="Tage" textAlignment="CENTER">
+                              <font>
+                                 <Font name="System Bold" size="18.0" />
+                              </font>
+                              <GridPane.margin>
+                                 <Insets left="62.0" top="330.0" />
+                              </GridPane.margin>
+                              <padding>
+                                 <Insets left="-25.0" top="-130.0" />
+                              </padding>
+                           </Label>
+                           <Label fx:id="lblMinutes" text="Minuten" textAlignment="CENTER">
+                              <font>
+                                 <Font name="System Bold" size="18.0" />
+                              </font>
+                              <GridPane.margin>
+                                 <Insets left="366.0" top="330.0" />
+                              </GridPane.margin>
+                              <padding>
+                                 <Insets left="-25.0" top="-130.0" />
+                              </padding>
+                           </Label>
+                           <Label fx:id="lblSeconds" text="Sekunden" textAlignment="CENTER">
+                              <font>
+                                 <Font name="System Bold" size="18.0" />
+                              </font>
+                              <GridPane.margin>
+                                 <Insets left="517.0" top="330.0" />
+                              </GridPane.margin>
+                              <padding>
+                                 <Insets left="-25.0" top="-130.0" />
+                              </padding>
+                           </Label>
+                           <Label fx:id="lblHours" text="Stunden" textAlignment="CENTER">
+                              <font>
+                                 <Font name="System Bold" size="18.0" />
+                              </font>
+                              <GridPane.margin>
+                                 <Insets left="212.0" top="330.0" />
+                              </GridPane.margin>
+                              <padding>
+                                 <Insets left="-25.0" top="-130.0" />
+                              </padding>
+                           </Label>
+                           <Label fx:id="lblWhatIsStream" text="Was ist stream?" textAlignment="JUSTIFY">
+                              <font>
+                                 <Font name="System Bold" size="18.0" />
+                              </font>
+                              <GridPane.margin>
+                                 <Insets left="40.0" top="290.0" />
+                              </GridPane.margin>
+                           </Label>
+                        </children>
+                     </GridPane>
+                  </children>
+               </AnchorPane>
+            </content>
+         </ScrollPane>
          <Label fx:id="lblAbout" text="Über">
             <font>
                <Font name="System Bold" size="30.0" />
@@ -430,104 +566,14 @@
                <Insets left="60.0" top="-110.0" />
             </GridPane.margin>
          </Label>
-         <Label fx:id="lblTimeUntilRelease" alignment="CENTER" text="Zeit bis zum Release" textAlignment="CENTER">
-            <font>
-               <Font name="System Bold" size="24.0" />
-            </font>
+         <TextFlow fx:id="lblAboutStream" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="150.0" prefWidth="500.0" visible="false" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="NEVER">
             <GridPane.margin>
-               <Insets left="240.0" />
+               <Insets left="42.0" top="70.0" />
             </GridPane.margin>
-         </Label>
-         <Label fx:id="lblSecondsUntilRelease" text="0 0" textAlignment="CENTER">
-            <font>
-               <Font name="System Bold" size="72.0" />
-            </font>
-            <GridPane.margin>
-               <Insets left="525.0" top="175.0" />
-            </GridPane.margin>
-         </Label>
-         <Label fx:id="lblMinutesUntilRelease" text="0 0" textAlignment="CENTER">
-            <font>
-               <Font name="System Bold" size="72.0" />
-            </font>
-            <GridPane.margin>
-               <Insets left="375.0" top="175.0" />
-            </GridPane.margin>
-         </Label>
-         <Label fx:id="lblDaysUntilRelease" text="0 0" textAlignment="CENTER">
-            <font>
-               <Font name="System Bold" size="72.0" />
-            </font>
-            <GridPane.margin>
-               <Insets left="75.0" top="175.0" />
-            </GridPane.margin>
-         </Label>
-         <Label fx:id="lblHoursUntilRelease" text="0 0" textAlignment="CENTER">
-            <font>
-               <Font name="System Bold" size="72.0" />
-            </font>
-            <GridPane.margin>
-               <Insets left="225.0" top="175.0" />
-            </GridPane.margin>
-         </Label>
-         <Label fx:id="lblDays" text="Tage" textAlignment="CENTER">
-            <font>
-               <Font name="System Bold" size="18.0" />
-            </font>
-            <GridPane.margin>
-               <Insets left="80.0" top="270.0" />
-            </GridPane.margin>
-         </Label>
-         <Label fx:id="lblMinutes" text="Minuten" textAlignment="CENTER">
-            <font>
-               <Font name="System Bold" size="18.0" />
-            </font>
-            <GridPane.margin>
-               <Insets left="380.0" top="270.0" />
-            </GridPane.margin>
-         </Label>
-         <Label fx:id="lblSeconds" text="Sekunden" textAlignment="CENTER">
-            <font>
-               <Font name="System Bold" size="18.0" />
-            </font>
-            <GridPane.margin>
-               <Insets left="530.0" top="270.0" />
-            </GridPane.margin>
-         </Label>
-         <Label fx:id="lblHours" text="Stunden" textAlignment="CENTER">
-            <font>
-               <Font name="System Bold" size="18.0" />
-            </font>
-            <GridPane.margin>
-               <Insets left="230.0" top="270.0" />
-            </GridPane.margin>
-         </Label>
-         <Label fx:id="lblWhatIsStream" text="Was ist stream?" visible="false" GridPane.rowIndex="1">
-            <font>
-               <Font name="System Bold" size="18.0" />
-            </font>
-            <padding>
-               <Insets left="75.0" top="-120.0" />
-            </padding>
-         </Label>
-         <Label fx:id="lblAboutStream" prefWidth="550.0" text="stream ist eine kostenlose Applikation zum Dateitransfer, die mithilfe der Programmiersprache Java umgesetzt wurde.\nZur Datenübertragung wird das BitTorrent Protokoll genutzt.\  Mit diesem Protokoll ist es möglich, einfach und schnell auch große Dateien herunterzuladen und an andere zu verteilen.\n\  stream ist eine Diplomarbeit von Martin Pichler und Marcel Topeiner, die im Zuge der Ausbildung in der HTL Paul Hahn entstanden ist.\n\  Ziel dieser Arbeit war es, eine Java Applikation zu entwerfen, die auch von Personen benutzt werden kann, die sich weniger in dieser Materie auskennen.\  Trotzdem sollte die UI-Umsetzung möglichst modern und ansprechend aufgebaut sein." visible="false" wrapText="true" GridPane.rowIndex="1">
-            <font>
-               <Font name="System Bold" size="15.0" />
-            </font>
-            <GridPane.margin>
-               <Insets left="75.0" top="60.0" />
-            </GridPane.margin>
-            <padding>
-               <Insets top="15.0" />
-            </padding>
-            <graphic>
-               <ScrollBar orientation="VERTICAL" />
-            </graphic>
-         </Label>
+         </TextFlow>
       </children>
       <GridPane.margin>
          <Insets left="450.0" top="50.0" />
       </GridPane.margin>
    </GridPane>
-   <ScrollPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ffffffcf; -fx-background-radius: 50;" vbarPolicy="NEVER" visible="false" GridPane.rowIndex="1" />
 </GridPane>
