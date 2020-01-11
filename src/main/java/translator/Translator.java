@@ -3,10 +3,7 @@ package translator;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * https://whatsmate.github.io/2016-08-18-translate-text-java/
@@ -25,24 +22,36 @@ public class Translator {
         String toLang = "es";
         String text = "Let's have some fun!";
 
-        List<Object> text = Translator.readFile();
+        List<String> properties = Translator.readFile();
+        List<String> words = new ArrayList<>();
+
+        for (String s:properties
+             ) {
+            if (!s.equals("") && s.contains("=")){
+                words.add(s.split("=")[1].replaceFirst(" ", ""));
+            }
+        }
 
         Translator.translate(fromLang, toLang, text);
     }
 
     private static ArrayList<String> readFile(){
         Scanner s = null;
+
         try {
-            s = new Scanner(new File(Objects.requireNonNull(Translator.class.getClassLoader().getResource("database.properties")).getFile()));
+            System.out.println(System.getProperty("user.dir"));
+            s = new Scanner(new File("src\\main\\resources\\ResourceBundle_en.properties"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
         //noinspection MismatchedQueryAndUpdateOfCollection
         ArrayList<String> list = new ArrayList<String>();
         while (Objects.requireNonNull(s).hasNext()){
-            list.add(s.next());
+            list.add(s.nextLine());
         }
         s.close();
+        return list;
     }
 
     /**
