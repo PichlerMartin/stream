@@ -121,10 +121,13 @@ picture of some settings:
  
 ## What makes stream stand out from the crowd
 
-### nice name
+### modern user interface
 
-it does what it says
+the simple and neat user interface makes stream to one of the best available torrent-clients when it comes to accessibility. it is designed to leave no room for confusion and should convince even the least tech-savvy users to try it out on their own.
 
+### fast downloads
+
+with help of the BitTorrent-protocol, stream manages to use its resources more efficient than other applications like most internet browsers. this enables stream to achieve better download-stats and helps you both save time and nerves when downloading big files.
 ### And much more...
 
 * _**check out [Release Notes](https://github.com/atomashpolskiy/bt/blob/master/RELEASE-NOTES.md#bt-release-notes) for details!**_
