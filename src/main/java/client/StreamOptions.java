@@ -16,6 +16,7 @@ public class StreamOptions {
     private Integer dhtPort;
     private boolean downloadAllFiles;
 
+    @Deprecated
     public StreamOptions(File metainfoFile, String magnetUri, File targetDirectory, boolean seedAfterDownloaded, boolean sequential, boolean enforceEncryption, boolean verboseLogging, boolean traceLogging, String inetAddress, Integer port, Integer dhtPort, boolean downloadAllFiles) {
         this.metainfoFile = metainfoFile;
         this.magnetUri = magnetUri;
@@ -31,15 +32,35 @@ public class StreamOptions {
         this.downloadAllFiles = downloadAllFiles;
     }
 
+    public StreamOptions(String magnetUri, File metainfoFile, File targetDirectory, boolean seedAfterDownloaded, boolean downloadAllFiles, boolean useDefaultPort, Integer port, boolean useMagnetLink, boolean useTorrentFile) {
+        this.seedAfterDownloaded = seedAfterDownloaded;
+        this.downloadAllFiles = downloadAllFiles;
+        this.targetDirectory = targetDirectory;
+
+        if (!useDefaultPort){
+            this.port = port;
+        }
+
+        if (useMagnetLink && !useTorrentFile){
+            this.magnetUri = magnetUri;
+        } else if (useTorrentFile && !useMagnetLink){
+            this.metainfoFile = metainfoFile;
+        } else {
+            Thread.currentThread().interrupt();
+        }
+    }
+
     public StreamOptions(String magnetUri, File targetDirectory) {
         this.magnetUri = magnetUri;
         this.targetDirectory = targetDirectory;
     }
 
+    @Deprecated
     public StreamOptions(String magnetUri) {
         this.magnetUri = magnetUri;
     }
 
+    @Deprecated
     public StreamOptions(File metainfoFile) {
         this.metainfoFile = metainfoFile;
     }

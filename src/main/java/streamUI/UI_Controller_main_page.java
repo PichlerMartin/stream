@@ -29,6 +29,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import support.Globals;
 
 import java.io.File;
@@ -219,8 +220,6 @@ public class UI_Controller_main_page implements Initializable {
             Locale.FRENCH,
             new Locale("en")
     };
-
-    private String releaseDate = "03 04 2020", releaseHour = "10", releaseMinute = "00", releaseSecond = "00";
 
     @Deprecated
     public void putFileNameAndChoice(TorrentFile file) {
@@ -515,7 +514,7 @@ public class UI_Controller_main_page implements Initializable {
     /**
      * function sets the parent stage, gets the preferred language and changes the text of the
      * ToDo: comment, modify resourceBundles for clock
-     * @param root
+     * @param root: root stage
      */
     void setParentStage(Stage root) {
         String prefLanguage = pref.get("language", Locale.GERMAN.toString());
@@ -777,7 +776,7 @@ public class UI_Controller_main_page implements Initializable {
 
     @FXML
     private void handleOnStartDownload() {
-        new Thread(() -> StreamClient.main(new String[]{"-d", Globals.DOWNLOAD_DIRECTORY, "-m", Globals.MAGNET_LINK})).start();
+        new Thread(() -> StreamClient.main(new String[]{Globals.DOWNLOAD_DIRECTORY, Globals.MAGNET_LINK})).start();
         /*
         Code below calls showTorrentPartsStage(), new window is displayed
         FIXME:  Implement new window with torrent parts
@@ -962,6 +961,26 @@ public class UI_Controller_main_page implements Initializable {
         TORRENT_FILE = txtTorrentFile.getText();
         DOWNLOAD_DIRECTORY = txtDownloadLocation.getText();
         DIRECTORY_SELECTED = true;
+
+        /*
+        String magnetUri
+        File metainfoFile
+        boolean seedAfterDownloaded
+        boolean useMagnetLink
+        boolean useTorrentFile
+
+         */
+        DOWNLOAD_ALL = chbDownloadAll.isSelected();
+        USE_DEFAULT_PORT = chbDefaultPort.isSelected();
+
+        if(!USE_DEFAULT_PORT){
+            int port;
+            if (NumberUtils.isDigits(txtPort.getText())){
+                if (1 <= Integer.parseInt(txtPort.getText()) && (port = Integer.parseInt(txtPort.getText())) < 65535){
+                    PORT = port;
+                }
+            }
+        }
 
         this.onDirectorySelected();
     }

@@ -66,7 +66,7 @@ public class StreamClient {
     }
 
     public static void main(String[] args) {
-        StreamOptions options = new StreamOptions(args[3], new File(args[1]));
+        StreamOptions options = new StreamOptions(args[1], new File(args[0]));
 
         SupportMethods.configureLogging(options.getLogLevel());
         SupportMethods.configureSecurity(LOGGER);
