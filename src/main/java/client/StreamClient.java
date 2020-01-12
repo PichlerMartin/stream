@@ -43,7 +43,7 @@ public class StreamClient {
         PieceSelector selector = options.downloadSequentially() ? SequentialSelector.sequential() : RarestFirstSelector.randomizedRarest();
         BtClientBuilder clientBuilder = Bt.client(runtime).storage(storage).selector(selector);
 
-        if (!options.shouldDownloadAllFiles()) {
+        if (options.shouldDownloadAllFiles()) {
             StreamFileSelector fileSelector = new StreamFileSelector();
             clientBuilder.fileSelector(fileSelector);
             runtime.service(IRuntimeLifecycleBinder.class).onShutdown(fileSelector::shutdown);
@@ -66,7 +66,8 @@ public class StreamClient {
     }
 
     public static void main(String[] args) {
-        StreamOptions options = new StreamOptions(args[1], new File(args[0]));
+        //  ToDo:   test implementation below, whether values have been initialized correctly or not
+        StreamOptions options = new StreamOptions(args[0], new File(args[2]), new File(args[1]), Boolean.valueOf(args[8]), Boolean.valueOf(args[3]), Boolean.valueOf(args[4]), Integer.valueOf(args[5]), Boolean.valueOf(args[6]), Boolean.valueOf(args[7]));
 
         SupportMethods.configureLogging(options.getLogLevel());
         SupportMethods.configureSecurity(LOGGER);

@@ -30,7 +30,6 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.math.NumberUtils;
-import support.Globals;
 
 import java.io.File;
 import java.io.IOException;
@@ -776,13 +775,15 @@ public class UI_Controller_main_page implements Initializable {
 
     @FXML
     private void handleOnStartDownload() {
-        new Thread(() -> StreamClient.main(new String[]{Globals.MAGNET_LINK,
-                Globals.DOWNLOAD_DIRECTORY,
-                TORRENT_FILE, DOWNLOAD_ALL.toString(),
+        new Thread(() -> StreamClient.main(new String[]{MAGNET_LINK,
+                DOWNLOAD_DIRECTORY,
+                TORRENT_FILE,
+                DOWNLOAD_ALL.toString(),
                 USE_DEFAULT_PORT.toString(),
                 PORT.toString(),
                 USE_MAGNET_LINK.toString(),
-                USE_TORRENT_FILE.toString()})).start();
+                USE_TORRENT_FILE.toString(),
+                SEED_AFTER_DOWNLOAD.toString()})).start();
 
         /*
         Code below calls showTorrentPartsStage(), new window is displayed

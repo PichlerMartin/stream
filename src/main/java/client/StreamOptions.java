@@ -32,7 +32,7 @@ public class StreamOptions {
         this.downloadAllFiles = downloadAllFiles;
     }
 
-    public StreamOptions(String magnetUri, File metainfoFile, File targetDirectory, boolean seedAfterDownloaded, boolean downloadAllFiles, boolean useDefaultPort, Integer port, boolean useMagnetLink, boolean useTorrentFile) {
+    StreamOptions(String magnetUri, File metainfoFile, File targetDirectory, boolean seedAfterDownloaded, boolean downloadAllFiles, boolean useDefaultPort, Integer port, boolean useMagnetLink, boolean useTorrentFile) {
         this.seedAfterDownloaded = seedAfterDownloaded;
         this.downloadAllFiles = downloadAllFiles;
         this.targetDirectory = targetDirectory;
@@ -108,7 +108,7 @@ public class StreamOptions {
     }
 
     boolean shouldDownloadAllFiles() {
-        return !this.downloadAllFiles;
+        return this.downloadAllFiles;
     }
 
     public enum LogLevel {
