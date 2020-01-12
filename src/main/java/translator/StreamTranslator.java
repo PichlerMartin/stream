@@ -1,109 +1,49 @@
 package translator;
 
-import com.gtranslate.Language;
-import com.gtranslate.Translator;
+import com.google.api.services.translate.model.TranslateTextRequest;
+import com.google.cloud.translate.v3beta1.LocationName;
+import com.google.cloud.translate.v3beta1.TranslateTextResponse;
+import com.google.cloud.translate.v3beta1.TranslationServiceClient;
 
-import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Scanner;
-
-/**
- * https://whatsmate.github.io/2016-08-18-translate-text-java/
- */
-public class StreamTranslator {
-    private static final String CLIENT_ID = "FREE_TRIAL_ACCOUNT";
-    private static final String CLIENT_SECRET = "PUBLIC_SECRET";
-    private static final String ENDPOINT = "http://api.whatsmate.net/v1/translation/translate";
-
+public abstract class StreamTranslator{
     /**
-     * Entry Point
+     * Translates a given text to a target language.
+     * https://cloud.google.com/translate/docs/quickstart-client-libraries-v3
+     *
+     * @param projectId - Id of the project.
+     * @param location - location name.
+     * @param text - Text for translation.
+     * @param sourceLanguageCode - Language code of text. e.g. "en"
+     * @param targetLanguageCode - Language code for translation. e.g. "sr"
      */
-    public static void main(String[] args) throws Exception {
-        // TODO: specify language here
-        String fromLang = "en";
-        String toLang = "es";
-        String text = "Let's have some fun!";
+    static TranslateTextResponse translateText(
+            String projectId,
+            String location,
+            String text,
+            String sourceLanguageCode,
+            String targetLanguageCode) {
+        try (TranslationServiceClient translationServiceClient = TranslationServiceClient.create()) {
 
-        List<String> properties = StreamTranslator.readFile();
-        List<String> words = new ArrayList<>();
+            LocationName locationName =
+                    LocationName.newBuilder().setProject(projectId).setLocation(location).build();
 
-        for (String s:properties
-             ) {
-            if (!s.equals("") && s.contains("=")){
-                words.add(s.split("=")[1].replaceFirst(" ", ""));
-            }
+            TranslateTextRequest translateTextRequest =
+                    TranslateTextRequest.newBuilder()
+                            .setParent(locationName.toString())
+                            .setMimeType("text/plain")
+                            .setSourceLanguageCode(sourceLanguageCode)
+                            .setTargetLanguageCode(targetLanguageCode)
+                            .addContents(text)
+                            .build();
+
+            // Call the API
+            TranslateTextResponse response = translationServiceClient.translateText(translateTextRequest);
+            System.out.format(
+                    "Translated Text: %s", response.getTranslationsList().get(0).getTranslatedText());
+            return response;
+
+        } catch (Exception e) {
+            throw new RuntimeException("Couldn't create client.", e);
         }
-
-        //  code for google-translator api, does not work anymore, returns http error
-        Translator translate = Translator.getInstance();
-        text = translate.translate("Hello!", Language.ENGLISH, Language.ROMANIAN);
-        System.out.println(text); // "Bună ziua!"
-
-        StreamTranslator.translate(fromLang, toLang, text);
     }
-
-    private static ArrayList<String> readFile(){
-        Scanner s = null;
-
-        try {
-            System.out.println(System.getProperty("user.dir"));
-            s = new Scanner(new File("src\\main\\resources\\ResourceBundle_en.properties"));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        //noinspection MismatchedQueryAndUpdateOfCollection
-        ArrayList<String> list = new ArrayList<String>();
-        while (Objects.requireNonNull(s).hasNext()){
-            list.add(s.nextLine());
-        }
-        s.close();
-        return list;
-    }
-
-    /**
-     * Sends out a WhatsApp message via WhatsMate WA Gateway.
-     */
-    private static void translate(String fromLang, String toLang, String text) throws Exception {
-        String jsonPayload = "{" +
-                "\"fromLang\":\"" +
-                fromLang +
-                "\"," +
-                "\"toLang\":\"" +
-                toLang +
-                "\"," +
-                "\"text\":\"" +
-                text +
-                "\"" +
-                "}";
-
-        URL url = new URL(ENDPOINT);
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setDoOutput(true);
-        conn.setRequestMethod("POST");
-        conn.setRequestProperty("X-WM-CLIENT-ID", CLIENT_ID);
-        conn.setRequestProperty("X-WM-CLIENT-SECRET", CLIENT_SECRET);
-        conn.setRequestProperty("Content-Type", "application/json");
-
-        OutputStream os = conn.getOutputStream();
-        os.write(jsonPayload.getBytes());
-        os.flush();
-        os.close();
-
-        int statusCode = conn.getResponseCode();
-        System.out.println("Status Code: " + statusCode);
-        BufferedReader br = new BufferedReader(new InputStreamReader(
-                (statusCode == 200) ? conn.getInputStream() : conn.getErrorStream()
-        ));
-        String output;
-        while ((output = br.readLine()) != null) {
-            System.out.println(output);
-        }
-        conn.disconnect();
-    }
-
 }
