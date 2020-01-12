@@ -12,8 +12,6 @@ import client.StreamClient;
 import com.google.inject.Module;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -26,14 +24,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import support.Globals;
 import org.apache.commons.io.FilenameUtils;
+import support.Globals;
 
 import java.io.File;
 import java.io.IOException;
@@ -227,7 +223,7 @@ public class UI_Controller_main_page implements Initializable {
     private String releaseDate = "03 04 2020", releaseHour = "10", releaseMinute = "00", releaseSecond = "00";
 
     @Deprecated
-    public void putFileNameAndChoice(TorrentFile file, boolean b) {
+    public void putFileNameAndChoice(TorrentFile file) {
         livFiles.getItems().add(format("%s", join("/", file.getPathElements())));
         livFiles.getSelectionModel().select(format("%s", join("/", file.getPathElements())));
     }
@@ -536,38 +532,34 @@ public class UI_Controller_main_page implements Initializable {
         changeLanguage(currentLocale);
 
         //changes the timer until final release
-        Timeline timerUntilRelease = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
+        Timeline timerUntilRelease = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
 
-            @Override
-            public void handle(ActionEvent event) {
+            LocalDateTime localDateTime = LocalDateTime.now();
+            LocalDateTime releaseDate = LocalDateTime.of(2020, 4, 3, 10, 0, 0);
 
-                LocalDateTime localDateTime = LocalDateTime.now();
-                LocalDateTime releaseDate = LocalDateTime.of(2020, 04, 03, 10, 00, 00);
+            LocalDateTime tempDateTime = LocalDateTime.from(localDateTime);
 
-                LocalDateTime tempDateTime = LocalDateTime.from(localDateTime);
+            String days = String.valueOf(tempDateTime.until(releaseDate, ChronoUnit.DAYS));
+            tempDateTime = tempDateTime.plusDays(Long.valueOf(days));
 
-                String days = String.valueOf(tempDateTime.until(releaseDate, ChronoUnit.DAYS));
-                tempDateTime = tempDateTime.plusDays(Long.valueOf(days));
+            String hours = String.valueOf(tempDateTime.until(releaseDate, ChronoUnit.HOURS));
+            tempDateTime = tempDateTime.plusHours(Long.valueOf(hours));
 
-                String hours = String.valueOf(tempDateTime.until(releaseDate, ChronoUnit.HOURS));
-                tempDateTime = tempDateTime.plusHours(Long.valueOf(hours));
+            String minutes = String.valueOf(tempDateTime.until(releaseDate, ChronoUnit.MINUTES));
+            tempDateTime = tempDateTime.plusMinutes(Long.valueOf(minutes));
 
-                String minutes = String.valueOf(tempDateTime.until(releaseDate, ChronoUnit.MINUTES));
-                tempDateTime = tempDateTime.plusMinutes(Long.valueOf(minutes));
+            String seconds = String.valueOf(tempDateTime.until(releaseDate, ChronoUnit.SECONDS));
 
-                String seconds = String.valueOf(tempDateTime.until(releaseDate, ChronoUnit.SECONDS));
+            if (days.length() < 2) { days = "0" + days;}
+            if (hours.length() < 2) { hours = "0" + hours;}
+            if (minutes.length() < 2) { minutes = "0" + minutes;}
+            if (seconds.length() < 2) { seconds = "0" + seconds;}
 
-                if (days.length() < 2) { days = "0" + days;}
-                if (hours.length() < 2) { hours = "0" + hours;}
-                if (minutes.length() < 2) { minutes = "0" + minutes;}
-                if (seconds.length() < 2) { seconds = "0" + seconds;}
+            lblDaysUntilRelease.setText(days);
+            lblHoursUntilRelease.setText(hours);
+            lblMinutesUntilRelease.setText(minutes);
+            lblSecondsUntilRelease.setText(seconds);
 
-                lblDaysUntilRelease.setText(days);
-                lblHoursUntilRelease.setText(hours);
-                lblMinutesUntilRelease.setText(minutes);
-                lblSecondsUntilRelease.setText(seconds);
-
-            }
         }));
         timerUntilRelease.setCycleCount(Timeline.INDEFINITE);
         timerUntilRelease.play();
@@ -575,10 +567,10 @@ public class UI_Controller_main_page implements Initializable {
 
     private void initializeSPane(ScrollPane sPane) {
         sPane.setPrefSize(650, 380);
-        aPaneAboutStream.setTopAnchor(sPane, 0.);
-        aPaneAboutStream.setRightAnchor(sPane, 0.);
-        aPaneAboutStream.setBottomAnchor(sPane, 0.);
-        aPaneAboutStream.setLeftAnchor(sPane, 0.);
+        AnchorPane.setTopAnchor(sPane, 0.);
+        AnchorPane.setRightAnchor(sPane, 0.);
+        AnchorPane.setBottomAnchor(sPane, 0.);
+        AnchorPane.setLeftAnchor(sPane, 0.);
     }
 
     /**
@@ -780,13 +772,7 @@ public class UI_Controller_main_page implements Initializable {
 
     @FXML
     private void handleOnStartDownload() {
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        new Thread(this::ownTorrentImplementation).start();
-
+        new Thread(() -> StreamClient.main(new String[]{"-d", Globals.DOWNLOAD_DIRECTORY, "-m", Globals.MAGNET_LINK})).start();
         /*
         Code below calls showTorrentPartsStage(), new window is displayed
         FIXME:  Implement new window with torrent parts
@@ -797,12 +783,6 @@ public class UI_Controller_main_page implements Initializable {
             e.printStackTrace();
         }
         */
-
-        // Does not work, prints errors
-        // Update 30.12.2019, 18:25: now works
-
-        // new Thread(this::AtomashpolskiyExample).start();
-        // Works, prints status warnings
     }
 
     @Deprecated
@@ -829,9 +809,9 @@ public class UI_Controller_main_page implements Initializable {
 
     /**
      * Description
-     * Diese Methode besteht aus dem Example welche von dem Ersteller der Bt-Bibliothek, atomashpolskiy,
-     * zur Verf&uuml;gnug gestellt wurde.
-     * <p>
+     * example method provided by github user atomashpolskiy, creator of bt-library,
+     * used to demonstrate the basic capabilities of the java torrent implementation
+     *
      * https://github.com/atomashpolskiy/bittorrent
      */
     @Deprecated
@@ -865,10 +845,6 @@ public class UI_Controller_main_page implements Initializable {
                 .build();
 
         client.startAsync().join();
-    }
-
-    private void ownTorrentImplementation() {
-        StreamClient.main(new String[]{"-d", Globals.DOWNLOAD_DIRECTORY, "-m", Globals.MAGNET_LINK});
     }
 
     @FXML

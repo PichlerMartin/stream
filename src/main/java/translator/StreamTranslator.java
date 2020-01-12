@@ -27,6 +27,7 @@ public abstract class StreamTranslator{
      *
      * https://cloud.google.com/docs/authentication/production?hl=de
      * https://cloud.google.com/docs/authentication/getting-started?hl=de
+     *
      *  @param projectId - Id of the project.
      * @param location - location name.
      * @param text - Text for translation.
@@ -65,7 +66,7 @@ public abstract class StreamTranslator{
 
     /**
      * Desc:
-     * test driver for translateText method above
+     * test driver for translateText method written above
      */
     public static void main() {
         translateText("test1", "home", "Hello world", "en", "sr");
