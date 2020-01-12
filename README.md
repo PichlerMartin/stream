@@ -31,48 +31,13 @@ A simple and comfy torrent client in Java 8
 ## Announcement
 because of the broad positive feedback which we received during the doors-open-days on the 10th and 11th of january we will leave this repository open to the public indefinitely
 
-## Update Log
+## User interface
 
-### update 07.01.2020
-the stream client is now in closed-beta phase! the client is now working and options like switching languages with ResourceBundles, setting a default download directory and storing this data in java preferences have already been implemented.<br />
 Here are some pictures of the updated ui:
 ![ui-settings](https://i.ibb.co/PmmC3p7/stream-UI-Add-Torrent.png)
+
 picture of some settings:
 ![ui-settings](https://i.ibb.co/ZcqXhyS/stream-UI-Settings.png)
-
-### update 29.11.2019
- in order to make to function work you need to download the github repository bt-client-demo from its original creator and compile it into a .jar-file using intellij idea. after that, take said .jar and include it in your project as a java library
- 
-### update 11.08.2019
- the stream torrent client is now working in demo mode! the first "version" of stream is now live an can be used trough the environment  of your ide. all you have to do is follow the installation instructions below and locate the file "UI_Controller.java" where you can insert a magnet-link and begin downloading.
- 
-### update 29.07.2019
- worked out some test cases for the bt torrent library, updated ui design and readme.md, 
- further updates to be announced
- 
-### udpate 21.07.2019
- cloned private repository from my github account to this repository, further updates comming soon ...
- 
-<!--
-## use stream the way you like
- use stream to upload and download your favourite files, 
- you even can create torrents on your own!
--->
- 
-<!--
-## ui preview (updated!)
-![ui](https://i.ibb.co/jrQTcF3/Entwurf3.png)
--->
-
-<!--
-# splash screen preview
- ![splasj screen](https://i.ibb.co/G0877sL/Whats-App-Image-2019-07-29-at-01-07-26.jpg)
--->
-
-<!--
-# ui preview
- ![ui](https://i.ibb.co/ZHqmm01/MainPage.png)
--->
 
 ## Navigation
 
