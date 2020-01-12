@@ -219,7 +219,9 @@ public class UI_Controller_main_page implements Initializable {
 
     private Locale[] supportedLocales = {
             Locale.GERMAN,
-            Locale.ENGLISH
+            Locale.ENGLISH,
+            Locale.FRENCH,
+            new Locale("en")
     };
 
     private String releaseDate = "03 04 2020", releaseHour = "10", releaseMinute = "00", releaseSecond = "00";
