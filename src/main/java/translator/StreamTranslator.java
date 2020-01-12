@@ -1,7 +1,7 @@
 package translator;
 
-import com.google.api.services.translate.model.TranslateTextRequest;
 import com.google.cloud.translate.v3beta1.LocationName;
+import com.google.cloud.translate.v3beta1.TranslateTextRequest;
 import com.google.cloud.translate.v3beta1.TranslateTextResponse;
 import com.google.cloud.translate.v3beta1.TranslationServiceClient;
 
