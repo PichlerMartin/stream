@@ -962,14 +962,6 @@ public class UI_Controller_main_page implements Initializable {
         DOWNLOAD_DIRECTORY = txtDownloadLocation.getText();
         DIRECTORY_SELECTED = true;
 
-        /*
-        String magnetUri
-        File metainfoFile
-        boolean seedAfterDownloaded
-        boolean useMagnetLink
-        boolean useTorrentFile
-
-         */
         DOWNLOAD_ALL = chbDownloadAll.isSelected();
         USE_DEFAULT_PORT = chbDefaultPort.isSelected();
 
@@ -981,6 +973,9 @@ public class UI_Controller_main_page implements Initializable {
                 }
             }
         }
+
+        USE_MAGNET_LINK = rdoUseMagnetURI.isSelected();
+        USE_TORRENT_FILE = rdoUseTorrentFile.isSelected();
 
         this.onDirectorySelected();
     }
