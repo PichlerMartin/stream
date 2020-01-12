@@ -43,7 +43,7 @@ public class StreamClient {
         PieceSelector selector = options.downloadSequentially() ? SequentialSelector.sequential() : RarestFirstSelector.randomizedRarest();
         BtClientBuilder clientBuilder = Bt.client(runtime).storage(storage).selector(selector);
 
-        if (options.shouldDownloadAllFiles()) {
+        if (!options.shouldDownloadAllFiles()) {
             StreamFileSelector fileSelector = new StreamFileSelector();
             clientBuilder.fileSelector(fileSelector);
             runtime.service(IRuntimeLifecycleBinder.class).onShutdown(fileSelector::shutdown);
