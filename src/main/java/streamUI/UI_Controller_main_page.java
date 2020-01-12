@@ -765,9 +765,14 @@ public class UI_Controller_main_page implements Initializable {
     @FXML
     private void onDirectorySelected() {
         livFiles.getItems().clear();
-        livFiles.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
-        this.btnAddPartsofTorrent.setDisable(false);
+        if(livFiles.isDisabled()){
+            this.btnStartDownload.setDisable(false);
+        } else {
+            livFiles.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+            this.btnAddPartsofTorrent.setDisable(false);
+        }
     }
 
     @FXML
