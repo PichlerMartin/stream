@@ -233,7 +233,7 @@ public class UI_Controller_main_page implements Initializable {
     @Override
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
-        int maxLength = 6;
+        int maxLength = 5;
 
         //  forces the field txtPort to be numeric only
         //  https://stackoverflow.com/questions/7555564/what-is-the-recommended-way-to-make-a-numeric-textfield-in-javafx
@@ -776,7 +776,14 @@ public class UI_Controller_main_page implements Initializable {
 
     @FXML
     private void handleOnStartDownload() {
-        new Thread(() -> StreamClient.main(new String[]{Globals.DOWNLOAD_DIRECTORY, Globals.MAGNET_LINK})).start();
+        new Thread(() -> StreamClient.main(new String[]{Globals.MAGNET_LINK,
+                Globals.DOWNLOAD_DIRECTORY,
+                TORRENT_FILE, DOWNLOAD_ALL.toString(),
+                USE_DEFAULT_PORT.toString(),
+                PORT.toString(),
+                USE_MAGNET_LINK.toString(),
+                USE_TORRENT_FILE.toString()})).start();
+
         /*
         Code below calls showTorrentPartsStage(), new window is displayed
         FIXME:  Implement new window with torrent parts
