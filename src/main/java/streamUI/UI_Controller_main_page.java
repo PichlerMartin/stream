@@ -205,7 +205,7 @@ public class UI_Controller_main_page implements Initializable {
     private Label lblWhatIsStream;
 
     @FXML
-    private TextFlow lblAboutStream;
+    private Label lblAboutStream;
 
     @FXML
     private ScrollPane sPaneAboutStream;
@@ -520,6 +520,7 @@ public class UI_Controller_main_page implements Initializable {
         this.parentStage = root;
         handleOnClickedbtnTorrents();
         initalizecboxSelectLanguage();
+        initializeSPane(sPaneAboutStream);
         root.setOnShown(e ->
                 sPaneAboutStream.lookup(".scroll-pane").lookup(".viewport").setStyle("-fx-background-color:  #transparent; -fx-blend-mode: src-over"));
         aPaneAboutStream.setStyle("-fx-background-color:  #transparent;");
@@ -562,6 +563,14 @@ public class UI_Controller_main_page implements Initializable {
         }));
         timerUntilRelease.setCycleCount(Timeline.INDEFINITE);
         timerUntilRelease.play();
+    }
+
+    private void initializeSPane(ScrollPane sPane) {
+        sPane.setPrefSize(650, 380);
+        aPaneAboutStream.setTopAnchor(sPane, 0.);
+        aPaneAboutStream.setRightAnchor(sPane, 0.);
+        aPaneAboutStream.setBottomAnchor(sPane, 0.);
+        aPaneAboutStream.setLeftAnchor(sPane, 0.);
     }
 
     /**
@@ -646,7 +655,7 @@ public class UI_Controller_main_page implements Initializable {
         lblSeconds.setText(labels.getString("lblSeconds"));
 
         lblWhatIsStream.setText(labels.getString("lblWhatIsStream"));
-        lblAboutStream.getChildren().add(new Text(labels.getString("lblAboutStream")));
+        lblAboutStream.setText(labels.getString("lblAboutStream"));
 
         initializeTableView(TVTorrentsList, labels);
         initializeTableView(TVDownloadingTorrentsList, labels);

@@ -20,7 +20,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.TextFlow?>
 
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" style="-fx-background-repeat: no-repeat; -fx-background-color: #1b3957;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="streamUI.UI_Controller_main_page">
    <columnConstraints>
@@ -429,7 +428,7 @@
                <Insets left="25.0" top="315.0" />
             </GridPane.margin>
             <content>
-               <AnchorPane fx:id="aPaneAboutStream" style="-fx-background-color: transparent;">
+               <AnchorPane fx:id="aPaneAboutStream" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" style="-fx-background-color: transparent;">
                   <children>
                      <GridPane prefHeight="380.0" prefWidth="650.0" style="-fx-background-color: transparent;">
                        <columnConstraints>
@@ -505,44 +504,32 @@
                                  <Font name="System Bold" size="18.0" />
                               </font>
                               <GridPane.margin>
-                                 <Insets left="62.0" top="330.0" />
+                                 <Insets left="35.0" top="205.0" />
                               </GridPane.margin>
-                              <padding>
-                                 <Insets left="-25.0" top="-130.0" />
-                              </padding>
                            </Label>
                            <Label fx:id="lblMinutes" text="Minuten" textAlignment="CENTER">
                               <font>
                                  <Font name="System Bold" size="18.0" />
                               </font>
                               <GridPane.margin>
-                                 <Insets left="366.0" top="330.0" />
+                                 <Insets left="341.0" top="205.0" />
                               </GridPane.margin>
-                              <padding>
-                                 <Insets left="-25.0" top="-130.0" />
-                              </padding>
                            </Label>
                            <Label fx:id="lblSeconds" text="Sekunden" textAlignment="CENTER">
                               <font>
                                  <Font name="System Bold" size="18.0" />
                               </font>
                               <GridPane.margin>
-                                 <Insets left="517.0" top="330.0" />
+                                 <Insets left="491.0" top="205.0" />
                               </GridPane.margin>
-                              <padding>
-                                 <Insets left="-25.0" top="-130.0" />
-                              </padding>
                            </Label>
                            <Label fx:id="lblHours" text="Stunden" textAlignment="CENTER">
                               <font>
                                  <Font name="System Bold" size="18.0" />
                               </font>
                               <GridPane.margin>
-                                 <Insets left="212.0" top="330.0" />
+                                 <Insets left="187.0" top="205.0" />
                               </GridPane.margin>
-                              <padding>
-                                 <Insets left="-25.0" top="-130.0" />
-                              </padding>
                            </Label>
                            <Label fx:id="lblWhatIsStream" text="Was ist stream?" textAlignment="JUSTIFY">
                               <font>
@@ -551,6 +538,14 @@
                               <GridPane.margin>
                                  <Insets left="40.0" top="290.0" />
                               </GridPane.margin>
+                           </Label>
+                           <Label fx:id="lblAboutStream" text="Label" wrapText="true" GridPane.rowIndex="1">
+                              <GridPane.margin>
+                                 <Insets left="40.0" top="70.0" />
+                              </GridPane.margin>
+                              <font>
+                                 <Font size="18.0" />
+                              </font>
                            </Label>
                         </children>
                      </GridPane>
@@ -566,11 +561,6 @@
                <Insets left="60.0" top="-110.0" />
             </GridPane.margin>
          </Label>
-         <TextFlow fx:id="lblAboutStream" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="150.0" prefWidth="500.0" visible="false" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="NEVER">
-            <GridPane.margin>
-               <Insets left="42.0" top="70.0" />
-            </GridPane.margin>
-         </TextFlow>
       </children>
       <GridPane.margin>
          <Insets left="450.0" top="50.0" />
