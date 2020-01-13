@@ -2,6 +2,7 @@ package support;
 
 import java.nio.file.Paths;
 
+@SuppressWarnings("all")
 public class Globals {
     /**
      * String-formatters
@@ -16,8 +17,11 @@ public class Globals {
      */
     public static String TORRENT_FILE = "src\\main\\resources\\torrents\\KNOPPIX_V8.2-2018-05-10-EN.torrent";
     public static String ABSOLUTE_PATH_TORRENT_FILE = "C:\\Users\\Pichler Martin\\Desktop\\BlueSoft\\Diplomarbeit\\stream\\src\\main\\resources\\torrents\\KNOPPIX_V8.2-2018-05-10-EN.torrent";
+    public static String TORRENT_FILE2 = "src\\main\\resources\\torrents\\A97DE1B7DA9E60BD3C5E23D850C0406A5D0AA1AF.torrent";
+    public static String ABSOLUTE_PATH_TORRENT_FILE2 = "C:\\Users\\Pichler Martin\\Desktop\\BlueSoft\\Diplomarbeit\\stream\\src\\main\\resources\\torrents\\A97DE1B7DA9E60BD3C5E23D850C0406A5D0AA1AF.torrent";
     public static String DOWNLOAD_DIRECTORY = Paths.get(System.getProperty("user.home"), "Downloads").toString();
     public static String MAGNET_LINK = "magnet:?xt=urn:btih:eed0984ee5d0d9d150d6b1a0e7e57e0b8ef7e61e&dn=KNOPPIX_V8.2-2018-05-10-EN";
+    public static String MAGNET_LINK2= "magnet:?xt=urn:btih:a97de1b7da9e60bd3c5e23d850c0406a5d0aa1af&dn=Betternet+VPN+For+Windows+5.3.0.433+Premium+Pre-Activated%5BBabuPC&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969";
     /**
      * Conditional varibales
      */
