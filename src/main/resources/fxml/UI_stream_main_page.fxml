@@ -127,7 +127,7 @@
             <Font name="System Bold" size="17.0" />
          </font>
          <toggleGroup>
-            <ToggleGroup/>
+            <ToggleGroup fx:id="TGAddTorrent" />
          </toggleGroup>
       </RadioButton>
       <TextField fx:id="txtDownloadLocation" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" onAction="#handleOnDirectorySelected" prefWidth="250.0">
