@@ -221,10 +221,8 @@ public class UI_Controller_main_page implements Initializable {
             Locale.GERMAN,
             Locale.ENGLISH,
             Locale.FRENCH,
-            new Locale("en")
+            new Locale("es")
     };
-
-    private String releaseDate = "03 04 2020", releaseHour = "10", releaseMinute = "00", releaseSecond = "00";
 
     @Deprecated
     public void putFileNameAndChoice(TorrentFile file, boolean b) {
@@ -418,7 +416,7 @@ public class UI_Controller_main_page implements Initializable {
 
     /**
      * function is called if user clicks on menu entry 'About'
-     * ToDo: give a short overview over the application and describe how a torrent works and how it can be downloaded or seeded
+     * gives a short overview over the application and describe how a torrent works and how it can be downloaded or seeded
      */
     @FXML
     public void handleOnClickedbtnAbout () {
@@ -517,8 +515,9 @@ public class UI_Controller_main_page implements Initializable {
     }
 
     /**
-     * function sets the parent stage, gets the preferred language and changes the text of the
-     * ToDo: comment, modify resourceBundles for clock
+     * function sets the parent stage, gets the preferred language and changes the text off all objects depending on the language
+     * calls several functions which are initializing objects like checkboxes and Scrollpane
+     * this function calls every second a other function, which updates the timer until release
      * @param root
      */
     void setParentStage(Stage root) {
@@ -531,7 +530,6 @@ public class UI_Controller_main_page implements Initializable {
         initializeSPane(sPaneAboutStream);
         root.setOnShown(e ->
                 sPaneAboutStream.lookup(".scroll-pane").lookup(".viewport").setStyle("-fx-background-color:  #transparent; -fx-blend-mode: src-over"));
-        aPaneAboutStream.setStyle("-fx-background-color:  #transparent;");
 
         changeLanguage(currentLocale);
 
@@ -573,6 +571,10 @@ public class UI_Controller_main_page implements Initializable {
         timerUntilRelease.play();
     }
 
+    /**
+     * function, which initializes the given ScrollPane
+     * @param sPane: pane, which is initialized
+     */
     private void initializeSPane(ScrollPane sPane) {
         sPane.setPrefSize(650, 380);
         aPaneAboutStream.setTopAnchor(sPane, 0.);
@@ -582,9 +584,8 @@ public class UI_Controller_main_page implements Initializable {
     }
 
     /**
-     * This method is called by buttons, which have been entered
+     * This method is called by menu buttons, which have been entered
      * It changes the style and the colour of the text in the caller button
-     *
      * @param event: is used to retrieve the source of the event
      */
     @FXML
@@ -597,8 +598,7 @@ public class UI_Controller_main_page implements Initializable {
 
     /**
      * This method changes the style and colour of the caller button back to the original state
-     * If the mouse leaves one of the buttons, this method is called
-     *
+     * If the mouse leaves one of the menu buttons, this method is called
      * @param event: is used to retrieve the source of the event
      */
     @FXML
@@ -608,6 +608,11 @@ public class UI_Controller_main_page implements Initializable {
         btnLeftbtn.setStyle(btnLeftbtn.getStyle() + "; -fx-underline: false; -fx-text-fill: white");
     }
 
+    /**
+     * This method is called by select file buttons, which have been entered
+     * It changes the style and the colour of the text in the caller button
+     * @param event: is used to retrieve the source of the event
+     */
     @FXML
     public void handleOnSelectFileEntered (MouseEvent event) {
 
@@ -616,6 +621,11 @@ public class UI_Controller_main_page implements Initializable {
 
     }
 
+    /**
+     * This method changes the style and colour of the caller button back to the original state
+     * If the mouse leaves one of the select file buttons, this method is called
+     * @param event: is used to retrieve the source of the event
+     */
     @FXML
     public void handleOnSelectFileLeft (MouseEvent event) {
         Button btnLeftbtn = (Button)event.getSource();
@@ -623,6 +633,10 @@ public class UI_Controller_main_page implements Initializable {
     }
 
 
+    /**
+     * changes the language of all objects to the given language using ResourceBundles
+     * @param loc: the given ResourceBundle, which contains the text for the depending object
+     */
     private void changeLanguage(Locale loc) {
 
         ResourceBundle labels = ResourceBundle.getBundle("ResourceBundle", loc);
@@ -671,6 +685,11 @@ public class UI_Controller_main_page implements Initializable {
         initializeTableView(TVFinishedTorrentsList, labels);
     }
 
+    /**
+     * function is called, if user clicks on the button 'Select default directory' below the menu entry 'Settings'
+     * opens a file dialog, checks if the selected path is valid and saves this path in the preferences
+     * if the selected path is invalid, it calls the function showWarning() and shows a warning
+     */
     @FXML
     public void handleOnClickedbtnDefaultDirectory () {
 
