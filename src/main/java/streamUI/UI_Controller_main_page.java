@@ -51,6 +51,8 @@ import static support.Globals.*;
 public class UI_Controller_main_page implements Initializable {
 
     @FXML
+    public ToggleGroup TGAddTorrent;
+    @FXML
     ComboBox<String> cboxSelectLanguage;
     @FXML
     private Stage parentStage;
@@ -78,6 +80,8 @@ public class UI_Controller_main_page implements Initializable {
     private Button btnSettings;
     @FXML
     private Button btnAbout;
+    @FXML
+    public Button btnDefaultDirectory;
 
     @FXML
     private Label lblAddTorrent;
@@ -120,10 +124,13 @@ public class UI_Controller_main_page implements Initializable {
     private Label lblDarkMode;
 
     @FXML
+    private Label lblDefaultDirectory;
+
+    @FXML
     private CheckBox chbDefaultPort;
 
     @FXML
-    private Label lblDefaultDirectory;
+    private CheckBox chbSeedAfterDownload;
 
     @FXML
     private CheckBox chbDownloadAll;
@@ -514,7 +521,7 @@ public class UI_Controller_main_page implements Initializable {
      * function sets the parent stage, gets the preferred language and changes the text off all objects depending on the language
      * calls several functions which are initializing objects like checkboxes and Scrollpane
      * this function calls every second a other function, which updates the timer until release
-     * @param root
+     * @param root: the root stage
      */
     void setParentStage(Stage root) {
         String prefLanguage = pref.get("language", Locale.GERMAN.toString());
@@ -943,11 +950,6 @@ public class UI_Controller_main_page implements Initializable {
         }
     }
 
-    @FXML
-    public void handleOnClickedSeedAfterDownload() {
-        SEED_AFTER_DOWNLOAD = !SEED_AFTER_DOWNLOAD;
-    }
-
     private boolean isDirectoryValid(File directory) {
         return directory != null && !directory.getPath().equals("") && directory.isDirectory() && exists(directory.toPath()) && exists(directory.toPath());
     }
@@ -993,6 +995,7 @@ public class UI_Controller_main_page implements Initializable {
 
         DOWNLOAD_ALL = chbDownloadAll.isSelected();
         USE_DEFAULT_PORT = chbDefaultPort.isSelected();
+        SEED_AFTER_DOWNLOAD = chbSeedAfterDownload.isSelected();
 
         if(!USE_DEFAULT_PORT){
             int port;

@@ -444,121 +444,119 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                </rowConstraints>
-               <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" blendMode="SRC_ATOP" fill="#1b3957" height="110.0"
-                             stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="110.0">
-                     <GridPane.margin>
-                        <Insets left="35.0" top="70.0"/>
-                     </GridPane.margin>
-                  </Rectangle>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1b3957" height="110.0" stroke="BLACK"
-                             strokeType="INSIDE" strokeWidth="0.0" width="110.0">
-                     <GridPane.margin>
-                        <Insets left="186.0" top="72.0"/>
-                     </GridPane.margin>
-                  </Rectangle>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1b3957" height="110.0" stroke="BLACK"
-                             strokeType="INSIDE" strokeWidth="0.0" width="110.0">
-                     <GridPane.margin>
-                        <Insets left="340.0" top="70.0"/>
-                     </GridPane.margin>
-                  </Rectangle>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1b3957" height="110.0" stroke="BLACK"
-                             strokeType="INSIDE" strokeWidth="0.0" width="110.0">
-                     <GridPane.margin>
-                        <Insets left="490.0" top="70.0"/>
-                     </GridPane.margin>
-                  </Rectangle>
-                  <Label fx:id="lblTimeUntilRelease" alignment="CENTER" text="Zeit bis zum Release"
-                         textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="24.0"/>
-                     </font>
-                     <GridPane.margin>
-                        <Insets left="240.0" top="-125.0"/>
-                     </GridPane.margin>
-                  </Label>
-                  <Label fx:id="lblSecondsUntilRelease" text="00" textAlignment="CENTER" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="72.0"/>
-                     </font>
-                     <GridPane.margin>
-                        <Insets left="504.0" top="72.0"/>
-                     </GridPane.margin>
-                  </Label>
-                  <Label fx:id="lblMinutesUntilRelease" text="00" textAlignment="CENTER" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="72.0"/>
-                     </font>
-                     <GridPane.margin>
-                        <Insets left="353.0" top="72.0"/>
-                     </GridPane.margin>
-                  </Label>
-                  <Label fx:id="lblDaysUntilRelease" text="00" textAlignment="CENTER" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="72.0"/>
-                     </font>
-                     <GridPane.margin>
-                        <Insets left="50.0" top="72.0"/>
-                     </GridPane.margin>
-                  </Label>
-                  <Label fx:id="lblHoursUntilRelease" text="00" textAlignment="CENTER" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="72.0"/>
-                     </font>
-                     <GridPane.margin>
-                        <Insets left="200.0" top="72.0"/>
-                     </GridPane.margin>
-                  </Label>
-                  <Label fx:id="lblDays" text="Tage" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="18.0"/>
-                     </font>
-                     <GridPane.margin>
-                        <Insets left="35.0" top="205.0"/>
-                     </GridPane.margin>
-                  </Label>
-                  <Label fx:id="lblMinutes" text="Minuten" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="18.0"/>
-                     </font>
-                     <GridPane.margin>
-                        <Insets left="341.0" top="205.0"/>
-                     </GridPane.margin>
-                  </Label>
-                  <Label fx:id="lblSeconds" text="Sekunden" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="18.0"/>
-                     </font>
-                     <GridPane.margin>
-                        <Insets left="491.0" top="205.0"/>
-                     </GridPane.margin>
-                  </Label>
-                  <Label fx:id="lblHours" text="Stunden" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="18.0"/>
-                     </font>
-                     <GridPane.margin>
-                        <Insets left="187.0" top="205.0"/>
-                     </GridPane.margin>
-                  </Label>
-                  <Label fx:id="lblWhatIsStream" text="Was ist stream?" textAlignment="JUSTIFY">
-                     <font>
-                        <Font name="System Bold" size="18.0"/>
-                     </font>
-                     <GridPane.margin>
-                        <Insets left="40.0" top="290.0"/>
-                     </GridPane.margin>
-                  </Label>
-                  <Label fx:id="lblAboutStream" text="Label" wrapText="true" GridPane.rowIndex="1">
-                     <GridPane.margin>
-                        <Insets left="40.0" top="70.0"/>
-                     </GridPane.margin>
-                     <font>
-                        <Font size="18.0"/>
-                     </font>
-                  </Label>
-               </children>
+               <Rectangle arcHeight="5.0" arcWidth="5.0" blendMode="SRC_ATOP" fill="#1b3957" height="110.0"
+                          stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="110.0">
+                  <GridPane.margin>
+                     <Insets left="35.0" top="70.0"/>
+                  </GridPane.margin>
+               </Rectangle>
+               <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1b3957" height="110.0" stroke="BLACK"
+                          strokeType="INSIDE" strokeWidth="0.0" width="110.0">
+                  <GridPane.margin>
+                     <Insets left="186.0" top="72.0"/>
+                  </GridPane.margin>
+               </Rectangle>
+               <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1b3957" height="110.0" stroke="BLACK"
+                          strokeType="INSIDE" strokeWidth="0.0" width="110.0">
+                  <GridPane.margin>
+                     <Insets left="340.0" top="70.0"/>
+                  </GridPane.margin>
+               </Rectangle>
+               <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1b3957" height="110.0" stroke="BLACK"
+                          strokeType="INSIDE" strokeWidth="0.0" width="110.0">
+                  <GridPane.margin>
+                     <Insets left="490.0" top="70.0"/>
+                  </GridPane.margin>
+               </Rectangle>
+               <Label fx:id="lblTimeUntilRelease" alignment="CENTER" text="Zeit bis zum Release"
+                      textAlignment="CENTER">
+                  <font>
+                     <Font name="System Bold" size="24.0"/>
+                  </font>
+                  <GridPane.margin>
+                     <Insets left="240.0" top="-125.0"/>
+                  </GridPane.margin>
+               </Label>
+               <Label fx:id="lblSecondsUntilRelease" text="00" textAlignment="CENTER" textFill="WHITE">
+                  <font>
+                     <Font name="System Bold" size="72.0"/>
+                  </font>
+                  <GridPane.margin>
+                     <Insets left="504.0" top="72.0"/>
+                  </GridPane.margin>
+               </Label>
+               <Label fx:id="lblMinutesUntilRelease" text="00" textAlignment="CENTER" textFill="WHITE">
+                  <font>
+                     <Font name="System Bold" size="72.0"/>
+                  </font>
+                  <GridPane.margin>
+                     <Insets left="353.0" top="72.0"/>
+                  </GridPane.margin>
+               </Label>
+               <Label fx:id="lblDaysUntilRelease" text="00" textAlignment="CENTER" textFill="WHITE">
+                  <font>
+                     <Font name="System Bold" size="72.0"/>
+                  </font>
+                  <GridPane.margin>
+                     <Insets left="50.0" top="72.0"/>
+                  </GridPane.margin>
+               </Label>
+               <Label fx:id="lblHoursUntilRelease" text="00" textAlignment="CENTER" textFill="WHITE">
+                  <font>
+                     <Font name="System Bold" size="72.0"/>
+                  </font>
+                  <GridPane.margin>
+                     <Insets left="200.0" top="72.0"/>
+                  </GridPane.margin>
+               </Label>
+               <Label fx:id="lblDays" text="Tage" textAlignment="CENTER">
+                  <font>
+                     <Font name="System Bold" size="18.0"/>
+                  </font>
+                  <GridPane.margin>
+                     <Insets left="35.0" top="205.0"/>
+                  </GridPane.margin>
+               </Label>
+               <Label fx:id="lblMinutes" text="Minuten" textAlignment="CENTER">
+                  <font>
+                     <Font name="System Bold" size="18.0"/>
+                  </font>
+                  <GridPane.margin>
+                     <Insets left="341.0" top="205.0"/>
+                  </GridPane.margin>
+               </Label>
+               <Label fx:id="lblSeconds" text="Sekunden" textAlignment="CENTER">
+                  <font>
+                     <Font name="System Bold" size="18.0"/>
+                  </font>
+                  <GridPane.margin>
+                     <Insets left="491.0" top="205.0"/>
+                  </GridPane.margin>
+               </Label>
+               <Label fx:id="lblHours" text="Stunden" textAlignment="CENTER">
+                  <font>
+                     <Font name="System Bold" size="18.0"/>
+                  </font>
+                  <GridPane.margin>
+                     <Insets left="187.0" top="205.0"/>
+                  </GridPane.margin>
+               </Label>
+               <Label fx:id="lblWhatIsStream" text="Was ist stream?" textAlignment="JUSTIFY">
+                  <font>
+                     <Font name="System Bold" size="18.0"/>
+                  </font>
+                  <GridPane.margin>
+                     <Insets left="40.0" top="290.0"/>
+                  </GridPane.margin>
+               </Label>
+               <Label fx:id="lblAboutStream" text="Label" wrapText="true" GridPane.rowIndex="1">
+                  <GridPane.margin>
+                     <Insets left="40.0" top="70.0"/>
+                  </GridPane.margin>
+                  <font>
+                     <Font size="18.0"/>
+                  </font>
+               </Label>
             </GridPane>
          </AnchorPane>
       </ScrollPane>
