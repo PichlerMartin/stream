@@ -338,8 +338,6 @@ public class UI_Controller_main_page implements Initializable {
      */
     private void initializeTableView (TableView<Object> tableView, ResourceBundle labels) {
 
-        tableView.setStyle("-fx-background-color: transparent; -fx-base: None; -fx-font-size: 17; -fx-alignment: center");
-
         //checks which tableView is given and sets the matching placeholder
         if (tableView.getId().equals(TVTorrentsList.getId())) {
             tableView.setPlaceholder(new Label(labels.getString("TVTorrents_NoContent")));
@@ -432,7 +430,7 @@ public class UI_Controller_main_page implements Initializable {
      * supported languages are stored in the the array supportedLocales
      * the function also automatically selects the language which has been selected last time
      */
-    private void initalizecboxSelectLanguage () {
+    private void initializecboxSelectLanguage() {
         for (Locale loc: supportedLocales) {
             cboxSelectLanguage.getItems().add(loc.getDisplayName());
         }
@@ -529,7 +527,7 @@ public class UI_Controller_main_page implements Initializable {
 
         this.parentStage = root;
         handleOnClickedbtnTorrents();
-        initalizecboxSelectLanguage();
+        initializecboxSelectLanguage();
         initializeSPane(sPaneAboutStream);
         root.setOnShown(e ->
                 sPaneAboutStream.lookup(".scroll-pane").lookup(".viewport").setStyle("-fx-background-color:  #transparent; -fx-blend-mode: src-over"));

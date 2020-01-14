@@ -1,0 +1,131 @@
+
+#background{
+    -fx-background-image: url('/images/stream_UI_background.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 1215 765;
+    -fx-background-color:  #1b3957;
+}
+
+#stream{
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 70px;
+    -fx-font-weight: bold;
+}
+
+#shareBetter{
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 25px;
+    -fx-font-weight: bold;
+}
+
+#menuEntriesLayer1{
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 34px;
+    -fx-font-weight: bold;
+}
+
+#menuEntriesLayer2{
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 29px;
+    -fx-font-weight: bold;
+}
+
+#boxes {
+    -fx-background-color:  #ffffffcf;
+    -fx-background-radius: 50;
+}
+
+#heading1{
+    -fx-text-fill: #303030;
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+}
+
+#heading2{
+    -fx-text-fill: #303030;
+    -fx-font-size: 25px;
+    -fx-font-weight: bold;
+    -fx-background-color: transparent;
+}
+
+#placeholder{
+    -fx-font-size: 12px;
+    -fx-text-fill: #303030;
+}
+
+#text1{
+    -fx-text-fill: #303030;
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+    -fx-background-color: transparent;
+}
+
+#text2{
+    -fx-text-fill: #303030;
+    -fx-font-size: 17px;
+}
+
+#TableViews{
+    -fx-background-color: transparent;
+    -fx-font-size: 17px;
+    -fx-alignment: center;
+    -fx-base: None;
+}
+
+#TableViewsColumns{
+    -fx-background-color: transparent;
+    -fx-font-size: 17px;
+    -fx-text-fill: #303030;
+}
+
+.table-view .column-header .label{
+    -fx-text-fill: #303030;
+    -fx-alignment: center;
+}
+
+#downloadDir{
+    -fx-font-size: 17px;
+    -fx-text-fill: #303030;
+}
+
+#comboBoxLanguage{
+    -fx-font-size: 15px;
+    -fx-alignment: center;
+    -fx-text-fill: #303030;
+}
+
+.combo-box>.list-cell {
+    -fx-text-fill: #303030;
+    -fx-alignment: center;
+}
+
+.combo-box.center-aligned>.list-cell {
+    -fx-text-fill: #303030;
+    -fx-alignment: center;
+}
+
+#aboutBackground{
+    -fx-text-fill: transparent;
+}
+
+#rectTimer{
+    -fx-text-fill: #1b3957;
+}
+
+#textTimer{
+    -fx-background-color: transparent;
+    -fx-font-size: 72px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+}
+
+#textAbout{
+    -fx-background-color: transparent;
+    -fx-font-size: 18px;
+    -fx-text-fill: #303030;
+}
