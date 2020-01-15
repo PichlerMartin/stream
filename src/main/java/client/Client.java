@@ -7,6 +7,7 @@ package client;
  * @see StreamClient
  * @since 0.00.3
  * @author PichlerMartin
+ * @deprecated is no longer under development
  */
 @Deprecated
 public interface Client {

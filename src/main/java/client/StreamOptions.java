@@ -116,7 +116,7 @@ public class StreamOptions {
      * @param downloadAllFiles boolean, specifies whether all or only some files should be downloaded
      * @author PichlerMartin
      * @since 0.00.2
-     * @see StreamOptions#StreamOptions(String, File, File, boolean, boolean, boolean, Integer, boolean, boolean)
+     * @deprecated use {@link StreamOptions#StreamOptions(String, File, File, boolean, boolean, boolean, Integer, boolean, boolean) StreamOptions} instead
      */
     @Deprecated
     public StreamOptions(File metainfoFile, String magnetUri, File targetDirectory, boolean seedAfterDownloaded, boolean sequential, boolean enforceEncryption, boolean verboseLogging, boolean traceLogging, String inetAddress, Integer port, Integer dhtPort, boolean downloadAllFiles) {
@@ -176,11 +176,11 @@ public class StreamOptions {
      * of the StreamOptions-class. It contains a magnet uri/link and a download location and no
      * other data. The magnetUri could be replaced by a .torrent-file.</p>
      *
-     * @see StreamOptions#StreamOptions(String, File, File, boolean, boolean, boolean, Integer, boolean, boolean)
      * @since 0.00.2
      * @author PichlerMartin
      * @param magnetUri magnet uri/link which can be used as an alternative to metainfoFile
      * @param targetDirectory the directory in which the torrent is stored
+     * @see StreamOptions#StreamOptions(String, File, File, boolean, boolean, boolean, Integer, boolean, boolean)
      */
     public StreamOptions(String magnetUri, File targetDirectory) {
         this.magnetUri = magnetUri;
@@ -194,9 +194,9 @@ public class StreamOptions {
      * </p>
      *
      * @param magnetUri magnet uri/link which can be used as an alternative to metainfoFile
-     * @see StreamOptions#StreamOptions(String, File, File, boolean, boolean, boolean, Integer, boolean, boolean)
      * @since 0.00.4
      * @author PichlerMartin
+     * @deprecated use {@link StreamOptions#StreamOptions(String, File, File, boolean, boolean, boolean, Integer, boolean, boolean) StreamOptions} instead
      */
     @Deprecated
     public StreamOptions(String magnetUri) {
@@ -210,7 +210,7 @@ public class StreamOptions {
      * </p>
      *
      * @param metainfoFile a .torrent-file which can be used to provide meta data of a torrent
-     * @see StreamOptions#StreamOptions(String, File, File, boolean, boolean, boolean, Integer, boolean, boolean)
+     * @deprecated use {@link StreamOptions#StreamOptions(String, File, File, boolean, boolean, boolean, Integer, boolean, boolean) StreamOptions} instead
      * @since 0.00.4
      * @author PichlerMartin
      */
