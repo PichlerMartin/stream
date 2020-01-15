@@ -136,7 +136,6 @@ public class StreamOptions {
     /**
      * Desc
      *
-     * ToDo:    Continue here with documentation, examine possibilities for javadoc and maven
      * @return
      */
     File getMetainfoFile() {
