@@ -8,19 +8,91 @@ import java.io.File;
  * fields can be found in the corresponding constructors. The methods left serve as getter methods</p>
  *
  * @since 0.00.2
+ * @author PichlerMartin
  */
 public class StreamOptions {
+    /**
+     * pointer to .torrent-file for download
+     *
+     * @since 0.00.1
+     */
     private File metainfoFile;
+
+    /**
+     * magnet uri/link with download information
+     *
+     * @since 0.00.1
+     */
     private String magnetUri;
+
+    /**
+     * pointer to download directory for torrent contents
+     *
+     * @since 0.00.1
+     */
     private File targetDirectory;
+
+    /**
+     * boolean whether should shut down or seed after download is finished
+     *
+     * @since 0.00.1
+     */
     private boolean seedAfterDownloaded;
+
+    /**
+     * sequential or random download
+     *
+     * @since 0.00.1
+     */
     private boolean sequential;
+
+    /**
+     * enforcing encryption or leaving blank
+     *
+     * @since 0.00.1
+     */
     private boolean enforceEncryption;
+
+    /**
+     * enables verbose logging in {@link StreamClient}
+     *
+     * @since 0.00.1
+     */
     private boolean verboseLogging;
+
+    /**
+     * enables trace logging in {@link StreamClient}
+     *
+     * @since 0.00.1
+     */
     private boolean traceLogging;
+
+    /**
+     * custom ip-address for incoming connections
+     *
+     * @since 0.00.1
+     */
     private String inetAddress;
+
+    /**
+     * custom port for incoming connections
+     *
+     * @since 0.00.1
+     */
     private Integer port;
+
+    /**
+     * custom port for dht conections
+     *
+     * @since 0.00.1
+     */
     private Integer dhtPort;
+
+    /**
+     * boolean value whether download all or single files
+     *
+     * @since 0.00.1
+     */
     private boolean downloadAllFiles;
 
     /**
@@ -41,6 +113,8 @@ public class StreamOptions {
      * @param port specific port for incoming connections, if empty default port is used
      * @param dhtPort specific port for the dht connection
      * @param downloadAllFiles boolean, specifies whether all or only some files should be downloaded
+     * @author PichlerMartin
+     * @since 0.00.2
      */
     @Deprecated
     public StreamOptions(File metainfoFile, String magnetUri, File targetDirectory, boolean seedAfterDownloaded, boolean sequential, boolean enforceEncryption, boolean verboseLogging, boolean traceLogging, String inetAddress, Integer port, Integer dhtPort, boolean downloadAllFiles) {
@@ -73,6 +147,8 @@ public class StreamOptions {
      * @param seedAfterDownloaded boolean, whether the client should seed the torrent after downloading has finished
      * @param port specific port for incoming connections, if empty default port is used
      * @param downloadAllFiles boolean, specifies whether all or only some files should be downloaded
+     * @author PichlerMartin
+     * @since 0.00.6
      */
     @SuppressWarnings("all")
     public StreamOptions(String magnetUri, File metainfoFile, File targetDirectory, boolean seedAfterDownloaded, boolean downloadAllFiles, boolean useDefaultPort, Integer port, boolean useMagnetLink, boolean useTorrentFile) {
@@ -100,6 +176,7 @@ public class StreamOptions {
      *
      * @see StreamOptions#StreamOptions(String, File, File, boolean, boolean, boolean, Integer, boolean, boolean)
      * @since 0.00.2
+     * @author PichlerMartin
      * @param magnetUri magnet uri/link which can be used as an alternative to metainfoFile
      * @param targetDirectory the directory in which the torrent is stored
      */
@@ -117,6 +194,7 @@ public class StreamOptions {
      * @param magnetUri magnet uri/link which can be used as an alternative to metainfoFile
      * @see StreamOptions#StreamOptions(String, File, File, boolean, boolean, boolean, Integer, boolean, boolean)
      * @since 0.00.4
+     * @author PichlerMartin
      */
     @Deprecated
     public StreamOptions(String magnetUri) {
@@ -132,6 +210,7 @@ public class StreamOptions {
      * @param metainfoFile a .torrent-file which can be used to provide meta data of a torrent
      * @see StreamOptions#StreamOptions(String, File, File, boolean, boolean, boolean, Integer, boolean, boolean)
      * @since 0.00.4
+     * @author PichlerMartin
      */
     @Deprecated
     public StreamOptions(File metainfoFile) {
@@ -139,50 +218,125 @@ public class StreamOptions {
     }
 
     /**
-     * @return returns .torrent-file
+     * A simple getter method for metainfoFile
+     *
+     * @return returns path to .torrent-file
+     * @since 0.00.1
+     * @author PichlerMartin
      */
     File getMetainfoFile() {
         return this.metainfoFile;
     }
 
+    /**
+     * A simple getter method for magnetURI
+     *
+     * @return returns magnet uri/link-String
+     * @since 0.00.1
+     * @author PichlerMartin
+     */
     String getMagnetUri() {
         return this.magnetUri;
     }
 
+    /**
+     * A simple getter method for {@link StreamOptions#targetDirectory}
+     *
+     * @return returns the target directory
+     * @since 0.00.1
+     * @author PichlerMartin
+     */
     File getTargetDirectory() {
         return this.targetDirectory;
     }
 
+    /**
+     * A simple getter method which for {@link StreamOptions#seedAfterDownloaded}
+     *
+     * @return returns boolean seedAfterDownload
+     * @since 0.00.1
+     * @author PichlerMartin
+     */
     boolean shouldSeedAfterDownloaded() {
         return this.seedAfterDownloaded;
     }
 
+    /**
+     * A simple getter method for field {@link StreamOptions#sequential}
+     *
+     * @return returns boolean sequential
+     * @since 0.00.1
+     * @author PichlerMartin
+     */
     boolean downloadSequentially() {
         return this.sequential;
     }
 
+    /**
+     * A simple getter method for field {@link StreamOptions#enforceEncryption}
+     *
+     * @return returns boolean enforceEncryption
+     * @since 0.00.1
+     * @author PichlerMartin
+     */
     public boolean enforceEncryption() {
         return this.enforceEncryption;
     }
 
+    /**
+     * getter method for which evaluates whether {@link StreamOptions#traceLogging} or
+     * {@link StreamOptions#verboseLogging} is enabled
+     *
+     * @return returns set log level to configure logging in {@link StreamClient#main(String[]) StreamClient}
+     * @since 0.00.1
+     * @author PichlerMartin
+     */
     public LogLevel getLogLevel() {
         return this.traceLogging ? LogLevel.TRACE :
                 (this.verboseLogging ? LogLevel.VERBOSE :
                         LogLevel.NORMAL);
     }
 
+    /**
+     * getter method for {@link StreamOptions#inetAddress}
+     *
+     * @return returns inetAdress
+     * @since 0.00.1
+     * @author PichlerMartin
+     */
     public String getInetAddress() {
         return this.inetAddress;
     }
 
+    /**
+     * getter method for {@link StreamOptions#port}
+     *
+     * @return returns custom download port set by {@link StreamOptions} constructor
+     * @since 0.00.1
+     * @author PichlerMartin
+     */
     public Integer getPort() {
         return this.port;
     }
 
+    /**
+     * getter method for {@link StreamOptions#dhtPort}
+     *
+     * @return returns dhtPort, variable which port is in use for dht-connections
+     * @since 0.00.1
+     * @author PichlerMartin
+     */
     public Integer getDhtPort() {
         return this.dhtPort;
     }
 
+    /**
+     * getter method for {@link StreamOptions#downloadAllFiles}
+     *
+     * @return returns boolean downloadAllFiles
+     * @since 0.00.1
+     * @author PichlerMartin
+     */
     boolean shouldDownloadAllFiles() {
         return this.downloadAllFiles;
     }
@@ -192,6 +346,7 @@ public class StreamOptions {
      *
      * @see StreamOptions#getLogLevel()
      * @since 0.00.1
+     * @author PichlerMartin
      */
     public enum LogLevel {
         NORMAL,
