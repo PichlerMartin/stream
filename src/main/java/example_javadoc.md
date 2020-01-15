@@ -39,8 +39,12 @@
  * @see     Runnable
  * @see     Runtime#exit(int)
  * @since   JDK1.0
+ * @version 1.0
+ * @see java.util.ArrayList
+ * This class makes a lot of calculations based on the magic number 
+ * that is {@value #MY_INT}
  */
  private class ThisIsJavaDocFromThreadClassAndOnlyServesAsAnExampleForJavaDocUsage{
-     
+     private static Integer MY_INT = 0;
  }
 ```
