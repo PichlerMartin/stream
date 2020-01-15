@@ -96,10 +96,11 @@ public class StreamOptions {
     private boolean downloadAllFiles;
 
     /**
-     * This is tje "master"-constructor method of the StreamOptions class. It takes all possible parameters
+     * <p>This is tje "master"-constructor method of the StreamOptions class. It takes all possible parameters
      * which can be used by the StreamOptions-class. It is marked as deprecated because there is no actual
      * use of all possible parameters in the current version of stream yet. If you want to use one of the
      * additional parameters you will need to write a new constructor with the parameters you need.
+     * </p>
      *
      * @param metainfoFile a .torrent-file which can be used to provide meta data of a torrent
      * @param magnetUri magnet uri/link which can be used as an alternative to metainfoFile
@@ -221,7 +222,7 @@ public class StreamOptions {
     /**
      * A simple getter method for metainfoFile
      *
-     * @return returns path to .torrent-file
+     * @return returns file-object for .torrent-file
      * @since 0.00.1
      * @author PichlerMartin
      */
@@ -252,7 +253,7 @@ public class StreamOptions {
     }
 
     /**
-     * A simple getter method which for {@link StreamOptions#seedAfterDownloaded}
+     * A simple getter method for {@link StreamOptions#seedAfterDownloaded}
      *
      * @return returns boolean seedAfterDownload
      * @since 0.00.1

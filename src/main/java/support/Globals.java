@@ -2,6 +2,16 @@ package support;
 
 import java.nio.file.Paths;
 
+/**
+ * <p>Within this class are some global-like constants declared which serve as default values during
+ * the testing phase. Below String-formatters are the string formatting patterns which are applied
+ * on the console output of the application. Conditional variables are also global variables
+ * which are ultimately used in creating a object of {@link client.StreamClient StreamClient}
+ * </p>
+ *
+ * @author  PichlerMartin
+ * @since   0.00.5
+ */
 @SuppressWarnings("all")
 public class Globals {
     /**
