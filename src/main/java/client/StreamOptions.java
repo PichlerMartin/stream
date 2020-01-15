@@ -115,6 +115,7 @@ public class StreamOptions {
      * @param downloadAllFiles boolean, specifies whether all or only some files should be downloaded
      * @author PichlerMartin
      * @since 0.00.2
+     * @see StreamOptions#StreamOptions(String, File, File, boolean, boolean, boolean, Integer, boolean, boolean)
      */
     @Deprecated
     public StreamOptions(File metainfoFile, String magnetUri, File targetDirectory, boolean seedAfterDownloaded, boolean sequential, boolean enforceEncryption, boolean verboseLogging, boolean traceLogging, String inetAddress, Integer port, Integer dhtPort, boolean downloadAllFiles) {
