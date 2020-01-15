@@ -3,7 +3,6 @@ package client;
 import java.io.File;
 
 /**
- * Desc:
  *
  */
 public class StreamOptions {
@@ -21,8 +20,6 @@ public class StreamOptions {
     private boolean downloadAllFiles;
 
     /**
-     * Desc:
-     *
      * This is tje "master"-constructor method of the StreamOptions class. It takes all possible parameters
      * which can be used by the StreamOptions-class. It is marked as deprecated because there is no actual
      * use of all possible parameters in the current version of stream yet. If you want to use one of the
@@ -58,12 +55,11 @@ public class StreamOptions {
     }
 
     /**
-     * Desc:
-     *
-     * This overloaded constructor of StreamOptions serves as the main constructor it is called in StreamClient
+     * <p>This overloaded constructor of StreamOptions serves as the main constructor it is called in StreamClient
      * and accepts a subdivision of all possible arguments. It is tailored for the capabilities of stream and
      * features also some logical operations such as an evaluation on whether the default port is used or not
      * and if the meta information is provided via a magnet uri/link or a .torrent-file
+     * </p>
      *
      * {@link StreamClient}
      *
@@ -74,7 +70,8 @@ public class StreamOptions {
      * @param port: specific port for incoming connections, if empty default port is used
      * @param downloadAllFiles: boolean, specifies whether all or only some files should be downloaded
      */
-    StreamOptions(String magnetUri, File metainfoFile, File targetDirectory, boolean seedAfterDownloaded, boolean downloadAllFiles, boolean useDefaultPort, Integer port, boolean useMagnetLink, boolean useTorrentFile) {
+    @SuppressWarnings("all")
+    public StreamOptions(String magnetUri, File metainfoFile, File targetDirectory, boolean seedAfterDownloaded, boolean downloadAllFiles, boolean useDefaultPort, Integer port, boolean useMagnetLink, boolean useTorrentFile) {
         this.seedAfterDownloaded = seedAfterDownloaded;
         this.downloadAllFiles = downloadAllFiles;
         this.targetDirectory = targetDirectory;
@@ -98,8 +95,6 @@ public class StreamOptions {
     }
 
     /**
-     * Desc:
-     *
      * <p>The following constructor exclusively contains a magnet link and
      * is not in productive use. it was created for testing purposes and is
      * no longer maintained.
@@ -116,8 +111,6 @@ public class StreamOptions {
     }
 
     /**
-     * Desc:
-     *
      * <p>The following constructor exclusively contains a .torrent-file reference
      * and is not in productive use. it was created for testing purposes and is
      * no longer maintained.
