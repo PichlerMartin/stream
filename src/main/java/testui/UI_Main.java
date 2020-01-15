@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- * Description
  * Die Main-Methode, von welcher aus die UI_Controller_main_page-Klasse angesteuert wird. Dieses Klassenkonstrukt
  * dient dem Zweck der Ertestung verschiedener Möglichkeiten welche die Bt-Library bietet.
  * <p>
@@ -17,7 +16,6 @@ import javafx.stage.Stage;
 public class UI_Main extends Application {
 
     /**
-     * Description
      * Obligatorisches Main
      *
      * @param args: Kommandozeilenargumente, werden ignoriert, da es sich um eine Java-FX Anwendung
@@ -28,7 +26,6 @@ public class UI_Main extends Application {
     }
 
     /**
-     * Description
      * start-Methode für das UI, der Verweis auf die XML-Datei ist intern zu finden
      *
      * @param primaryStage: PrimaryStage, die "Hauptbühne" der Anwendung, bezeichnet in

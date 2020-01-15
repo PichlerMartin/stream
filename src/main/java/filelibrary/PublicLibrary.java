@@ -34,7 +34,6 @@ public class PublicLibrary implements Library {
     }
 
     /**
-     * Description
      * Nach der Dateigröße soll jede Library geordnet werden können
      *
      * @return: gibt die geordnete liste zurück

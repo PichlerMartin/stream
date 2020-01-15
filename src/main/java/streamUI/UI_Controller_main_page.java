@@ -846,7 +846,6 @@ public class UI_Controller_main_page implements Initializable {
     }
 
     /**
-     * Description
      * example method provided by github user atomashpolskiy, creator of bt-library,
      * used to demonstrate the basic capabilities of the java torrent implementation
      *
