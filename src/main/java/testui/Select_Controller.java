@@ -10,13 +10,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import support.Globals;
 import org.slf4j.LoggerFactory;
+import support.Globals;
 import support.StreamContext;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -35,13 +33,12 @@ public class Select_Controller implements Initializable {
     private StreamClient GlobalClient;
 
     /**
-     * Description
      * Bestätigt die aufgelistete Menge an Dateien, welche dann in das Download-Verzeichnis
      * geladen werden. Dieser Vorgang findet in einem neuen Thread statt.
      *
      * @param ms: Action Event des Button(-Clicks)
      */
-    public void Click_ConfirmFileList(ActionEvent ms) throws IOException {
+    public void Click_ConfirmFileList(ActionEvent ms) {
         Stage stage = (Stage) btn_confirm.getScene().getWindow();
 
         this.ownGlobalTorrentImplementation();
@@ -87,9 +84,8 @@ public class Select_Controller implements Initializable {
      * erzeugt und die Dateien-Liste in die List-Box geladen.
      *
      * @param actionEvent: Action-Event der Java FX Klasse
-     * @throws MalformedURLException: wird geworfen, wenn eine URL nicht dem Standardformat entspricht
      */
-    public void Click_LoadFiles(ActionEvent actionEvent) throws MalformedURLException {
+    public void Click_LoadFiles(ActionEvent actionEvent) {
         if (txt_dldirectory.getText().contains("\\")) {
             Globals.DOWNLOAD_DIRECTORY = txt_dldirectory.getText();
         }

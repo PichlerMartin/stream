@@ -6,13 +6,11 @@ import com.google.cloud.translate.v3beta1.TranslateTextResponse;
 import com.google.cloud.translate.v3beta1.TranslationServiceClient;
 
 /**
- * Desc:
  * see README.md for detailed description
  */
 @Deprecated
 public abstract class StreamTranslator{
     /**
-     * Desc:
      * Translates a given text to a target language.
      * https://cloud.google.com/translate/docs/quickstart-client-libraries-v3
      *
@@ -65,7 +63,6 @@ public abstract class StreamTranslator{
     }
 
     /**
-     * Desc:
      * test driver for translateText method written above
      */
     public static void main() {

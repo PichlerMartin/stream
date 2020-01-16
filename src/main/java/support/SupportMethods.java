@@ -22,7 +22,6 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * Description
  * A collection of abstract Methods which can be used for configuration of the Torrent-Client,
  * they serve to assign specific environmental values to the variables. Most of the methods are
  * called within the StreamClient.java class, and are tailored for its needs.
@@ -38,7 +37,6 @@ public abstract class SupportMethods {
     }
 
     /**
-     * Description
      * Private Methode, die die Security-Policies bei der Klassenvariable "Security"
      * setzt um sie später auf den Client zuzuschreiben
      */
@@ -95,7 +93,6 @@ public abstract class SupportMethods {
     }
 
     /**
-     * Description
      * Erstellt das DHT Modul (distributed hash table) für den Port über den der
      * Download erfolgt
      *

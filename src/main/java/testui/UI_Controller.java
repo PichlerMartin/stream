@@ -39,7 +39,6 @@ public class UI_Controller implements Controller {
     private Library torrents = new PublicLibrary();
 
     /**
-     * Description
      * Hilfsmethode, welche dazu dient, dass das UI richtig lädt
      *
      * @param root: der Stage-Root des UI
@@ -49,7 +48,6 @@ public class UI_Controller implements Controller {
     }
 
     /**
-     * Description
      * Lädt das Fenster, welches dazu verwendet wird die einzelnen Dateien des Torrents
      * zu wählen
      */
@@ -129,7 +127,7 @@ public class UI_Controller implements Controller {
 
     /**
      * @param mouseEvent: mouse event get thrown when clicked
-     *                    desc:    https://stackoverflow.com/questions/32757069/updating-progressbar-value-within-a-for-loop
+     *                        https://stackoverflow.com/questions/32757069/updating-progressbar-value-within-a-for-loop
      */
     public void click_makeProgress(MouseEvent mouseEvent) {
         new Thread(() -> {

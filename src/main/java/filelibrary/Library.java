@@ -3,7 +3,6 @@ package filelibrary;
 import java.util.List;
 
 /**
- * Description
  * Ein Interface das, im weitesten Sinne, das Verzeichnis darstellt, in welches
  * der Benutzer (oder der anonyme öffentliche Benutzer) seine Dateien speichert
  */
@@ -25,7 +24,6 @@ public interface Library {
     void addTorrent(TorrentInFileSystem torrent);
 
     /**
-     * Description
      * Nach der Dateigröße soll jede Library geordnet werden können
      *
      * @return: gibt die geordnete liste zurück
@@ -33,7 +31,6 @@ public interface Library {
     List<String> sortByFileSize();
 
     /**
-     * Description
      * Ein Operator wird übergeben, nach dem dann geordnet wird
      *
      * @param sortOperator: der "Sort-Operator" (ein Kriterium)
@@ -44,7 +41,6 @@ public interface Library {
     }
 
     /**
-     * Description
      * Faktoren, nach denen eine Dateiliste geordnet werden kann
      */
     enum SortOperator {

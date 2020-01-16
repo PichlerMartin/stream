@@ -21,7 +21,6 @@ import static support.SupportMethods.buildDHTModule;
 //import testui.TestStreamClient;
 
 /**
- * Description
  * Klasse StreamClientDeprecated in der ein modifiziertes Objekt der Client-Klasse aus der Bt-Library
  * erzeugt wird, welches dazu dient den Download cer Dateien zu überwachen
  */
@@ -36,7 +35,6 @@ public class StreamClientDeprecated implements Client {
     //  ToDo:   implement self-written StreamClientDeprecated class
 
     /**
-     * Description:
      * Konstruktor der TestStreamClient Klasse, erstellt alle wichtigen Metadaten wie die Konfiguration,
      * den Storage und den ClientBuilder
      *
@@ -65,7 +63,6 @@ public class StreamClientDeprecated implements Client {
     }
 
     /**
-     * Description
      * Startet den state (lambda expression) für eine bestimmte Zeit (1000)
      * Ausführung wird in einem neuen Thread gestartet
      */
@@ -89,7 +86,6 @@ public class StreamClientDeprecated implements Client {
     }
 
     /**
-     * Description
      * Methode zur Vereinfachung der Client-Beschaffung, das Objekt clientBuilder wird mit den Parametern
      * der Funktion gespeist, und danach werden einige Optionen festgelegt, u.a. "Sollten alle
      * Dateien heruntergeladen werden?", usw.
