@@ -1,6 +1,6 @@
 
 #background{
-    -fx-background-image: url('/images/stream_UI_background.png');
+    -fx-background-image: url('/images/stream_LightModeUI_background.png');
     -fx-background-repeat: no-repeat;
     -fx-background-size: 1215 765;
     -fx-background-color:  #1b3957;
@@ -37,6 +37,7 @@
 #boxes {
     -fx-background-color:  #ffffffcf;
     -fx-background-radius: 50;
+    -fx-blend-mode: src-over;
 }
 
 #heading1{
@@ -109,11 +110,11 @@
 }
 
 #aboutBackground{
-    -fx-text-fill: transparent;
+    -fx-background-color: transparent;
 }
 
 #rectTimer{
-    -fx-text-fill: #1b3957;
+    -fx-fill: #1b3957;
 }
 
 #textTimer{

@@ -21,7 +21,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<GridPane id="background" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" stylesheets="@../css/lightMode.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="streamUI.UI_Controller_main_page">
+<GridPane id="background" fx:id="GProot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" stylesheets="@../css/lightMode.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="streamUI.UI_Controller_main_page">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -115,7 +115,7 @@
          <Insets left="82.0" top="380.0" />
       </GridPane.margin>
    </Button>
-   <GridPane id="boxes" fx:id="GPAddTorrent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="500.0" prefWidth="700.0" visible="false" GridPane.rowIndex="1">
+   <GridPane id="boxes" fx:id="GPAddTorrent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="500.0" prefWidth="700.0" GridPane.rowIndex="1">
       <columnConstraints>
          <ColumnConstraints hgrow="SOMETIMES" maxWidth="506.1333374023437" minWidth="10.0" prefWidth="351.2000732421875" />
          <ColumnConstraints hgrow="SOMETIMES" maxWidth="366.86663818359375" minWidth="10.0" prefWidth="349.59992675781245" />
@@ -238,10 +238,10 @@
             <Font name="System Bold" size="17.0" />
          </font>
          <GridPane.margin>
-            <Insets left="52.0" top="140.0" />
+            <Insets left="60.0" top="140.0" />
          </GridPane.margin>
       </Button>
-      <Label fx:id="lblOptions" minWidth="-Infinity" text="Optionen" GridPane.columnIndex="1">
+      <Label id="heading2" fx:id="lblOptions" minWidth="-Infinity" text="Optionen" GridPane.columnIndex="1">
          <font>
             <Font name="System Bold" size="25.0" />
          </font>
@@ -249,7 +249,7 @@
             <Insets left="55.0" top="-60.0" />
          </GridPane.margin>
       </Label>
-      <TextField id="normalText" fx:id="txtPort" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="250.0" promptText="Alternativport" GridPane.columnIndex="1">
+      <TextField id="placeholder" fx:id="txtPort" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="250.0" promptText="Alternativport" GridPane.columnIndex="1">
          <GridPane.margin>
             <Insets left="55.0" top="230.0" />
          </GridPane.margin>
@@ -344,7 +344,7 @@
          </columns>
       </TableView>
    </VBox>
-   <GridPane id="boxes" fx:id="GPSettings" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="500.0" prefWidth="700.0" GridPane.rowIndex="1">
+   <GridPane id="boxes" fx:id="GPSettings" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="500.0" prefWidth="700.0" visible="false" GridPane.rowIndex="1">
       <columnConstraints>
          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
       </columnConstraints>

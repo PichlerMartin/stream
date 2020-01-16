@@ -80,7 +80,7 @@ public class StreamFileSelector extends TorrentFileSelector implements Initializ
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/UI_stream_singlepart_page.fxml"));
         Parent root = loader.load();
 
-        root.setStyle("-fx-background-image: url('/images/stream_UI_background.png'); -fx-background-repeat: no-repeat; -fx-background-size: 1215 765");
+        root.setStyle("-fx-background-image: url('/images/stream_LightModeUI_background.png'); -fx-background-repeat: no-repeat; -fx-background-size: 1215 765");
         UI_Controller_singlepart_page c = loader.getController();
 
         c.initData(file);

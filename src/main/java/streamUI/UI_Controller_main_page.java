@@ -51,6 +51,8 @@ import static support.Globals.*;
 public class UI_Controller_main_page implements Initializable {
 
     @FXML
+    public GridPane GProot;
+    @FXML
     public ToggleGroup TGAddTorrent;
     @FXML
     ComboBox<String> cboxSelectLanguage;
@@ -226,6 +228,9 @@ public class UI_Controller_main_page implements Initializable {
             Locale.FRENCH,
             new Locale("es")
     };
+
+    private String lightMode = getClass().getResource("/css/lightMode.css").toExternalForm();
+    private String darkMode = getClass().getResource("/css/darkMode.css").toExternalForm();
 
     @Deprecated
     public void putFileNameAndChoice(TorrentFile file) {
@@ -407,10 +412,12 @@ public class UI_Controller_main_page implements Initializable {
         ResourceBundle labels = ResourceBundle.getBundle("ResourceBundle", currentLocale);
 
         if (togDarkMode.isSelected()) {
-            //enable dark mode
+            GProot.getStylesheets().clear();
+            GProot.getStylesheets().add(darkMode);
             togDarkMode.setText(labels.getString("togDarkModeOn"));
         } else {
-            //disable dark mode
+            GProot.getStylesheets().clear();
+            GProot.getStylesheets().add(lightMode);
             togDarkMode.setText(labels.getString("togDarkModeOff"));
         }
     }
@@ -524,6 +531,9 @@ public class UI_Controller_main_page implements Initializable {
     void setParentStage(Stage root) {
         String prefLanguage = pref.get("language", Locale.GERMAN.toString());
         Locale currentLocale = Locale.forLanguageTag(prefLanguage);
+
+        GProot.getStylesheets().clear();
+        GProot.getStylesheets().add(lightMode);
 
         this.parentStage = root;
         handleOnClickedbtnTorrents();
@@ -831,7 +841,7 @@ public class UI_Controller_main_page implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/UI_stream_parts_page.fxml"));
         Parent root = loader.load();
 
-        root.setStyle("-fx-background-image: url('/images/stream_UI_background.png'); -fx-background-repeat: no-repeat; -fx-background-size: 1215 765");
+        root.setStyle("-fx-background-image: url('/images/stream_LightModeUI_background.png'); -fx-background-repeat: no-repeat; -fx-background-size: 1215 765");
         UI_Controller_parts_page c = loader.getController();
 
         c.setStage(secondStage);

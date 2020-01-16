@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity"
+            prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1">
+    <children>
+        <Rectangle fill="#1b3957" height="400.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="600.0"/>
+        <Circle fill="#c05746" layoutX="42.0" layoutY="230.0" radius="135.0" stroke="BLACK" strokeType="INSIDE"
+                strokeWidth="0.0"/>
+        <Circle blendMode="HARD_LIGHT" fill="#fcac2b" layoutX="62.0" layoutY="23.0" radius="105.0" stroke="BLACK"
+                strokeType="INSIDE" strokeWidth="0.0"/>
+        <Label layoutX="29.0" layoutY="37.0" text="stream">
+            <font>
+                <Font name="System Bold" size="30.0"/>
+            </font>
+        </Label>
+        <Label layoutX="14.0" layoutY="139.0" text="Torrents" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="16.0"/>
+            </font>
+        </Label>
+        <Label layoutX="42.0" layoutY="191.0" text="Uploading" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="16.0"/>
+            </font>
+        </Label>
+        <Label layoutX="42.0" layoutY="165.0" text="Downloading" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="16.0"/>
+            </font>
+        </Label>
+        <Label layoutX="42.0" layoutY="219.0" text="Finished" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="16.0"/>
+            </font>
+        </Label>
+        <Label layoutX="14.0" layoutY="245.0" text="Settings" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="16.0"/>
+            </font>
+        </Label>
+        <Label layoutX="14.0" layoutY="273.0" text="Help" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="16.0"/>
+            </font>
+        </Label>
+        <Rectangle arcHeight="200.0" arcWidth="200.0" fill="WHITE" height="279.0" layoutX="190.0" layoutY="77.0"
+                   stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="396.0"/>
+        <Circle blendMode="HARD_LIGHT" fill="#fcac2b" layoutX="539.0" layoutY="363.0" radius="92.0" stroke="BLACK"
+                strokeType="INSIDE" strokeWidth="0.0"/>
+        <Circle blendMode="HARD_LIGHT" fill="#c05746" layoutX="556.0" layoutY="363.0" radius="75.0" stroke="BLACK"
+                strokeType="INSIDE" strokeWidth="0.0"/>
+    </children>
+</AnchorPane>
