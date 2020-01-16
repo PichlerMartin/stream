@@ -5,7 +5,7 @@ package client;
  * longer pursued/maintained.</p>
  *
  * @see StreamClient
- * @since 0.00.3
+ * @since 0.01.3
  * @author PichlerMartin
  * @deprecated is no longer under development
  */
