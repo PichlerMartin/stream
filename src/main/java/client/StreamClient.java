@@ -26,6 +26,11 @@ import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.Optional;
 
+/**
+ * <p>this class serves as a extensible client for torrent downloading. it contains a few private fields
+ * used for various miscellneous tasks such as {@link StreamOptions}, {@link StreamStatusProcessor} and
+ * {@link BtClient}</p>
+ */
 public class StreamClient {
     private static final Logger LOGGER = LoggerFactory.getLogger(StreamClient.class);
 
