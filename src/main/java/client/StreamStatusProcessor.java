@@ -7,7 +7,7 @@ import download.DownloadStats;
 import javafx.scene.control.Label;
 import support.StreamContext;
 
-import java.io.IOException;
+import java.io.*;
 import java.time.Duration;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
@@ -264,7 +264,9 @@ public class StreamStatusProcessor {
         PichlerMartin
          */
         try {
-            Runtime.getRuntime().exec(new String[] {"cmd", "/K", "Start"});
+            Process p = Runtime.getRuntime().exec("cmd.exe /c start dir ");
+            BufferedWriter writeer = new BufferedWriter(new OutputStreamWriter(p.getOutputStream()));
+            writeer.write("dir");
         } catch (IOException e) {
             e.printStackTrace();
         }
