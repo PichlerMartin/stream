@@ -22,7 +22,7 @@ import static support.Globals.*;
  * the network it displays the statistics of the download with the help of formatting strings from {@link support.Globals}.</p>
  *
  * <p>It was initially intended to redirect the output of this class to the UI but this function is not
- * implemented yet. To acheive this you may need a singleton class or a different programming pattern
+ * implemented yet. To achieve this you may need a singleton class or a different programming pattern
  * in order to populate the ui's labels with the download data, e.g. download-rate and peer count.
  * </p>
  *
@@ -144,7 +144,7 @@ public class StreamStatusProcessor {
      * @param total the percentage which is aimed for, by default 100%
      * @param completed the already downloaded percentage
      * @param remaining the remaining percentage
-     * @return normaly 100%
+     * @return normally 100%
      */
     private static double calculateTargetPercentage(double total, double completed, double remaining) {
         return (completed + remaining) / total * 100.0D;
@@ -260,13 +260,15 @@ public class StreamStatusProcessor {
         A command-line interface is being invoked here, because the output of the download stats does not work
         yet via the graphical user interface
 
+        ToDo:   implement command line output
+
         18.01.2020
         PichlerMartin
          */
         try {
             Process p = Runtime.getRuntime().exec("cmd.exe /c start dir ");
-            BufferedWriter writeer = new BufferedWriter(new OutputStreamWriter(p.getOutputStream()));
-            writeer.write("dir");
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(p.getOutputStream()));
+            writer.write("dir");
         } catch (IOException e) {
             e.printStackTrace();
         }
