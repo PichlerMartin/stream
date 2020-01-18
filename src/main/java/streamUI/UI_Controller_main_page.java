@@ -48,6 +48,11 @@ import static java.lang.String.join;
 import static java.nio.file.Files.exists;
 import static support.Globals.*;
 
+/**
+ * <p>main controler page, it contains all relevant controls such as all the stages and
+ * toggle-groups. for detailed documentation please view the official documentation-book
+ * under the section "implementation"</p>
+ */
 public class UI_Controller_main_page implements Initializable {
 
     @FXML
@@ -114,8 +119,10 @@ public class UI_Controller_main_page implements Initializable {
 
     @FXML
     private Button btnAddPartsofTorrent;
+
     @FXML
     private Button btnSelectTorrentFile;
+
     @FXML
     private Label lblSettings;
 
@@ -220,8 +227,6 @@ public class UI_Controller_main_page implements Initializable {
     @FXML
     private AnchorPane aPaneAboutStream;
 
-    private Map<String, Boolean> Controls = new HashMap<>();
-
     private Locale[] supportedLocales = {
             Locale.GERMAN,
             Locale.ENGLISH,
@@ -232,6 +237,10 @@ public class UI_Controller_main_page implements Initializable {
     private String lightMode = getClass().getResource("/css/lightMode.css").toExternalForm();
     private String darkMode = getClass().getResource("/css/darkMode.css").toExternalForm();
 
+    /**
+     * @deprecated unused method should be removed in the near future
+     * @param file a generic torrent file
+     */
     @Deprecated
     public void putFileNameAndChoice(TorrentFile file) {
         livFiles.getItems().add(format("%s", join("/", file.getPathElements())));
@@ -240,6 +249,14 @@ public class UI_Controller_main_page implements Initializable {
 
     private Preferences pref = Preferences.userNodeForPackage(getClass());
 
+    /**
+     * <p>pre-loading method (initializer), which assigns certain attributes to the custom-port
+     * textfield (it only allows 5-digit numbers)</p>
+     * @param location location of the resource files
+     * @param resources the language packs
+     *
+     * @author TopeinerMarcel
+     */
     @SuppressWarnings("Duplicates")
     @Override
     @FXML
@@ -261,19 +278,6 @@ public class UI_Controller_main_page implements Initializable {
                 txtPort.setText(s);
             }
         });
-
-        Controls.put(txtTorrentFile.getId(), txtTorrentFile.isDisabled());
-        Controls.put(txtDownloadLocation.getId(), txtDownloadLocation.isDisabled());
-        Controls.put(txtMagnetURI.getId(), txtMagnetURI.isDisabled());
-        Controls.put(txtPort.getId(), txtPort.isDisabled());
-        Controls.put(btnSelectTorrentFile.getId(), btnSelectTorrentFile.isDisabled());
-        Controls.put(btnAddTorrents.getId(), btnAddTorrents.isDisabled());
-        Controls.put(btnStartDownload.getId(), btnStartDownload.isDisabled());
-        Controls.put(rdoUseTorrentFile.getId(), rdoUseTorrentFile.isDisabled());
-        Controls.put(chbDefaultPort.getId(), chbDefaultPort.isDisabled());
-        Controls.put(chbDownloadAll.getId(), chbDownloadAll.isDisabled());
-        Controls.put(rdoUseMagnetURI.getId(), rdoUseMagnetURI.isDisabled());
-        Controls.put(livFiles.getId(), livFiles.isDisabled());
     }
 
     /**
@@ -511,11 +515,31 @@ public class UI_Controller_main_page implements Initializable {
         GPSettings.setVisible(false);
         GPAbout.setVisible(false);
 
-        GPAddTorrent.getChildren().forEach(node -> {
-            if (Controls.containsKey((node.getId()))) {
-                node.setDisable(Controls.get(node.getId()));
-            }
-        });
+        this.resetControls();
+    }
+
+    private void resetControls() {
+        txtMagnetURI.setText("");
+        txtMagnetURI.setDisable(false);
+        USE_MAGNET_LINK = true;
+        txtTorrentFile.setText("");
+        txtTorrentFile.setDisable(true);
+        txtDownloadLocation.setText("");
+        livFiles.getItems().clear();
+        livFiles.setDisable(true);
+        btnAddPartsofTorrent.setDisable(true);
+        rdoUseMagnetURI.setSelected(true);
+        rdoUseTorrentFile.setSelected(false);
+        DOWNLOAD_ALL = true;
+        SEED_AFTER_DOWNLOAD = false;
+        USE_DEFAULT_PORT = true;
+        chbDownloadAll.setSelected(true);
+        chbSeedAfterDownload.setSelected(false);
+        chbDefaultPort.setSelected(true);
+        txtPort.setText("");
+        txtPort.setDisable(true);
+        btnStartDownload.setDisable(true);
+        btnSelectTorrentFile.setDisable(true);
     }
 
     void setStage(Stage CurrentStage) {
@@ -719,6 +743,10 @@ public class UI_Controller_main_page implements Initializable {
 
     //region Pichler part
 
+    /**
+     * <p>this method serves as a validator, it shows a warning window pop-up if it detects a fault</p>
+     * @author PichlerMartin
+     */
     @FXML
     private void handleOnAddSelectedParts(){
         Locale currentLocale = Locale.forLanguageTag(pref.get("language", Locale.GERMAN.toString()));
@@ -732,6 +760,10 @@ public class UI_Controller_main_page implements Initializable {
         }
     }
 
+    /**
+     * <p>does similar things as {@link UI_Controller_main_page##handleOnAddSelectedParts()}</p>
+     * @author PichlerMartin
+     */
     @FXML
     public void handleOnDirectorySelected(){
         Locale currentLocale = Locale.forLanguageTag(pref.get("language", Locale.GERMAN.toString()));
@@ -745,6 +777,10 @@ public class UI_Controller_main_page implements Initializable {
         }
     }
 
+    /**
+     * <p>does similar things as {@link UI_Controller_main_page##handleOnAddSelectedParts()}</p>
+     * @author PichlerMartin
+     */
     @FXML
     public void handleOnClickedbtnSelectTorrentFile() {
 
@@ -763,6 +799,10 @@ public class UI_Controller_main_page implements Initializable {
         }
     }
 
+    /**
+     * <p>does similar things as {@link UI_Controller_main_page##handleOnAddSelectedParts()}</p>
+     * @author PichlerMartin
+     */
     @FXML
     public void handleOnTorrentFileSelected() {
         Locale currentLocale = Locale.forLanguageTag(pref.get("language", Locale.GERMAN.toString()));
@@ -780,6 +820,10 @@ public class UI_Controller_main_page implements Initializable {
         }
     }
 
+    /**
+     * <p>does similar things as {@link UI_Controller_main_page##handleOnAddSelectedParts()}</p>
+     * @author PichlerMartin
+     */
     @FXML
     public void handleOnMagnetURIEntered(){
         Locale currentLocale = Locale.forLanguageTag(pref.get("language", Locale.GERMAN.toString()));
@@ -796,6 +840,10 @@ public class UI_Controller_main_page implements Initializable {
         }
     }
 
+    /**
+     * <p>FXML method which is called when everythings prepared to start a download, hence
+     * its only call comes from {@link UI_Controller_main_page#prepareDownload()}</p>
+     */
     @FXML
     private void onDirectorySelected() {
         livFiles.getItems().clear();
@@ -809,6 +857,20 @@ public class UI_Controller_main_page implements Initializable {
         }
     }
 
+    /**
+     * <p>download-handler which invokes the initial torrent-client inside a new thread. this
+     * happens to keep the ui useable even when in the background the torrent-download is being
+     * invoked and handled. it gives all preset global values over to the main method of the
+     * torrent-client in form of a string array and leaves it over to the client to decode the
+     * string.</p>
+     *
+     * <p>below there is a commented-out part which is marked with a to-do, meaning there could
+     * be another implementation which handles the display of the single torrent parts inside
+     * another ui window, but this part will be implemented in a future update</p>
+     *
+     * @since 18.01.2020
+     * @author PichlerMartin
+     */
     @FXML
     private void handleOnStartDownload() {
         new Thread(() -> StreamClient.main(new String[]{MAGNET_LINK,
@@ -833,6 +895,16 @@ public class UI_Controller_main_page implements Initializable {
         */
     }
 
+    /**
+     * <p>due to unforeseeable challenges this part of the program where a new java fx window is being
+     * called is marked as deprecated. its initial purpose was to call a fx window where the single
+     * torrent parts should be displayed</p>
+     *
+     * @see UI_Controller_main_page#handleOnStartDownload()
+     * @see UI_Controller_parts_page
+     * @deprecated this method is not exactly deprecated but rather froze in development
+     * @throws IOException for errors when reading the fxml file
+     */
     @Deprecated
     public void showTorrentPartsStage() throws IOException {
 
@@ -859,7 +931,8 @@ public class UI_Controller_main_page implements Initializable {
      * example method provided by github user atomashpolskiy, creator of bt-library,
      * used to demonstrate the basic capabilities of the java torrent implementation
      *
-     * https://github.com/atomashpolskiy/bittorrent
+     * @see "https://github.com/atomashpolskiy/bittorrent"
+     * @deprecated it is outversioned by {@link UI_Controller_main_page#handleOnStartDownload()}
      */
     @Deprecated
     public void AtomashpolskiyExample() {
@@ -894,6 +967,13 @@ public class UI_Controller_main_page implements Initializable {
         client.startAsync().join();
     }
 
+    /**
+     * <p>this method is called when the radio button which stands beside the magnet-uri/link label in
+     * the ui is clicked. it tells the program to derive the torrent-information from the provided magnet
+     * uri/link</p>
+     *
+     * @author PichlerMartin
+     */
     @FXML
     public void handleOnUseMagnetURI() {
 
@@ -904,9 +984,13 @@ public class UI_Controller_main_page implements Initializable {
         USE_TORRENT_FILE = false;
         txtMagnetURI.setDisable(false);
 
+        //  if all perquisites are met, enable download button
         if (checkIfDownloadCanBeInitialized()) prepareDownload();
     }
 
+    /**
+     * <p>same as {@link UI_Controller_main_page#handleOnUseMagnetURI()}</p>
+     */
     @FXML
     public void handleOnUseTorrentFile() {
 
@@ -920,6 +1004,14 @@ public class UI_Controller_main_page implements Initializable {
         if (checkIfDownloadCanBeInitialized()) prepareDownload();
     }
 
+    /**
+     * <p>opens a new file dialog. there are two types, one in which a directory (download-directory) can be selected,
+     * and another whereas a torrent file must be chosen.</p>
+     * @param header text displayed as header, depending on requested file-type
+     * @param type either DIRECTORY or TORRENT
+     * @return chosen file/directory or NULL (will result in error window)
+     * @author PichlerMartin
+     */
     private File openFileDialog(String header, FileDialogType type) {
         if (type.equals(FileDialogType.DIRECTORY)) {
             DirectoryChooser dirChooser = new DirectoryChooser();
@@ -946,6 +1038,10 @@ public class UI_Controller_main_page implements Initializable {
         }
     }
 
+    /**
+     * <p>similar to {@link UI_Controller_main_page#rdoUseMagnetURI}, but here it enables or disables
+     * the text box for the custom port (for incoming connections)</p>
+     */
     @FXML
     public void handleOnClickedUseDefaultPort() {
         if (chbDefaultPort.isSelected()) {
@@ -969,6 +1065,13 @@ public class UI_Controller_main_page implements Initializable {
         return magnetlink.contains("magnet:?xt=urn:btih:");
     }
 
+    /**
+     * <p>this method checks whether the input text-fields met the requirements to start a download. it
+     * calls the class-private method to check if e.g. the download directory is valid (does it exist, ...)</p>
+     *
+     * @author PichlerMartin
+     * @return
+     */
     private boolean checkIfDownloadCanBeInitialized() {
         String torrentfile = txtTorrentFile.getText();
         String magnetlink = txtMagnetURI.getText();
@@ -994,6 +1097,15 @@ public class UI_Controller_main_page implements Initializable {
 
     }
 
+    /**
+     * <p>this is the last method which is called befor a torrent-client is initialised, it assigns the
+     * global fields containing the information about optional parameters such as whether a download should
+     * continue to its seeding stage after it is finished.</p>
+     *
+     * <p>this method is called after every insertion of data into the ui</p>
+     *
+     * @author PichlerMartin
+     */
     private void prepareDownload() {
         MAGNET_LINK = txtMagnetURI.getText();
         TORRENT_FILE = txtTorrentFile.getText();
@@ -1019,6 +1131,9 @@ public class UI_Controller_main_page implements Initializable {
         this.onDirectorySelected();
     }
 
+    /**
+     * <p>simple enum, for usage see {@link UI_Controller_main_page#openFileDialog(String, FileDialogType)}</p>
+     */
     enum FileDialogType {
         DIRECTORY,
         TORRENT
