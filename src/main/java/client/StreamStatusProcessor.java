@@ -7,6 +7,7 @@ import download.DownloadStats;
 import javafx.scene.control.Label;
 import support.StreamContext;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
@@ -127,11 +128,10 @@ public class StreamStatusProcessor {
     }
 
     /**
-     *
-     *
+     *<p>calculates the part of the downloaded amount of data</p>
      * @param total total torrent size
      * @param completed completed bytes
-     * @return completed percentage of current torrent file (e.g. 50.5%, if 4 kB of 8 kB is downloaded
+     * @return completed percentage of current torrent file (e.g. 50.5%, if 4 kB of 8 kB is downloaded)
      * @author PichlerMartin
      * @since 0.01.2
      */
@@ -139,6 +139,13 @@ public class StreamStatusProcessor {
         return completed / total * 100.0D;
     }
 
+    /**
+     * <p>calculates the targeted percentage, which should be downloaded, by default 100%</p>
+     * @param total the percentage which is aimed for, by default 100%
+     * @param completed the already downloaded percentage
+     * @param remaining the remaining percentage
+     * @return normaly 100%
+     */
     private static double calculateTargetPercentage(double total, double completed, double remaining) {
         return (completed + remaining) / total * 100.0D;
     }
@@ -157,6 +164,11 @@ public class StreamStatusProcessor {
         return (int) (remainingBytes / downloaded);
     }
 
+    /**
+     * <p>calculates and format the elapsed time of the current download</p>
+     * @param elapsedTime elapsed time as object of Duration
+     * @return the unsigned elapsed time as String
+     */
     private static String getDuration(Duration elapsedTime) {
         long seconds = elapsedTime.getSeconds();
         long absSeconds = Math.abs(seconds);
@@ -243,6 +255,20 @@ public class StreamStatusProcessor {
      */
     void startStatusProcessor() {
         this.started = System.currentTimeMillis();
+
+        /*
+        A command-line interface is being invoked here, because the output of the download stats does not work
+        yet via the graphical user interface
+
+        18.01.2020
+        PichlerMartin
+         */
+        try {
+            Runtime.getRuntime().exec(new String[] {"cmd", "/K", "Start"});
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         System.out.println("Metadata is being fetched... Please be patient...");
 
         Thread logPrintThread = new Thread(() -> {
