@@ -22,6 +22,7 @@ import static support.SupportMethods.buildDHTModule;
  * <p>StreamClientDeprecated is a modified version of the class {@link StreamClient} from the
  * client package, which was created to overview the current downloads</p>
  *
+ * @see StreamClient
  * @author PichlerMartin
  * @deprecated use {@link StreamClient} instead
  */
@@ -63,8 +64,10 @@ public class StreamClientDeprecated implements Client {
     }
 
     /**
-     * Startet den state (lambda expression) für eine bestimmte Zeit (1000)
-     * Ausführung wird in einem neuen Thread gestartet
+     * <p>starts a state in form of a lambda expression to a certain time (1000)
+     * and reallocates the execution into a different thread</p>
+     *
+     * @see StreamClient#start() for proper implementation
      */
     @Deprecated
     public void start() {
@@ -86,17 +89,13 @@ public class StreamClientDeprecated implements Client {
     }
 
     /**
-     * Methode zur Vereinfachung der Client-Beschaffung, das Objekt clientBuilder wird mit den Parametern
-     * der Funktion gespeist, und danach werden einige Optionen festgelegt, u.a. "Sollten alle
-     * Dateien heruntergeladen werden?", usw.
-     *
      * <p>method which simplifies the client builder process from {@link StreamClientDeprecated#StreamClientDeprecated(StreamOptions)},
      * from above. some options are already defined here such as "should all data be downloaded?"</p>
      *
      * @param runtime:  a generic object of the bt-library
      * @param storage:  a storage place on the hard drive
      * @param selector: helper object for selection of torrent files
-     * @return: returns the runable client
+     * @return: returns the runnable client
      * @deprecated is no longer in development
      */
     @Deprecated
