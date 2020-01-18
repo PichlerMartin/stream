@@ -36,6 +36,7 @@ public class DownloadStats {
         return this.downloadRate;
     }
 
+    @Deprecated
     public DownloadRate getUploadRate() {
         return this.uploadRate;
     }
