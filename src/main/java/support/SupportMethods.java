@@ -28,6 +28,11 @@ import java.util.Optional;
  */
 public abstract class SupportMethods {
 
+    /**
+     * <p>converts a file to URL</p>
+     * @param file input file
+     * @return the new URL
+     */
     public static URL toUrl(File file) {
         try {
             return file.toURI().toURL();
@@ -93,11 +98,10 @@ public abstract class SupportMethods {
     }
 
     /**
-     * Erstellt das DHT Modul (distributed hash table) für den Port über den der
-     * Download erfolgt
+     * <p>builds a new DHT module</p>
      *
      * @param options das Options Objekt
-     * @return
+     * @return the newly built DHT module
      */
     public static DHTModule buildDHTModule(StreamOptions options) {
         Optional<Integer> dhtPortOverride = tryGetPort(options.getDhtPort());
@@ -115,6 +119,12 @@ public abstract class SupportMethods {
         });
     }
 
+    /**
+     * <p>attepts to retrieve the requested incoming connections port, if fail exception is thrown</p>
+     * @param port port suggested by the user in the gui
+     * @return returns either demanded port or empty port (-> standard port is used)
+     * @see SupportMethods#buildDHTModule
+     */
     private static Optional<Integer> tryGetPort(Integer port) {
         if (port == null) {
             return Optional.empty();
@@ -125,6 +135,11 @@ public abstract class SupportMethods {
         return Optional.of(port);
     }
 
+    /**
+     * <p>builds a new object of {@link Config}, whereas the network configuration is defined</p>
+     * @param options options object
+     * @return the new built config
+     */
     public static Config buildConfig(StreamOptions options) {
         Optional<InetAddress> acceptorAddressOverride = getAcceptorAddressOverride(options);
         Optional<Integer> portOverride = tryGetPort(options.getPort());
@@ -153,6 +168,12 @@ public abstract class SupportMethods {
         };
     }
 
+    /**
+     * <p>determines wheter the current default ip address for in and outgoing connections should
+     * be tossed, and replaced by a new internet address</p>
+     * @param options StreamOptions object, delivered by {@link SupportMethods#buildConfig}
+     * @return optional internet address or empty (default)
+     */
     private static Optional<InetAddress> getAcceptorAddressOverride(StreamOptions options) {
         String inetAddress = options.getInetAddress();
         if (inetAddress == null) {
