@@ -18,11 +18,12 @@ import support.SupportMethods;
 import static support.SupportMethods.buildConfig;
 import static support.SupportMethods.buildDHTModule;
 
-//import testui.TestStreamClient;
-
 /**
- * Klasse StreamClientDeprecated in der ein modifiziertes Objekt der Client-Klasse aus der Bt-Library
- * erzeugt wird, welches dazu dient den Download cer Dateien zu überwachen
+ * <p>StreamClientDeprecated is a modified version of the class {@link StreamClient} from the
+ * client package, which was created to overview the current downloads</p>
+ *
+ * @author PichlerMartin
+ * @deprecated use {@link StreamClient} instead
  */
 @Deprecated
 public class StreamClientDeprecated implements Client {
@@ -32,14 +33,13 @@ public class StreamClientDeprecated implements Client {
     private final StreamStatusProcessor printer;
     private final BtClient client;
 
-    //  ToDo:   implement self-written StreamClientDeprecated class
-
     /**
-     * Konstruktor der TestStreamClient Klasse, erstellt alle wichtigen Metadaten wie die Konfiguration,
-     * den Storage und den ClientBuilder
+     * <p>constructor of the class StreamClientDeprecated with all sorts of stuff, such as configuration,
+     * storage and {@link BtClientBuilder}</p>
      *
-     * @param options ist ein Objekt der Options Klasse welche die Kommandozeilenargumente (argsv)
-     *                enthält, dem Client die nötigen Daten gibt, z.B.: Torrent-File, Download Ort, ...
+     * @param options is an object which supplies the builder with the needed metadata such as download
+     *                location and magnet-uri/link
+     * @deprecated use {@link StreamClient} instead
      */
     @Deprecated
     public StreamClientDeprecated(StreamOptions options) {
@@ -90,19 +90,18 @@ public class StreamClientDeprecated implements Client {
      * der Funktion gespeist, und danach werden einige Optionen festgelegt, u.a. "Sollten alle
      * Dateien heruntergeladen werden?", usw.
      *
-     * @param runtime:  ein generisches Runtime-Objekt der Bt-Library
-     * @param storage:  der Speicherplatz auf der Festplatte
-     * @param selector: Hilfsobjekt zur auswahl der einzelnen Torrent-Dateien
-     * @return: gibt den fertigen Client zurück
+     * <p>method which simplifies the client builder process from {@link StreamClientDeprecated#StreamClientDeprecated(StreamOptions)},
+     * from above. some options are already defined here such as "should all data be downloaded?"</p>
+     *
+     * @param runtime:  a generic object of the bt-library
+     * @param storage:  a storage place on the hard drive
+     * @param selector: helper object for selection of torrent files
+     * @return: returns the runable client
+     * @deprecated is no longer in development
      */
     @Deprecated
     private BtClient GetClient(BtRuntime runtime, Storage storage, PieceSelector selector) {
         BtClientBuilder clientBuilder = Bt.client(runtime).storage(storage).selector(selector);
-
-        //options.setDownloadAllFiles(true);
-
-        //  ToDo:   Continue here somewhere, idk
-        //  ToDo:   Test with own hotspot
 
         if (options.shouldDownloadAllFiles()) {
             StreamFileSelector fileSelector = new StreamFileSelector();
