@@ -28,7 +28,9 @@ import static support.Globals.FORMAT_DOWNLOAD_PART;
 import static support.Globals.FORMAT_ILLEGAL_KEYPRESS;
 
 /**
- * <p></p>
+ * <p>this class serves the purpose of handling the selection of single torrent parts which make up
+ * the total torrent-package. it is used when the use selects to download not all files contained in
+ * the torrent meta-info.</p>
  *
  * @author Pichler Martin
  * @since december 2019
