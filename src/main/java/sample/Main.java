@@ -7,12 +7,12 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- * <p>this method is a executable main method wich contains another main function, serving as
+ * <p>this method is a executable main method which contains another main function, serving as
  * a program entry point in order to test the program. when main is called it builds a generic
  * java fx window with some simple controls. it was initially copied from a previous project and
  * served the purpose of helping the developers to have a reference model for a java fx app</p>
  *
- * <p>beause of some problems and challenges when starting a java fx app in a maven environment this
+ * <p>because of some problems and challenges when starting a java fx app in a maven environment this
  * class accompanied by the sample.fxml-model was copied and used as a template for the testing
  * application in {@link testui.UI_Main#main(String[])}</p>
  *
