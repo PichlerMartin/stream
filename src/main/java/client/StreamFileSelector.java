@@ -27,6 +27,12 @@ import static java.lang.String.join;
 import static support.Globals.FORMAT_DOWNLOAD_PART;
 import static support.Globals.FORMAT_ILLEGAL_KEYPRESS;
 
+/**
+ * <p></p>
+ *
+ * @author Pichler Martin
+ * @since december 2019
+ */
 public class StreamFileSelector extends TorrentFileSelector implements Initializable {
 
     private AtomicReference<Thread> currentThread;
