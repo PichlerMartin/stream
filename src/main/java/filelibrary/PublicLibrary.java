@@ -14,10 +14,12 @@ import java.util.List;
  * @author Pichler Martin
  * @since summer 2019
  * @see java.nio.file.FileSystem
+ * @see UserOwnLibrary
  */
+@SuppressWarnings("unused")
 public class PublicLibrary implements Library {
-    String path;
-    String name;
+    private String path;
+    private String name;
     private List<TorrentInFileSystem> contents = new ArrayList<>();
 
     /**
@@ -27,7 +29,7 @@ public class PublicLibrary implements Library {
      */
     @Override
     public String getPath() {
-        return null;
+        return path;
     }
 
     /**
@@ -37,7 +39,7 @@ public class PublicLibrary implements Library {
      */
     @Override
     public String getName() {
-        return null;
+        return name;
     }
 
     /**
@@ -74,7 +76,6 @@ public class PublicLibrary implements Library {
      * {@inheritDoc}
      * @author Pichler Martin
      * @since summer 2019
-     * @return: returns a sorted list, according to the file size
      */
     @Override
     public List<String> sortByFileSize() {
