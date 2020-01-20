@@ -35,7 +35,7 @@ public interface Library {
      * <p>gives back the name of the root path of current file library. use this name to
      * display it on different output-elements such as labels, command-line messages and
      * so on.</p>
-     * @return a list of {@link TorrentInFileSystem}
+     * @return a {@link String} containing the torrent-name
      * @author Pichler Martin
      * @since summer 2019
      */
