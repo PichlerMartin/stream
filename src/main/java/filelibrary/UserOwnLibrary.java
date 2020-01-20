@@ -21,10 +21,26 @@ public class UserOwnLibrary implements Library {
     private String name;
     private List<TorrentInFileSystem> contents;
 
+
+    /**
+     * <p>gives back the name of the library owner. this name is initialised when the file
+     * library is created. the owner is the only person which can access the contents of
+     * this specific library</p>
+     * @return a the clear name of the library owner
+     * @author Pichler Martin
+     * @since summer 2019
+     */
     public String getOwner() {
         return owner;
     }
 
+    /**
+     * <p>sets a new owner of the library. this method could be removed in a future update,
+     * because it may not be necessary to updated the library owner. this option should be
+     * evaluated more closely in the future.</p>
+     * @author Pichler Martin
+     * @since summer 2019
+     */
     public void setOwner(String owner) {
         this.owner = owner;
     }
