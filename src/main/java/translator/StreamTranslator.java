@@ -6,7 +6,10 @@ import com.google.cloud.translate.v3beta1.TranslateTextResponse;
 import com.google.cloud.translate.v3beta1.TranslationServiceClient;
 
 /**
- * see README.md for detailed description
+ * see README.md within this directory for detailed description of this class and the intention behind it
+ * @author Pichler Martin
+ * @since january 2020
+ * @see com.google.cloud.translate.v3beta1
  */
 @Deprecated
 public abstract class StreamTranslator{
@@ -31,6 +34,8 @@ public abstract class StreamTranslator{
      * @param text - Text for translation.
      * @param sourceLanguageCode - Language code of text. e.g. "en"
      * @param targetLanguageCode - Language code for translation. e.g. "sr"
+     * @author Pichler Martin
+     * @since january 2020
      */
     private static void translateText(
             String projectId,
@@ -40,9 +45,11 @@ public abstract class StreamTranslator{
             String targetLanguageCode) {
         try (TranslationServiceClient translationServiceClient = TranslationServiceClient.create()) {
 
+            //  set the location for the translation request to the current project directory
             LocationName locationName =
                     LocationName.newBuilder().setProject(projectId).setLocation(location).build();
 
+            //  build a translation request
             TranslateTextRequest translateTextRequest =
                     TranslateTextRequest.newBuilder()
                             .setParent(locationName.toString())
@@ -58,6 +65,7 @@ public abstract class StreamTranslator{
                     "Translated Text: %s", response.getTranslationsList().get(0).getTranslatedText());
 
         } catch (Exception e) {
+            //  in case there was some error with the network this is mostly what happens
             throw new RuntimeException("Couldn't create client.", e);
         }
     }
