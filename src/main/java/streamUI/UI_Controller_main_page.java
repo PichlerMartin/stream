@@ -12,6 +12,7 @@ import client.StreamClient;
 import com.google.inject.Module;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -24,6 +25,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -345,19 +347,27 @@ public class UI_Controller_main_page implements Initializable {
      * @param tableView given tableView which is modified in this method
      * @param labels contains the values in a given language for the columns and placeholders
      */
-    private void initializeTableView (TableView<Object> tableView, ResourceBundle labels) {
+    private void initializeTableView (TableView tableView, ResourceBundle labels) {
+
+        Label placeholderLabel = null;
 
         //checks which tableView is given and sets the matching placeholder
         if (tableView.getId().equals(TVTorrentsList.getId())) {
-            tableView.setPlaceholder(new Label(labels.getString("TVTorrents_NoContent")));
+            placeholderLabel = new Label(labels.getString("TVTorrents_NoContent"));
         } else if (tableView.getId().equals(TVDownloadingTorrentsList.getId())) {
-            tableView.setPlaceholder(new Label(labels.getString("TVDownloading_NoContent")));
+            placeholderLabel = new Label(labels.getString("TVDownloading_NoContent"));
         } else if (tableView.getId().equals(TVUploadingTorrentsList.getId())) {
-            tableView.setPlaceholder(new Label(labels.getString("TVUploading_NoContent")));
+            placeholderLabel = new Label(labels.getString("TVUploading_NoContent"));
         } else if (tableView.getId().equals(TVFinishedTorrentsList.getId())) {
-            tableView.setPlaceholder(new Label(labels.getString("TVFinished_NoContent")));
+            placeholderLabel = new Label(labels.getString("TVFinished_NoContent"));
         }
 
+        tableView.setPlaceholder(placeholderLabel);
+        if (togDarkMode.isSelected()) {
+            placeholderLabel.setTextFill(Color.WHITE);
+        } else {
+            placeholderLabel.setTextFill(Color.BLACK);
+        }
         tableView.setVisible(true);
 
         //create new columns in the given language
@@ -408,7 +418,7 @@ public class UI_Controller_main_page implements Initializable {
 
     /**
      * function is called if user clicks on toggleButton 'Dark mode'
-     * ToDo: implement .css files for light and dark mode
+     * writes the decision of the user in the java preferences
      */
     @FXML
     public void handleOnClickedtogDarkMode() {
@@ -419,10 +429,12 @@ public class UI_Controller_main_page implements Initializable {
             GProot.getStylesheets().clear();
             GProot.getStylesheets().add(darkMode);
             togDarkMode.setText(labels.getString("togDarkModeOn"));
+            pref.put("darkMode", "true");
         } else {
             GProot.getStylesheets().clear();
             GProot.getStylesheets().add(lightMode);
             togDarkMode.setText(labels.getString("togDarkModeOff"));
+            pref.put("darkMode", "false");
         }
     }
 
@@ -556,12 +568,20 @@ public class UI_Controller_main_page implements Initializable {
         String prefLanguage = pref.get("language", Locale.GERMAN.toString());
         Locale currentLocale = Locale.forLanguageTag(prefLanguage);
 
-        GProot.getStylesheets().clear();
-        GProot.getStylesheets().add(lightMode);
+        if (pref.get("darkMode", "false").equals("true")) {
+            togDarkMode.setSelected(true);
+            handleOnClickedtogDarkMode();
+
+        } else {
+            togDarkMode.setSelected(false);
+            handleOnClickedtogDarkMode();
+        }
+
 
         this.parentStage = root;
         handleOnClickedbtnTorrents();
         initializecboxSelectLanguage();
+
         initializeSPane(sPaneAboutStream);
         root.setOnShown(e ->
                 sPaneAboutStream.lookup(".scroll-pane").lookup(".viewport").setStyle("-fx-background-color:  #transparent; -fx-blend-mode: src-over"));
@@ -621,9 +641,12 @@ public class UI_Controller_main_page implements Initializable {
      */
     @FXML
     public void handleOnMenuEntryEntered(MouseEvent event) {
-
         Button btnEnteredBtn = (Button) event.getSource();
-        btnEnteredBtn.setStyle(btnEnteredBtn.getStyle() + "; -fx-underline: true; -fx-text-fill:  #1b3957");
+        if (togDarkMode.isSelected()) {
+            btnEnteredBtn.setStyle(btnEnteredBtn.getStyle() + "; -fx-underline: true; -fx-text-fill:  #606060");
+        } else {
+            btnEnteredBtn.setStyle(btnEnteredBtn.getStyle() + "; -fx-underline: true; -fx-text-fill:  #1b3957");
+        }
 
     }
 
@@ -634,9 +657,12 @@ public class UI_Controller_main_page implements Initializable {
      */
     @FXML
     public void handleOnMenuEntryLeft(MouseEvent event) {
-
         Button btnLeftbtn = (Button) event.getSource();
-        btnLeftbtn.setStyle(btnLeftbtn.getStyle() + "; -fx-underline: false; -fx-text-fill: white");
+        if (togDarkMode.isSelected()) {
+            btnLeftbtn.setStyle(btnLeftbtn.getStyle() + "; -fx-underline: false; -fx-text-fill: white");
+        } else {
+            btnLeftbtn.setStyle(btnLeftbtn.getStyle() + "; -fx-underline: false; -fx-text-fill: white");
+        }
     }
 
     /**
@@ -646,9 +672,12 @@ public class UI_Controller_main_page implements Initializable {
      */
     @FXML
     public void handleOnSelectFileEntered (MouseEvent event) {
-
         Button btnEnteredBtn = (Button)event.getSource();
-        btnEnteredBtn.setStyle(btnEnteredBtn.getStyle() + "; -fx-background-color:  #1b3957; -fx-text-fill: white");
+        if (togDarkMode.isSelected()) {
+            btnEnteredBtn.setStyle(btnEnteredBtn.getStyle() + "; -fx-background-color:  #606060; -fx-text-fill: white");
+        } else {
+            btnEnteredBtn.setStyle(btnEnteredBtn.getStyle() + "; -fx-background-color:  #1b3957; -fx-text-fill: white");
+        }
 
     }
 
@@ -660,7 +689,11 @@ public class UI_Controller_main_page implements Initializable {
     @FXML
     public void handleOnSelectFileLeft (MouseEvent event) {
         Button btnLeftbtn = (Button)event.getSource();
-        btnLeftbtn.setStyle(btnLeftbtn.getStyle() + "; -fx-background-color: transparent; -fx-text-fill: black");
+        if (togDarkMode.isSelected()) {
+            btnLeftbtn.setStyle(btnLeftbtn.getStyle() + "; -fx-background-color: transparent; -fx-text-fill: white");
+        } else {
+            btnLeftbtn.setStyle(btnLeftbtn.getStyle() + "; -fx-background-color: transparent; -fx-text-fill: black");
+        }
     }
 
 

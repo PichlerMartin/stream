@@ -46,7 +46,21 @@
     -fx-font-weight: bold;
 }
 
+#OptionsText{
+    -fx-text-fill: #303030;
+    -fx-font-size: 25px;
+    -fx-font-weight: bold;
+    -fx-background-color: transparent;
+}
+
 #heading2{
+    -fx-text-fill: #303030;
+    -fx-font-size: 25px;
+    -fx-font-weight: bold;
+    -fx-background-color: transparent;
+}
+
+#startDownload{
     -fx-text-fill: #303030;
     -fx-font-size: 25px;
     -fx-font-weight: bold;
@@ -68,6 +82,11 @@
 #text2{
     -fx-text-fill: #303030;
     -fx-font-size: 17px;
+}
+
+#textboxes{
+    -fx-background-color: white;
+    -fx-text-fill: #303030;
 }
 
 #TableViews{
