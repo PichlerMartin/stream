@@ -6,8 +6,6 @@ import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.ResourceBundle;
 
 /**
@@ -52,7 +50,7 @@ public class UI_Controller_parts_page implements Initializable {
      * @author Pichler Martin
      * @since january 2020
      */
-    void setStage(Stage CurrentStage) {
+    public void setStage(Stage CurrentStage) {
         this.stage = CurrentStage;
     }
 

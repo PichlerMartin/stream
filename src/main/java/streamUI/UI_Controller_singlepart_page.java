@@ -76,7 +76,7 @@ public class UI_Controller_singlepart_page implements Initializable {
      * @author Pichler Martin
      * @since january 2020
      */
-    void setStage(Stage CurrentStage) {
+    public void setStage(Stage CurrentStage) {
         this.stage = CurrentStage;
     }
 
@@ -86,7 +86,7 @@ public class UI_Controller_singlepart_page implements Initializable {
      * @author Pichler Martin
      * @since january 2020
      */
-    void setParentStage(Stage root) {
+    public void setParentStage(Stage root) {
         this.parentStage = root;
     }
 
