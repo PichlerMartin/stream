@@ -364,8 +364,10 @@ public class UI_Controller_main_page implements Initializable {
 
         tableView.setPlaceholder(placeholderLabel);
         if (togDarkMode.isSelected()) {
+            //noinspection ConstantConditions
             placeholderLabel.setTextFill(Color.WHITE);
         } else {
+            //noinspection ConstantConditions
             placeholderLabel.setTextFill(Color.BLACK);
         }
         tableView.setVisible(true);
@@ -1103,7 +1105,7 @@ public class UI_Controller_main_page implements Initializable {
      * calls the class-private method to check if e.g. the download directory is valid (does it exist, ...)</p>
      *
      * @author PichlerMartin
-     * @return
+     * @return boolean value whether the magnet link/uri is valid
      */
     private boolean checkIfDownloadCanBeInitialized() {
         String torrentfile = txtTorrentFile.getText();

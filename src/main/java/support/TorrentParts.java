@@ -12,6 +12,7 @@ import java.util.HashMap;
  * @since summer 2019
  */
 public abstract class TorrentParts {
+    @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
     private static HashMap<TorrentFile, Boolean> PARTS = new HashMap<>();
 
     /**
