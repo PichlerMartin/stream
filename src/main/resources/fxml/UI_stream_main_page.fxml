@@ -21,7 +21,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<GridPane id="background" fx:id="GProot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" stylesheets="@../css/lightMode.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="streamUI.UI_Controller_main_page">
+<GridPane id="background" fx:id="GProot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1200.0" stylesheets="@../css/lightMode.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="streamUI.UI_Controller_main_page">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -138,7 +138,7 @@
             <ToggleGroup fx:id="TGAddTorrent" />
          </toggleGroup>
       </RadioButton>
-      <TextField fx:id="txtDownloadLocation" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" onAction="#handleOnDirectorySelected" prefWidth="250.0">
+      <TextField id="textboxes" fx:id="txtDownloadLocation" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" onAction="#handleOnDirectorySelected" prefWidth="250.0">
          <GridPane.margin>
             <Insets left="60.0" top="230.0" />
          </GridPane.margin>
@@ -151,7 +151,7 @@
             <Insets left="60.0" top="175.0" />
          </GridPane.margin>
       </Label>
-      <TextField fx:id="txtMagnetURI" alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" onAction="#handleOnMagnetURIEntered" prefWidth="250.0">
+      <TextField id="textboxes" fx:id="txtMagnetURI" alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" onAction="#handleOnMagnetURIEntered" prefWidth="250.0">
          <GridPane.margin>
             <Insets left="60.0" top="-10.0" />
          </GridPane.margin>
@@ -164,7 +164,7 @@
             <Insets left="310.0" top="230.0" />
          </GridPane.margin>
       </Button>
-      <Button id="heading2" fx:id="btnStartDownload" disable="true" mnemonicParsing="false" onAction="#handleOnStartDownload" onMouseEntered="#handleOnSelectFileEntered" onMouseExited="#handleOnSelectFileLeft" style="-fx-background-color: transparent;" text="Download starten" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <Button id="startDownload" fx:id="btnStartDownload" disable="true" mnemonicParsing="false" onAction="#handleOnStartDownload" onMouseEntered="#handleOnSelectFileEntered" onMouseExited="#handleOnSelectFileLeft" style="-fx-background-color: transparent;" text="Download starten" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <font>
             <Font name="System Bold" size="25.0" />
          </font>
@@ -228,7 +228,7 @@
             <Insets left="280.0" top="90.0" />
          </GridPane.margin>
       </CheckBox>
-      <ListView fx:id="livFiles" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="250.0" GridPane.rowIndex="1">
+      <ListView id="textboxes" fx:id="livFiles" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="250.0" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets left="60.0" top="-50.0" />
          </GridPane.margin>
@@ -241,7 +241,7 @@
             <Insets left="60.0" top="140.0" />
          </GridPane.margin>
       </Button>
-      <Label id="heading2" fx:id="lblOptions" minWidth="-Infinity" text="Optionen" GridPane.columnIndex="1">
+      <Label id="OptionsText" fx:id="lblOptions" minWidth="-Infinity" text="Optionen" GridPane.columnIndex="1">
          <font>
             <Font name="System Bold" size="25.0" />
          </font>
@@ -254,7 +254,7 @@
             <Insets left="55.0" top="230.0" />
          </GridPane.margin>
       </TextField>
-      <TextField fx:id="txtTorrentFile" alignment="TOP_LEFT" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" onAction="#handleOnTorrentFileSelected" prefWidth="250.0">
+      <TextField id="textboxes" fx:id="txtTorrentFile" alignment="TOP_LEFT" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" onAction="#handleOnTorrentFileSelected" prefWidth="250.0">
          <GridPane.margin>
             <Insets left="60.0" top="115.0" />
          </GridPane.margin>
@@ -548,7 +548,7 @@
                      <Insets left="35.0" top="290.0" />
                   </GridPane.margin>
                </Label>
-               <Label fx:id="lblAboutStream" text="Label" wrapText="true" GridPane.rowIndex="1">
+               <Label id="textAbout" fx:id="lblAboutStream" text="Label" wrapText="true" GridPane.rowIndex="1">
                   <GridPane.margin>
                      <Insets left="45.0" top="70.0" />
                   </GridPane.margin>
