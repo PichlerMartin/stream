@@ -114,7 +114,7 @@ public class UI_Controller implements Controller {
     /**
      * <p>this method converts a torrent file into a magnet link. this method is used for specific torrent
      * downloading functions which do not support .torrent-files. after the new {@link streamUI.UI_Controller_main_page}
-     * was implmented this method is no longer in use, because both magnet links\uris and .torrent-files are now
+     * was implmented this method is no longer in use, because both magnet links\\uris and .torrent-files are now
      * supported.</p>
      * @see "https://stackoverflow.com/questions/3436823/how-to-calculate-the-hash-value-of-a-torrent-using-java"
      * @param torrentPath: path to torrent file
