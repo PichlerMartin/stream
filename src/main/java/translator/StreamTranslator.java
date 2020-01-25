@@ -29,7 +29,7 @@ public abstract class StreamTranslator{
      * https://cloud.google.com/docs/authentication/production?hl=de
      * https://cloud.google.com/docs/authentication/getting-started?hl=de
      *
-     *  @param projectId - Id of the project.
+     * @param projectId - Id of the project.
      * @param location - location name.
      * @param text - Text for translation.
      * @param sourceLanguageCode - Language code of text. e.g. "en"

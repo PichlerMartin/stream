@@ -37,7 +37,7 @@ public class StreamClient {
     private static final Logger LOGGER = LoggerFactory.getLogger(StreamClient.class);
 
     private final StreamOptions options;
-    private final StreamStatusProcessor printer;
+    private final StreamStatusProcessor processor;
     private final BtClient client;
 
     /**
@@ -75,7 +75,7 @@ public class StreamClient {
      */
     private StreamClient(StreamOptions options) {
         this.options = options;
-        this.printer = new StreamStatusProcessor();
+        this.processor = new StreamStatusProcessor();
 
         Config config = buildConfig(options);
         BtRuntime runtime = BtRuntime.builder(config).module(buildDHTModule(options)).autoLoadModules().build();
@@ -90,8 +90,8 @@ public class StreamClient {
             runtime.service(IRuntimeLifecycleBinder.class).onShutdown(fileSelector::shutdown);
         }
 
-        clientBuilder.afterTorrentFetched(this.printer::whenTorrentFetched);
-        clientBuilder.afterFilesChosen(this.printer::onFilesChosen);
+        clientBuilder.afterTorrentFetched(this.processor::whenTorrentFetched);
+        clientBuilder.afterFilesChosen(this.processor::onFilesChosen);
 
         if (options.getMetainfoFile() != null) {
             clientBuilder = clientBuilder.torrent(toUrl(options.getMetainfoFile()));
@@ -187,8 +187,10 @@ public class StreamClient {
     }
 
     /**
-     * Erstellt das DHT Modul (distributed hash table) für den Port über den der
-     * Download erfolgt
+     * <p>Creates a new DHT-module (distributed hash table) over which the Torrent-download
+     * being initialised</p>
+     * <p>Erstellt das DHT Modul (distributed hash table) für den Port über den der
+     * Download erfolgt</p>
      *
      * @param options das Options Objekt
      * @return the newly built DHT module
@@ -221,8 +223,8 @@ public class StreamClient {
     }
 
     /**
-     * <p>invokes the torrent client built in the previous steps. it simultanously invokes
-     * the status printer process and checks periodically if the download is completed/seeding
+     * <p>invokes the torrent client built in the previous steps. it simultaneously invokes
+     * the status processor process and checks periodically if the download is completed/seeding
      * is completed.</p>
      *
      * @author PichlerMartin
@@ -230,19 +232,19 @@ public class StreamClient {
      * @see BtClient#startAsync(Consumer, long)
      */
     public void start() {
-        this.printer.startStatusProcessor();
+        this.processor.startStatusProcessor();
         this.client.startAsync((torrentStage) -> {
             boolean complete = torrentStage.getPiecesRemaining() == 0;
             if (complete) {
                 if (this.options.shouldSeedAfterDownloaded()) {
-                    this.printer.onDownloadComplete();
+                    this.processor.onDownloadComplete();
                 } else {
-                    this.printer.stop();
+                    this.processor.stop();
                     this.client.stop();
                 }
             }
 
-            this.printer.updateTorrentStage(torrentStage);
+            this.processor.updateTorrentStage(torrentStage);
         }, 1000L).join();
     }
 }
