@@ -95,7 +95,7 @@ the simple and neat user interface makes stream to one of the best available tor
 with help of the BitTorrent-protocol, stream manages to use its resources more efficient than other applications like most internet browsers. this enables stream to achieve better download-stats and helps you both save time and nerves when downloading big files.
 ### And much more...
 
-* _**check out [Release Notes](https://github.com/atomashpolskiy/bt/blob/master/RELEASE-NOTES.md#bt-release-notes) for details!**_
+* _**check out [Release Notes](https://github.com/PichlerMartin/stream/blob/master/RELEASE-NOTES.md) for details!**_
  
 ## Troubleshooting
 
