@@ -18,6 +18,10 @@ the documentation document is still being edited by the project team and is sche
 
 + completed javadoc-documentation
 
+build the new jar artifact with
+
+    + mvn package
+
 ### Bug fixes
 
 + fixed failing execution when choosing partial download
@@ -48,11 +52,11 @@ the documentation document is still being edited by the project team and is sche
 + partial downloads now fully supported
 + .torrent-files now supported
 + jar artifact now supported
-    - build with
-    
++ terminal output now supported
+
+build the new jar artifact with
 
     + mvn package
-+ terminal output now supported
 
 ### Bug fixes
 
