@@ -118,7 +118,7 @@ the torrent file selection
 Any thoughts, ideas, criticism, etc. are welcome, as well as votes for new features to be added. You have the following options to share your ideas, receive help or report bugs:
 
 * open a new [GitHub issue](https://github.com/PichlerMartin/stream/issues)
-* contact the project team [E-Mail](40146720150314@litec.ac.at)
+* contact the project team [E-Mail](mailto:40146720150314@litec.ac.at)
  
 ## List of supported BEPs (from https://github.com/atomashpolskiy/bt/blob/master/README.md)
 
