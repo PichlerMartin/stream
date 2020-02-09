@@ -93,9 +93,14 @@ the simple and neat user interface makes stream to one of the best available tor
 ### fast downloads
 
 with help of the BitTorrent-protocol, stream manages to use its resources more efficient than other applications like most internet browsers. this enables stream to achieve better download-stats and helps you both save time and nerves when downloading big files.
+
+### partial download
+
+with a specific selection in the ui it is possible to configure partial download. after the torrent file has been fetched one can select
+certain files from the torrent-package which should be downloaded. through this possibility unnecessary network traffic can be avoided.
 ### And much more...
 
-* _**check out [Release Notes](https://github.com/atomashpolskiy/bt/blob/master/RELEASE-NOTES.md#bt-release-notes) for details!**_
+* _**check out [Release Notes](https://github.com/PichlerMartin/stream/blob/master/RELEASE-NOTES.md) for details!**_
  
 ## Troubleshooting
 
@@ -103,11 +108,17 @@ with help of the BitTorrent-protocol, stream manages to use its resources more e
 
 You may need to install and set up a VPN on your machine, we recommend https://www.betternet.co/
 
+### partial downloads selected, selection is not accessible
+
+instead of running the jar file directly you may want to cosider running it from a shell instance in order to correctly display
+the torrent file selection
+
 ## Support and feedback
 
-Any thoughts, ideas, criticism, etc. are welcome, as well as votes for new features to be added. You have the following option to share your ideas, receive help or report bugs:
+Any thoughts, ideas, criticism, etc. are welcome, as well as votes for new features to be added. You have the following options to share your ideas, receive help or report bugs:
 
 * open a new [GitHub issue](https://github.com/PichlerMartin/stream/issues)
+* contact the project team [E-Mail](mailto:40146720150314@litec.ac.at)
  
 ## List of supported BEPs (from https://github.com/atomashpolskiy/bt/blob/master/README.md)
 

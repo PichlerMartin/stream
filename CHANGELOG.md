@@ -1,5 +1,36 @@
 ## Changelog
 
+### [0.01.7] (2020-02-10)
+the stream torrent-client now has entered the documentation phase and is executeable via the IntelliJ IDEA IDE, for more
+exact instructions on how to run it please view the main readme. for a full list of features and fixed bugs see the
+full list of features below below<br/>
+
+the project team is currently working on the final documentation in a microsoft word document. this document will be made accessible to the general public once it is finished
+
+### Documentation
+execute the following maven goal inside your IntelliJ IDEA in order to generate the accommodating javadoc within the
+folder target/site inside the project directory
+
+    + mvn javadoc:javadoc
+
+the documentation document is still being edited by the project team and is scheduled for release in april 2020
+### Features
+
++ completed javadoc-documentation
+
+build the new jar artifact with
+
+    + mvn package
+
+### Bug fixes
+
++ fixed failing execution when choosing partial download
+
+### Dependencies
+
++ the current dependencies can be seen under https://github.com/PichlerMartin/stream/network/dependencies
++ a full list of dependencies also can be viewed in pom.xml or stream.iml
+
 ### [0.01.6] (2020-01-27)
 the stream torrent-client now has entered the documentation phase and is executeable via the IntelliJ IDEA IDE, for more
 exact instructions on how to run it please view the main readme. for a full list of features and fixed bugs see the
@@ -21,11 +52,11 @@ the documentation document is still being edited by the project team and is sche
 + partial downloads now fully supported
 + .torrent-files now supported
 + jar artifact now supported
-    - build with
-    
++ terminal output now supported
+
+build the new jar artifact with
 
     + mvn package
-+ terminal output now supported
 
 ### Bug fixes
 

@@ -435,9 +435,14 @@ public class UI_Controller_main_page implements Initializable {
         } else {
             GProot.getStylesheets().clear();
             GProot.getStylesheets().add(lightMode);
-            togDarkMode.setText(labels.getString("togDarkModeOff"));
+            togDarkMode.setText(labels.getString("togDarkModeOff"));;
             pref.put("darkMode", "false");
         }
+
+        initializeTableView(TVTorrentsList, labels);
+        initializeTableView(TVDownloadingTorrentsList, labels);
+        initializeTableView(TVUploadingTorrentsList, labels);
+        initializeTableView(TVFinishedTorrentsList, labels);
     }
 
     /**
