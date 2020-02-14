@@ -16,7 +16,7 @@ package streamUI;
  * @see "https://en.wikipedia.org/wiki/BitTorrent_tracker"
  * @see "https://de.wikipedia.org/wiki/Virtual_Private_Network"
  * @see bt.metainfo.Torrent
- * @author Pichler Martin
+ * @author TopeinerMarcel
  * @since summer 2019
  */
 @SuppressWarnings("unused")
@@ -37,7 +37,7 @@ public class Torrent {
      * @param progress an unspecified progress of a process, e.g. download or upload
      * @param size the size of the torrent as string
      * @see bt.metainfo.Torrent
-     * @author Pichler Martin
+     * @author TopeinerMarcel
      * @since summer 2019
      */
     public Torrent (String number, String status, String name, String progress, String size) {
@@ -51,7 +51,7 @@ public class Torrent {
     /**
      * <p>getter method for the consecutive number of the torrent</p>
      * @return the number of the torrent
-     * @author Pichler Martin
+     * @author TopeinerMarcel
      * @since summer 2019
      */
     public String getNumber() {
@@ -61,7 +61,7 @@ public class Torrent {
     /**
      * <p>getter method for the current status of the torrent</p>
      * @return the status of the torrent
-     * @author Pichler Martin
+     * @author TopeinerMarcel
      * @since summer 2019
      */
     public String getStatus() {
@@ -71,7 +71,7 @@ public class Torrent {
     /**
      * <p>sets a new status for the torrent of this class</p>
      * @param status the new status
-     * @author Pichler Martin
+     * @author TopeinerMarcel
      * @since summer 2019
      */
     public void setStatus(String status) {
@@ -81,7 +81,7 @@ public class Torrent {
     /**
      * <p>getter method for the name of the torrent</p>
      * @return the name of the torrent
-     * @author Pichler Martin
+     * @author TopeinerMarcel
      * @since summer 2019
      */
     public String getName() {
@@ -91,7 +91,7 @@ public class Torrent {
     /**
      * <p>sets a new name for the torrent of this class</p>
      * @param name the new name
-     * @author Pichler Martin
+     * @author TopeinerMarcel
      * @since summer 2019
      */
     public void setName(String name) {
@@ -101,7 +101,7 @@ public class Torrent {
     /**
      * <p>getter method for the progress of the torrent</p>
      * @return the progress of the torrent
-     * @author Pichler Martin
+     * @author TopeinerMarcel
      * @since summer 2019
      */
     public String getProgress() {
@@ -111,7 +111,7 @@ public class Torrent {
     /**
      * <p>sets a new progress status for the torrent of this class</p>
      * @param progress the new status
-     * @author Pichler Martin
+     * @author TopeinerMarcel
      * @since summer 2019
      */
     public void setProgress(String progress) {
@@ -121,7 +121,7 @@ public class Torrent {
     /**
      * <p>getter method for the size of the torrent</p>
      * @return the size of the torrent
-     * @author Pichler Martin
+     * @author TopeinerMarcel
      * @since summer 2019
      */
     public String getSize() {
@@ -131,7 +131,7 @@ public class Torrent {
     /**
      * <p>sets a new size for the torrent of this class</p>
      * @param size the new size
-     * @author Pichler Martin
+     * @author TopeinerMarcel
      * @since summer 2019
      */
     public void setSize(String size) {
