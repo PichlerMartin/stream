@@ -12,7 +12,6 @@ import client.StreamClient;
 import com.google.inject.Module;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -39,9 +38,7 @@ import java.net.URL;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
@@ -63,6 +60,7 @@ public class UI_Controller_main_page implements Initializable {
     public ToggleGroup TGAddTorrent;
     @FXML
     ComboBox<String> cboxSelectLanguage;
+    @SuppressWarnings("unused")
     @FXML
     private Stage parentStage;
     @FXML
@@ -226,6 +224,7 @@ public class UI_Controller_main_page implements Initializable {
     @FXML
     private ScrollPane sPaneAboutStream;
 
+    @SuppressWarnings("unused")
     @FXML
     private AnchorPane aPaneAboutStream;
 
@@ -242,6 +241,8 @@ public class UI_Controller_main_page implements Initializable {
     /**
      * @deprecated unused method should be removed in the near future
      * @param file a generic torrent file
+     *
+     * @author PichlerMartin
      */
     @Deprecated
     public void putFileNameAndChoice(TorrentFile file) {
@@ -435,7 +436,7 @@ public class UI_Controller_main_page implements Initializable {
         } else {
             GProot.getStylesheets().clear();
             GProot.getStylesheets().add(lightMode);
-            togDarkMode.setText(labels.getString("togDarkModeOff"));;
+            togDarkMode.setText(labels.getString("togDarkModeOff"));
             pref.put("darkMode", "false");
         }
 
