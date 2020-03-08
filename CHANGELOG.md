@@ -1,5 +1,40 @@
 ## Changelog
 
+### [0.02.0] (2020-02-24)
+the stream application has now officially conducted its first stabel release version. this marks a major breakthrough on
+the projects way to success. furthermore the main documentation has been almost finished, with the most important sections
+already filled out. the documentation will be available after the official release.<br/>
+
+the project team is currently working on the final documentation in a microsoft word document. this document will be made accessible to the general public once it is finished
+
+### Documentation
+execute the following maven goal inside your IntelliJ IDEA in order to generate the accommodating javadoc within the
+folder target/site inside the project directory
+
+    + mvn javadoc:javadoc
+
+the documentation document is still being edited by the project team and is scheduled for release in april 2020
+### Features
+
++ almost complete main documentation with all important code parts
++ operation instructions conducted in german
++ wrote abstract and conclusion on the project summary section
++ completed javadoc-documentation
+
+build the new jar artifact with
+
+    + mvn package
+
+### Bug fixes
+
++ adjusted formatting in the main documentation
++ luckily there where no major bugs in the main application
+
+### Dependencies
+
++ the current dependencies can be seen under https://github.com/PichlerMartin/stream/network/dependencies
++ a full list of dependencies also can be viewed in pom.xml or stream.iml
+
 ### [0.01.7] (2020-02-10)
 the stream torrent-client now has entered the documentation phase and is executeable via the IntelliJ IDEA IDE, for more
 exact instructions on how to run it please view the main readme. for a full list of features and fixed bugs see the

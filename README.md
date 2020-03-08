@@ -33,25 +33,28 @@ because of the broad positive feedback which we received during the doors-open-d
 
 ## User interface
 
-Here are some pictures of the updated ui:
 ![ui-settings](https://i.ibb.co/PmmC3p7/stream-UI-Add-Torrent.png)
 
-picture of some settings:
 ![ui-settings](https://i.ibb.co/ZcqXhyS/stream-UI-Settings.png)
 
 ## Navigation
 
 * **[HOME](https://github.com/PichlerMartin/stream)** – repository with documentation (will be added april 2020)
+* **[MEDIA](#media)** - associated media
+* **[INSTALLATION INSTRUCTIONS](#installation)** - how to install the stream application
+* **[OUTSTANDING](#outstanding)** - what makes stream stand out from the crowd
 * **[TROUBLESHOOTING](#troubleshooting)** - solutions for some common problems
 
 ## Media
 
 * **[Bt by atomashpolskiy](https://github.com/atomashpolskiy/bt)** - Library which is used to realize the backend capabilities of the application
+* **[Free Torrent Files](http://www.legittorrents.info/)** - A website which provides free and legal torrent files
 
-## Installation instructions
+## Installation
  download or clone the zipped repository and open the project in
  IntelliJ IDEA. now you can compile and run the programm
- in the JVM.
+ in the JVM. more detailed installation instructions can be found in the
+ main documentation once it is released
  
 ### JDK
  
@@ -72,19 +75,8 @@ picture of some settings:
 
  important: in this stage of development you need the free software "betternet vpn" in order to induce your downloads. download it here:
  https://www.betternet.co/
-
-## Usage
-
- after that you can open the project in your intellij idea environment, navigate to the folder "testui" and start the file UI_Main.java (the one with the green arrow) after that the software starts and load a test sequence. more functionality is sadly not implemented yet
  
- if you'd like to see a demo of the ui start the file UI_Main.java in the folder "streamUI"
- 
- if you fell a little confident you can try to set up an jar artifact an run said, but that hasn't been tested jet ...
- 
- stay tuned for more breathtaking updates and the upcomming ui!
- 
- 
-## What makes stream stand out from the crowd
+## Outstanding
 
 ### modern user interface
 
@@ -98,6 +90,10 @@ with help of the BitTorrent-protocol, stream manages to use its resources more e
 
 with a specific selection in the ui it is possible to configure partial download. after the torrent file has been fetched one can select
 certain files from the torrent-package which should be downloaded. through this possibility unnecessary network traffic can be avoided.
+
+### multi language support
+
+the stream torrent application does not only come in german but also in the languages english spanish and french. we hope to please all nationalities through our diverse offering of user interface languages.
 ### And much more...
 
 * _**check out [Release Notes](https://github.com/PichlerMartin/stream/blob/master/RELEASE-NOTES.md) for details!**_
@@ -112,6 +108,10 @@ You may need to install and set up a VPN on your machine, we recommend https://w
 
 instead of running the jar file directly you may want to cosider running it from a shell instance in order to correctly display
 the torrent file selection
+
+### the file selction does not appear in the user interface
+
+you are required to start the stream application inside the IntelliJ IDEA environment to ensure the torrent-part selection will appear in the command line interface. if you have started the application in an alternate way please try to start it in the IntelliJ IDEA integrated development environment
 
 ## Support and feedback
 

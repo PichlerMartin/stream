@@ -257,7 +257,6 @@ public class UI_Controller_main_page implements Initializable {
      * textfield (it only allows 5-digit numbers)</p>
      * @param location location of the resource files
      * @param resources the language packs
-     *
      * @author TopeinerMarcel
      */
     @SuppressWarnings("Duplicates")
@@ -395,10 +394,6 @@ public class UI_Controller_main_page implements Initializable {
         //noinspection unchecked
         tableView.getColumns().addAll(t1, t2, t3, t4, t5);
 
-        /*
-            ToDo:   add functionality of checkboxes in torrent window
-         */
-
         t1.setCellValueFactory(new PropertyValueFactory<>("number"));
         t2.setCellValueFactory(new PropertyValueFactory<>("status"));
         t3.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -509,7 +504,7 @@ public class UI_Controller_main_page implements Initializable {
     }
 
     /**
-     * function is called if the user selects a invalid directory or if he closes the
+     * function is called if the user selects a invalid directory or if he closes the dialog
      * @param header contains the header, which should be shown in the alert
      * @param message contains the message, which should be shown in the alert
      */
@@ -567,7 +562,7 @@ public class UI_Controller_main_page implements Initializable {
     }
 
     /**
-     * function sets the parent stage, gets the preferred language and changes the text off all objects depending on the language
+     * function sets the parent stage, gets the preferred language and changes the text of all objects depending on the language
      * calls several functions which are initializing objects like checkboxes and Scrollpane
      * this function calls every second a other function, which updates the timer until release
      * @param root: the root stage
@@ -754,6 +749,8 @@ public class UI_Controller_main_page implements Initializable {
         initializeTableView(TVTorrentsList, labels);
         initializeTableView(TVDownloadingTorrentsList, labels);
         initializeTableView(TVUploadingTorrentsList, labels);
+
+
         initializeTableView(TVFinishedTorrentsList, labels);
     }
 
