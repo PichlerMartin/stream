@@ -26,6 +26,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -229,6 +230,18 @@ public class UI_Controller_main_page implements Initializable {
     @FXML
     private AnchorPane aPaneAboutStream;
 
+    @FXML
+    private Rectangle rectDays;
+
+    @FXML
+    private Rectangle rectHours;
+
+    @FXML
+    private Rectangle rectMinutes;
+
+    @FXML
+    private Rectangle rectSeconds;
+
     private Locale[] supportedLocales = {
             Locale.GERMAN,
             Locale.ENGLISH,
@@ -238,6 +251,8 @@ public class UI_Controller_main_page implements Initializable {
 
     private String lightMode = getClass().getResource("/css/lightMode.css").toExternalForm();
     private String darkMode = getClass().getResource("/css/darkMode.css").toExternalForm();
+
+    private boolean timerVar = true;
 
     /**
      * @deprecated unused method should be removed in the near future
@@ -619,6 +634,34 @@ public class UI_Controller_main_page implements Initializable {
             lblMinutesUntilRelease.setText(minutes);
             lblSecondsUntilRelease.setText(seconds);
 
+            if ((Integer.parseInt(days) <= 0) && (Integer.parseInt(hours) <= 0) && (Integer.parseInt(minutes) <= 0) && (Integer.parseInt(seconds) <= 0)){
+                lblDaysUntilRelease.setText("00");
+                lblHoursUntilRelease.setText("00");
+                lblMinutesUntilRelease.setText("00");
+                lblSecondsUntilRelease.setText("00");
+            } else if (days.equals("00") && Integer.parseInt(hours) <= 24) {
+                if (timerVar) {
+                    rectDays.setStyle("-fx-fill: #e84855");
+                    rectHours.setStyle("-fx-fill: #e84855");
+                    rectMinutes.setStyle("-fx-fill: #e84855");
+                    rectSeconds.setStyle("-fx-fill: #e84855");
+                    lblDaysUntilRelease.setStyle(lblDaysUntilRelease.getStyle() + "-fx-font-size: 75px;");
+                    lblHoursUntilRelease.setStyle(lblHoursUntilRelease.getStyle() + "-fx-font-size: 75px;");
+                    lblMinutesUntilRelease.setStyle(lblMinutesUntilRelease.getStyle() + "-fx-font-size: 75px;");
+                    lblSecondsUntilRelease.setStyle(lblSecondsUntilRelease.getStyle() + "-fx-font-size: 75px;");
+                    timerVar = false;
+                } else {
+                    rectDays.setStyle("-fx-fill: #1b3957");
+                    rectHours.setStyle("-fx-fill: #1b3957");
+                    rectMinutes.setStyle("-fx-fill: #1b3957");
+                    rectSeconds.setStyle("-fx-fill: #1b3957");
+                    lblDaysUntilRelease.setStyle(lblDaysUntilRelease.getStyle() + "-fx-font-size: 72px;");
+                    lblHoursUntilRelease.setStyle(lblHoursUntilRelease.getStyle() + "-fx-font-size: 72px;");
+                    lblMinutesUntilRelease.setStyle(lblMinutesUntilRelease.getStyle() + "-fx-font-size: 72px;");
+                    lblSecondsUntilRelease.setStyle(lblSecondsUntilRelease.getStyle() + "-fx-font-size: 72px;");
+                    timerVar = true;
+                }
+            }
         }));
         timerUntilRelease.setCycleCount(Timeline.INDEFINITE);
         timerUntilRelease.play();
