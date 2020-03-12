@@ -115,7 +115,7 @@
          <Insets left="82.0" top="380.0" />
       </GridPane.margin>
    </Button>
-   <GridPane id="boxes" fx:id="GPAddTorrent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="500.0" prefWidth="700.0" GridPane.rowIndex="1">
+   <GridPane id="boxes" fx:id="GPAddTorrent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="500.0" prefWidth="700.0" visible="false" GridPane.rowIndex="1">
       <columnConstraints>
          <ColumnConstraints hgrow="SOMETIMES" maxWidth="506.1333374023437" minWidth="10.0" prefWidth="351.2000732421875" />
          <ColumnConstraints hgrow="SOMETIMES" maxWidth="366.86663818359375" minWidth="10.0" prefWidth="349.59992675781245" />
@@ -416,7 +416,7 @@
          </GridPane.margin>
       </Button>
    </GridPane>
-   <GridPane id="boxes" fx:id="GPAbout" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="500.0" prefWidth="700.0" visible="false" GridPane.rowIndex="1">
+   <GridPane id="boxes" fx:id="GPAbout" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="500.0" prefWidth="700.0" GridPane.rowIndex="1">
       <columnConstraints>
          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
       </columnConstraints>
@@ -456,22 +456,22 @@
                      <Insets left="35.0" top="-125.0" />
                   </GridPane.margin>
                </Label>
-               <Rectangle id="rectTimer" arcHeight="5.0" arcWidth="5.0" blendMode="SRC_ATOP" fill="#1b3957" height="110.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="110.0">
+               <Rectangle id="rectTimer" fx:id="rectDays" arcHeight="5.0" arcWidth="5.0" blendMode="SRC_ATOP" fill="#1b3957" height="110.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="110.0">
                   <GridPane.margin>
                      <Insets left="35.0" top="70.0" />
                   </GridPane.margin>
                </Rectangle>
-               <Rectangle id="rectTimer" arcHeight="5.0" arcWidth="5.0" fill="#1b3957" height="110.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="110.0">
+               <Rectangle id="rectTimer" fx:id="rectHours" arcHeight="5.0" arcWidth="5.0" fill="#1b3957" height="110.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="110.0">
                   <GridPane.margin>
                      <Insets left="186.0" top="72.0" />
                   </GridPane.margin>
                </Rectangle>
-               <Rectangle id="rectTimer" arcHeight="5.0" arcWidth="5.0" fill="#1b3957" height="110.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="110.0">
+               <Rectangle id="rectTimer" fx:id="rectMinutes" arcHeight="5.0" arcWidth="5.0" fill="#1b3957" height="110.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="110.0">
                   <GridPane.margin>
                      <Insets left="340.0" top="70.0" />
                   </GridPane.margin>
                </Rectangle>
-               <Rectangle id="rectTimer" arcHeight="5.0" arcWidth="5.0" fill="#1b3957" height="110.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="110.0">
+               <Rectangle id="rectTimer" fx:id="rectSeconds" arcHeight="5.0" arcWidth="5.0" fill="#1b3957" height="110.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="110.0">
                   <GridPane.margin>
                      <Insets left="490.0" top="70.0" />
                   </GridPane.margin>
