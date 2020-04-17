@@ -94,6 +94,10 @@ certain files from the torrent-package which should be downloaded. through this 
 ### multi language support
 
 the stream torrent application does not only come in german but also in the languages english spanish and french. we hope to please all nationalities through our diverse offering of user interface languages.
+
+### dark mode
+
+stream's most recent realease features a widley requested, highly anticipated feature: the dark mode! with the new dark mode feature which can be toggled in the settings panel, you will find it even more comfortable to use stream in the night!
 ### And much more...
 
 * _**check out [Release Notes](https://github.com/PichlerMartin/stream/blob/master/RELEASE-NOTES.md) for details!**_
@@ -112,6 +116,10 @@ the torrent file selection
 ### the file selction does not appear in the user interface
 
 you are required to start the stream application inside the IntelliJ IDEA environment to ensure the torrent-part selection will appear in the command line interface. if you have started the application in an alternate way please try to start it in the IntelliJ IDEA integrated development environment
+
+### switching the language messes up the user interface
+
+due to certain unique features of foreign languages (french) it may happen that the ui of stream will get unrecognizeable after switching the language to it. If this is the case, you may have an outdated version of stream, because this flaw was already fixed in a previous release. please consider downloading the latest version of stream from the official repository
 
 ## Support and feedback
 
