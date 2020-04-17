@@ -1,7 +1,6 @@
 # How to Contribute
 
-Unfortunately we can't accept your contributions for this project yet because this project serves as our diploma thesis hence we are
-required to work on it on our own and without the help of strangers. But we'd love to accept your patches and contributions to this project after its official release in summer 2020. When the time has come there are just a few small guidelines you need to follow.
+Due to the fact that our diploma thesis was officially finished in april 2020, foreign coders are now free to contribute to our project in any way. If you'd like to contribute your own features and patches to our application, please use the standard-git features to do so, such as pushing, opening issues and branching.
 
 ## Contributor License Agreement
 
