@@ -1,5 +1,39 @@
 ## Changelog
 
+### [0.02.1] (2020-04-17)
+stream is now finsihed, as of this month the official work on this diploma thesis was brought to an end and stream is a fully capable torrent client, consisting of many unique features, which were developed during the project work.
+Also the main documentation was finished in the beginning of april, and was handed in to the exam authorities, it can be accessed upon request at the Linzer Technikum's library.<br/>
+
+the project team of stream is currently concerned with handing in all required forms and letters, in order to fill in our entry for our diploma thesis
+
+### Documentation
+execute the following maven goal inside your IntelliJ IDEA in order to generate the accommodating javadoc within the
+folder target/site inside the project directory
+
+    + mvn javadoc:javadoc
+
+the documentation document is still being edited by the project team and is scheduled for release in april 2020
+### Features
+
++ fully complete main documentation with all important code parts
++ handed in required documents and forms for our diploma thesis
++ comissioned several entries for project competitions and awards, award ceremonies pending
++ javadocumentation accessible via maven build-feature
+
+build the new jar artifact with
+
+    + mvn package
+
+### Bug fixes
+
++ adjusted formatting in the main documentation
++ main application is free from major bugs and flaws :-)
+
+### Dependencies
+
++ the current dependencies can be seen under https://github.com/PichlerMartin/stream/network/dependencies
++ a full list of dependencies also can be viewed in pom.xml or stream.iml
+
 ### [0.02.0] (2020-02-24)
 the stream application has now officially conducted its first stabel release version. this marks a major breakthrough on
 the projects way to success. furthermore the main documentation has been almost finished, with the most important sections
